@@ -6,177 +6,878 @@
       "domains_covered": 28,
       "description": "Comprehensive semantic vector database for Gx Universal Search - Powering intelligent layer generation and contextual search refinement"
     },
-
     "semantic_vectors": {
-    
-    // === LEARNING & SKILL DEVELOPMENT (300 terms) ===
-    "learn": { "domain": "LEARNING", "vector": [0.92, 0.85, 0.78, 0.88], "filters": ["beginner", "step-by-step", "free course", "certification"], "layer1": ["What skill?", "Your level?", "Time available?"] },
-    "study": { "domain": "LEARNING", "vector": [0.88, 0.82, 0.85, 0.79], "filters": ["active recall", "spaced repetition", "mind map", "flashcards"], "layer1": ["Goal?", "Method?", "Duration?"] },
-    "tutorial": { "domain": "LEARNING", "vector": [0.85, 0.79, 0.91, 0.84], "filters": ["hands-on", "project-based", "video", "interactive"], "layer1": ["Format?", "Length?", "Outcome?"] },
-    "course": { "domain": "LEARNING", "vector": [0.89, 0.84, 0.82, 0.87], "filters": ["MOOC", "self-paced", "instructor-led", "accredited"], "layer1": ["Platform?", "Cost?", "Time commitment?"] },
-    "master": { "domain": "LEARNING", "vector": [0.78, 0.91, 0.85, 0.82], "filters": ["advanced", "expert level", "deep dive", "masterclass"], "layer1": ["Current level?", "Practice routine?", "Mentor needed?"] },
-    "practice": { "domain": "LEARNING", "vector": [0.82, 0.88, 0.79, 0.85], "filters": ["deliberate practice", "repetition", "feedback", "progressive overload"], "layer1": ["Skill?", "Frequency?", "Measurement?"] },
-    "understand": { "domain": "LEARNING", "vector": [0.85, 0.82, 0.88, 0.81], "filters": ["conceptual", "foundational", "intuitive", "mental models"], "layer1": ["Topic?", "Prior knowledge?", "Application?"] },
-    "comprehend": { "domain": "LEARNING", "vector": [0.81, 0.84, 0.87, 0.79], "filters": ["deep understanding", "connections", "big picture", "context"], "layer1": ["Complexity?", "Timeframe?", "Output?"] },
-    "memorize": { "domain": "LEARNING", "vector": [0.79, 0.86, 0.75, 0.83], "filters": ["mnemonics", "spaced repetition", "association", "visualization"], "layer1": ["Content type?", "Volume?", "Retention period?"] },
-    "cram": { "domain": "LEARNING", "vector": [0.72, 0.78, 0.68, 0.75], "filters": ["last minute", "essentials only", "quick review", "survival guide"], "layer1": ["Time pressure?", "Key points?", "Exam type?"] },
-    "crisp": { "domain": "LEARNING", "vector": [0.84, 0.79, 0.82, 0.81], "filters": ["concise", "5-minute", "no fluff", "key points only"], "layer1": ["Topic depth?", "Examples?", "Visuals?"] },
-    "bite-sized": { "domain": "LEARNING", "vector": [0.81, 0.83, 0.79, 0.84], "filters": ["microlearning", "daily habit", "under 10 min", "mobile-friendly"], "layer1": ["Frequency?", "Reminder?", "Track progress?"] },
-    "fundamentals": { "domain": "LEARNING", "vector": [0.86, 0.82, 0.84, 0.83], "filters": ["basics", "core concepts", "building blocks", "essential principles"], "layer1": ["Field?", "Application?", "Next steps?"] },
-    "advanced": { "domain": "LEARNING", "vector": [0.79, 0.88, 0.83, 0.81], "filters": ["expert level", "cutting-edge", "research level", "master techniques"], "layer1": ["Prerequisites?", "Specialization?", "Community?"] },
-    "expert": { "domain": "LEARNING", "vector": [0.75, 0.92, 0.81, 0.79], "filters": ["master level", "authority", "original research", "teaching others"], "layer1": ["Niche?", "Contributions?", "Recognition?"] },
-
-    // === ACADEMIC & RESEARCH (250 terms) ===
-    "research": { "domain": "SCHOLAR", "vector": [0.91, 0.85, 0.88, 0.84], "filters": ["literature review", "methodology", "data set", "open access"], "layer1": ["Academic level?", "Journal quality?", "PDF only?"] },
-    "google scholar": { "domain": "SCHOLAR", "vector": [0.89, 0.87, 0.85, 0.86], "filters": ["citations", "DOI", "meta-analysis", "recent papers"], "layer1": ["Field?", "Year range?", "Author?"] },
-    "citations": { "domain": "SCHOLAR", "vector": [0.86, 0.84, 0.89, 0.83], "filters": ["highly cited", "seminal paper", "reference manager", "APA format"], "layer1": ["Paper title?", "Export format?", "Related works?"] },
-    "academic": { "domain": "SCHOLAR", "vector": [0.88, 0.83, 0.86, 0.85], "filters": ["peer-reviewed", "university", "thesis", "conference paper"], "layer1": ["Discipline?", "Publication type?", "Language?"] },
-    "scientific": { "domain": "SCHOLAR", "vector": [0.87, 0.85, 0.89, 0.84], "filters": ["empirical", "controlled study", "statistical analysis", "reproducible"], "layer1": ["Field?", "Methodology?", "Data availability?"] },
-    "peer-reviewed": { "domain": "SCHOLAR", "vector": [0.85, 0.84, 0.88, 0.82], "filters": ["journal article", "academic standard", "quality assured", "expert verified"], "layer1": ["Impact factor?", "Open access?", "Recent?"] },
-    "methodology": { "domain": "SCHOLAR", "vector": [0.83, 0.86, 0.84, 0.81], "filters": ["research design", "data collection", "analysis techniques", "validation"], "layer1": ["Field?", "Qualitative/quantitative?", "Tools?"] },
-    "literature review": { "domain": "SCHOLAR", "vector": [0.84, 0.82, 0.87, 0.83], "filters": ["systematic review", "meta-analysis", "comprehensive", "gap analysis"], "layer1": ["Scope?", "Timeframe?", "Inclusion criteria?"] },
-    "hypothesis": { "domain": "SCHOLAR", "vector": [0.82, 0.85, 0.83, 0.80], "filters": ["research question", "prediction", "testable", "falsifiable"], "layer1": ["Field?", "Variables?", "Testing method?"] },
-    "experiment": { "domain": "SCHOLAR", "vector": [0.83, 0.84, 0.86, 0.82], "filters": ["controlled", "variables", "results", "conclusion"], "layer1": ["Type?", "Equipment?", "Ethics approval?"] },
-    "data analysis": { "domain": "SCHOLAR", "vector": [0.85, 0.83, 0.88, 0.84], "filters": ["statistical", "qualitative", "software tools", "visualization"], "layer1": ["Data type?", "Sample size?", "Software?"] },
-    "statistics": { "domain": "RESEARCH", "vector": [0.84, 0.82, 0.87, 0.83], "filters": ["descriptive", "inferential", "probability", "regression"], "layer1": ["Application?", "Software?", "Interpretation?"] },
-    "publication": { "domain": "SCHOLAR", "vector": [0.83, 0.81, 0.85, 0.82], "filters": ["journal", "conference", "preprint", "academic book"], "layer1": ["Field?", "Impact factor?", "Open access?"] },
-    "thesis": { "domain": "SCHOLAR", "vector": [0.82, 0.83, 0.84, 0.81], "filters": ["dissertation", "PhD", "master", "defense"], "layer1": ["Level?", "University?", "Advisor?"] },
-    "citation index": { "domain": "SCHOLAR", "vector": [0.81, 0.84, 0.83, 0.80], "filters": ["h-index", "i10-index", "impact factor", "citation report"], "layer1": ["Researcher?", "Time period?", "Comparison?"] },
-
-    // === WELLNESS & HEALING (300 terms) ===
-    "mental health": { "domain": "WELLNESS", "vector": [0.88, 0.85, 0.82, 0.87], "filters": ["non-judgmental", "trauma-informed", "gentle", "ADHD-friendly"], "layer1": ["Goal?", "Professional help?", "Self-guided?"] },
-    "healing": { "domain": "WELLNESS", "vector": [0.86, 0.84, 0.83, 0.88], "filters": ["somatic", "mindfulness", "nature-based", "community-supported"], "layer1": ["Type?", "Pace?", "Support system?"] },
-    "meditation": { "domain": "WELLNESS", "vector": [0.84, 0.82, 0.85, 0.86], "filters": ["guided", "silent", "with plants", "breath-focused"], "layer1": ["Duration?", "Voice preference?", "Background sounds?"] },
-    "mindfulness": { "domain": "WELLNESS", "vector": [0.85, 0.83, 0.84, 0.87], "filters": ["present moment", "non-judgmental", "awareness", "daily practice"], "layer1": ["Setting?", "Duration?", "Anchor point?"] },
-    "therapy": { "domain": "WELLNESS", "vector": [0.87, 0.84, 0.83, 0.86], "filters": ["CBT", "DBT", "trauma therapy", "online sessions"], "layer1": ["Type?", "Cost?", "Availability?"] },
-    "self-care": { "domain": "WELLNESS", "vector": [0.83, 0.82, 0.81, 0.85], "filters": ["daily routine", "burnout prevention", "boundaries", "nourishing"], "layer1": ["Time available?", "Energy level?", "Preferences?"] },
-    "wellbeing": { "domain": "WELLNESS", "vector": [0.84, 0.83, 0.82, 0.86], "filters": ["holistic", "preventive", "lifestyle", "balanced"], "layer1": ["Aspect?", "Current state?", "Goals?"] },
-    "resilience": { "domain": "WELLNESS", "vector": [0.82, 0.84, 0.83, 0.85], "filters": ["coping strategies", "stress management", "adaptability", "growth mindset"], "layer1": ["Challenge?", "Support?", "Timeframe?"] },
-    "anxiety": { "domain": "WELLNESS", "vector": [0.85, 0.83, 0.82, 0.84], "filters": ["grounding techniques", "CBT", "free tools", "immediate relief"], "layer1": ["Trigger?", "Time available?", "Privacy?"] },
-    "depression": { "domain": "WELLNESS", "vector": [0.84, 0.82, 0.81, 0.83], "filters": ["treatment options", "support groups", "lifestyle changes", "professional help"], "layer1": ["Severity?", "Duration?", "Support system?"] },
-    "stress": { "domain": "WELLNESS", "vector": [0.83, 0.82, 0.81, 0.84], "filters": ["management techniques", "reduction", "prevention", "coping mechanisms"], "layer1": ["Source?", "Intensity?", "Timing?"] },
-    "burnout": { "domain": "WELLNESS", "vector": [0.84, 0.83, 0.82, 0.85], "filters": ["recovery plan", "boundary setting", "rest-first", "non-productivity"], "layer1": ["Work-related?", "Duration?", "Support needed?"] },
-    "trauma": { "domain": "WELLNESS", "vector": [0.85, 0.84, 0.83, 0.86], "filters": ["healing journey", "professional support", "safety", "integration"], "layer1": ["Type?", "Time since?", "Current support?"] },
-    "sleep": { "domain": "WELLNESS", "vector": [0.82, 0.81, 0.80, 0.84], "filters": ["hygiene", "insomnia", "natural remedies", "routine"], "layer1": ["Issue?", "Duration?", "Medical history?"] },
-    "nutrition": { "domain": "WELLNESS", "vector": [0.83, 0.82, 0.81, 0.84], "filters": ["balanced diet", "specific conditions", "meal planning", "supplements"], "layer1": ["Goal?", "Restrictions?", "Cooking ability?"] },
-
-    // === BUILDING & CREATING (250 terms) ===
-    "build": { "domain": "BUILDING", "vector": [0.89, 0.86, 0.88, 0.85], "filters": ["from scratch", "template", "open source", "low-code"], "layer1": ["What?", "Tech stack?", "Timeline?"] },
-    "create": { "domain": "CREATING", "vector": [0.87, 0.85, 0.89, 0.84], "filters": ["original", "AI-assisted", "collaborative", "portfolio-ready"], "layer1": ["Medium?", "Audience?", "Tools?"] },
-    "develop": { "domain": "BUILDING", "vector": [0.88, 0.85, 0.87, 0.86], "filters": ["agile", "MVP", "user testing", "scalable"], "layer1": ["Product type?", "Team size?", "Budget?"] },
-    "design": { "domain": "CREATING", "vector": [0.86, 0.84, 0.88, 0.83], "filters": ["UI/UX", "graphic design", "product design", "system design"], "layer1": ["Type?", "Tools?", "Deliverables?"] },
-    "prototype": { "domain": "BUILDING", "vector": [0.85, 0.83, 0.86, 0.82], "filters": ["wireframe", "Figma", "no-code", "interactive demo"], "layer1": ["Fidelity?", "User flow?", "Feedback method?"] },
-    "code": { "domain": "BUILDING", "vector": [0.87, 0.84, 0.88, 0.85], "filters": ["programming", "software development", "web development", "mobile app"], "layer1": ["Language?", "Platform?", "Experience?"] },
-    "program": { "domain": "BUILDING", "vector": [0.86, 0.83, 0.87, 0.84], "filters": ["software", "application", "script", "automation"], "layer1": ["Purpose?", "Language?", "Deployment?"] },
-    "engineer": { "domain": "BUILDING", "vector": [0.85, 0.84, 0.86, 0.83], "filters": ["software engineering", "systems", "architecture", "best practices"], "layer1": ["Scale?", "Performance?", "Maintenance?"] },
-    "architect": { "domain": "BUILDING", "vector": [0.84, 0.85, 0.83, 0.82], "filters": ["system design", "scalability", "patterns", "documentation"], "layer1": ["System type?", "Constraints?", "Team size?"] },
-    "implement": { "domain": "BUILDING", "vector": [0.86, 0.83, 0.85, 0.84], "filters": ["production-ready", "documentation", "team training", "monitoring"], "layer1": ["Environment?", "Rollout plan?", "Fallback?"] },
-    "deploy": { "domain": "BUILDING", "vector": [0.85, 0.82, 0.84, 0.83], "filters": ["cloud", "server", "CI/CD", "monitoring"], "layer1": ["Platform?", "Scale?", "Budget?"] },
-    "test": { "domain": "BUILDING", "vector": [0.83, 0.81, 0.84, 0.82], "filters": ["unit testing", "integration", "user testing", "automated"], "layer1": ["Type?", "Coverage?", "Tools?"] },
-    "debug": { "domain": "BUILDING", "vector": [0.82, 0.80, 0.83, 0.81], "filters": ["troubleshooting", "error fixing", "performance", "tools"], "layer1": ["Language?", "Environment?", "Symptoms?"] },
-    "optimize": { "domain": "BUILDING", "vector": [0.84, 0.82, 0.85, 0.83], "filters": ["performance", "speed", "efficiency", "best practices"], "layer1": ["Metric?", "Current state?", "Target?"] },
-    "scale": { "domain": "BUILDING", "vector": [0.83, 0.84, 0.82, 0.81], "filters": ["growth", "infrastructure", "load balancing", "distributed"], "layer1": ["Current load?", "Growth rate?", "Architecture?"] },
-
-    // === NATURE & SYMBOLISM (150 terms) ===
-    "plants": { "domain": "WELLNESS", "vector": [0.82, 0.79, 0.81, 0.84], "filters": ["indoor", "medicinal", "air-purifying", "low-light"], "layer1": ["Space?", "Care time?", "Pet-safe?"] },
-    "forest": { "domain": "WELLNESS", "vector": [0.83, 0.80, 0.82, 0.85], "filters": ["forest bathing", "biophilic design", "soundscape", "eco-therapy"], "layer1": ["Access?", "Guided?", "Solo?"] },
-    "water": { "domain": "WELLNESS", "vector": [0.81, 0.79, 0.80, 0.83], "filters": ["flow state", "hydration", "blue mind", "sound therapy"], "layer1": ["Element?", "Application?", "Daily ritual?"] },
-    "earth": { "domain": "WELLNESS", "vector": [0.82, 0.80, 0.81, 0.84], "filters": ["grounding", "gardening", "soil health", "connection"], "layer1": ["Activity?", "Space?", "Knowledge level?"] },
-    "air": { "domain": "WELLNESS", "vector": [0.80, 0.78, 0.79, 0.82], "filters": ["breathwork", "ventilation", "air quality", "mindful breathing"], "layer1": ["Environment?", "Technique?", "Duration?"] },
-    "fire": { "domain": "WELLNESS", "vector": [0.81, 0.79, 0.80, 0.83], "filters": ["energy", "transformation", "candle meditation", "campfire"], "layer1": ["Context?", "Safety?", "Purpose?"] },
-    "mycelium": { "domain": "LEARNING", "vector": [0.79, 0.81, 0.78, 0.82], "filters": ["network thinking", "decentralized", "regenerative", "systems design"], "layer1": ["Metaphor?", "Real-world use?", "Learn biology?"] },
-    "ecosystem": { "domain": "LEARNING", "vector": [0.80, 0.82, 0.79, 0.81], "filters": ["interconnected", "balance", "sustainability", "biodiversity"], "layer1": ["Scale?", "Location?", "Threats?"] },
-    "biophilia": { "domain": "WELLNESS", "vector": [0.81, 0.79, 0.80, 0.83], "filters": ["nature connection", "design principles", "health benefits", "urban integration"], "layer1": ["Application?", "Space?", "Budget?"] },
-    "permaculture": { "domain": "LEARNING", "vector": [0.79, 0.81, 0.78, 0.82], "filters": ["sustainable design", "food systems", "community", "regenerative"], "layer1": ["Scale?", "Climate?", "Experience?"] },
-
-    // === ACTION & RESULTS (200 terms) ===
-    "actions": { "domain": "GENERAL", "vector": [0.85, 0.82, 0.84, 0.83], "filters": ["step-by-step", "checklist", "template", "automation"], "layer1": ["Context?", "Tools needed?", "Measure success?"] },
-    "results": { "domain": "RESEARCH", "vector": [0.84, 0.83, 0.85, 0.82], "filters": ["measurable", "KPI", "before-after", "case study"], "layer1": ["Metric?", "Time frame?", "Visualize?"] },
-    "outcomes": { "domain": "RESEARCH", "vector": [0.83, 0.82, 0.84, 0.81], "filters": ["impact", "effectiveness", "ROI", "success metrics"], "layer1": ["Project?", "Stakeholders?", "Timeframe?"] },
-    "impact": { "domain": "RESEARCH", "vector": [0.84, 0.83, 0.85, 0.82], "filters": ["measurement", "evaluation", "social impact", "business impact"], "layer1": ["Domain?", "Scale?", "Duration?"] },
-    "performance": { "domain": "RESEARCH", "vector": [0.83, 0.84, 0.82, 0.81], "filters": ["metrics", "optimization", "benchmarking", "improvement"], "layer1": ["System?", "Current state?", "Target?"] },
-    "efficiency": { "domain": "RESEARCH", "vector": [0.82, 0.83, 0.81, 0.80], "filters": ["productivity", "time management", "process improvement", "automation"], "layer1": ["Area?", "Current process?", "Tools?"] },
-    "productivity": { "domain": "RESEARCH", "vector": [0.83, 0.82, 0.81, 0.80], "filters": ["time management", "focus", "tools", "systems"], "layer1": ["Context?", "Challenges?", "Tools?"] },
-    "optimization": { "domain": "RESEARCH", "vector": [0.84, 0.83, 0.82, 0.81], "filters": ["process", "system", "resource", "performance"], "layer1": ["What to optimize?", "Constraints?", "Metrics?"] },
-    "automation": { "domain": "BUILDING", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["workflow", "tools", "scripts", "AI-powered"], "layer1": ["Task?", "Frequency?", "Technical level?"] },
-    "data": { "domain": "RESEARCH", "vector": [0.86, 0.84, 0.87, 0.83], "filters": ["open dataset", "CSV", "visualization", "cleaned"], "layer1": ["Source?", "Format?", "Analysis tool?"] },
-    "analysis": { "domain": "RESEARCH", "vector": [0.85, 0.83, 0.86, 0.82], "filters": ["statistical", "qualitative", "trend", "predictive"], "layer1": ["Data type?", "Question?", "Output format?"] },
-    "metrics": { "domain": "RESEARCH", "vector": [0.83, 0.82, 0.84, 0.81], "filters": ["KPIs", "measurement", "dashboard", "tracking"], "layer1": ["Domain?", "Frequency?", "Visualization?"] },
-    "validation": { "domain": "RESEARCH", "vector": [0.84, 0.83, 0.85, 0.82], "filters": ["A/B test", "user feedback", "scientific method", "replicate"], "layer1": ["Hypothesis?", "Sample size?", "Tools?"] },
-    "verification": { "domain": "RESEARCH", "vector": [0.83, 0.84, 0.82, 0.81], "filters": ["proof", "evidence", "fact-checking", "source verification"], "layer1": ["Claim?", "Sources?", "Standard?"] },
-    "measurement": { "domain": "RESEARCH", "vector": [0.82, 0.83, 0.81, 0.80], "filters": ["tools", "techniques", "accuracy", "calibration"], "layer1": ["What to measure?", "Precision?", "Environment?"] },
-
-    // === COMPARISON & EVALUATION (150 terms) ===
-    "compare": { "domain": "RESEARCH", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["vs", "pros and cons", "side-by-side", "benchmark"], "layer1": ["What to compare?", "Criteria?", "Visual chart?"] },
-    "alternative": { "domain": "GENERAL", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["non-traditional", "underrated", "hidden gem", "forgotten wisdom"], "layer1": ["To what?", "Why avoid mainstream?", "Values?"] },
-    "versus": { "domain": "RESEARCH", "vector": [0.83, 0.82, 0.84, 0.81], "filters": ["comparison", "head-to-head", "winner", "differences"], "layer1": ["Options?", "Criteria?", "Context?"] },
-    "better": { "domain": "RESEARCH", "vector": [0.84, 0.83, 0.82, 0.81], "filters": ["improved", "upgraded", "enhanced", "superior"], "layer1": ["Than what?", "Criteria?", "Use case?"] },
-    "best": { "domain": "RESEARCH", "vector": [0.85, 0.84, 0.83, 0.82], "filters": ["top-rated", "recommended", "expert choice", "award-winning"], "layer1": ["Category?", "Budget?", "Use case?"] },
-    "worst": { "domain": "RESEARCH", "vector": [0.82, 0.81, 0.80, 0.79], "filters": ["avoid", "problems", "complaints", "failures"], "layer1": ["Category?", "Why bad?", "Alternatives?"] },
-    "review": { "domain": "RESEARCH", "vector": [0.84, 0.83, 0.82, 0.81], "filters": ["user reviews", "expert analysis", "pros cons", "rating"], "layer1": ["Product?", "Source credibility?", "Recency?"] },
-    "rating": { "domain": "RESEARCH", "vector": [0.83, 0.82, 0.81, 0.80], "filters": ["stars", "score", "ranking", "user feedback"], "layer1": ["What?", "Scale?", "Sample size?"] },
-    "ranking": { "domain": "RESEARCH", "vector": [0.82, 0.83, 0.81, 0.80], "filters": ["top 10", "leaderboard", "position", "criteria"], "layer1": ["Category?", "Year?", "Region?"] },
-    "evaluate": { "domain": "RESEARCH", "vector": [0.83, 0.82, 0.84, 0.81], "filters": ["assessment", "criteria", "scoring", "decision matrix"], "layer1": ["What?", "Purpose?", "Stakeholders?"] },
-
-    // === GOOGLE-SPECIFIC FILTERS (200 terms) ===
-    "site:.edu": { "domain": "SCHOLAR", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["university", "academic", "research paper", "course material"], "layer1": ["Subject?", "Country?", "PDF only?"] },
-    "site:.gov": { "domain": "RESEARCH", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["official data", "statistics", "policy", "public records"], "layer1": ["Agency?", "Year?", "Download format?"] },
-    "site:.org": { "domain": "RESEARCH", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["non-profit", "research institute", "foundation", "public service"], "layer1": ["Topic?", "Credibility?", "Recency?"] },
-    "intitle:": { "domain": "GENERAL", "vector": [0.82, 0.80, 0.81, 0.79], "filters": ["exact match", "review", "guide", "tutorial"], "layer1": ["Exact phrase?", "Include synonyms?"] },
-    "inurl:": { "domain": "GENERAL", "vector": [0.81, 0.79, 0.80, 0.78], "filters": ["specific website", "blog", "directory", "resource"], "layer1": ["Domain?", "Path?", "Content type?"] },
-    "filetype:pdf": { "domain": "SCHOLAR", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["research paper", "ebook", "manual", "guide"], "layer1": ["Topic?", "Length?", "Quality?"] },
-    "filetype:doc": { "domain": "GENERAL", "vector": [0.81, 0.79, 0.80, 0.78], "filters": ["template", "form", "report", "outline"], "layer1": ["Purpose?", "Editable?", "Source?"] },
-    "before:2024": { "domain": "GENERAL", "vector": [0.80, 0.78, 0.79, 0.77], "filters": ["historical", "legacy", "outdated but useful", "archive"], "layer1": ["Why old?", "Preserve context?", "Compare to now?"] },
-    "after:2023": { "domain": "GENERAL", "vector": [0.82, 0.80, 0.81, 0.79], "filters": ["latest", "breaking", "cutting-edge", "beta"], "layer1": ["How recent?", "Include preprints?", "Exclude old?"] },
-    "tbm=vid": { "domain": "VIDEO", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["YouTube", "tutorial", "lecture", "demo"], "layer1": ["Length?", "Creator?", "Subtitles?"] },
-    "tbm=shop": { "domain": "SHOPPING", "vector": [0.82, 0.80, 0.81, 0.79], "filters": ["price comparison", "reviews", "free shipping", "best deal"], "layer1": ["Budget?", "Brand?", "Local pickup?"] },
-    "tbm=nws": { "domain": "NEWS", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["current events", "breaking news", "analysis", "coverage"], "layer1": ["Topic?", "Source?", "Timeframe?"] },
-    "tbm=isch": { "domain": "IMAGES", "vector": [0.81, 0.79, 0.80, 0.78], "filters": ["visual reference", "infographic", "diagram", "photo"], "layer1": ["Style?", "Resolution?", "Usage rights?"] },
-    "tbm=bks": { "domain": "BOOKS", "vector": [0.82, 0.80, 0.81, 0.79], "filters": ["ebook", "preview", "reviews", "author"], "layer1": ["Genre?", "Year?", "Format?"] },
-    "tbm=pat": { "domain": "PATENTS", "vector": [0.80, 0.82, 0.79, 0.78], "filters": ["invention", "technical", "legal", "innovation"], "layer1": ["Field?", "Inventor?", "Date?"] },
-
-    // === UNIQUE GX VALUE TERMS (300 terms) ===
-    "underrated": { "domain": "GENERAL", "vector": [0.81, 0.79, 0.80, 0.82], "filters": ["hidden gem", "sleeper hit", "niche but powerful", "community favorite"], "layer1": ["Category?", "Why overlooked?", "Who recommends it?"] },
-    "forgotten": { "domain": "GENERAL", "vector": [0.80, 0.78, 0.79, 0.81], "filters": ["historical", "archival", "rediscovered", "classic"], "layer1": ["Era?", "Why forgotten?", "Modern relevance?"] },
-    "soul-aligned": { "domain": "WELLNESS", "vector": [0.82, 0.80, 0.81, 0.83], "filters": ["values-based", "purpose-driven", "ethical", "meaningful"], "layer1": ["Core value?", "Impact?", "Community?"] },
-    "flow state": { "domain": "WELLNESS", "vector": [0.81, 0.79, 0.80, 0.82], "filters": ["deep focus", "zero distraction", "optimal challenge", "timeless"], "layer1": ["Activity?", "Environment?", "Trigger?"] },
-    "ADHD-friendly": { "domain": "WELLNESS", "vector": [0.80, 0.82, 0.79, 0.81], "filters": ["chunked", "visual", "gamified", "low barrier"], "layer1": ["Challenge?", "Time block?", "Reward system?"] },
-    "trauma-informed": { "domain": "WELLNESS", "vector": [0.82, 0.81, 0.80, 0.83], "filters": ["safe space", "choice-based", "non-triggering", "empowerment"], "layer1": ["Context?", "Professional?", "Self-paced?"] },
-    "neurodiversity": { "domain": "WELLNESS", "vector": [0.81, 0.82, 0.80, 0.83], "filters": ["inclusive", "strengths-based", "accommodations", "community"], "layer1": ["Specific needs?", "Environment?", "Support?"] },
-    "decolonized": { "domain": "LEARNING", "vector": [0.80, 0.81, 0.79, 0.82], "filters": ["indigenous knowledge", "global perspectives", "critical thinking", "inclusive"], "layer1": ["Field?", "Current bias?", "Alternative sources?"] },
-    "regenerative": { "domain": "LEARNING", "vector": [0.81, 0.80, 0.82, 0.83], "filters": ["sustainable", "restorative", "ecosystem-based", "long-term"], "layer1": ["System?", "Scale?", "Timeframe?"] },
-    "holistic": { "domain": "WELLNESS", "vector": [0.82, 0.81, 0.80, 0.83], "filters": ["integrated", "whole-person", "systems thinking", "interconnected"], "layer1": ["Aspect?", "Current approach?", "Integration?"] },
-    "embodied": { "domain": "WELLNESS", "vector": [0.81, 0.80, 0.82, 0.83], "filters": ["somatic", "physical awareness", "movement", "sensory"], "layer1": ["Practice?", "Goal?", "Environment?"] },
-    "intuitive": { "domain": "WELLNESS", "vector": [0.80, 0.79, 0.81, 0.82], "filters": ["gut feeling", "inner wisdom", "non-linear", "creative"], "layer1": ["Decision type?", "Trust level?", "Validation?"] },
-    "emergent": { "domain": "LEARNING", "vector": [0.79, 0.80, 0.78, 0.81], "filters": ["self-organizing", "complex systems", "adaptation", "innovation"], "layer1": ["System?", "Patterns?", "Influences?"] },
-    "resilient": { "domain": "WELLNESS", "vector": [0.81, 0.82, 0.80, 0.83], "filters": ["adaptive", "strong", "recovery", "growth"], "layer1": ["Context?", "Challenges?", "Support systems?"] },
-    "transformative": { "domain": "LEARNING", "vector": [0.82, 0.81, 0.83, 0.84], "filters": ["life-changing", "paradigm shift", "deep learning", "personal growth"], "layer1": ["Area?", "Current state?", "Readiness?"] },
-
-    // === BUSINESS & ECONOMICS (200 terms) ===
-    "business": { "domain": "BUSINESS", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["startup", "small business", "corporate", "entrepreneurship"], "layer1": ["Type?", "Stage?", "Industry?"] },
-    "startup": { "domain": "BUSINESS", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["funding", "growth", "MVP", "pitch deck"], "layer1": ["Stage?", "Funding?", "Team size?"] },
-    "entrepreneur": { "domain": "BUSINESS", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["success stories", "challenges", "mindset", "resources"], "layer1": ["Industry?", "Experience?", "Goals?"] },
-    "investment": { "domain": "BUSINESS", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["stocks", "real estate", "crypto", "venture capital"], "layer1": ["Type?", "Risk level?", "Timeframe?"] },
-    "marketing": { "domain": "BUSINESS", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["digital", "social media", "content", "SEO"], "layer1": ["Channel?", "Budget?", "Target audience?"] },
-    "finance": { "domain": "BUSINESS", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["personal", "corporate", "investment", "banking"], "layer1": ["Context?", "Goals?", "Risk tolerance?"] },
-    "economy": { "domain": "BUSINESS", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["global", "local", "trends", "analysis"], "layer1": ["Region?", "Sector?", "Timeframe?"] },
-    "strategy": { "domain": "BUSINESS", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["business", "competitive", "growth", "implementation"], "layer1": ["Level?", "Industry?", "Timeframe?"] },
-    "management": { "domain": "BUSINESS", "vector": [0.83, 0.81, 0.82, 0.80], "filters": ["leadership", "team", "project", "operations"], "layer1": ["Type?", "Team size?", "Industry?"] },
-    "innovation": { "domain": "BUSINESS", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["technology", "process", "product", "disruptive"], "layer1": ["Area?", "Resources?", "Market?"] },
-
-    // === TECHNOLOGY & AI (200 terms) ===
-    "artificial intelligence": { "domain": "TECH", "vector": [0.88, 0.86, 0.87, 0.85], "filters": ["machine learning", "neural networks", "AI ethics", "applications"], "layer1": ["Subfield?", "Experience?", "Application?"] },
-    "machine learning": { "domain": "TECH", "vector": [0.87, 0.85, 0.86, 0.84], "filters": ["algorithms", "models", "training", "deployment"], "layer1": ["Type?", "Data?", "Platform?"] },
-    "programming": { "domain": "TECH", "vector": [0.86, 0.84, 0.85, 0.83], "filters": ["languages", "frameworks", "tools", "best practices"], "layer1": ["Language?", "Level?", "Project?"] },
-    "software": { "domain": "TECH", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["development", "applications", "tools", "open source"], "layer1": ["Type?", "Platform?", "License?"] },
-    "blockchain": { "domain": "TECH", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["cryptocurrency", "smart contracts", "decentralized", "applications"], "layer1": ["Platform?", "Use case?", "Technical level?"] },
-    "cybersecurity": { "domain": "TECH", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["protection", "threats", "tools", "best practices"], "layer1": ["Area?", "Level?", "Tools?"] },
-    "cloud computing": { "domain": "TECH", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["AWS", "Azure", "Google Cloud", "services"], "layer1": ["Provider?", "Service?", "Scale?"] },
-    "data science": { "domain": "TECH", "vector": [0.86, 0.84, 0.85, 0.83], "filters": ["analysis", "visualization", "machine learning", "big data"], "layer1": ["Tools?", "Domain?", "Output?"] },
-    "web development": { "domain": "TECH", "vector": [0.85, 0.83, 0.84, 0.82], "filters": ["frontend", "backend", "full-stack", "frameworks"], "layer1": ["Stack?", "Experience?", "Project type?"] },
-    "mobile development": { "domain": "TECH", "vector": [0.84, 0.82, 0.83, 0.81], "filters": ["iOS", "Android", "cross-platform", "apps"], "layer1": ["Platform?", "Language?", "App type?"] }
+      "learn": {
+        "domain": "LEARNING",
+        "vector": [0.92, 0.85, 0.78, 0.88],
+        "filters": ["beginner", "step-by-step", "free course", "certification"],
+        "layer1": ["What skill?", "Your level?", "Time available?"]
+      },
+      "study": {
+        "domain": "LEARNING",
+        "vector": [0.88, 0.82, 0.85, 0.79],
+        "filters": ["active recall", "spaced repetition", "mind map", "flashcards"],
+        "layer1": ["Goal?", "Method?", "Duration?"]
+      },
+      "tutorial": {
+        "domain": "LEARNING",
+        "vector": [0.85, 0.79, 0.91, 0.84],
+        "filters": ["hands-on", "project-based", "video", "interactive"],
+        "layer1": ["Format?", "Length?", "Outcome?"]
+      },
+      "course": {
+        "domain": "LEARNING",
+        "vector": [0.89, 0.84, 0.82, 0.87],
+        "filters": ["MOOC", "self-paced", "instructor-led", "accredited"],
+        "layer1": ["Platform?", "Cost?", "Time commitment?"]
+      },
+      "master": {
+        "domain": "LEARNING",
+        "vector": [0.78, 0.91, 0.85, 0.82],
+        "filters": ["advanced", "expert level", "deep dive", "masterclass"],
+        "layer1": ["Current level?", "Practice routine?", "Mentor needed?"]
+      },
+      "practice": {
+        "domain": "LEARNING",
+        "vector": [0.82, 0.88, 0.79, 0.85],
+        "filters": ["deliberate practice", "repetition", "feedback", "progressive overload"],
+        "layer1": ["Skill?", "Frequency?", "Measurement?"]
+      },
+      "understand": {
+        "domain": "LEARNING",
+        "vector": [0.85, 0.82, 0.88, 0.81],
+        "filters": ["conceptual", "foundational", "intuitive", "mental models"],
+        "layer1": ["Topic?", "Prior knowledge?", "Application?"]
+      },
+      "comprehend": {
+        "domain": "LEARNING",
+        "vector": [0.81, 0.84, 0.87, 0.79],
+        "filters": ["deep understanding", "connections", "big picture", "context"],
+        "layer1": ["Complexity?", "Timeframe?", "Output?"]
+      },
+      "memorize": {
+        "domain": "LEARNING",
+        "vector": [0.79, 0.86, 0.75, 0.83],
+        "filters": ["mnemonics", "spaced repetition", "association", "visualization"],
+        "layer1": ["Content type?", "Volume?", "Retention period?"]
+      },
+      "cram": {
+        "domain": "LEARNING",
+        "vector": [0.72, 0.78, 0.68, 0.75],
+        "filters": ["last minute", "essentials only", "quick review", "survival guide"],
+        "layer1": ["Time pressure?", "Key points?", "Exam type?"]
+      },
+      "crisp": {
+        "domain": "LEARNING",
+        "vector": [0.84, 0.79, 0.82, 0.81],
+        "filters": ["concise", "5-minute", "no fluff", "key points only"],
+        "layer1": ["Topic depth?", "Examples?", "Visuals?"]
+      },
+      "bite-sized": {
+        "domain": "LEARNING",
+        "vector": [0.81, 0.83, 0.79, 0.84],
+        "filters": ["microlearning", "daily habit", "under 10 min", "mobile-friendly"],
+        "layer1": ["Frequency?", "Reminder?", "Track progress?"]
+      },
+      "fundamentals": {
+        "domain": "LEARNING",
+        "vector": [0.86, 0.82, 0.84, 0.83],
+        "filters": ["basics", "core concepts", "building blocks", "essential principles"],
+        "layer1": ["Field?", "Application?", "Next steps?"]
+      },
+      "advanced": {
+        "domain": "LEARNING",
+        "vector": [0.79, 0.88, 0.83, 0.81],
+        "filters": ["expert level", "cutting-edge", "research level", "master techniques"],
+        "layer1": ["Prerequisites?", "Specialization?", "Community?"]
+      },
+      "expert": {
+        "domain": "LEARNING",
+        "vector": [0.75, 0.92, 0.81, 0.79],
+        "filters": ["master level", "authority", "original research", "teaching others"],
+        "layer1": ["Niche?", "Contributions?", "Recognition?"]
+      },
+      "research": {
+        "domain": "SCHOLAR",
+        "vector": [0.91, 0.85, 0.88, 0.84],
+        "filters": ["literature review", "methodology", "data set", "open access"],
+        "layer1": ["Academic level?", "Journal quality?", "PDF only?"]
+      },
+      "google scholar": {
+        "domain": "SCHOLAR",
+        "vector": [0.89, 0.87, 0.85, 0.86],
+        "filters": ["citations", "DOI", "meta-analysis", "recent papers"],
+        "layer1": ["Field?", "Year range?", "Author?"]
+      },
+      "citations": {
+        "domain": "SCHOLAR",
+        "vector": [0.86, 0.84, 0.89, 0.83],
+        "filters": ["highly cited", "seminal paper", "reference manager", "APA format"],
+        "layer1": ["Paper title?", "Export format?", "Related works?"]
+      },
+      "academic": {
+        "domain": "SCHOLAR",
+        "vector": [0.88, 0.83, 0.86, 0.85],
+        "filters": ["peer-reviewed", "university", "thesis", "conference paper"],
+        "layer1": ["Discipline?", "Publication type?", "Language?"]
+      },
+      "scientific": {
+        "domain": "SCHOLAR",
+        "vector": [0.87, 0.85, 0.89, 0.84],
+        "filters": ["empirical", "controlled study", "statistical analysis", "reproducible"],
+        "layer1": ["Field?", "Methodology?", "Data availability?"]
+      },
+      "peer-reviewed": {
+        "domain": "SCHOLAR",
+        "vector": [0.85, 0.84, 0.88, 0.82],
+        "filters": ["journal article", "academic standard", "quality assured", "expert verified"],
+        "layer1": ["Impact factor?", "Open access?", "Recent?"]
+      },
+      "methodology": {
+        "domain": "SCHOLAR",
+        "vector": [0.83, 0.86, 0.84, 0.81],
+        "filters": ["research design", "data collection", "analysis techniques", "validation"],
+        "layer1": ["Field?", "Qualitative/quantitative?", "Tools?"]
+      },
+      "literature review": {
+        "domain": "SCHOLAR",
+        "vector": [0.84, 0.82, 0.87, 0.83],
+        "filters": ["systematic review", "meta-analysis", "comprehensive", "gap analysis"],
+        "layer1": ["Scope?", "Timeframe?", "Inclusion criteria?"]
+      },
+      "hypothesis": {
+        "domain": "SCHOLAR",
+        "vector": [0.82, 0.85, 0.83, 0.80],
+        "filters": ["research question", "prediction", "testable", "falsifiable"],
+        "layer1": ["Field?", "Variables?", "Testing method?"]
+      },
+      "experiment": {
+        "domain": "SCHOLAR",
+        "vector": [0.83, 0.84, 0.86, 0.82],
+        "filters": ["controlled", "variables", "results", "conclusion"],
+        "layer1": ["Type?", "Equipment?", "Ethics approval?"]
+      },
+      "data analysis": {
+        "domain": "SCHOLAR",
+        "vector": [0.85, 0.83, 0.88, 0.84],
+        "filters": ["statistical", "qualitative", "software tools", "visualization"],
+        "layer1": ["Data type?", "Sample size?", "Software?"]
+      },
+      "statistics": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.82, 0.87, 0.83],
+        "filters": ["descriptive", "inferential", "probability", "regression"],
+        "layer1": ["Application?", "Software?", "Interpretation?"]
+      },
+      "publication": {
+        "domain": "SCHOLAR",
+        "vector": [0.83, 0.81, 0.85, 0.82],
+        "filters": ["journal", "conference", "preprint", "academic book"],
+        "layer1": ["Field?", "Impact factor?", "Open access?"]
+      },
+      "thesis": {
+        "domain": "SCHOLAR",
+        "vector": [0.82, 0.83, 0.84, 0.81],
+        "filters": ["dissertation", "PhD", "master", "defense"],
+        "layer1": ["Level?", "University?", "Advisor?"]
+      },
+      "citation index": {
+        "domain": "SCHOLAR",
+        "vector": [0.81, 0.84, 0.83, 0.80],
+        "filters": ["h-index", "i10-index", "impact factor", "citation report"],
+        "layer1": ["Researcher?", "Time period?", "Comparison?"]
+      },
+      "mental health": {
+        "domain": "WELLNESS",
+        "vector": [0.88, 0.85, 0.82, 0.87],
+        "filters": ["non-judgmental", "trauma-informed", "gentle", "ADHD-friendly"],
+        "layer1": ["Goal?", "Professional help?", "Self-guided?"]
+      },
+      "healing": {
+        "domain": "WELLNESS",
+        "vector": [0.86, 0.84, 0.83, 0.88],
+        "filters": ["somatic", "mindfulness", "nature-based", "community-supported"],
+        "layer1": ["Type?", "Pace?", "Support system?"]
+      },
+      "meditation": {
+        "domain": "WELLNESS",
+        "vector": [0.84, 0.82, 0.85, 0.86],
+        "filters": ["guided", "silent", "with plants", "breath-focused"],
+        "layer1": ["Duration?", "Voice preference?", "Background sounds?"]
+      },
+      "mindfulness": {
+        "domain": "WELLNESS",
+        "vector": [0.85, 0.83, 0.84, 0.87],
+        "filters": ["present moment", "non-judgmental", "awareness", "daily practice"],
+        "layer1": ["Setting?", "Duration?", "Anchor point?"]
+      },
+      "therapy": {
+        "domain": "WELLNESS",
+        "vector": [0.87, 0.84, 0.83, 0.86],
+        "filters": ["CBT", "DBT", "trauma therapy", "online sessions"],
+        "layer1": ["Type?", "Cost?", "Availability?"]
+      },
+      "self-care": {
+        "domain": "WELLNESS",
+        "vector": [0.83, 0.82, 0.81, 0.85],
+        "filters": ["daily routine", "burnout prevention", "boundaries", "nourishing"],
+        "layer1": ["Time available?", "Energy level?", "Preferences?"]
+      },
+      "wellbeing": {
+        "domain": "WELLNESS",
+        "vector": [0.84, 0.83, 0.82, 0.86],
+        "filters": ["holistic", "preventive", "lifestyle", "balanced"],
+        "layer1": ["Aspect?", "Current state?", "Goals?"]
+      },
+      "resilience": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.84, 0.83, 0.85],
+        "filters": ["coping strategies", "stress management", "adaptability", "growth mindset"],
+        "layer1": ["Challenge?", "Support?", "Timeframe?"]
+      },
+      "anxiety": {
+        "domain": "WELLNESS",
+        "vector": [0.85, 0.83, 0.82, 0.84],
+        "filters": ["grounding techniques", "CBT", "free tools", "immediate relief"],
+        "layer1": ["Trigger?", "Time available?", "Privacy?"]
+      },
+      "depression": {
+        "domain": "WELLNESS",
+        "vector": [0.84, 0.82, 0.81, 0.83],
+        "filters": ["treatment options", "support groups", "lifestyle changes", "professional help"],
+        "layer1": ["Severity?", "Duration?", "Support system?"]
+      },
+      "stress": {
+        "domain": "WELLNESS",
+        "vector": [0.83, 0.82, 0.81, 0.84],
+        "filters": ["management techniques", "reduction", "prevention", "coping mechanisms"],
+        "layer1": ["Source?", "Intensity?", "Timing?"]
+      },
+      "burnout": {
+        "domain": "WELLNESS",
+        "vector": [0.84, 0.83, 0.82, 0.85],
+        "filters": ["recovery plan", "boundary setting", "rest-first", "non-productivity"],
+        "layer1": ["Work-related?", "Duration?", "Support needed?"]
+      },
+      "trauma": {
+        "domain": "WELLNESS",
+        "vector": [0.85, 0.84, 0.83, 0.86],
+        "filters": ["healing journey", "professional support", "safety", "integration"],
+        "layer1": ["Type?", "Time since?", "Current support?"]
+      },
+      "sleep": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.81, 0.80, 0.84],
+        "filters": ["hygiene", "insomnia", "natural remedies", "routine"],
+        "layer1": ["Issue?", "Duration?", "Medical history?"]
+      },
+      "nutrition": {
+        "domain": "WELLNESS",
+        "vector": [0.83, 0.82, 0.81, 0.84],
+        "filters": ["balanced diet", "specific conditions", "meal planning", "supplements"],
+        "layer1": ["Goal?", "Restrictions?", "Cooking ability?"]
+      },
+      "build": {
+        "domain": "BUILDING",
+        "vector": [0.89, 0.86, 0.88, 0.85],
+        "filters": ["from scratch", "template", "open source", "low-code"],
+        "layer1": ["What?", "Tech stack?", "Timeline?"]
+      },
+      "create": {
+        "domain": "CREATING",
+        "vector": [0.87, 0.85, 0.89, 0.84],
+        "filters": ["original", "AI-assisted", "collaborative", "portfolio-ready"],
+        "layer1": ["Medium?", "Audience?", "Tools?"]
+      },
+      "develop": {
+        "domain": "BUILDING",
+        "vector": [0.88, 0.85, 0.87, 0.86],
+        "filters": ["agile", "MVP", "user testing", "scalable"],
+        "layer1": ["Product type?", "Team size?", "Budget?"]
+      },
+      "design": {
+        "domain": "CREATING",
+        "vector": [0.86, 0.84, 0.88, 0.83],
+        "filters": ["UI/UX", "graphic design", "product design", "system design"],
+        "layer1": ["Type?", "Tools?", "Deliverables?"]
+      },
+      "prototype": {
+        "domain": "BUILDING",
+        "vector": [0.85, 0.83, 0.86, 0.82],
+        "filters": ["wireframe", "Figma", "no-code", "interactive demo"],
+        "layer1": ["Fidelity?", "User flow?", "Feedback method?"]
+      },
+      "code": {
+        "domain": "BUILDING",
+        "vector": [0.87, 0.84, 0.88, 0.85],
+        "filters": ["programming", "software development", "web development", "mobile app"],
+        "layer1": ["Language?", "Platform?", "Experience?"]
+      },
+      "program": {
+        "domain": "BUILDING",
+        "vector": [0.86, 0.83, 0.87, 0.84],
+        "filters": ["software", "application", "script", "automation"],
+        "layer1": ["Purpose?", "Language?", "Deployment?"]
+      },
+      "engineer": {
+        "domain": "BUILDING",
+        "vector": [0.85, 0.84, 0.86, 0.83],
+        "filters": ["software engineering", "systems", "architecture", "best practices"],
+        "layer1": ["Scale?", "Performance?", "Maintenance?"]
+      },
+      "architect": {
+        "domain": "BUILDING",
+        "vector": [0.84, 0.85, 0.83, 0.82],
+        "filters": ["system design", "scalability", "patterns", "documentation"],
+        "layer1": ["System type?", "Constraints?", "Team size?"]
+      },
+      "implement": {
+        "domain": "BUILDING",
+        "vector": [0.86, 0.83, 0.85, 0.84],
+        "filters": ["production-ready", "documentation", "team training", "monitoring"],
+        "layer1": ["Environment?", "Rollout plan?", "Fallback?"]
+      },
+      "deploy": {
+        "domain": "BUILDING",
+        "vector": [0.85, 0.82, 0.84, 0.83],
+        "filters": ["cloud", "server", "CI/CD", "monitoring"],
+        "layer1": ["Platform?", "Scale?", "Budget?"]
+      },
+      "test": {
+        "domain": "BUILDING",
+        "vector": [0.83, 0.81, 0.84, 0.82],
+        "filters": ["unit testing", "integration", "user testing", "automated"],
+        "layer1": ["Type?", "Coverage?", "Tools?"]
+      },
+      "debug": {
+        "domain": "BUILDING",
+        "vector": [0.82, 0.80, 0.83, 0.81],
+        "filters": ["troubleshooting", "error fixing", "performance", "tools"],
+        "layer1": ["Language?", "Environment?", "Symptoms?"]
+      },
+      "optimize": {
+        "domain": "BUILDING",
+        "vector": [0.84, 0.82, 0.85, 0.83],
+        "filters": ["performance", "speed", "efficiency", "best practices"],
+        "layer1": ["Metric?", "Current state?", "Target?"]
+      },
+      "scale": {
+        "domain": "BUILDING",
+        "vector": [0.83, 0.84, 0.82, 0.81],
+        "filters": ["growth", "infrastructure", "load balancing", "distributed"],
+        "layer1": ["Current load?", "Growth rate?", "Architecture?"]
+      },
+      "plants": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.79, 0.81, 0.84],
+        "filters": ["indoor", "medicinal", "air-purifying", "low-light"],
+        "layer1": ["Space?", "Care time?", "Pet-safe?"]
+      },
+      "forest": {
+        "domain": "WELLNESS",
+        "vector": [0.83, 0.80, 0.82, 0.85],
+        "filters": ["forest bathing", "biophilic design", "soundscape", "eco-therapy"],
+        "layer1": ["Access?", "Guided?", "Solo?"]
+      },
+      "water": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.79, 0.80, 0.83],
+        "filters": ["flow state", "hydration", "blue mind", "sound therapy"],
+        "layer1": ["Element?", "Application?", "Daily ritual?"]
+      },
+      "earth": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.80, 0.81, 0.84],
+        "filters": ["grounding", "gardening", "soil health", "connection"],
+        "layer1": ["Activity?", "Space?", "Knowledge level?"]
+      },
+      "air": {
+        "domain": "WELLNESS",
+        "vector": [0.80, 0.78, 0.79, 0.82],
+        "filters": ["breathwork", "ventilation", "air quality", "mindful breathing"],
+        "layer1": ["Environment?", "Technique?", "Duration?"]
+      },
+      "fire": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.79, 0.80, 0.83],
+        "filters": ["energy", "transformation", "candle meditation", "campfire"],
+        "layer1": ["Context?", "Safety?", "Purpose?"]
+      },
+      "mycelium": {
+        "domain": "LEARNING",
+        "vector": [0.79, 0.81, 0.78, 0.82],
+        "filters": ["network thinking", "decentralized", "regenerative", "systems design"],
+        "layer1": ["Metaphor?", "Real-world use?", "Learn biology?"]
+      },
+      "ecosystem": {
+        "domain": "LEARNING",
+        "vector": [0.80, 0.82, 0.79, 0.81],
+        "filters": ["interconnected", "balance", "sustainability", "biodiversity"],
+        "layer1": ["Scale?", "Location?", "Threats?"]
+      },
+      "biophilia": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.79, 0.80, 0.83],
+        "filters": ["nature connection", "design principles", "health benefits", "urban integration"],
+        "layer1": ["Application?", "Space?", "Budget?"]
+      },
+      "permaculture": {
+        "domain": "LEARNING",
+        "vector": [0.79, 0.81, 0.78, 0.82],
+        "filters": ["sustainable design", "food systems", "community", "regenerative"],
+        "layer1": ["Scale?", "Climate?", "Experience?"]
+      },
+      "actions": {
+        "domain": "GENERAL",
+        "vector": [0.85, 0.82, 0.84, 0.83],
+        "filters": ["step-by-step", "checklist", "template", "automation"],
+        "layer1": ["Context?", "Tools needed?", "Measure success?"]
+      },
+      "results": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.83, 0.85, 0.82],
+        "filters": ["measurable", "KPI", "before-after", "case study"],
+        "layer1": ["Metric?", "Time frame?", "Visualize?"]
+      },
+      "outcomes": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.82, 0.84, 0.81],
+        "filters": ["impact", "effectiveness", "ROI", "success metrics"],
+        "layer1": ["Project?", "Stakeholders?", "Timeframe?"]
+      },
+      "impact": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.83, 0.85, 0.82],
+        "filters": ["measurement", "evaluation", "social impact", "business impact"],
+        "layer1": ["Domain?", "Scale?", "Duration?"]
+      },
+      "performance": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.84, 0.82, 0.81],
+        "filters": ["metrics", "optimization", "benchmarking", "improvement"],
+        "layer1": ["System?", "Current state?", "Target?"]
+      },
+      "efficiency": {
+        "domain": "RESEARCH",
+        "vector": [0.82, 0.83, 0.81, 0.80],
+        "filters": ["productivity", "time management", "process improvement", "automation"],
+        "layer1": ["Area?", "Current process?", "Tools?"]
+      },
+      "productivity": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.82, 0.81, 0.80],
+        "filters": ["time management", "focus", "tools", "systems"],
+        "layer1": ["Context?", "Challenges?", "Tools?"]
+      },
+      "optimization": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.83, 0.82, 0.81],
+        "filters": ["process", "system", "resource", "performance"],
+        "layer1": ["What to optimize?", "Constraints?", "Metrics?"]
+      },
+      "automation": {
+        "domain": "BUILDING",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["workflow", "tools", "scripts", "AI-powered"],
+        "layer1": ["Task?", "Frequency?", "Technical level?"]
+      },
+      "data": {
+        "domain": "RESEARCH",
+        "vector": [0.86, 0.84, 0.87, 0.83],
+        "filters": ["open dataset", "CSV", "visualization", "cleaned"],
+        "layer1": ["Source?", "Format?", "Analysis tool?"]
+      },
+      "analysis": {
+        "domain": "RESEARCH",
+        "vector": [0.85, 0.83, 0.86, 0.82],
+        "filters": ["statistical", "qualitative", "trend", "predictive"],
+        "layer1": ["Data type?", "Question?", "Output format?"]
+      },
+      "metrics": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.82, 0.84, 0.81],
+        "filters": ["KPIs", "measurement", "dashboard", "tracking"],
+        "layer1": ["Domain?", "Frequency?", "Visualization?"]
+      },
+      "validation": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.83, 0.85, 0.82],
+        "filters": ["A/B test", "user feedback", "scientific method", "replicate"],
+        "layer1": ["Hypothesis?", "Sample size?", "Tools?"]
+      },
+      "verification": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.84, 0.82, 0.81],
+        "filters": ["proof", "evidence", "fact-checking", "source verification"],
+        "layer1": ["Claim?", "Sources?", "Standard?"]
+      },
+      "measurement": {
+        "domain": "RESEARCH",
+        "vector": [0.82, 0.83, 0.81, 0.80],
+        "filters": ["tools", "techniques", "accuracy", "calibration"],
+        "layer1": ["What to measure?", "Precision?", "Environment?"]
+      },
+      "compare": {
+        "domain": "RESEARCH",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["vs", "pros and cons", "side-by-side", "benchmark"],
+        "layer1": ["What to compare?", "Criteria?", "Visual chart?"]
+      },
+      "alternative": {
+        "domain": "GENERAL",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["non-traditional", "underrated", "hidden gem", "forgotten wisdom"],
+        "layer1": ["To what?", "Why avoid mainstream?", "Values?"]
+      },
+      "versus": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.82, 0.84, 0.81],
+        "filters": ["comparison", "head-to-head", "winner", "differences"],
+        "layer1": ["Options?", "Criteria?", "Context?"]
+      },
+      "better": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.83, 0.82, 0.81],
+        "filters": ["improved", "upgraded", "enhanced", "superior"],
+        "layer1": ["Than what?", "Criteria?", "Use case?"]
+      },
+      "best": {
+        "domain": "RESEARCH",
+        "vector": [0.85, 0.84, 0.83, 0.82],
+        "filters": ["top-rated", "recommended", "expert choice", "award-winning"],
+        "layer1": ["Category?", "Budget?", "Use case?"]
+      },
+      "worst": {
+        "domain": "RESEARCH",
+        "vector": [0.82, 0.81, 0.80, 0.79],
+        "filters": ["avoid", "problems", "complaints", "failures"],
+        "layer1": ["Category?", "Why bad?", "Alternatives?"]
+      },
+      "review": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.83, 0.82, 0.81],
+        "filters": ["user reviews", "expert analysis", "pros cons", "rating"],
+        "layer1": ["Product?", "Source credibility?", "Recency?"]
+      },
+      "rating": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.82, 0.81, 0.80],
+        "filters": ["stars", "score", "ranking", "user feedback"],
+        "layer1": ["What?", "Scale?", "Sample size?"]
+      },
+      "ranking": {
+        "domain": "RESEARCH",
+        "vector": [0.82, 0.83, 0.81, 0.80],
+        "filters": ["top 10", "leaderboard", "position", "criteria"],
+        "layer1": ["Category?", "Year?", "Region?"]
+      },
+      "evaluate": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.82, 0.84, 0.81],
+        "filters": ["assessment", "criteria", "scoring", "decision matrix"],
+        "layer1": ["What?", "Purpose?", "Stakeholders?"]
+      },
+      "site:.edu": {
+        "domain": "SCHOLAR",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["university", "academic", "research paper", "course material"],
+        "layer1": ["Subject?", "Country?", "PDF only?"]
+      },
+      "site:.gov": {
+        "domain": "RESEARCH",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["official data", "statistics", "policy", "public records"],
+        "layer1": ["Agency?", "Year?", "Download format?"]
+      },
+      "site:.org": {
+        "domain": "RESEARCH",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["non-profit", "research institute", "foundation", "public service"],
+        "layer1": ["Topic?", "Credibility?", "Recency?"]
+      },
+      "intitle:": {
+        "domain": "GENERAL",
+        "vector": [0.82, 0.80, 0.81, 0.79],
+        "filters": ["exact match", "review", "guide", "tutorial"],
+        "layer1": ["Exact phrase?", "Include synonyms?"]
+      },
+      "inurl:": {
+        "domain": "GENERAL",
+        "vector": [0.81, 0.79, 0.80, 0.78],
+        "filters": ["specific website", "blog", "directory", "resource"],
+        "layer1": ["Domain?", "Path?", "Content type?"]
+      },
+      "filetype:pdf": {
+        "domain": "SCHOLAR",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["research paper", "ebook", "manual", "guide"],
+        "layer1": ["Topic?", "Length?", "Quality?"]
+      },
+      "filetype:doc": {
+        "domain": "GENERAL",
+        "vector": [0.81, 0.79, 0.80, 0.78],
+        "filters": ["template", "form", "report", "outline"],
+        "layer1": ["Purpose?", "Editable?", "Source?"]
+      },
+      "before:2024": {
+        "domain": "GENERAL",
+        "vector": [0.80, 0.78, 0.79, 0.77],
+        "filters": ["historical", "legacy", "outdated but useful", "archive"],
+        "layer1": ["Why old?", "Preserve context?", "Compare to now?"]
+      },
+      "after:2023": {
+        "domain": "GENERAL",
+        "vector": [0.82, 0.80, 0.81, 0.79],
+        "filters": ["latest", "breaking", "cutting-edge", "beta"],
+        "layer1": ["How recent?", "Include preprints?", "Exclude old?"]
+      },
+      "tbm=vid": {
+        "domain": "VIDEO",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["YouTube", "tutorial", "lecture", "demo"],
+        "layer1": ["Length?", "Creator?", "Subtitles?"]
+      },
+      "tbm=shop": {
+        "domain": "SHOPPING",
+        "vector": [0.82, 0.80, 0.81, 0.79],
+        "filters": ["price comparison", "reviews", "free shipping", "best deal"],
+        "layer1": ["Budget?", "Brand?", "Local pickup?"]
+      },
+      "tbm=nws": {
+        "domain": "NEWS",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["current events", "breaking news", "analysis", "coverage"],
+        "layer1": ["Topic?", "Source?", "Timeframe?"]
+      },
+      "tbm=isch": {
+        "domain": "IMAGES",
+        "vector": [0.81, 0.79, 0.80, 0.78],
+        "filters": ["visual reference", "infographic", "diagram", "photo"],
+        "layer1": ["Style?", "Resolution?", "Usage rights?"]
+      },
+      "tbm=bks": {
+        "domain": "BOOKS",
+        "vector": [0.82, 0.80, 0.81, 0.79],
+        "filters": ["ebook", "preview", "reviews", "author"],
+        "layer1": ["Genre?", "Year?", "Format?"]
+      },
+      "tbm=pat": {
+        "domain": "PATENTS",
+        "vector": [0.80, 0.82, 0.79, 0.78],
+        "filters": ["invention", "technical", "legal", "innovation"],
+        "layer1": ["Field?", "Inventor?", "Date?"]
+      },
+      "underrated": {
+        "domain": "GENERAL",
+        "vector": [0.81, 0.79, 0.80, 0.82],
+        "filters": ["hidden gem", "sleeper hit", "niche but powerful", "community favorite"],
+        "layer1": ["Category?", "Why overlooked?", "Who recommends it?"]
+      },
+      "forgotten": {
+        "domain": "GENERAL",
+        "vector": [0.80, 0.78, 0.79, 0.81],
+        "filters": ["historical", "archival", "rediscovered", "classic"],
+        "layer1": ["Era?", "Why forgotten?", "Modern relevance?"]
+      },
+      "soul-aligned": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.80, 0.81, 0.83],
+        "filters": ["values-based", "purpose-driven", "ethical", "meaningful"],
+        "layer1": ["Core value?", "Impact?", "Community?"]
+      },
+      "flow state": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.79, 0.80, 0.82],
+        "filters": ["deep focus", "zero distraction", "optimal challenge", "timeless"],
+        "layer1": ["Activity?", "Environment?", "Trigger?"]
+      },
+      "ADHD-friendly": {
+        "domain": "WELLNESS",
+        "vector": [0.80, 0.82, 0.79, 0.81],
+        "filters": ["chunked", "visual", "gamified", "low barrier"],
+        "layer1": ["Challenge?", "Time block?", "Reward system?"]
+      },
+      "trauma-informed": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.81, 0.80, 0.83],
+        "filters": ["safe space", "choice-based", "non-triggering", "empowerment"],
+        "layer1": ["Context?", "Professional?", "Self-paced?"]
+      },
+      "neurodiversity": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.82, 0.80, 0.83],
+        "filters": ["inclusive", "strengths-based", "accommodations", "community"],
+        "layer1": ["Specific needs?", "Environment?", "Support?"]
+      },
+      "decolonized": {
+        "domain": "LEARNING",
+        "vector": [0.80, 0.81, 0.79, 0.82],
+        "filters": ["indigenous knowledge", "global perspectives", "critical thinking", "inclusive"],
+        "layer1": ["Field?", "Current bias?", "Alternative sources?"]
+      },
+      "regenerative": {
+        "domain": "LEARNING",
+        "vector": [0.81, 0.80, 0.82, 0.83],
+        "filters": ["sustainable", "restorative", "ecosystem-based", "long-term"],
+        "layer1": ["System?", "Scale?", "Timeframe?"]
+      },
+      "holistic": {
+        "domain": "WELLNESS",
+        "vector": [0.82, 0.81, 0.80, 0.83],
+        "filters": ["integrated", "whole-person", "systems thinking", "interconnected"],
+        "layer1": ["Aspect?", "Current approach?", "Integration?"]
+      },
+      "embodied": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.80, 0.82, 0.83],
+        "filters": ["somatic", "physical awareness", "movement", "sensory"],
+        "layer1": ["Practice?", "Goal?", "Environment?"]
+      },
+      "intuitive": {
+        "domain": "WELLNESS",
+        "vector": [0.80, 0.79, 0.81, 0.82],
+        "filters": ["gut feeling", "inner wisdom", "non-linear", "creative"],
+        "layer1": ["Decision type?", "Trust level?", "Validation?"]
+      },
+      "emergent": {
+        "domain": "LEARNING",
+        "vector": [0.79, 0.80, 0.78, 0.81],
+        "filters": ["self-organizing", "complex systems", "adaptation", "innovation"],
+        "layer1": ["System?", "Patterns?", "Influences?"]
+      },
+      "resilient": {
+        "domain": "WELLNESS",
+        "vector": [0.81, 0.82, 0.80, 0.83],
+        "filters": ["adaptive", "strong", "recovery", "growth"],
+        "layer1": ["Context?", "Challenges?", "Support systems?"]
+      },
+      "transformative": {
+        "domain": "LEARNING",
+        "vector": [0.82, 0.81, 0.83, 0.84],
+        "filters": ["life-changing", "paradigm shift", "deep learning", "personal growth"],
+        "layer1": ["Area?", "Current state?", "Readiness?"]
+      },
+      "business": {
+        "domain": "BUSINESS",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["startup", "small business", "corporate", "entrepreneurship"],
+        "layer1": ["Type?", "Stage?", "Industry?"]
+      },
+      "startup": {
+        "domain": "BUSINESS",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["funding", "growth", "MVP", "pitch deck"],
+        "layer1": ["Stage?", "Funding?", "Team size?"]
+      },
+      "entrepreneur": {
+        "domain": "BUSINESS",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["success stories", "challenges", "mindset", "resources"],
+        "layer1": ["Industry?", "Experience?", "Goals?"]
+      },
+      "investment": {
+        "domain": "BUSINESS",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["stocks", "real estate", "crypto", "venture capital"],
+        "layer1": ["Type?", "Risk level?", "Timeframe?"]
+      },
+      "marketing": {
+        "domain": "BUSINESS",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["digital", "social media", "content", "SEO"],
+        "layer1": ["Channel?", "Budget?", "Target audience?"]
+      },
+      "finance": {
+        "domain": "BUSINESS",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["personal", "corporate", "investment", "banking"],
+        "layer1": ["Context?", "Goals?", "Risk tolerance?"]
+      },
+      "economy": {
+        "domain": "BUSINESS",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["global", "local", "trends", "analysis"],
+        "layer1": ["Region?", "Sector?", "Timeframe?"]
+      },
+      "strategy": {
+        "domain": "BUSINESS",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["business", "competitive", "growth", "implementation"],
+        "layer1": ["Level?", "Industry?", "Timeframe?"]
+      },
+      "management": {
+        "domain": "BUSINESS",
+        "vector": [0.83, 0.81, 0.82, 0.80],
+        "filters": ["leadership", "team", "project", "operations"],
+        "layer1": ["Type?", "Team size?", "Industry?"]
+      },
+      "innovation": {
+        "domain": "BUSINESS",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["technology", "process", "product", "disruptive"],
+        "layer1": ["Area?", "Resources?", "Market?"]
+      },
+      "artificial intelligence": {
+        "domain": "TECH",
+        "vector": [0.88, 0.86, 0.87, 0.85],
+        "filters": ["machine learning", "neural networks", "AI ethics", "applications"],
+        "layer1": ["Subfield?", "Experience?", "Application?"]
+      },
+      "machine learning": {
+        "domain": "TECH",
+        "vector": [0.87, 0.85, 0.86, 0.84],
+        "filters": ["algorithms", "models", "training", "deployment"],
+        "layer1": ["Type?", "Data?", "Platform?"]
+      },
+      "programming": {
+        "domain": "TECH",
+        "vector": [0.86, 0.84, 0.85, 0.83],
+        "filters": ["languages", "frameworks", "tools", "best practices"],
+        "layer1": ["Language?", "Level?", "Project?"]
+      },
+      "software": {
+        "domain": "TECH",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["development", "applications", "tools", "open source"],
+        "layer1": ["Type?", "Platform?", "License?"]
+      },
+      "blockchain": {
+        "domain": "TECH",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["cryptocurrency", "smart contracts", "decentralized", "applications"],
+        "layer1": ["Platform?", "Use case?", "Technical level?"]
+      },
+      "cybersecurity": {
+        "domain": "TECH",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["protection", "threats", "tools", "best practices"],
+        "layer1": ["Area?", "Level?", "Tools?"]
+      },
+      "cloud computing": {
+        "domain": "TECH",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["AWS", "Azure", "Google Cloud", "services"],
+        "layer1": ["Provider?", "Service?", "Scale?"]
+      },
+      "data science": {
+        "domain": "TECH",
+        "vector": [0.86, 0.84, 0.85, 0.83],
+        "filters": ["analysis", "visualization", "machine learning", "big data"],
+        "layer1": ["Tools?", "Domain?", "Output?"]
+      },
+      "web development": {
+        "domain": "TECH",
+        "vector": [0.85, 0.83, 0.84, 0.82],
+        "filters": ["frontend", "backend", "full-stack", "frameworks"],
+        "layer1": ["Stack?", "Experience?", "Project type?"]
+      },
+      "mobile development": {
+        "domain": "TECH",
+        "vector": [0.84, 0.82, 0.83, 0.81],
+        "filters": ["iOS", "Android", "cross-platform", "apps"],
+        "layer1": ["Platform?", "Language?", "App type?"]
+      }
     },
-
     "domain_templates": {
       "LEARNING": {
         "layer2": ["Video", "Text", "Interactive", "Project-based", "Audio", "Community"],
@@ -204,19 +905,14 @@
         "outputs": ["Report", "Paper", "Presentation", "Dashboard", "Article", "Thesis"]
       }
     },
-
     "vector_dimensions_explained": {
       "dimension_1": "search_intent_clarity",
-      "dimension_2": "learning_curve_complexity", 
+      "dimension_2": "learning_curve_complexity",
       "dimension_3": "practical_applicability",
       "dimension_4": "community_support_level",
       "description": "Each vector coordinate represents semantic properties that guide layer generation and resource matching"
     }
-  }
-}
-
-
-{
+  },
   "gx_vector_database": {
     "metadata": {
       "version": "1.0",
@@ -225,7 +921,6 @@
       "description": "Gx Universal Search Vector Database - Powering 3B+ user searches with intelligent layer generation",
       "purpose": "Transform exploratory search into actionable learning and development paths"
     },
-    
     "search_categories": {
       "learning_skills": {
         "description": "From curiosity to mastery in any skill",
@@ -271,7 +966,6 @@
           }
         ]
       },
-      
       "academic_research": {
         "description": "From question to published research",
         "vectors": [
@@ -294,7 +988,6 @@
           }
         ]
       },
-      
       "health_wellness": {
         "description": "Personal health and wellness journeys",
         "vectors": [
@@ -310,7 +1003,6 @@
           }
         ]
       },
-      
       "business_entrepreneurship": {
         "description": "From idea to successful business",
         "vectors": [
@@ -325,7 +1017,6 @@
           }
         ]
       },
-      
       "creative_arts": {
         "description": "Creative expression and skill development",
         "vectors": [
@@ -339,15 +1030,13 @@
         ]
       }
     },
-
     "vector_dimensions": {
       "dimension_1": "search_intent_clarity",
       "dimension_2": "learning_curve",
-      "dimension_3": "practical_applicability", 
+      "dimension_3": "practical_applicability",
       "dimension_4": "community_support",
       "dimension_5": "resource_availability"
     },
-
     "layer_generation_rules": {
       "progressive_refinement": {
         "rule_1": "Start broad, get specific over 3-4 layers",
@@ -355,7 +1044,6 @@
         "rule_3": "Maintain user engagement through relevance",
         "rule_4": "Balance discovery with direction"
       },
-      
       "intent_matching": {
         "learning": ["tutorial", "guide", "how to", "learn", "course"],
         "research": ["study", "paper", "research", "analysis", "review"],
@@ -364,46 +1052,39 @@
         "problem_solving": ["fix", "error", "solution", "troubleshoot"]
       }
     },
-
     "google_services_integration": {
       "youtube": {
         "filters": ["tutorial", "course", "lecture", "demonstration"],
         "quality_indicators": ["views", "likes ratio", "channel authority"],
         "learning_formats": ["step-by-step", "project-based", "theory", "practical"]
       },
-      
       "scholar": {
         "filters": ["citedby", "after", "review", "author", "publication"],
         "quality_metrics": ["citations", "journal impact", "author h-index"],
         "research_types": ["original research", "review", "meta-analysis", "case study"]
       },
-      
       "maps": {
         "use_cases": ["local services", "events", "meetups", "educational centers"],
         "filters": ["distance", "rating", "open now", "reviews"]
       },
-      
       "shopping": {
         "filters": ["price", "rating", "brand", "features"],
         "comparison_tools": ["specs comparison", "price history", "review analysis"]
       }
     },
-
     "success_metrics_tracking": {
       "user_engagement": {
         "layer_completion_rate": 0.87,
-        "time_saved_per_search": "4.3 minutes", 
+        "time_saved_per_search": "4.3 minutes",
         "search_satisfaction_score": 8.9,
         "return_user_rate": 0.76
       },
-      
       "learning_outcomes": {
         "skill_acquisition_rate": 2.4,
         "project_completion": 0.68,
         "certification_earned": 0.45,
         "career_advancement": 0.31
       },
-      
       "system_efficiency": {
         "searches_saved_per_user": 7.2,
         "server_load_reduction": "63%",
@@ -411,40 +1092,34 @@
         "user_retention_improvement": "42%"
       }
     },
-
     "advanced_features": {
       "personalization_engine": {
         "learning_style_detection": ["visual", "auditory", "kinesthetic", "reading"],
         "pace_adjustment": ["slow", "moderate", "fast", "intensive"],
         "difficulty_scaling": ["beginner", "intermediate", "advanced", "expert"]
       },
-      
       "community_integration": {
         "study_groups": ["local meetups", "online cohorts", "project teams"],
         "mentor_matching": ["skill-based", "industry", "experience level"],
         "collaboration_tools": ["shared projects", "code review", "peer feedback"]
       },
-      
       "progress_tracking": {
         "skill_milestones": ["fundamentals", "projects", "advanced concepts", "mastery"],
         "learning_analytics": ["time invested", "concepts mastered", "projects completed"],
         "achievement_system": ["badges", "certificates", "portfolio items"]
       }
     },
-
     "global_impact_metrics": {
       "potential_users_served": 3000000000,
       "languages_supported": 48,
       "countries_covered": 190,
       "accessibility_features": ["screen readers", "keyboard navigation", "color contrast", "text scaling"],
-      
       "educational_impact": {
         "traditional_education_gap": "2.3 billion people",
         "skill_development_acceleration": "3.2x faster",
         "cost_reduction_per_skill": "87% cheaper",
         "geographic_barriers_removed": "100% accessible"
       },
-      
       "economic_impact": {
         "job_creation_potential": "45 million new digital jobs",
         "income_improvement_average": "34% salary increase",
@@ -452,7 +1127,6 @@
         "digital_literacy_improvement": "68% population coverage"
       }
     },
-
     "implementation_guide": {
       "phase_1": {
         "timeline": "3 months",
@@ -460,14 +1134,12 @@
         "target_users": "early adopters, students",
         "success_criteria": ["1000 daily users", "85% satisfaction"]
       },
-      
       "phase_2": {
-        "timeline": "6 months", 
+        "timeline": "6 months",
         "features": ["advanced personalization", "community features", "progress tracking"],
         "target_users": "wider educational market",
         "success_criteria": ["100,000 users", "corporate partnerships"]
       },
-      
       "phase_3": {
         "timeline": "12 months",
         "features": ["AI-powered recommendations", "global expansion", "enterprise features"],
@@ -475,24 +1147,22 @@
         "success_criteria": ["1M+ users", "international recognition"]
       }
     },
-
     "sample_search_journeys": {
       "journey_1": {
         "user_profile": "college student, interested in AI",
         "starting_point": "learn about artificial intelligence",
         "layer_1": "machine learning fundamentals",
-        "layer_2": "neural networks and deep learning", 
+        "layer_2": "neural networks and deep learning",
         "layer_3": "practical projects with TensorFlow",
         "layer_4": "research papers on transformer architectures",
         "outcome": "published first research paper, internship at AI lab",
         "time_invested": "6 months",
         "resources_used": ["YouTube courses", "research papers", "coding projects", "online community"]
       },
-      
       "journey_2": {
         "user_profile": "small business owner",
         "starting_point": "improve online presence",
-        "layer_1": "digital marketing basics", 
+        "layer_1": "digital marketing basics",
         "layer_2": "social media marketing strategies",
         "layer_3": "Google Ads and SEO optimization",
         "layer_4": "advanced analytics and conversion optimization",
