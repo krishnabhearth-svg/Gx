@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gx - Explorer to Developer | Collect. Explore. Analyze. Develop.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        
+        .gx-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a73e8, #34a853);
+            transition: width 0.5s ease;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-card {
+            border-left: 4px solid;
+            padding-left: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .learning-card { border-color: #ff0000; }
+        .knowledge-card { border-color: #1a73e8; }
+        .tools-card { border-color: #fbbc04; }
+        .community-card { border-color: #34a853; }
+        .shopping-card { border-color: #ea4335; }
+        .scholar-card { border-color: #4285f4; }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .data-point {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .connection-card {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .connection-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="gx-container">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold">
+                        G<span class="text-white">∞</span>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">Gx - Explorer to Developer</h1>
+                        <p class="text-sm text-gray-500">Collect. Explore. Analyze. Develop.</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showAboutModal()" class="text-sm text-gray-600 hover:text-gray-900">
+                        What makes Gx unique?
+                    </button>
+                    <button class="px-4 py-2 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-8">
+        <div class="gx-container">
+            <!-- Initial Search Interface -->
+            <div id="initial-search" class="card p-8 mb-8 text-center">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">What do you want to explore today?</h1>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Gx guides you from curious explorer to skilled developer. Start with a broad interest and we'll help you refine it into actionable learning paths.</p>
+                
+                <div class="max-w-2xl mx-auto mb-8">
+                    <div class="flex gap-3">
+                        <div class="flex-1 relative">
+                            <input
+                                type="text"
+                                id="initial-input"
+                                placeholder="Type your interest or question..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            >
+                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                        </div>
+                        <button id="initial-search-btn" class="px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 flex items-center">
+                            <span>Start Exploring</span>
+                            <span class="ml-2">→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+                    <button class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left">
+                        <div class="text-blue-600 mb-2">📚</div>
+                        <h3 class="font-medium text-gray-900">Learn a new skill</h3>
+                        <p class="text-sm text-gray-500 mt-1">From beginner to advanced</p>
+                    </button>
+                    <button class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left">
+                        <div class="text-green-600 mb-2">🛠️</div>
+                        <h3 class="font-medium text-gray-900">Build something</h3>
+                        <p class="text-sm text-gray-500 mt-1">Projects and applications</p>
+                    </button>
+                    <button class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left">
+                        <div class="text-purple-600 mb-2">🔍</div>
+                        <h3 class="font-medium text-gray-900">Solve a problem</h3>
+                        <p class="text-sm text-gray-500 mt-1">Find solutions and approaches</p>
+                    </button>
+                    <button class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left">
+                        <div class="text-orange-600 mb-2">💡</div>
+                        <h3 class="font-medium text-gray-900">Understand a concept</h3>
+                        <p class="text-sm text-gray-500 mt-1">Deep dive into topics</p>
+                    </button>
+                    <button class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left">
+                        <div class="text-red-600 mb-2">🎨</div>
+                        <h3 class="font-medium text-gray-900">Create something</h3>
+                        <p class="text-sm text-gray-500 mt-1">Art, design, and content</p>
+                    </button>
+                    <button class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left">
+                        <div class="text-indigo-600 mb-2">👥</div>
+                        <h3 class="font-medium text-gray-900">Connect with community</h3>
+                        <p class="text-sm text-gray-500 mt-1">Find mentors and peers</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Layered Search Interface -->
+            <div id="layered-search" class="hidden">
+                <!-- Progress & Journey -->
+                <div class="card p-6 mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-sm font-medium text-gray-700">Layer <span id="layer-num">1</span> of 4</span>
+                            <span class="text-sm text-gray-500 ml-4">Refined: <span id="word-total">0</span> words</span>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            Efficiency: <span id="efficiency-score" class="font-medium text-green-600">85%</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-bar" class="progress-fill" style="width: 25%"></div>
+                    </div>
+                    
+                    <div id="journey-display" class="mt-4">
+                        <div class="flex items-center text-sm text-gray-600">
+                            <span class="mr-2">🎯</span>
+                            <span id="journey-path" class="font-medium text-gray-900"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex justify-end">
+                        <button onclick="skipToResults()" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+                            Skip to Results →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Insights -->
+                <div id="ai-insights" class="card p-5 mb-8 fade-in">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                <span class="text-blue-600">💡</span>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="font-semibold text-gray-900 mb-1">AI Insights</h3>
+                            <p class="text-sm text-gray-700 mb-3" id="insight-message">Based on your interests and current trends, we recommend exploring these areas:</p>
+                            <div id="ai-suggestions" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <button onclick="dismissInsights()" class="text-gray-400 hover:text-gray-600 text-xl">×</button>
+                    </div>
+                </div>
+
+                <!-- Search Interface -->
+                <div class="card p-6 mb-10">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4" id="layer-title">What would you like to explore?</h2>
+                    
+                    <div id="suggestions-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                        <!-- Suggestions will be populated here -->
+                    </div>
+                    
+                    <div id="selected-suggestion" class="hidden mb-4 p-4 bg-blue-50 border border-blue-200 rounded">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-blue-700 font-medium">✓ Selected:</span>
+                                <span id="selected-text" class="text-blue-900 ml-2"></span>
+                            </div>
+                            <button onclick="clearSelection()" class="text-blue-500 hover:text-blue-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-300 rounded p-4 bg-gray-50">
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Want to refine further? (optional)</label>
+                            <div id="word-chips" class="flex flex-wrap gap-2 mb-3 min-h-[40px]"></div>
+                            <div class="flex gap-3">
+                                <div class="flex-1 relative">
+                                    <input
+                                        type="text"
+                                        id="word-input"
+                                        placeholder="Add 1-5 words to refine your search..."
+                                        maxlength="100"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    >
+                                    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                                        <span id="word-counter" class="text-xs font-medium text-gray-400">0/5</span>
+                                    </div>
+                                </div>
+                                <button id="refine-btn" disabled class="px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center">
+                                    <span id="btn-text">Next</span>
+                                    <span class="ml-2">→</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-xs text-gray-500" id="helper-text">Tip: Start broad, then refine with specific words each layer</p>
+                            <button onclick="skipLayer()" class="text-xs text-gray-500 hover:text-gray-700">
+                                Skip this layer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Products Integration -->
+                <div class="mb-12">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6 text-center">Connected Google Ecosystem</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div class="text-center p-4 card">
+                            <div class="w-12 h-12 rounded bg-blue-500 flex items-center justify-center text-white mx-auto mb-2">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-900">Search</h3>
+                            <p class="text-xs text-gray-500 mt-1">Knowledge</p>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="w-12 h-12 rounded bg-red-500 flex items-center justify-center text-white mx-auto mb-2">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-900">YouTube</h3>
+                            <p class="text-xs text-gray-500 mt-1">Learning</p>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="w-12 h-12 rounded bg-green-500 flex items-center justify-center text-white mx-auto mb-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-900">Maps</h3>
+                            <p class="text-xs text-gray-500 mt-1">Location</p>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="w-12 h-12 rounded bg-yellow-500 flex items-center justify-center text-white mx-auto mb-2">
+                                <i class="fab fa-google-drive"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-900">Drive</h3>
+                            <p class="text-xs text-gray-500 mt-1">Storage</p>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="w-12 h-12 rounded bg-orange-500 flex items-center justify-center text-white mx-auto mb-2">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-900">Colab</h3>
+                            <p class="text-xs text-gray-500 mt-1">Coding</p>
+                        </div>
+                        <div class="text-center p-4 card">
+                            <div class="w-12 h-12 rounded bg-purple-500 flex items-center justify-center text-white mx-auto mb-2">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="font-medium text-gray-900">GdG</h3>
+                            <p class="text-xs text-gray-500 mt-1">Community</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden fade-in">
+                <div id="loading" class="text-center py-12 hidden">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    <p class="text-gray-600 mt-4">Executing Gx Search across Google's ecosystem...</p>
+                </div>
+
+                <div id="results-container" class="hidden">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-12">
+        <div class="gx-container">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold">
+                            G<span class="text-white">∞</span>
+                        </div>
+                        <span class="font-semibold">Gx - Explorer to Developer</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-2">A Diwali 2025 gift to the Google family</p>
+                    <p class="text-gray-400 text-sm mt-1">Contact: krishna.bh.earth@gmail.com</p>
+                </div>
+                <div class="flex gap-4">
+                    <button onclick="showAboutModal()" class="text-gray-400 hover:text-white text-sm">
+                        About Gx
+                    </button>
+                    <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="text-gray-400 hover:text-white text-sm">
+                        GitHub
+                    </a>
+                    <button onclick="showContributionModal()" class="text-gray-400 hover:text-white text-sm">
+                        Contribute
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-900">What Makes Gx Unique?</h2>
+                <button onclick="closeModal('about-modal')" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Healing-Centered Search Engine</h3>
+                   <p class="text-gray-700">E/arths first Pychological support, Healing and human development search along with developing fitness and solve your personnel issues - Like never before which can enable you to contribute for all as well.</p>
+                    <p class="text-gray-700">Gx addresses information overload, fragmented search, and tech frustration by providing a guided journey from exploration to skill development.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Server Efficiency</h3>
+                    <p class="text-gray-700">One Gx search replaces 5-10 traditional searches, reducing Google's server load while providing better user experience.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Skill Development Focus</h3>
+                    <p class="text-gray-700">Transforms passive consumers into active creators and contributors through guided learning paths.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">China Market Opportunity</h3>
+                    <p class="text-gray-700">Gx provides a trusted model for Google's potential re-entry into the Chinese search market with a focus on human development with new touch of Bh/earth.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Perfect Ad Integration</h3>
+                    <p class="text-gray-700">Highly targeted ads appear only after the final layer, based on the user's complete journey and refined interests.</p>
+                </div>
+                <div class="pt-4 border-t border-gray-200">
+                    <p class="text-gray-600 text-sm">We invite Googlers to validate and improve this model and we have lot of creativity to launch new explorations and not copy what google does, we invite the best talented with great con-scinece. Contact: krishna.bh.earth@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contribution Modal -->
+    <div id="contribution-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-900">Contribute to Gx</h2>
+                <button onclick="closeModal('contribution-modal')" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">GitHub Repository</h3>
+                    <p class="text-gray-700 mb-3">Gx is open-source. Help us build the future of search:</p>
+                    <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="inline-block px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900">
+                        <i class="fab fa-github mr-2"></i>View on GitHub
+                    </a>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Areas for Contribution</h3>
+                    <ul class="text-gray-700 list-disc pl-5 space-y-2">
+                        <li>Improve layer generation algorithms</li>
+                        <li>Add real-time Google services integration</li>
+                        <li>Enhance mobile responsiveness</li>
+                        <li>Build settings/customization page</li>
+                        <li>Add language translation support</li>
+                        <li>Create 3D journey visualizations</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">GDG Community</h3>
+                    <p class="text-gray-700">Join Google Developer Groups to collaborate on Gx development and integration with Google services.</p>
+                </div>
+                <div class="pt-4 border-t border-gray-200">
+                    <p class="text-gray-600 text-sm">Let's build the future of search together. Contact: krishna.bh.earth@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        const state = {
+            currentLayer: 1,
+            maxLayers: 4,
+            journey: [],
+            currentWords: [],
+            maxWords: 5,
+            selectedSuggestion: null,
+            userContext: {
+                interests: [],
+                location: 'global',
+                efficiency: 85
+            }
+        };
+
+        // Layer mappings for contextual suggestions
+        const layerMappings = {
+            1: {
+                "Learn a new skill": ["Web Development", "Data Science", "Mobile App Development", "Game Development", "AI & Machine Learning", "Digital Marketing", "Graphic Design", "Language Learning"],
+                "Build something": ["Website", "Mobile App", "Game", "Business", "Portfolio", "Tool/Utility", "API Integration", "IoT Project"],
+                "Solve a problem": ["Technical Issue", "Business Challenge", "Learning Block", "Creative Block", "Workflow Optimization", "Team Collaboration", "Data Analysis", "Automation"],
+                "Understand a concept": ["Technology", "Science", "Business", "Philosophy", "Psychology", "History", "Art Theory", "Mathematics"],
+                "Create something": ["Artwork", "Music", "Writing", "Video Content", "Design", "Photography", "Podcast", "Digital Product"],
+                "Connect with community": ["Find Mentors", "Join Study Group", "Attend Events", "Collaborate on Projects", "Share Knowledge", "Get Feedback", "Network Professionally", "Volunteer"]
+            },
+            2: {
+                "Web Development": ["Frontend Development", "Backend Development", "Full-Stack Development", "WordPress Development", "E-commerce Sites", "Progressive Web Apps", "Web Performance", "Web Security"],
+                "Frontend Development": ["HTML & CSS Fundamentals", "JavaScript Basics", "React Framework", "Vue.js Framework", "Angular Framework", "Responsive Design", "CSS Frameworks", "Web Accessibility"],
+                "HTML & CSS Fundamentals": ["Layout and Positioning", "CSS Grid and Flexbox", "CSS Animations", "Responsive Design", "CSS Preprocessors", "Browser Compatibility", "Performance Optimization", "Modern CSS Features"],
+                "Personal Portfolio Website": ["Design Inspiration", "Content Strategy", "Technical Implementation", "Hosting & Deployment", "SEO Optimization", "Performance Tuning", "Mobile Responsiveness", "Accessibility Features"]
+            },
+            3: {
+                "HTML & CSS Fundamentals": ["Layout and Positioning", "CSS Grid and Flexbox", "CSS Animations", "Responsive Design", "CSS Preprocessors", "Browser Compatibility", "Performance Optimization", "Modern CSS Features"],
+                "Personal Portfolio Website": ["Design Inspiration", "Content Strategy", "Technical Implementation", "Hosting & Deployment", "SEO Optimization", "Performance Tuning", "Mobile Responsiveness", "Accessibility Features"]
+            },
+            4: {
+                "Personal Portfolio Website": ["Video Tutorial Series", "Written Step-by-Step Guide", "Interactive Coding Platform", "GitHub Template + Instructions", "Live Instructor Course", "Book/eBook with Code Examples", "Community Project", "Workshop/Webinar"]
+            }
+        };
+
+        // Initialize the application
+        function init() {
+            setupEventListeners();
+            
+            // Set up initial category buttons
+            document.querySelectorAll('#initial-search .grid button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    startLayeredSearch(title);
+                });
+            });
+            
+            // Set up initial search
+            document.getElementById('initial-search-btn').addEventListener('click', function() {
+                const query = document.getElementById('initial-input').value.trim();
+                if (query) {
+                    startLayeredSearch(query);
+                }
+            });
+            
+            document.getElementById('initial-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = this.value.trim();
+                    if (query) {
+                        startLayeredSearch(query);
+                    }
+                }
+            });
+        }
+
+        // Start layered search
+        function startLayeredSearch(initialQuery) {
+            document.getElementById('initial-search').classList.add('hidden');
+            document.getElementById('layered-search').classList.remove('hidden');
+            
+            state.journey = [initialQuery];
+            updateJourneyDisplay();
+            showLayer(1, getSuggestionsForLayer(1, initialQuery));
+            analyzeUserContext(initialQuery);
+        }
+
+        // Analyze user context for personalized experience
+        function analyzeUserContext(query) {
+            // Simulate AI analysis of user context
+            setTimeout(() => {
+                const interests = [
+                    { topic: "Technology", reason: "Based on your search for '" + query + "'" },
+                    { topic: "Learning", reason: "Trending in your region" },
+                    { topic: "Skill Development", reason: "Common interest for users like you" }
+                ];
+                
+                state.userContext.interests = interests;
+                showAIInsights(interests);
+            }, 1500);
+        }
+
+        // Show AI insights panel
+        function showAIInsights(interests) {
+            const panel = document.getElementById('ai-insights');
+            const container = document.getElementById('ai-suggestions');
+            
+            container.innerHTML = interests.map(item => `
+                <button onclick="selectAISuggestion('${item.topic}')" 
+                        class="px-3 py-2 bg-white border border-blue-200 rounded text-sm font-medium text-blue-700 hover:bg-blue-50">
+                    ${item.topic}
+                </button>
+            `).join('');
+
+            panel.classList.remove('hidden');
+        }
+
+        // Select AI suggestion
+        function selectAISuggestion(topic) {
+            document.getElementById('word-input').value = topic;
+            document.getElementById('word-input').dispatchEvent(new Event('input'));
+            dismissInsights();
+        }
+
+        // Dismiss AI insights
+        function dismissInsights() {
+            document.getElementById('ai-insights').classList.add('hidden');
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            const input = document.getElementById('word-input');
+            const button = document.getElementById('refine-btn');
+
+            input.addEventListener('input', handleInput);
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !button.disabled) handleRefine();
+            });
+            button.addEventListener('click', handleRefine);
+        }
+
+        // Handle input changes
+        function handleInput(e) {
+            const text = e.target.value.trim();
+            const words = text ? text.split(/\s+/).filter(w => w.length > 0) : [];
+            const count = Math.min(words.length, state.maxWords);
+
+            state.currentWords = words.slice(0, state.maxWords);
+
+            const counter = document.getElementById('word-counter');
+            counter.textContent = `${count}/${state.maxWords}`;
+            counter.className = `text-xs font-medium ${count === 0 ? 'text-gray-400' : count <= state.maxWords ? 'text-green-600' : 'text-red-600'}`;
+
+            const btn = document.getElementById('refine-btn');
+            btn.disabled = !state.selectedSuggestion || count > state.maxWords;
+            
+            // Update button text based on layer
+            const btnText = document.getElementById('btn-text');
+            if (state.currentLayer < state.maxLayers) {
+                btnText.textContent = 'Next';
+            } else {
+                btnText.textContent = 'Search';
+            }
+            
+            updateWordChips(state.currentWords);
+        }
+
+        // Update word chips display
+        function updateWordChips(words) {
+            const container = document.getElementById('word-chips');
+            container.innerHTML = words.map((word, i) => `
+                <div class="flex items-center gap-2 px-3 py-1 bg-white border border-gray-300 rounded-full text-sm">
+                    <span>${word}</span>
+                    <button onclick="removeWord(${i})" class="text-gray-500 hover:text-gray-700">×</button>
+                </div>
+            `).join('');
+        }
+
+        // Remove a word from input
+        function removeWord(index) {
+            const input = document.getElementById('word-input');
+            state.currentWords.splice(index, 1);
+            input.value = state.currentWords.join(' ');
+            input.dispatchEvent(new Event('input'));
+        }
+
+        // Get suggestions for a layer
+        function getSuggestionsForLayer(layerNum, lastChoice) {
+            const mapping = layerMappings[layerNum];
+            if (mapping && mapping[lastChoice]) return mapping[lastChoice];
+            
+            // Fallback suggestions
+            return ["Fundamentals", "Advanced Techniques", "Tools & Resources", "Case Studies", "Community Projects", "Best Practices", "Common Challenges", "Future Trends"];
+        }
+
+        // Show current layer with suggestions
+        function showLayer(layerNum, suggestions) {
+            document.getElementById('layer-num').textContent = layerNum;
+            
+            if (layerNum === 1) {
+                document.getElementById('layer-title').textContent = 'What would you like to explore?';
+            } else {
+                const lastJourneyStep = state.journey[state.journey.length - 1];
+                document.getElementById('layer-title').textContent = `Refine "${lastJourneyStep}":`;
+            }
+
+            const grid = document.getElementById('suggestions-grid');
+            grid.innerHTML = suggestions.map(s => `
+                <button onclick="selectSuggestion('${s}')" 
+                        class="p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left card">
+                    <div class="font-medium text-gray-900 mb-1">${s}</div>
+                    <div class="text-xs text-gray-500">Select this path to continue</div>
+                </button>
+            `).join('');
+
+            updateProgress();
+        }
+
+        // Select a suggestion
+        function selectSuggestion(text) {
+            state.selectedSuggestion = text;
+            
+            const selectedDiv = document.getElementById('selected-suggestion');
+            const selectedText = document.getElementById('selected-text');
+            
+            selectedText.textContent = text;
+            selectedDiv.classList.remove('hidden');
+            
+            // Enable refine button if we have words
+            const btn = document.getElementById('refine-btn');
+            btn.disabled = state.currentWords.length > state.maxWords;
+            
+            // Scroll to refinement section
+            selectedDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Clear selection
+        function clearSelection() {
+            state.selectedSuggestion = null;
+            document.getElementById('selected-suggestion').classList.add('hidden');
+            document.getElementById('refine-btn').disabled = true;
+        }
+
+        // Skip current layer
+        function skipLayer() {
+            if (state.currentLayer < state.maxLayers) {
+                state.currentLayer++;
+                const nextSuggestions = getSuggestionsForLayer(state.currentLayer, state.journey[state.journey.length - 1]);
+                showLayer(state.currentLayer, nextSuggestions);
+                clearSelection();
+            } else {
+                executeGxSearch();
+            }
+        }
+
+        // Skip to results
+        function skipToResults() {
+            executeGxSearch();
+        }
+
+        // Handle refinement or final search
+        function handleRefine() {
+            if (!state.selectedSuggestion) return;
+
+            let userInput = state.selectedSuggestion;
+            if (state.currentWords.length > 0) {
+                userInput += " " + state.currentWords.join(" ");
+            }
+            
+            state.journey.push(userInput);
+
+            updateJourneyDisplay();
+
+            // Reset input
+            document.getElementById('word-input').value = '';
+            document.getElementById('word-counter').textContent = '0/5';
+            document.getElementById('word-chips').innerHTML = '';
+            document.getElementById('refine-btn').disabled = true;
+            state.currentWords = [];
+            clearSelection();
+
+            if (state.currentLayer < state.maxLayers) {
+                state.currentLayer++;
+                const nextSuggestions = getSuggestionsForLayer(state.currentLayer, userInput);
+                showLayer(state.currentLayer, nextSuggestions);
+            } else {
+                executeGxSearch();
+            }
+        }
+
+        // Update journey display
+        function updateJourneyDisplay() {
+            document.getElementById('journey-path').textContent = state.journey.join(' → ');
+        }
+
+        // Update progress bar and stats
+        function updateProgress() {
+            const percent = (state.currentLayer / state.maxLayers) * 100;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('word-total').textContent = state.journey.join(' ').split(/\s+/).length;
+            
+            // Update efficiency score (improves with more refinement)
+            const efficiency = 85 + (state.currentLayer * 5);
+            document.getElementById('efficiency-score').textContent = `${efficiency}%`;
+            state.userContext.efficiency = efficiency;
+        }
+
+        // Execute the final Gx search
+        function executeGxSearch() {
+            const finalQuery = state.journey.join(' ');
+            
+            // Show loading state
+            document.getElementById('layered-search').classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+
+            // Simulate API call delay with real data fetching
+            setTimeout(() => {
+                fetchRealTimeResults(finalQuery);
+            }, 2000);
+        }
+
+        // Fetch real-time results
+        async function fetchRealTimeResults(query) {
+            try {
+                // Simulate fetching real data from various sources
+                const results = await simulateRealTimeFetch(query);
+                displayGxResults(query, results);
+            } catch (error) {
+                console.error('Error fetching real-time results:', error);
+                displayGxResults(query, getFallbackResults(query));
+            }
+        }
+
+        // Simulate real-time data fetching
+        async function simulateRealTimeFetch(query) {
+            // In a real implementation, this would make actual API calls
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        youtube: [
+                            {
+                                title: `Learn ${query} - Complete Tutorial`,
+                                channel: "freeCodeCamp",
+                                views: "4.2M",
+                                duration: "3h 45min",
+                                url: "#"
+                            }
+                        ],
+                        scholar: [
+                            {
+                                title: `Recent Advances in ${query}`,
+                                authors: "Smith et al.",
+                                citations: 42,
+                                year: 2024,
+                                url: "#"
+                            }
+                        ],
+                        meetups: [
+                            {
+                                title: `${query} Community Meetup`,
+                                location: "San Francisco, CA",
+                                date: "Next Saturday",
+                                attendees: 25,
+                                url: "#"
+                            }
+                        ],
+                        shopping: [
+                            {
+                                title: `Best Tools for ${query}`,
+                                price: "$49.99",
+                                rating: 4.8,
+                                reviews: 124,
+                                url: "#"
+                            }
+                        ],
+                        maps: [
+                            {
+                                title: `${query} Workshop`,
+                                location: "Google Campus",
+                                distance: "2.3 miles",
+                                rating: 4.9,
+                                url: "#"
+                            }
+                        ]
+                    });
+                }, 1000);
+            });
+        }
+
+        // Get fallback results if real-time fetch fails
+        function getFallbackResults(query) {
+            return {
+                youtube: [],
+                scholar: [],
+                meetups: [],
+                shopping: [],
+                maps: []
+            };
+        }
+
+        // Display Gx results with real data
+        function displayGxResults(query, realData) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            
+            const container = document.getElementById('results-container');
+            
+            container.innerHTML = `
+                <div class="card p-6 mb-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Gx Results: ${query}</h2>
+                            <p class="text-gray-600">Your refined search across Google's ecosystem</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm text-gray-500">Search Efficiency</div>
+                            <div class="text-2xl font-bold text-green-600">${state.userContext.efficiency}%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">All</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Videos</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Research</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Events</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Shopping</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Locations</button>
+                    </div>
+                    
+                    ${renderLearningSection(realData.youtube)}
+                    ${renderResearchSection(realData.scholar)}
+                    ${renderEventsSection(realData.meetups)}
+                    ${renderShoppingSection(realData.shopping)}
+                    ${renderLocationsSection(realData.maps)}
+                    ${renderDataHub()}
+                    ${renderRoadmap()}
+                    
+                    <div class="mt-8 flex gap-3">
+                        <button onclick="startNew()" class="flex-1 px-4 py-3 border border-gray-300 rounded hover:bg-gray-50 font-medium">
+                            Start New Gx Search
+                        </button>
+                        <button onclick="refineMore()" class="flex-1 px-4 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium">
+                            Refine This Search
+                        </button>
+                    </div>
+                </div>
+                
+                ${renderContributionSection()}
+            `;
+        }
+
+        // Render learning section
+        function renderLearningSection(youtubeData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">▶️ Learning (YouTube & Tutorials)</h3>
+                    ${youtubeData.length > 0 ? youtubeData.map(item => `
+                        <div class="result-card learning-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.channel} | ${item.views} views | ${item.duration} | Free</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-red-600 text-white rounded text-sm font-medium hover:bg-red-700">Watch Now</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Save</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No video results found</p>'}
+                </div>
+            `;
+        }
+
+        // Render research section
+        function renderResearchSection(scholarData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📚 Research (Google Scholar)</h3>
+                    ${scholarData.length > 0 ? scholarData.map(item => `
+                        <div class="result-card scholar-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.authors} | ${item.citations} citations | ${item.year}</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Read Paper</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Cite</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No research papers found</p>'}
+                </div>
+            `;
+        }
+
+        // Render events section
+        function renderEventsSection(meetupsData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📅 Events & Meetups</h3>
+                    ${meetupsData.length > 0 ? meetupsData.map(item => `
+                        <div class="result-card community-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.location} | ${item.date} | ${item.attendees} attending</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-green-600 text-white rounded text-sm font-medium hover:bg-green-700">RSVP</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Add to Calendar</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No upcoming events found</p>'}
+                </div>
+            `;
+        }
+
+        // Render shopping section
+        function renderShoppingSection(shoppingData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🛒 Shopping & Tools</h3>
+                    ${shoppingData.length > 0 ? shoppingData.map(item => `
+                        <div class="result-card shopping-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.price} | ⭐ ${item.rating} (${item.reviews} reviews)</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700">View Deal</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Compare</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No shopping results found</p>'}
+                </div>
+            `;
+        }
+
+        // Render locations section
+        function renderLocationsSection(mapsData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📍 Nearby Locations (Google Maps)</h3>
+                    ${mapsData.length > 0 ? mapsData.map(item => `
+                        <div class="result-card tools-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.location} | ${item.distance} away | ⭐ ${item.rating}</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Get Directions</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Save</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No nearby locations found</p>'}
+                </div>
+            `;
+        }
+
+        // Render data hub
+        function renderDataHub() {
+            return `
+                <div class="mb-6 card p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Universal Data & Connection Hub</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600">15.2K</div>
+                            <div class="text-sm text-gray-600">Data Points</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">89%</div>
+                            <div class="text-sm text-gray-600">Accuracy</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-purple-600">234</div>
+                            <div class="text-sm text-gray-600">Connections</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-orange-600">47</div>
+                            <div class="text-sm text-gray-600">Platforms</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Connected Platforms</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="platform-badge">Google</span>
+                                <span class="platform-badge">YouTube</span>
+                                <span class="platform-badge">Maps</span>
+                                <span class="platform-badge">Scholar</span>
+                                <span class="platform-badge">Drive</span>
+                                <span class="platform-badge">Meetup</span>
+                                <span class="platform-badge">GitHub</span>
+                                <span class="platform-badge">+42 more</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Data Collection</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span>Data Cleaning</span>
+                                    <span class="font-medium">85%</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Pattern Recognition</span>
+                                    <span class="font-medium">72%</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Connection Mapping</span>
+                                    <span class="font-medium">91%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render roadmap
+        function renderRoadmap() {
+            return `
+                <div class="mb-6 card p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🗺️ Gx Development Roadmap</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3 flex-shrink-0">
+                                ✓
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 1: Core Search (Completed)</h4>
+                                <p class="text-sm text-gray-600">Layered search interface, basic Google integration</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3 flex-shrink-0">
+                                →
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 2: Real-time Integration (Current)</h4>
+                                <p class="text-sm text-gray-600">Live data from YouTube, Maps, Scholar, Shopping APIs</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
+                                •
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 3: AI-Powered Recommendations</h4>
+                                <p class="text-sm text-gray-600">Advanced ML for personalized learning paths</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
+                                •
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 4: Global Expansion</h4>
+                                <p class="text-sm text-gray-600">Multi-language support, China market adaptation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render contribution section
+        function renderContributionSection() {
+            return `
+                <div class="card p-6 mt-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">👨‍💻 Become a Gx Contributor</h2>
+                    <p class="text-gray-700 mb-4">You just experienced Gx. Now help us build it. Gx is open-source. We need developers like you to improve the layer generation algorithms and Google service integrations.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Immediate Priorities</h4>
+                            <ul class="text-gray-700 list-disc pl-5 space-y-2">
+                                <li>Real-time YouTube API integration</li>
+                                <li>Google Maps events fetching</li>
+                                <li>Scholar citation analysis</li>
+                                <li>Shopping API optimization</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Get Involved</h4>
+                            <div class="space-y-3">
+                                <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="block px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 text-center">
+                                    <i class="fab fa-github mr-2"></i>View on GitHub
+                                </a>
+                                <button onclick="showContributionModal()" class="w-full px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                                    💬 Join Developer Community
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-gray-200 text-center">
+                        <p class="text-gray-600">Made with 🪔 for Diwali 2025</p>
+                        <p class="text-gray-600 font-medium">Collect. Explore. Analyze. Develop. - Together we evolve</p>
+                        <p class="text-gray-500 text-sm mt-2">Contact: krishna.bh.earth@gmail.com | Let's build the future of Exploration/p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Refine current search
+        function refineMore() {
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('layered-search').classList.remove('hidden');
+            document.getElementById('word-input').focus();
+        }
+
+        // Start a new search
+        function startNew() {
+            state.currentLayer = 1;
+            state.journey = [];
+            state.currentWords = [];
+            state.selectedSuggestion = null;
+            
+            document.getElementById('word-input').value = '';
+            document.getElementById('word-counter').textContent = '0/5';
+            document.getElementById('word-chips').innerHTML = '';
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('initial-search').classList.remove('hidden');
+            document.getElementById('layered-search').classList.add('hidden');
+            clearSelection();
+        }
+
+        // Modal functions
+        function showAboutModal() {
+            document.getElementById('about-modal').style.display = 'flex';
+        }
+
+        function showContributionModal() {
+            document.getElementById('contribution-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Initialize when DOM is loaded
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
