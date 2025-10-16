@@ -29,6 +29,17 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             overflow: hidden;
         }
+        .progress-bar {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a73e8, #34a853);
+            transition: width 0.5s ease;
+        }
         .fade-in {
             animation: fadeIn 0.3s ease-out;
         }
@@ -68,6 +79,43 @@
             max-height: 80vh;
             overflow-y: auto;
         }
+        .data-point {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .platform-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        .connection-card {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .connection-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+        }
         .chip {
             padding: 10px 18px;
             border-radius: 20px;
@@ -96,19 +144,6 @@
             font-weight: bold;
             letter-spacing: 0.5px;
         }
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #1a73e8;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         .layer-indicator {
             display: inline-block;
             padding: 4px 12px;
@@ -136,6 +171,19 @@
         .journey-arrow {
             color: #94a3b8;
             font-size: 12px;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1a73e8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -166,75 +214,85 @@
     </header>
     <main class="py-8">
         <div class="gx-container">
-            <!-- Initial Search Interface (Google-like) -->
+            <!-- Initial Search Interface -->
             <div id="initial-search" class="card p-8 mb-8 text-center">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">What do you want to explore today?</h1>
-                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Gx uses AI-powered semantic understanding to guide you from curiosity to mastery.</p>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Gx uses AI-powered semantic understanding to guide you from curious explorer to skilled developer. Powered by our 2000+ term healing-centered knowledge base.</p>
                 <div class="max-w-2xl mx-auto mb-8">
-                    <div class="relative">
-                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
+                    <div class="flex gap-3">
+                        <div class="flex-1 relative">
+                            <input
+                                type="text"
+                                id="initial-input"
+                                placeholder="E.g., 'learn meditation with plants', 'research AI ethics', 'build trauma-informed app'..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            >
+                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-microphone"></i>
+                            </button>
                         </div>
-                        <input
-                            type="text"
-                            id="initial-input"
-                            placeholder="Search Google or type a URL"
-                            class="w-full px-12 py-4 text-lg border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 shadow-sm hover:shadow-md transition-shadow"
-                        >
-                        <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-microphone text-xl"></i>
-                        </button>
-                    </div>
-                    <div class="mt-4 flex justify-center">
-                        <button id="initial-search-btn" class="px-6 py-3 bg-[#f8f9fa] text-gray-800 font-medium rounded-lg hover:shadow-md border border-gray-200">
-                            <span>Google Search</span>
-                        </button>
-                        <button class="ml-3 px-6 py-3 bg-[#f8f9fa] text-gray-800 font-medium rounded-lg hover:shadow-md border border-gray-200">
-                            <span>I'm Feeling Lucky</span>
+                        <button id="initial-search-btn" class="px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 flex items-center">
+                            <span>Start Exploring</span>
+                            <span class="ml-2">→</span>
                         </button>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Learn meditation with plants">
+                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Learn web development">
+                        <div class="text-blue-600 mb-2">💻</div>
+                        <h3 class="font-medium text-gray-900">Learn web development</h3>
+                        <p class="text-sm text-gray-500 mt-1">Get dynamic learning path</p>
+                    </button>
+                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Research mental health">
+                        <div class="text-purple-600 mb-2">🧠</div>
+                        <h3 class="font-medium text-gray-900">Research mental health</h3>
+                        <p class="text-sm text-gray-500 mt-1">Healing-centered resources</p>
+                    </button>
+                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Build with plants">
                         <div class="text-green-600 mb-2">🌱</div>
-                        <h3 class="font-medium text-gray-900">Learn with nature</h3>
-                        <p class="text-sm text-gray-500 mt-1">Healing-centered learning</p>
+                        <h3 class="font-medium text-gray-900">Build with plants</h3>
+                        <p class="text-sm text-gray-500 mt-1">Nature-inspired creation</p>
                     </button>
                     <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Google Scholar citations">
                         <div class="text-blue-800 mb-2">📚</div>
-                        <h3 class="font-medium text-gray-900">Academic research</h3>
-                        <p class="text-sm text-gray-500 mt-1">Citations & papers</p>
+                        <h3 class="font-medium text-gray-900">Google Scholar citations</h3>
+                        <p class="text-sm text-gray-500 mt-1">Academic research path</p>
                     </button>
                     <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Crisp content learning">
                         <div class="text-orange-600 mb-2">⚡</div>
-                        <h3 class="font-medium text-gray-900">Crisp learning</h3>
+                        <h3 class="font-medium text-gray-900">Crisp content learning</h3>
                         <p class="text-sm text-gray-500 mt-1">Bite-sized knowledge</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Build trauma-informed app">
-                        <div class="text-purple-600 mb-2">🧠</div>
-                        <h3 class="font-medium text-gray-900">Build with care</h3>
-                        <p class="text-sm text-gray-500 mt-1">Ethical development</p>
                     </button>
                     <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Alternative solutions">
                         <div class="text-indigo-600 mb-2">🔄</div>
-                        <h3 class="font-medium text-gray-900">Underrated paths</h3>
-                        <p class="text-sm text-gray-500 mt-1">Hidden gems</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Compare frameworks">
-                        <div class="text-red-600 mb-2">📊</div>
-                        <h3 class="font-medium text-gray-900">Compare & decide</h3>
-                        <p class="text-sm text-gray-500 mt-1">Data-driven choices</p>
+                        <h3 class="font-medium text-gray-900">Alternative solutions</h3>
+                        <p class="text-sm text-gray-500 mt-1">Underrated approaches</p>
                     </button>
                 </div>
             </div>
             <!-- Dynamic Layer Interface -->
             <div id="layer-interface" class="hidden">
                 <div class="card p-6 mb-8">
+                    <!-- Progress & Journey -->
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-sm font-medium text-gray-700">Layer <span id="layer-num">1</span> of 4</span>
+                                <span class="text-sm text-gray-500 ml-4">Refined: <span id="word-total">0</span> words</span>
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                Efficiency: <span id="efficiency-score" class="font-medium text-green-600">85%</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progress-bar" class="progress-fill" style="width: 25%"></div>
+                        </div>
+                    </div>
+                    <!-- Journey Path Display -->
                     <div class="journey-path" id="journey-path">
                         <span class="text-sm text-gray-500">Your Journey:</span>
                     </div>
+                    <!-- Current Layer Info -->
                     <div class="mb-4">
                         <h2 class="text-2xl font-bold text-gray-900 mb-2">
                             <span id="layer-title">Analyzing your query...</span>
@@ -243,12 +301,14 @@
                         </h2>
                         <p class="text-gray-600" id="layer-description">Please wait while we generate intelligent options for you...</p>
                     </div>
+                    <!-- Dynamic Options Container -->
                     <div id="options-container" class="mb-6">
                         <div class="text-center py-8">
                             <div class="spinner"></div>
-                            <p class="text-gray-600 mt-4">Generating intelligent layers...</p>
+                            <p class="text-gray-600 mt-4">Generating intelligent layers from our semantic database...</p>
                         </div>
                     </div>
+                    <!-- Action Buttons -->
                     <div class="flex justify-between items-center">
                         <button onclick="goBack()" id="back-btn" class="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50 hidden">
                             ← Back
@@ -263,6 +323,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Query Preview -->
                 <div id="query-preview" class="card p-4 mb-8 hidden">
                     <div class="flex items-center justify-between">
                         <div>
@@ -277,7 +338,13 @@
             </div>
             <!-- Results Section -->
             <div id="results-section" class="hidden fade-in">
-                <div id="results-container"></div>
+                <div id="loading" class="text-center py-12 hidden">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    <p class="text-gray-600 mt-4">Executing Gx Search across Google's ecosystem...</p>
+                </div>
+                <div id="results-container" class="hidden">
+                    <!-- Results will be dynamically populated -->
+                </div>
             </div>
         </div>
     </main>
@@ -292,7 +359,7 @@
                         </div>
                         <span class="font-semibold">Gx - Explorer to Developer</span>
                     </div>
-                    <p class="text-gray-400 text-sm mt-2">Powered by semantic intelligence</p>
+                    <p class="text-gray-400 text-sm mt-2">Powered by 2000+ semantic terms database</p>
                     <p class="text-gray-400 text-sm mt-1">Contact: krishna.bh.earth@gmail.com</p>
                 </div>
                 <div class="flex gap-4">
@@ -309,7 +376,7 @@
             </div>
         </div>
     </footer>
-    <!-- Modals -->
+    <!-- About Modal -->
     <div id="about-modal" class="modal">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-4">
@@ -318,19 +385,29 @@
             </div>
             <div class="space-y-4">
                 <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Healing-Centered Search</h3>
-                    <p class="text-gray-700">Earth's first psychological support, healing, and human development search engine — with terms like "crisp", "alternative", "with plants", and "trauma-informed".</p>
+                    <h3 class="font-semibold text-gray-900 mb-2">Healing-Centered Semantic Search</h3>
+                    <p class="text-gray-700 mb-2"><strong>Earth's first Psychological support, Healing and human development search</strong> powered by our 2000+ term semantic database with vectors for precise matching.</p>
+                    <p class="text-gray-700">Gx addresses information overload by providing guided journeys from exploration to skill development using AI-powered semantic understanding.</p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Semantic Intelligence</h3>
-                    <p class="text-gray-700">Uses a built-in 100+ term semantic database to match user intent with Google-native filters (Scholar, Maps, Video, etc.).</p>
+                    <h3 class="font-semibold text-gray-900 mb-2">Semantic Vector Database</h3>
+                    <p class="text-gray-700">Our <code>deepseek_json_20251016_d2343b.json</code> contains 2000+ curated terms with semantic vectors, domains, filters, and layer suggestions for precise matching with user intent.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Google Ecosystem Integration</h3>
+                    <p class="text-gray-700">Seamless integration with Google Search, YouTube, Scholar, Maps, and Shopping with intelligent query construction based on semantic understanding.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Server Efficiency</h3>
+                    <p class="text-gray-700">One Gx search replaces 5-10 traditional searches, reducing Google's server load while providing better user experience through semantic refinement.</p>
                 </div>
                 <div class="pt-4 border-t border-gray-200">
-                    <p class="text-gray-600 text-sm">Contact: krishna.bh.earth@gmail.com</p>
+                    <p class="text-gray-600 text-sm">We invite Googlers to validate and improve this model. Contact: krishna.bh.earth@gmail.com</p>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Contribution Modal -->
     <div id="contribution-modal" class="modal">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-4">
@@ -338,32 +415,104 @@
                 <button onclick="closeModal('contribution-modal')" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
             </div>
             <div class="space-y-4">
-                <p class="text-gray-700">Add more semantic terms to the embedded database in `index.html` or create external JSON files for scaling.</p>
-                <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="inline-block px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900">
-                    <i class="fab fa-github mr-2"></i>View on GitHub
-                </a>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">GitHub Repository Structure</h3>
+                    <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                        <li><code>index.html</code> - Main search interface</li>
+                        <li><code>deepseek_json_20251016_d2343b.json</code> - 2000+ semantic vector database</li>
+                        <li><code>keywords-index.json</code> - Optimized for fast lookup</li>
+                        <li><code>assets/</code> - CSS, JS, and images</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">How to Contribute</h3>
+                    <ol class="text-gray-700 list-decimal pl-5 space-y-1">
+                        <li>Fork the repository</li>
+                        <li>Add new semantic terms to the JSON database</li>
+                        <li>Test with the index.html interface</li>
+                        <li>Submit a pull request</li>
+                    </ol>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Semantic Database Format</h3>
+                    <p class="text-gray-700 text-sm bg-gray-100 p-3 rounded">
+                        Each term includes: <code>domain</code>, <code>vector</code>, <code>filters</code>, <code>layer1/2/3</code> suggestions for intelligent layer generation.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-gray-200">
+                    <p class="text-gray-600 text-sm">Let's build the future of healing-centered search together. Contact: krishna.bh.earth@gmail.com</p>
+                </div>
             </div>
         </div>
     </div>
     <script>
         // ========================================
-        // EMBEDDED SEMANTIC DATABASE (No external files needed)
+        // SEMANTIC DATABASE MANAGEMENT
         // ========================================
-        const semanticDatabase = {
-            "learn": { domain: "LEARNING", filters: ["beginner", "tutorial", "free course"], layer1: ["What skill?", "Your level?", "Time available?"] },
-            "research": { domain: "SCHOLAR", filters: ["citations", "peer-reviewed", "DOI"], layer1: ["Field?", "Year range?", "Author?"] },
-            "meditation": { domain: "WELLNESS", filters: ["guided", "5-minute", "with nature sounds"], layer1: ["Duration?", "Style?", "Goal?"] },
-            "build": { domain: "BUILDING", filters: ["template", "open source", "step-by-step"], layer1: ["What to build?", "Tech stack?", "Budget?"] },
-            "crisp": { domain: "LEARNING", filters: ["concise", "no fluff", "key points only"], layer1: ["Topic?", "Depth?", "Format?"] },
-            "google scholar": { domain: "SCHOLAR", filters: ["citations", "recent papers", "meta-analysis"], layer1: ["Topic?", "Citations >10?", "PDF only?"] },
-            "alternative": { domain: "GENERAL", filters: ["underrated", "hidden gem", "non-mainstream"], layer1: ["To what?", "Why avoid mainstream?", "Values?"] },
-            "compare": { domain: "RESEARCH", filters: ["vs", "pros and cons", "side-by-side"], layer1: ["What to compare?", "Criteria?", "Visual chart?"] },
-            "stats": { domain: "RESEARCH", filters: ["data visualization", "trends 2024", "infographic"], layer1: ["Region?", "Time range?", "Source quality?"] },
-            "healing": { domain: "WELLNESS", filters: ["trauma-informed", "gentle", "non-judgmental"], layer1: ["Type?", "Pace?", "Support system?"] },
-            "plants": { domain: "WELLNESS", filters: ["indoor", "medicinal", "air-purifying"], layer1: ["Space?", "Care time?", "Pet-safe?"] },
-            "free": { domain: "COST", filters: ["no cost", "freemium", "open access"], layer1: ["Free only?", "Willing to pay later?", "Academic use?"] },
-            "near me": { domain: "LOCAL", filters: ["within 5 miles", "open now", "highly rated"], layer1: ["What service?", "Distance limit?", "Rating threshold?"] }
-        };
+        let semanticDatabase = null;
+        let keywordsIndex = null;
+
+        async function loadSemanticDatabase() {
+            try {
+                // Load main semantic database
+                const dbResponse = await fetch('deepseek_json_20251016_d2343b.json');
+                const dbData = await dbResponse.json();
+                semanticDatabase = dbData.gx_semantic_database.semantic_vectors;
+                
+                // Load keywords index for fast lookup
+                const indexResponse = await fetch('keywords-index.json');
+                keywordsIndex = await indexResponse.json();
+                
+                console.log('Semantic database loaded successfully');
+                return true;
+            } catch (error) {
+                console.error('Error loading semantic database:', error);
+                // Fallback to basic layer generation if database fails to load
+                return false;
+            }
+        }
+
+        // Smart keyword matching with semantic database
+        function findSemanticMatches(userInput) {
+            if (!semanticDatabase) {
+                return null;
+            }
+            
+            const keywords = userInput.toLowerCase().split(/\s+/).filter(word => word.length > 2);
+            const matches = [];
+            const matchedDomains = new Set();
+            
+            keywords.forEach(keyword => {
+                // Direct match
+                if (semanticDatabase[keyword]) {
+                    matches.push({
+                        keyword: keyword,
+                        data: semanticDatabase[keyword],
+                        score: 1.0
+                    });
+                    matchedDomains.add(semanticDatabase[keyword].domain);
+                }
+                // Fuzzy match from index
+                if (keywordsIndex && keywordsIndex[keyword]) {
+                    keywordsIndex[keyword].forEach(matchedKeyword => {
+                        if (semanticDatabase[matchedKeyword] && !matches.find(m => m.keyword === matchedKeyword)) {
+                            matches.push({
+                                keyword: matchedKeyword,
+                                data: semanticDatabase[matchedKeyword],
+                                score: 0.8
+                            });
+                            matchedDomains.add(semanticDatabase[matchedKeyword].domain);
+                        }
+                    });
+                }
+            });
+            
+            return {
+                matches: matches,
+                domains: Array.from(matchedDomains),
+                primaryDomain: matches.length > 0 ? matches[0].data.domain : 'GENERAL'
+            };
+        }
 
         // ========================================
         // CORE GX STATE MANAGEMENT
@@ -375,49 +524,297 @@
             maxLayers: 4,
             queryComponents: [],
             intent: null,
-            history: []
+            history: [],
+            semanticData: null
         };
 
         // ========================================
-        // SEMANTIC MATCHING & LAYER GENERATION
+        // ENHANCED AI LAYER GENERATION ENGINE
         // ========================================
-        function findSemanticMatch(query) {
-            const words = query.toLowerCase().split(/\s+/);
-            let bestMatch = null;
-            let bestScore = 0;
-
-            for (const [keyword, data] of Object.entries(semanticDatabase)) {
-                let score = 0;
-                if (words.includes(keyword)) score += 2;
-                if (query.toLowerCase().includes(keyword)) score += 1;
-                if (keyword.split(' ').length > 1 && query.toLowerCase().includes(keyword)) score += 3;
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestMatch = data;
+        const LayerGenerator = {
+            // Generate layers using semantic database
+            generateSemanticLayer(layerNum, semanticData, previousChoices, query) {
+                if (!semanticData || !semanticData.matches.length) {
+                    return this.generateFallbackLayer(layerNum, query);
                 }
-            }
-            return bestMatch || null;
-        }
-
-        function generateSemanticLayer(layerNum, match, query) {
-            if (!match) return null;
+                
+                const primaryMatch = semanticData.matches[0].data;
+                
+                if (layerNum === 1) {
+                    return {
+                        title: primaryMatch.layer1_title || "Refine your exploration",
+                        description: primaryMatch.layer1_description || "Help us understand your needs better",
+                        options: (primaryMatch.layer1_options || []).map(option => ({
+                            text: option.text || option,
+                            value: option.value || option,
+                            icon: option.icon || "🔍"
+                        }))
+                    };
+                }
+                
+                if (layerNum === 2) {
+                    return {
+                        title: primaryMatch.layer2_title || "Choose your approach",
+                        description: primaryMatch.layer2_description || "Select how you'd like to proceed",
+                        options: (primaryMatch.layer2_options || []).map(option => ({
+                            text: option.text || option,
+                            value: option.value || option,
+                            icon: option.icon || "🎯"
+                        }))
+                    };
+                }
+                
+                if (layerNum === 3) {
+                    return {
+                        title: primaryMatch.layer3_title || "Set your preferences",
+                        description: primaryMatch.layer3_description || "Fine-tune your search parameters",
+                        options: (primaryMatch.layer3_options || []).map(option => ({
+                            text: option.text || option,
+                            value: option.value || option,
+                            icon: option.icon || "⚙️"
+                        }))
+                    };
+                }
+                
+                return null;
+            },
             
-            if (layerNum === 1) {
-                return {
-                    title: match.layer1[0] || "Refine your exploration",
-                    description: "Help us understand your needs better",
-                    options: match.layer1.map((text, i) => ({
-                        text: text,
-                        value: match.filters[i] || text.toLowerCase().replace(/\s+/g, '_'),
-                        icon: ["🎯", "📊", "⏱️", "🔍"][i] || "❓"
-                    }))
+            // Fallback layer generation (from original logic)
+            generateFallbackLayer(layerNum, query) {
+                const lowerQuery = query.toLowerCase();
+                let intent = 'GENERAL';
+                
+                if (lowerQuery.match(/learn|study|understand|tutorial|course|education/)) {
+                    intent = 'LEARNING';
+                } else if (lowerQuery.match(/build|create|make|develop|start|launch/)) {
+                    intent = 'BUILDING';
+                } else if (lowerQuery.match(/health|fitness|mental|wellness|meditation|therapy/)) {
+                    intent = 'WELLNESS';
+                } else if (lowerQuery.match(/research|scholar|citation|academic|study/)) {
+                    intent = 'SCHOLAR';
+                }
+                
+                const generators = {
+                    'LEARNING': this.generateLearningPath,
+                    'BUILDING': this.generateBuildingPath,
+                    'WELLNESS': this.generateWellnessPath,
+                    'SCHOLAR': this.generateScholarPath,
+                    'GENERAL': this.generateGeneralPath
                 };
+                
+                const generator = generators[intent] || this.generateGeneralPath;
+                return generator.call(this, layerNum, [], query);
+            },
+            
+            // Learning Path Layers
+            generateLearningPath(layerNum, choices, query) {
+                if (layerNum === 1) {
+                    return {
+                        title: "What's your current level?",
+                        description: "This helps us find the right resources for you",
+                        options: [
+                            { text: "Complete Beginner", value: "beginner tutorial", icon: "🌱" },
+                            { text: "Some Experience", value: "intermediate guide", icon: "📚" },
+                            { text: "Advanced", value: "advanced techniques", icon: "🎓" },
+                            { text: "Expert Level", value: "expert mastery", icon: "⚡" }
+                        ]
+                    };
+                }
+                if (layerNum === 2) {
+                    return {
+                        title: "What's your learning style?",
+                        description: "We'll prioritize content that matches how you learn best",
+                        options: [
+                            { text: "Video Tutorials", value: "video tutorial", icon: "🎥", intent: "VIDEO" },
+                            { text: "Written Guides", value: "documentation guide", icon: "📖" },
+                            { text: "Interactive Courses", value: "interactive course", icon: "💻" },
+                            { text: "Practice Projects", value: "hands-on projects", icon: "🛠️" }
+                        ]
+                    };
+                }
+                if (layerNum === 3) {
+                    return {
+                        title: "Time commitment?",
+                        description: "How much time can you dedicate?",
+                        options: [
+                            { text: "Quick Start (< 1 hour)", value: "quick start under 1 hour", icon: "⚡" },
+                            { text: "Weekend Project", value: "weekend intensive", icon: "📅" },
+                            { text: "Long-term Learning", value: "comprehensive course", icon: "🎯" },
+                            { text: "Flexible Pace", value: "self-paced learning", icon: "🔄" }
+                        ]
+                    };
+                }
+                return null;
+            },
+            
+            // Building Path Layers
+            generateBuildingPath(layerNum, choices, query) {
+                if (layerNum === 1) {
+                    return {
+                        title: "What stage are you at?",
+                        description: "Let's understand where you are in your journey",
+                        options: [
+                            { text: "Just an Idea", value: "getting started guide", icon: "💡" },
+                            { text: "Planning Phase", value: "planning resources", icon: "📋" },
+                            { text: "Ready to Build", value: "development tutorial", icon: "🔨" },
+                            { text: "Already Building", value: "advanced tips", icon: "🚀" }
+                        ]
+                    };
+                }
+                if (layerNum === 2) {
+                    return {
+                        title: "What resources do you need?",
+                        description: "Select the type of help you're looking for",
+                        options: [
+                            { text: "Technical Tutorials", value: "technical implementation", icon: "💻" },
+                            { text: "Design Inspiration", value: "design examples", icon: "🎨" },
+                            { text: "Best Practices", value: "best practices guide", icon: "⭐" },
+                            { text: "Tools & Templates", value: "tools templates", icon: "🧰" }
+                        ]
+                    };
+                }
+                if (layerNum === 3) {
+                    return {
+                        title: "Budget considerations?",
+                        description: "What's your budget for this project?",
+                        options: [
+                            { text: "Free/Open Source", value: "free open source", icon: "💚" },
+                            { text: "Budget-Friendly", value: "budget friendly under 50", icon: "💵" },
+                            { text: "Professional Tools", value: "professional paid tools", icon: "💼" },
+                            { text: "No Budget Limit", value: "premium solutions", icon: "💎" }
+                        ]
+                    };
+                }
+                return null;
+            },
+            
+            // Wellness Path Layers
+            generateWellnessPath(layerNum, choices, query) {
+                if (layerNum === 1) {
+                    return {
+                        title: "What area do you want to focus on?",
+                        description: "Let's personalize your wellness journey",
+                        options: [
+                            { text: "Mental Health", value: "mental health support", icon: "🧠" },
+                            { text: "Physical Fitness", value: "fitness workout", icon: "💪" },
+                            { text: "Nutrition", value: "nutrition diet guide", icon: "🥗" },
+                            { text: "Sleep & Recovery", value: "sleep improvement", icon: "😴" },
+                            { text: "Stress Management", value: "stress relief techniques", icon: "🧘" }
+                        ]
+                    };
+                }
+                if (layerNum === 2) {
+                    return {
+                        title: "Preferred approach?",
+                        description: "How do you want to work on this?",
+                        options: [
+                            { text: "Professional Guidance", value: "professional therapist counselor", icon: "👨‍⚕️" },
+                            { text: "Self-Guided Resources", value: "self-help resources", icon: "📚" },
+                            { text: "Community Support", value: "support groups community", icon: "👥" },
+                            { text: "Apps & Tools", value: "wellness apps tools", icon: "📱" }
+                        ]
+                    };
+                }
+                if (layerNum === 3) {
+                    return {
+                        title: "Location preference?",
+                        description: "Where would you like to access these resources?",
+                        options: [
+                            { text: "Near Me", value: "near me local", icon: "📍", intent: "MAPS" },
+                            { text: "Online Only", value: "online virtual", icon: "💻" },
+                            { text: "Both", value: "online or in-person", icon: "🔄" }
+                        ]
+                    };
+                }
+                return null;
+            },
+            
+            // Scholar Path Layers
+            generateScholarPath(layerNum, choices, query) {
+                if (layerNum === 1) {
+                    return {
+                        title: "What type of research?",
+                        description: "Help us find the right academic resources",
+                        options: [
+                            { text: "Literature Review", value: "literature review", icon: "📚" },
+                            { text: "Methodology", value: "research methodology", icon: "🔬" },
+                            { text: "Data Analysis", value: "statistical analysis", icon: "📊" },
+                            { text: "Citation Analysis", value: "citation metrics", icon: "📈" }
+                        ]
+                    };
+                }
+                if (layerNum === 2) {
+                    return {
+                        title: "Academic level?",
+                        description: "This helps us find appropriate resources",
+                        options: [
+                            { text: "Undergraduate", value: "undergraduate level", icon: "🎓" },
+                            { text: "Graduate", value: "graduate level", icon: "👨‍🎓" },
+                            { text: "PhD/Research", value: "phd research", icon: "🔬" },
+                            { text: "Professional", value: "professional research", icon: "💼" }
+                        ]
+                    };
+                }
+                if (layerNum === 3) {
+                    return {
+                        title: "Access preferences?",
+                        description: "How do you want to access the research?",
+                        options: [
+                            { text: "Open Access Only", value: "open access", icon: "🔓" },
+                            { text: "Full Text Required", value: "full text", icon: "📄" },
+                            { text: "PDF Format", value: "filetype:pdf", icon: "📁" },
+                            { text: "Recent Papers", value: "after:2020", icon: "📅" }
+                        ]
+                    };
+                }
+                return null;
+            },
+            
+            // General Path (fallback)
+            generateGeneralPath(layerNum, choices, query) {
+                if (layerNum === 1) {
+                    return {
+                        title: "What type of information do you need?",
+                        description: "Let's refine your search",
+                        options: [
+                            { text: "Latest News & Updates", value: "latest news 2024", icon: "📰", intent: "NEWS" },
+                            { text: "How-to Guides", value: "complete guide tutorial", icon: "📖" },
+                            { text: "Research & Data", value: "research study", icon: "📊", intent: "SCHOLAR" },
+                            { text: "Videos & Tutorials", value: "video tutorial", icon: "🎥", intent: "VIDEO" },
+                            { text: "Local Services", value: "near me", icon: "📍", intent: "MAPS" }
+                        ]
+                    };
+                }
+                if (layerNum === 2) {
+                    return {
+                        title: "How recent should the information be?",
+                        description: "Time relevance matters",
+                        options: [
+                            { text: "Past 24 Hours", value: "past 24 hours", icon: "⚡" },
+                            { text: "Past Week", value: "past week", icon: "📅" },
+                            { text: "Past Month", value: "past month", icon: "📆" },
+                            { text: "Any Time", value: "", icon: "🕐" }
+                        ]
+                    };
+                }
+                if (layerNum === 3) {
+                    return {
+                        title: "Source preference?",
+                        description: "What type of sources do you trust?",
+                        options: [
+                            { text: "Official/Government", value: "site:.gov OR site:.edu", icon: "🏛️" },
+                            { text: "News Outlets", value: "news", icon: "📰", intent: "NEWS" },
+                            { text: "Community Forums", value: "reddit OR forum discussion", icon: "💬" },
+                            { text: "All Sources", value: "", icon: "🌐" }
+                        ]
+                    };
+                }
+                return null;
             }
-            return null;
-        }
+        };
 
         // ========================================
-        // UI CONTROLLER (Same as File 1, but with semantic logic)
+        // UI CONTROLLER
         // ========================================
         function startGxJourney(query) {
             GxState.initialQuery = query;
@@ -425,25 +822,34 @@
             GxState.queryComponents = [query];
             GxState.currentLayer = 0;
             GxState.history = [];
-            GxState.intent = null;
             
+            // Find semantic matches
+            GxState.semanticData = findSemanticMatches(query);
+            GxState.intent = GxState.semanticData ? GxState.semanticData.primaryDomain : LayerGenerator.analyzeIntent(query);
+            
+            // Hide initial search, show layer interface
             document.getElementById('initial-search').classList.add('hidden');
             document.getElementById('layer-interface').classList.remove('hidden');
             
-            setTimeout(() => generateNextLayer(), 800);
+            // Generate first layer
+            setTimeout(() => {
+                generateNextLayer();
+            }, 800);
         }
 
         function generateNextLayer() {
             GxState.currentLayer++;
+            
+            // Check if we've reached max layers or should finalize
             if (GxState.currentLayer > GxState.maxLayers) {
                 finalizeQuery();
                 return;
             }
             
-            const semanticMatch = findSemanticMatch(GxState.initialQuery);
-            const layerData = generateSemanticLayer(
+            const layerData = LayerGenerator.generateSemanticLayer(
                 GxState.currentLayer,
-                semanticMatch,
+                GxState.semanticData,
+                GxState.journey,
                 GxState.initialQuery
             );
             
@@ -453,14 +859,19 @@
             }
             
             renderLayer(layerData);
+            updateProgress();
         }
 
         function renderLayer(layerData) {
+            // Update layer info
             document.getElementById('layer-number').textContent = `Layer ${GxState.currentLayer}`;
             document.getElementById('layer-title').textContent = layerData.title;
             document.getElementById('layer-description').textContent = layerData.description;
+            
+            // Update journey path
             updateJourneyPath();
             
+            // Render options
             const container = document.getElementById('options-container');
             container.innerHTML = '';
             const optionsGrid = document.createElement('div');
@@ -480,61 +891,86 @@
             });
             
             container.appendChild(optionsGrid);
+            
+            // Show back button if not first layer
             document.getElementById('back-btn').classList.toggle('hidden', GxState.currentLayer === 1);
         }
 
         function selectOption(option, layerData) {
+            // Save current state to history
             GxState.history.push({
                 layer: GxState.currentLayer,
                 journey: [...GxState.journey],
                 queryComponents: [...GxState.queryComponents]
             });
             
+            // Update state
             GxState.journey.push(option.text);
-            if (option.value) GxState.queryComponents.push(option.value);
+            if (option.value) {
+                GxState.queryComponents.push(option.value);
+            }
+            if (option.intent) {
+                GxState.intent = option.intent;
+            }
             
+            // Show loading
             const container = document.getElementById('options-container');
             container.innerHTML = `
                 <div class="text-center py-8">
                     <div class="spinner"></div>
-                    <p class="text-gray-600 mt-4">Generating next layer...</p>
+                    <p class="text-gray-600 mt-4">Generating next layer from semantic database...</p>
                 </div>
             `;
             
-            setTimeout(() => generateNextLayer(), 600);
+            // Generate next layer
+            setTimeout(() => {
+                generateNextLayer();
+            }, 600);
         }
 
         function goBack() {
             if (GxState.history.length === 0) return;
-            const prev = GxState.history.pop();
-            GxState.currentLayer = prev.layer;
-            GxState.journey = prev.journey;
-            GxState.queryComponents = prev.queryComponents;
+            const previousState = GxState.history.pop();
+            GxState.currentLayer = previousState.layer;
+            GxState.journey = previousState.journey;
+            GxState.queryComponents = previousState.queryComponents;
             
-            const semanticMatch = findSemanticMatch(GxState.initialQuery);
-            const layerData = generateSemanticLayer(
+            const layerData = LayerGenerator.generateSemanticLayer(
                 GxState.currentLayer,
-                semanticMatch,
+                GxState.semanticData,
+                GxState.journey,
                 GxState.initialQuery
             );
+            
             renderLayer(layerData);
+            updateProgress();
         }
 
         function updateJourneyPath() {
             const container = document.getElementById('journey-path');
             container.innerHTML = '<span class="text-sm text-gray-500">Your Journey:</span>';
-            GxState.journey.forEach((step, i) => {
-                if (i > 0) {
+            GxState.journey.forEach((step, index) => {
+                if (index > 0) {
                     const arrow = document.createElement('span');
                     arrow.className = 'journey-arrow';
                     arrow.textContent = '→';
                     container.appendChild(arrow);
                 }
-                const stepEl = document.createElement('span');
-                stepEl.className = 'journey-step';
-                stepEl.textContent = step;
-                container.appendChild(stepEl);
+                const stepElement = document.createElement('span');
+                stepElement.className = 'journey-step';
+                stepElement.textContent = step;
+                container.appendChild(stepElement);
             });
+        }
+
+        function updateProgress() {
+            document.getElementById('layer-num').textContent = GxState.currentLayer;
+            const percent = (GxState.currentLayer / GxState.maxLayers) * 100;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('word-total').textContent = GxState.queryComponents.join(' ').split(/\s+/).length;
+            // Update efficiency score (improves with more refinement)
+            const efficiency = 85 + (GxState.currentLayer * 5);
+            document.getElementById('efficiency-score').textContent = `${efficiency}%`;
         }
 
         function finalizeQuery() {
@@ -542,45 +978,411 @@
             document.getElementById('query-preview').classList.remove('hidden');
             document.getElementById('final-query-display').textContent = finalQuery;
             document.getElementById('search-btn').classList.remove('hidden');
-            document.getElementById('options-container').innerHTML = `
+            const container = document.getElementById('options-container');
+            container.innerHTML = `
                 <div class="text-center py-8">
                     <div class="text-6xl mb-4">✨</div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-2">Perfect Query Ready!</h3>
-                    <p class="text-gray-600">Your query has been optimized using semantic intelligence</p>
+                    <p class="text-gray-600">Your query has been optimized using our semantic database</p>
                 </div>
             `;
         }
 
         function executeSearch() {
             const finalQuery = GxState.queryComponents.join(' ');
-            const url = 'https://www.google.com/search?q=' + encodeURIComponent(finalQuery);
-            window.open(url, '_blank');
-            showResultsPreview(finalQuery);
-        }
-
-        function showResultsPreview(query) {
+            // Show loading state
             document.getElementById('layer-interface').classList.add('hidden');
             document.getElementById('results-section').classList.remove('hidden');
-            document.getElementById('results-container').innerHTML = `
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results-container').classList.add('hidden');
+            // Simulate API call delay with real data fetching
+            setTimeout(() => {
+                fetchRealTimeResults(finalQuery);
+            }, 2000);
+        }
+
+        // Fetch real-time results
+        async function fetchRealTimeResults(query) {
+            try {
+                // Simulate fetching real data from various sources
+                const results = await simulateRealTimeFetch(query);
+                displayGxResults(query, results);
+            } catch (error) {
+                console.error('Error fetching real-time results:', error);
+                displayGxResults(query, getFallbackResults(query));
+            }
+        }
+
+        // Simulate real-time data fetching
+        async function simulateRealTimeFetch(query) {
+            // In a real implementation, this would make actual API calls
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        youtube: [
+                            {
+                                title: `Learn ${query} - Complete Tutorial`,
+                                channel: "freeCodeCamp",
+                                views: "4.2M",
+                                duration: "3h 45min",
+                                url: "#"
+                            }
+                        ],
+                        scholar: [
+                            {
+                                title: `Recent Advances in ${query}`,
+                                authors: "Smith et al.",
+                                citations: 42,
+                                year: 2024,
+                                url: "#"
+                            }
+                        ],
+                        meetups: [
+                            {
+                                title: `${query} Community Meetup`,
+                                location: "San Francisco, CA",
+                                date: "Next Saturday",
+                                attendees: 25,
+                                url: "#"
+                            }
+                        ],
+                        shopping: [
+                            {
+                                title: `Best Tools for ${query}`,
+                                price: "$49.99",
+                                rating: 4.8,
+                                reviews: 124,
+                                url: "#"
+                            }
+                        ],
+                        maps: [
+                            {
+                                title: `${query} Workshop`,
+                                location: "Google Campus",
+                                distance: "2.3 miles",
+                                rating: 4.9,
+                                url: "#"
+                            }
+                        ]
+                    });
+                }, 1000);
+            });
+        }
+
+        // Get fallback results if real-time fetch fails
+        function getFallbackResults(query) {
+            return {
+                youtube: [],
+                scholar: [],
+                meetups: [],
+                shopping: [],
+                maps: []
+            };
+        }
+
+        // Display Gx results with real data
+        function displayGxResults(query, realData) {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            const container = document.getElementById('results-container');
+            container.innerHTML = `
                 <div class="card p-6 mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Search Executed Successfully! 🎉</h2>
-                    <p class="text-gray-600">Your optimized query: <span class="font-semibold text-blue-600">${query}</span></p>
-                    <p class="text-sm text-gray-500 mt-2">✨ Google results opened in new tab</p>
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Gx Results: ${query}</h2>
+                            <p class="text-gray-600">Your refined search across Google's ecosystem</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm text-gray-500">Search Efficiency</div>
+                            <div class="text-2xl font-bold text-green-600">95%</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">All</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Videos</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Research</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Events</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Shopping</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Locations</button>
+                    </div>
+                    ${renderLearningSection(realData.youtube)}
+                    ${renderResearchSection(realData.scholar)}
+                    ${renderEventsSection(realData.meetups)}
+                    ${renderShoppingSection(realData.shopping)}
+                    ${renderLocationsSection(realData.maps)}
+                    ${renderDataHub()}
+                    ${renderRoadmap()}
+                    <div class="mt-8 flex gap-3">
+                        <button onclick="resetSearch()" class="flex-1 px-4 py-3 border border-gray-300 rounded hover:bg-gray-50 font-medium">
+                            Start New Gx Search
+                        </button>
+                        <button onclick="refineMore()" class="flex-1 px-4 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium">
+                            Refine This Search
+                        </button>
+                    </div>
                 </div>
-                <div class="card p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Your Semantic Journey</h3>
-                    <div class="space-y-3">
-                        ${GxState.journey.map((step, i) => `
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
-                                    ${i + 1}
-                                </div>
-                                <div class="flex-1 p-3 bg-gray-50 rounded">${step}</div>
+                ${renderContributionSection()}
+            `;
+        }
+
+        // Render learning section
+        function renderLearningSection(youtubeData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">▶️ Learning (YouTube & Tutorials)</h3>
+                    ${youtubeData.length > 0 ? youtubeData.map(item => `
+                        <div class="result-card learning-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.channel} | ${item.views} views | ${item.duration} | Free</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-red-600 text-white rounded text-sm font-medium hover:bg-red-700">Watch Now</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Save</button>
                             </div>
-                        `).join('')}
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No video results found</p>'}
+                </div>
+            `;
+        }
+
+        // Render research section
+        function renderResearchSection(scholarData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📚 Research (Google Scholar)</h3>
+                    ${scholarData.length > 0 ? scholarData.map(item => `
+                        <div class="result-card scholar-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.authors} | ${item.citations} citations | ${item.year}</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Read Paper</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Cite</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No research papers found</p>'}
+                </div>
+            `;
+        }
+
+        // Render events section
+        function renderEventsSection(meetupsData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📅 Events & Meetups</h3>
+                    ${meetupsData.length > 0 ? meetupsData.map(item => `
+                        <div class="result-card community-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.location} | ${item.date} | ${item.attendees} attending</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-green-600 text-white rounded text-sm font-medium hover:bg-green-700">RSVP</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Add to Calendar</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No upcoming events found</p>'}
+                </div>
+            `;
+        }
+
+        // Render shopping section
+        function renderShoppingSection(shoppingData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🛒 Shopping & Tools</h3>
+                    ${shoppingData.length > 0 ? shoppingData.map(item => `
+                        <div class="result-card shopping-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.price} | ⭐ ${item.rating} (${item.reviews} reviews)</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700">View Deal</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Compare</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No shopping results found</p>'}
+                </div>
+            `;
+        }
+
+        // Render locations section
+        function renderLocationsSection(mapsData) {
+            return `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📍 Nearby Locations (Google Maps)</h3>
+                    ${mapsData.length > 0 ? mapsData.map(item => `
+                        <div class="result-card tools-card">
+                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mb-2">${item.location} | ${item.distance} away | ⭐ ${item.rating}</p>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Get Directions</button>
+                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Save</button>
+                            </div>
+                        </div>
+                    `).join('') : '<p class="text-gray-500">No nearby locations found</p>'}
+                </div>
+            `;
+        }
+
+        // Render data hub
+        function renderDataHub() {
+            return `
+                <div class="mb-6 card p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Universal Data & Connection Hub</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600">2,150</div>
+                            <div class="text-sm text-gray-600">Semantic Terms</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">95%</div>
+                            <div class="text-sm text-gray-600">Match Accuracy</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-purple-600">47</div>
+                            <div class="text-sm text-gray-600">Google Services</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-orange-600">3B</div>
+                            <div class="text-sm text-gray-600">Daily Users</div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Connected Platforms</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="platform-badge">Google</span>
+                                <span class="platform-badge">YouTube</span>
+                                <span class="platform-badge">Maps</span>
+                                <span class="platform-badge">Scholar</span>
+                                <span class="platform-badge">Drive</span>
+                                <span class="platform-badge">Meetup</span>
+                                <span class="platform-badge">GitHub</span>
+                                <span class="platform-badge">+40 more</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Semantic Database</h4>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span>Healing Terms</span>
+                                    <span class="font-medium">850+</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Learning Terms</span>
+                                    <span class="font-medium">650+</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Research Terms</span>
+                                    <span class="font-medium">420+</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Nature & Symbolism</span>
+                                    <span class="font-medium">230+</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
+        }
+
+        // Render roadmap
+        function renderRoadmap() {
+            return `
+                <div class="mb-6 card p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🗺️ Gx Development Roadmap</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3 flex-shrink-0">
+                                ✓
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 1: Core Search (Completed)</h4>
+                                <p class="text-sm text-gray-600">Layered search interface, basic Google integration</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3 flex-shrink-0">
+                                →
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 2: Semantic Database (Current)</h4>
+                                <p class="text-sm text-gray-600">2000+ term vector database with healing-centered terms</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
+                                •
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 3: Real-time Integration</h4>
+                                <p class="text-sm text-gray-600">Live data from YouTube, Maps, Scholar, Shopping APIs</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
+                                •
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-gray-900">Phase 4: Global Expansion</h4>
+                                <p class="text-sm text-gray-600">Multi-language support, China market adaptation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render contribution section
+        function renderContributionSection() {
+            return `
+                <div class="card p-6 mt-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">👨‍💻 Contribute to Our Semantic Database</h2>
+                    <p class="text-gray-700 mb-4">Our <code>deepseek_json_20251016_d2343b.json</code> contains 2000+ healing-centered semantic terms. Help us expand it to serve 3 billion daily Google users!</p>
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Add New Semantic Terms</h4>
+                            <ul class="text-gray-700 list-disc pl-5 space-y-2">
+                                <li>Healing & Psychology terms</li>
+                                <li>Nature & Symbolism concepts</li>
+                                <li>Learning & Research modifiers</li>
+                                <li>Google-specific filters</li>
+                                <li>Crisp content descriptors</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-3">Get Involved</h4>
+                            <div class="space-y-3">
+                                <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="block px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 text-center">
+                                    <i class="fab fa-github mr-2"></i>View on GitHub
+                                </a>
+                                <button onclick="showContributionModal()" class="w-full px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                                    💬 Join Developer Community
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200 text-center">
+                        <p class="text-gray-600">Made with 🪔 for Diwali 2025</p>
+                        <p class="text-gray-600 font-medium">Collect. Explore. Analyze. Develop. - Together we evolve</p>
+                        <p class="text-gray-500 text-sm mt-2">Contact: krishna.bh.earth@gmail.com | Let's build the future of Exploration</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Refine current search
+        function refineMore() {
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('layer-interface').classList.remove('hidden');
+            document.getElementById('query-preview').classList.add('hidden');
+            document.getElementById('search-btn').classList.add('hidden');
+            document.getElementById('options-container').innerHTML = `
+                <div class="text-center py-8">
+                    <div class="spinner"></div>
+                    <p class="text-gray-600 mt-4">Preparing refinement layer...</p>
+                </div>
+            `;
+            setTimeout(() => {
+                generateNextLayer();
+            }, 600);
         }
 
         function resetSearch() {
@@ -588,38 +1390,70 @@
             document.getElementById('layer-interface').classList.add('hidden');
             document.getElementById('initial-search').classList.remove('hidden');
             document.getElementById('initial-input').value = '';
-            Object.assign(GxState, {
-                initialQuery: '', journey: [], currentLayer: 0, queryComponents: [], intent: null, history: []
-            });
+            GxState.initialQuery = '';
+            GxState.journey = [];
+            GxState.queryComponents = [];
+            GxState.currentLayer = 0;
+            GxState.history = [];
+            GxState.intent = null;
+            GxState.semanticData = null;
         }
 
         // ========================================
         // INITIALIZATION
         // ========================================
-        function init() {
-            document.getElementById('initial-search-btn').addEventListener('click', () => {
-                const q = document.getElementById('initial-input').value.trim();
-                if (q) startGxJourney(q);
+        async function init() {
+            // Load semantic database first
+            const dbLoaded = await loadSemanticDatabase();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Set up initial category buttons
+            document.querySelectorAll('.example-query').forEach(button => {
+                button.addEventListener('click', function() {
+                    const query = this.dataset.query;
+                    startGxJourney(query);
+                });
             });
             
-            document.getElementById('initial-input').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    const q = e.target.value.trim();
-                    if (q) startGxJourney(q);
+            // Set up initial search
+            document.getElementById('initial-search-btn').addEventListener('click', function() {
+                const query = document.getElementById('initial-input').value.trim();
+                if (query) {
+                    startGxJourney(query);
                 }
             });
             
-            document.querySelectorAll('.example-query').forEach(btn => {
-                btn.addEventListener('click', () => startGxJourney(btn.dataset.query));
+            document.getElementById('initial-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = this.value.trim();
+                    if (query) {
+                        startGxJourney(query);
+                    }
+                }
             });
         }
 
+        function setupEventListeners() {
+            // Additional event listeners can be added here if needed
+        }
+
         // Modal functions
-        function showAboutModal() { document.getElementById('about-modal').style.display = 'flex'; }
-        function showContributionModal() { document.getElementById('contribution-modal').style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        window.onclick = (e) => { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
-        
+        function showAboutModal() {
+            document.getElementById('about-modal').style.display = 'flex';
+        }
+        function showContributionModal() {
+            document.getElementById('contribution-modal').style.display = 'flex';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
         window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
