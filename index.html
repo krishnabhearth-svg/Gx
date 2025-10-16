@@ -455,6 +455,7 @@
         async function loadSemanticDatabase() {
             try {
                 // Load main semantic database
+           
                 const dbResponse = await fetch('deepseek_json_20251016_d2343b.json');
                 const dbData = await dbResponse.json();
                 semanticDatabase = dbData.gx_semantic_database.semantic_vectors;
