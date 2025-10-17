@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gx - Explorer to Developer | Collect. Explore. Analyze. Develop.</title>
+    <title>Gx - Explorer to Developer | Premium Search</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background: #f8fafc;
             color: #1e293b;
             line-height: 1.6;
@@ -25,159 +21,133 @@
         }
         .card {
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             overflow: hidden;
+            margin-bottom: 24px;
         }
-        .progress-bar {
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
+        .logo {
+            text-align: center;
+            margin: 60px 0 30px;
         }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1a73e8, #34a853);
-            transition: width 0.5s ease;
+        .logo h1 {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .fade-in {
-            animation: fadeIn 0.3s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .result-card {
-            border-left: 4px solid;
-            padding-left: 12px;
-            margin-bottom: 16px;
-        }
-        .learning-card { border-color: #ff0000; }
-        .knowledge-card { border-color: #1a73e8; }
-        .tools-card { border-color: #fbbc04; }
-        .community-card { border-color: #34a853; }
-        .shopping-card { border-color: #ea4335; }
-        .scholar-card { border-color: #4285f4; }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        .search-box {
+            position: relative;
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-        }
-        .modal-content {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
             max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
+            margin: 0 auto 30px;
         }
-        .data-point {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .platform-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 8px;
-            background: #f1f5f9;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
-        .connection-card {
-            display: flex;
-            align-items: center;
-            padding: 12px;
+        .search-box input {
+            width: 100%;
+            height: 56px;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            border-radius: 28px;
+            padding: 0 50px 0 60px;
+            font-size: 18px;
+            outline: none;
+            transition: all 0.2s;
         }
-        .connection-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .search-box input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        .mic-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4285f4;
+            cursor: pointer;
+        }
+        .btn {
+            background: #f1f5f9;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: #e2e8f0;
+        }
+        .btn-primary {
             background: #3b82f6;
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 12px;
         }
-        .chip {
-            padding: 10px 18px;
-            border-radius: 20px;
-            border: 1px solid #dadce0;
-            background-color: #f1f3f4;
-            cursor: pointer;
-            font-size: 14px;
-            color: #3c4043;
-            transition: all 0.2s;
-            flex-grow: 0;
+        .btn-primary:hover {
+            background: #2563eb;
         }
-        .chip:hover {
-            background-color: #e8f0fe;
-            border-color: #1a73e8;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+        .layer-section {
+            display: none;
         }
-        .gemini-badge {
-            display: inline-block;
-            background-color: #34a853;
-            color: white;
-            font-size: 12px;
-            padding: 3px 10px;
-            border-radius: 15px;
-            margin-left: 10px;
-            font-weight: bold;
-            letter-spacing: 0.5px;
+        .result-block {
+            padding: 24px;
+            border-left: 4px solid;
+            margin-bottom: 20px;
+            border-radius: 8px;
         }
-        .layer-indicator {
-            display: inline-block;
-            padding: 4px 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
+        .learning-block { border-color: #ff0000; }
+        .scholar-block { border-color: #4285f4; }
+        .wellness-block { border-color: #0f9d58; }
+        .building-block { border-color: #fbbc05; }
+        .community-block { border-color: #34a853; }
+        .shopping-block { border-color: #ea4335; }
         .journey-path {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin: 20px 0;
         }
         .journey-step {
-            padding: 6px 12px;
-            background: #f1f5f9;
-            border-radius: 16px;
-            font-size: 14px;
-            color: #475569;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            color: #334155;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .journey-arrow {
             color: #94a3b8;
-            font-size: 12px;
+            font-size: 18px;
+        }
+        .query-display {
+            background: #e8f4ff;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 16px;
+            word-break: break-all;
+            margin: 20px 0;
+            border-left: 4px solid #3b82f6;
         }
         .spinner {
             border: 3px solid #f3f3f3;
-            border-top: 3px solid #1a73e8;
+            border-top: 3px solid #3b82f6;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
@@ -189,767 +159,415 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div class="gx-container">
-            <div class="flex justify-between items-center py-4">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="gx-container py-4">
+            <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold">
-                        G<span class="text-white">∞</span>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center text-white font-bold text-lg">
+                        G∞
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-900">Gx - Explorer to Developer</h1>
-                        <p class="text-sm text-gray-500">Collect. Explore. Analyze. Develop.</p>
+                        <h1 class="text-xl font-bold text-gray-900">Gx Premium</h1>
+                        <p class="text-sm text-gray-500">Healing • Learning • Building • Connecting</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button onclick="showAboutModal()" class="text-sm text-gray-600 hover:text-gray-900">
-                        What makes Gx unique?
+                    <button class="text-sm text-gray-600 hover:text-gray-900">
+                        What is Gx?
                     </button>
-                    <button class="px-4 py-2 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">
-                        Sign In
+                    <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg">
+                        Premium Access
                     </button>
                 </div>
             </div>
         </div>
     </header>
+
     <main class="py-8">
         <div class="gx-container">
-            <!-- Initial Search Interface -->
-            <div id="initial-search" class="card p-8 mb-8 text-center">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4">What do you want to explore today?</h1>
-                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Gx uses AI-powered semantic understanding to guide you from curious explorer to skilled developer. Powered by our 2000+ term healing-centered knowledge base.</p>
-                <div class="max-w-2xl mx-auto mb-8">
-                    <div class="flex gap-3">
-                        <div class="flex-1 relative">
-                            <input
-                                type="text"
-                                id="initial-input"
-                                placeholder="E.g., 'learn meditation with plants', 'research AI ethics', 'build trauma-informed app'..."
-                                class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            >
-                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-microphone"></i>
-                            </button>
-                        </div>
-                        <button id="initial-search-btn" class="px-6 py-3 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 flex items-center">
-                            <span>Start Exploring</span>
-                            <span class="ml-2">→</span>
-                        </button>
+            <!-- Initial Search -->
+            <div id="initial-search" class="card p-8 text-center">
+                <div class="logo">
+                    <h1>Gx</h1>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">What would you like to explore today?</h2>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                    A healing-centered search that guides you from curiosity to mastery — with wisdom, not just links.
+                </p>
+                
+                <div class="search-box">
+                    <div class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="search-input" placeholder="e.g., learn meditation with plants, build trauma-informed app">
+                    <div class="mic-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3z"/>
+                            <path d="M11 18.92h2V22h-2z"/>
+                            <path d="M7 12H5c0 2.21 1.79 4 4 4h4c2.21 0 4-1.79 4-4h-2c0 1.1-.9 2-2 2H9c-1.1 0-2-.9-2-2z"/>
+                        </svg>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Learn web development">
-                        <div class="text-blue-600 mb-2">💻</div>
-                        <h3 class="font-medium text-gray-900">Learn web development</h3>
-                        <p class="text-sm text-gray-500 mt-1">Get dynamic learning path</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Research mental health">
-                        <div class="text-purple-600 mb-2">🧠</div>
-                        <h3 class="font-medium text-gray-900">Research mental health</h3>
-                        <p class="text-sm text-gray-500 mt-1">Healing-centered resources</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Build with plants">
-                        <div class="text-green-600 mb-2">🌱</div>
-                        <h3 class="font-medium text-gray-900">Build with plants</h3>
-                        <p class="text-sm text-gray-500 mt-1">Nature-inspired creation</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Google Scholar citations">
-                        <div class="text-blue-800 mb-2">📚</div>
-                        <h3 class="font-medium text-gray-900">Google Scholar citations</h3>
-                        <p class="text-sm text-gray-500 mt-1">Academic research path</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Crisp content learning">
-                        <div class="text-orange-600 mb-2">⚡</div>
-                        <h3 class="font-medium text-gray-900">Crisp content learning</h3>
-                        <p class="text-sm text-gray-500 mt-1">Bite-sized knowledge</p>
-                    </button>
-                    <button class="example-query p-4 bg-white border border-gray-300 rounded hover:border-blue-500 hover:bg-blue-50 text-left" data-query="Alternative solutions">
-                        <div class="text-indigo-600 mb-2">🔄</div>
-                        <h3 class="font-medium text-gray-900">Alternative solutions</h3>
-                        <p class="text-sm text-gray-500 mt-1">Underrated approaches</p>
+                
+                <div class="flex justify-center gap-4 mt-6">
+                    <button id="search-btn" class="btn btn-primary px-8 py-3">
+                        Start Gx Journey →
                     </button>
                 </div>
             </div>
-            <!-- Dynamic Layer Interface -->
-            <div id="layer-interface" class="hidden">
-                <div class="card p-6 mb-8">
-                    <!-- Progress & Journey -->
-                    <div class="mb-4">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <span class="text-sm font-medium text-gray-700">Layer <span id="layer-num">1</span> of 4</span>
-                                <span class="text-sm text-gray-500 ml-4">Refined: <span id="word-total">0</span> words</span>
-                            </div>
-                            <div class="text-sm text-gray-500">
-                                Efficiency: <span id="efficiency-score" class="font-medium text-green-600">85%</span>
-                            </div>
-                        </div>
-                        <div class="progress-bar">
-                            <div id="progress-bar" class="progress-fill" style="width: 25%"></div>
-                        </div>
-                    </div>
-                    <!-- Journey Path Display -->
+
+            <!-- Layer Interface -->
+            <div id="layer-interface" class="layer-section">
+                <div class="card p-6">
                     <div class="journey-path" id="journey-path">
-                        <span class="text-sm text-gray-500">Your Journey:</span>
+                        <span class="text-gray-500">Your Journey:</span>
                     </div>
-                    <!-- Current Layer Info -->
-                    <div class="mb-4">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                            <span id="layer-title">Analyzing your query...</span>
-                            <span class="layer-indicator" id="layer-number">Layer 1</span>
-                            <span class="gemini-badge">AI Powered ✨</span>
-                        </h2>
-                        <p class="text-gray-600" id="layer-description">Please wait while we generate intelligent options for you...</p>
+                    
+                    <div class="mb-6">
+                        <h2 class="text-xl font-bold text-gray-900" id="layer-title">Analyzing your query...</h2>
+                        <p class="text-gray-600 mt-2" id="layer-description">Please wait while we generate intelligent options for you...</p>
                     </div>
-                    <!-- Dynamic Options Container -->
-                    <div id="options-container" class="mb-6">
-                        <div class="text-center py-8">
-                            <div class="spinner"></div>
-                            <p class="text-gray-600 mt-4">Generating intelligent layers from our semantic database...</p>
-                        </div>
+                    
+                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        <!-- Options will be populated here -->
                     </div>
-                    <!-- Action Buttons -->
+                    
                     <div class="flex justify-between items-center">
-                        <button onclick="goBack()" id="back-btn" class="px-4 py-2 border border-gray-300 rounded text-gray-600 hover:bg-gray-50 hidden">
+                        <button id="back-btn" class="btn hidden">
                             ← Back
                         </button>
                         <div class="flex gap-3">
-                            <button onclick="resetSearch()" class="px-4 py-2 border border-gray-300 rounded text-blue-600 hover:bg-gray-50">
-                                New Search
+                            <button id="skip-btn" class="btn">
+                                Skip to Results
                             </button>
-                            <button onclick="executeSearch()" id="search-btn" class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 hidden">
-                                Search Now
+                            <button id="next-btn" class="btn btn-primary hidden">
+                                Continue →
                             </button>
                         </div>
-                    </div>
-                </div>
-                <!-- Query Preview -->
-                <div id="query-preview" class="card p-4 mb-8 hidden">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <span class="text-sm text-gray-600">Perfect Query:</span>
-                            <p class="text-lg font-semibold text-blue-600 mt-1" id="final-query-display"></p>
-                        </div>
-                        <button onclick="executeSearch()" class="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">
-                            Search on Google →
-                        </button>
                     </div>
                 </div>
             </div>
-            <!-- Results Section -->
-            <div id="results-section" class="hidden fade-in">
-                <div id="loading" class="text-center py-12 hidden">
-                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                    <p class="text-gray-600 mt-4">Executing Gx Search across Google's ecosystem...</p>
-                </div>
-                <div id="results-container" class="hidden">
-                    <!-- Results will be dynamically populated -->
+
+            <!-- Results Interface -->
+            <div id="results-interface" class="layer-section">
+                <div class="card p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">Gx Premium Results</h2>
+                            <p class="text-gray-600">Your refined search across Google's ecosystem</p>
+                        </div>
+                        <button id="new-search-btn" class="btn">
+                            New Search
+                        </button>
+                    </div>
+                    
+                    <div class="query-display" id="final-query-display"></div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Learning Block -->
+                        <div class="result-block learning-block">
+                            <h3 class="text-lg font-bold mb-3">▶️ Learning & Tutorials</h3>
+                            <div id="learning-results"></div>
+                        </div>
+                        
+                        <!-- Research Block -->
+                        <div class="result-block scholar-block">
+                            <h3 class="text-lg font-bold mb-3">📚 Research & Scholar</h3>
+                            <div id="scholar-results"></div>
+                        </div>
+                        
+                        <!-- Wellness Block -->
+                        <div class="result-block wellness-block">
+                            <h3 class="text-lg font-bold mb-3">🧘 Wellness & Healing</h3>
+                            <div id="wellness-results"></div>
+                        </div>
+                        
+                        <!-- Building Block -->
+                        <div class="result-block building-block">
+                            <h3 class="text-lg font-bold mb-3">🛠️ Building & Creating</h3>
+                            <div id="building-results"></div>
+                        </div>
+                        
+                        <!-- Community Block -->
+                        <div class="result-block community-block">
+                            <h3 class="text-lg font-bold mb-3">👥 Community & Support</h3>
+                            <div id="community-results"></div>
+                        </div>
+                        
+                        <!-- Shopping Block -->
+                        <div class="result-block shopping-block">
+                            <h3 class="text-lg font-bold mb-3">🛒 Tools & Resources</h3>
+                            <div id="shopping-results"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 mt-12">
-        <div class="gx-container">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <div class="flex items-center space-x-2">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold">
-                            G<span class="text-white">∞</span>
-                        </div>
-                        <span class="font-semibold">Gx - Explorer to Developer</span>
-                    </div>
-                    <p class="text-gray-400 text-sm mt-2">Powered by 2000+ semantic terms database</p>
-                    <p class="text-gray-400 text-sm mt-1">Contact: krishna.bh.earth@gmail.com</p>
-                </div>
-                <div class="flex gap-4">
-                    <button onclick="showAboutModal()" class="text-gray-400 hover:text-white text-sm">
-                        About Gx
-                    </button>
-                    <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="text-gray-400 hover:text-white text-sm">
-                        GitHub
-                    </a>
-                    <button onclick="showContributionModal()" class="text-gray-400 hover:text-white text-sm">
-                        Contribute
-                    </button>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- About Modal -->
-    <div id="about-modal" class="modal">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-900">What Makes Gx Unique?</h2>
-                <button onclick="closeModal('about-modal')" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Healing-Centered Semantic Search</h3>
-                    <p class="text-gray-700 mb-2"><strong>Earth's first Psychological support, Healing and human development search</strong> powered by our 2000+ term semantic database with vectors for precise matching.</p>
-                    <p class="text-gray-700">Gx addresses information overload by providing guided journeys from exploration to skill development using AI-powered semantic understanding.</p>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Semantic Vector Database</h3>
-                    <p class="text-gray-700">Our <code>deepseek_json_20251016_d2343b.json</code> contains 2000+ curated terms with semantic vectors, domains, filters, and layer suggestions for precise matching with user intent.</p>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Google Ecosystem Integration</h3>
-                    <p class="text-gray-700">Seamless integration with Google Search, YouTube, Scholar, Maps, and Shopping with intelligent query construction based on semantic understanding.</p>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Server Efficiency</h3>
-                    <p class="text-gray-700">One Gx search replaces 5-10 traditional searches, reducing Google's server load while providing better user experience through semantic refinement.</p>
-                </div>
-                <div class="pt-4 border-t border-gray-200">
-                    <p class="text-gray-600 text-sm">We invite Googlers to validate and improve this model. Contact: krishna.bh.earth@gmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Contribution Modal -->
-    <div id="contribution-modal" class="modal">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-900">Contribute to Gx</h2>
-                <button onclick="closeModal('contribution-modal')" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">GitHub Repository Structure</h3>
-                    <ul class="text-gray-700 list-disc pl-5 space-y-1">
-                        <li><code>index.html</code> - Main search interface</li>
-                        <li><code>deepseek_json_20251016_d2343b.json</code> - 2000+ semantic vector database</li>
-                        <li><code>keywords-index.json</code> - Optimized for fast lookup</li>
-                        <li><code>assets/</code> - CSS, JS, and images</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">How to Contribute</h3>
-                    <ol class="text-gray-700 list-decimal pl-5 space-y-1">
-                        <li>Fork the repository</li>
-                        <li>Add new semantic terms to the JSON database</li>
-                        <li>Test with the index.html interface</li>
-                        <li>Submit a pull request</li>
-                    </ol>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-900 mb-2">Semantic Database Format</h3>
-                    <p class="text-gray-700 text-sm bg-gray-100 p-3 rounded">
-                        Each term includes: <code>domain</code>, <code>vector</code>, <code>filters</code>, <code>layer1/2/3</code> suggestions for intelligent layer generation.
-                    </p>
-                </div>
-                <div class="pt-4 border-t border-gray-200">
-                    <p class="text-gray-600 text-sm">Let's build the future of healing-centered search together. Contact: krishna.bh.earth@gmail.com</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <script>
         // ========================================
-        // SEMANTIC DATABASE MANAGEMENT
+        // EMBEDDED SEMANTIC DATABASE (from your file)
         // ========================================
-        let semanticDatabase = null;
-        let keywordsIndex = null;
+        const semanticDB = {
+            "learn": { "domain": "LEARNING", "filters": ["beginner", "tutorial", "free course"] },
+            "research": { "domain": "SCHOLAR", "filters": ["citations", "peer-reviewed", "DOI"] },
+            "meditation": { "domain": "WELLNESS", "filters": ["guided", "with plants", "breath-focused"] },
+            "build": { "domain": "BUILDING", "filters": ["from scratch", "template", "open source"] },
+            "plants": { "domain": "WELLNESS", "filters": ["indoor", "medicinal", "air-purifying"] },
+            "crisp": { "domain": "LEARNING", "filters": ["concise", "5-minute", "no fluff"] },
+            "alternative": { "domain": "GENERAL", "filters": ["underrated", "hidden gem", "forgotten wisdom"] },
+            "google scholar": { "domain": "SCHOLAR", "filters": ["citations", "recent papers", "meta-analysis"] },
+            "ADHD-friendly": { "domain": "WELLNESS", "filters": ["chunked", "visual", "low barrier"] },
+            "trauma-informed": { "domain": "WELLNESS", "filters": ["safe space", "choice-based", "empowerment"] }
+            // Add more terms from your 2150-term database
+        };
 
-        async function loadSemanticDatabase() {
-            try {
-                // Load main semantic database
-           
-                const dbResponse = await fetch('deepseek_json_20251016_d2343b.json');
-                const dbData = await dbResponse.json();
-                semanticDatabase = dbData.gx_semantic_database.semantic_vectors;
-                
-                // Load keywords index for fast lookup
-                const indexResponse = await fetch('keywords-index.json');
-                keywordsIndex = await indexResponse.json();
-                
-                console.log('Semantic database loaded successfully');
-                return true;
-            } catch (error) {
-                console.error('Error loading semantic database:', error);
-                // Fallback to basic layer generation if database fails to load
-                return false;
-            }
-        }
-
-        // Smart keyword matching with semantic database
-        function findSemanticMatches(userInput) {
-            if (!semanticDatabase) {
-                return null;
-            }
-            
-            const keywords = userInput.toLowerCase().split(/\s+/).filter(word => word.length > 2);
-            const matches = [];
-            const matchedDomains = new Set();
-            
-            keywords.forEach(keyword => {
-                // Direct match
-                if (semanticDatabase[keyword]) {
-                    matches.push({
-                        keyword: keyword,
-                        data: semanticDatabase[keyword],
-                        score: 1.0
-                    });
-                    matchedDomains.add(semanticDatabase[keyword].domain);
-                }
-                // Fuzzy match from index
-                if (keywordsIndex && keywordsIndex[keyword]) {
-                    keywordsIndex[keyword].forEach(matchedKeyword => {
-                        if (semanticDatabase[matchedKeyword] && !matches.find(m => m.keyword === matchedKeyword)) {
-                            matches.push({
-                                keyword: matchedKeyword,
-                                data: semanticDatabase[matchedKeyword],
-                                score: 0.8
-                            });
-                            matchedDomains.add(semanticDatabase[matchedKeyword].domain);
-                        }
-                    });
-                }
-            });
-            
-            return {
-                matches: matches,
-                domains: Array.from(matchedDomains),
-                primaryDomain: matches.length > 0 ? matches[0].data.domain : 'GENERAL'
-            };
-        }
-
-        // ========================================
-        // CORE GX STATE MANAGEMENT
-        // ========================================
+        // State management
         const GxState = {
-            initialQuery: '',
-            journey: [],
             currentLayer: 0,
             maxLayers: 4,
+            journey: [],
             queryComponents: [],
-            intent: null,
-            history: [],
-            semanticData: null
+            selectedOptions: [],
+            finalQuery: ''
         };
 
-        // ========================================
-        // ENHANCED AI LAYER GENERATION ENGINE
-        // ========================================
-        const LayerGenerator = {
-            // Generate layers using semantic database
-            generateSemanticLayer(layerNum, semanticData, previousChoices, query) {
-                if (!semanticData || !semanticData.matches.length) {
-                    return this.generateFallbackLayer(layerNum, query);
-                }
-                
-                const primaryMatch = semanticData.matches[0].data;
-                
-                if (layerNum === 1) {
-                    return {
-                        title: primaryMatch.layer1_title || "Refine your exploration",
-                        description: primaryMatch.layer1_description || "Help us understand your needs better",
-                        options: (primaryMatch.layer1_options || []).map(option => ({
-                            text: option.text || option,
-                            value: option.value || option,
-                            icon: option.icon || "🔍"
-                        }))
-                    };
-                }
-                
-                if (layerNum === 2) {
-                    return {
-                        title: primaryMatch.layer2_title || "Choose your approach",
-                        description: primaryMatch.layer2_description || "Select how you'd like to proceed",
-                        options: (primaryMatch.layer2_options || []).map(option => ({
-                            text: option.text || option,
-                            value: option.value || option,
-                            icon: option.icon || "🎯"
-                        }))
-                    };
-                }
-                
-                if (layerNum === 3) {
-                    return {
-                        title: primaryMatch.layer3_title || "Set your preferences",
-                        description: primaryMatch.layer3_description || "Fine-tune your search parameters",
-                        options: (primaryMatch.layer3_options || []).map(option => ({
-                            text: option.text || option,
-                            value: option.value || option,
-                            icon: option.icon || "⚙️"
-                        }))
-                    };
-                }
-                
-                return null;
+        // Layer configuration
+        const layerConfig = {
+            1: {
+                title: "What would you like to explore?",
+                description: "Choose your primary focus area",
+                options: [
+                    { text: "Learning & Skills", value: "learn", domain: "LEARNING" },
+                    { text: "Research & Knowledge", value: "research", domain: "SCHOLAR" },
+                    { text: "Wellness & Healing", value: "meditation", domain: "WELLNESS" },
+                    { text: "Building & Creating", value: "build", domain: "BUILDING" }
+                ]
             },
-            
-            // Fallback layer generation (from original logic)
-            generateFallbackLayer(layerNum, query) {
-                const lowerQuery = query.toLowerCase();
-                let intent = 'GENERAL';
-                
-                if (lowerQuery.match(/learn|study|understand|tutorial|course|education/)) {
-                    intent = 'LEARNING';
-                } else if (lowerQuery.match(/build|create|make|develop|start|launch/)) {
-                    intent = 'BUILDING';
-                } else if (lowerQuery.match(/health|fitness|mental|wellness|meditation|therapy/)) {
-                    intent = 'WELLNESS';
-                } else if (lowerQuery.match(/research|scholar|citation|academic|study/)) {
-                    intent = 'SCHOLAR';
-                }
-                
-                const generators = {
-                    'LEARNING': this.generateLearningPath,
-                    'BUILDING': this.generateBuildingPath,
-                    'WELLNESS': this.generateWellnessPath,
-                    'SCHOLAR': this.generateScholarPath,
-                    'GENERAL': this.generateGeneralPath
-                };
-                
-                const generator = generators[intent] || this.generateGeneralPath;
-                return generator.call(this, layerNum, [], query);
+            2: {
+                title: "How would you like to approach this?",
+                description: "Select your healing and human development focus",
+                options: [
+                    { text: "Gentle & Trauma-Informed", value: "trauma-informed", domain: "WELLNESS" },
+                    { text: "ADHD-Friendly & Chunked", value: "ADHD-friendly", domain: "WELLNESS" },
+                    { text: "Crisp & Concise", value: "crisp", domain: "LEARNING" },
+                    { text: "Alternative & Underrated", value: "alternative", domain: "GENERAL" }
+                ]
             },
-            
-            // Learning Path Layers
-            generateLearningPath(layerNum, choices, query) {
-                if (layerNum === 1) {
-                    return {
-                        title: "What's your current level?",
-                        description: "This helps us find the right resources for you",
-                        options: [
-                            { text: "Complete Beginner", value: "beginner tutorial", icon: "🌱" },
-                            { text: "Some Experience", value: "intermediate guide", icon: "📚" },
-                            { text: "Advanced", value: "advanced techniques", icon: "🎓" },
-                            { text: "Expert Level", value: "expert mastery", icon: "⚡" }
-                        ]
-                    };
-                }
-                if (layerNum === 2) {
-                    return {
-                        title: "What's your learning style?",
-                        description: "We'll prioritize content that matches how you learn best",
-                        options: [
-                            { text: "Video Tutorials", value: "video tutorial", icon: "🎥", intent: "VIDEO" },
-                            { text: "Written Guides", value: "documentation guide", icon: "📖" },
-                            { text: "Interactive Courses", value: "interactive course", icon: "💻" },
-                            { text: "Practice Projects", value: "hands-on projects", icon: "🛠️" }
-                        ]
-                    };
-                }
-                if (layerNum === 3) {
-                    return {
-                        title: "Time commitment?",
-                        description: "How much time can you dedicate?",
-                        options: [
-                            { text: "Quick Start (< 1 hour)", value: "quick start under 1 hour", icon: "⚡" },
-                            { text: "Weekend Project", value: "weekend intensive", icon: "📅" },
-                            { text: "Long-term Learning", value: "comprehensive course", icon: "🎯" },
-                            { text: "Flexible Pace", value: "self-paced learning", icon: "🔄" }
-                        ]
-                    };
-                }
-                return null;
+            3: {
+                title: "What skill development path?",
+                description: "Choose your practical learning approach",
+                options: [
+                    { text: "Step-by-Step Tutorial", value: "tutorial", domain: "LEARNING" },
+                    { text: "Project-Based Learning", value: "project", domain: "LEARNING" },
+                    { text: "Community Workshop", value: "workshop", domain: "COMMUNITY" },
+                    { text: "Self-Paced Course", value: "course", domain: "LEARNING" }
+                ]
             },
-            
-            // Building Path Layers
-            generateBuildingPath(layerNum, choices, query) {
-                if (layerNum === 1) {
-                    return {
-                        title: "What stage are you at?",
-                        description: "Let's understand where you are in your journey",
-                        options: [
-                            { text: "Just an Idea", value: "getting started guide", icon: "💡" },
-                            { text: "Planning Phase", value: "planning resources", icon: "📋" },
-                            { text: "Ready to Build", value: "development tutorial", icon: "🔨" },
-                            { text: "Already Building", value: "advanced tips", icon: "🚀" }
-                        ]
-                    };
-                }
-                if (layerNum === 2) {
-                    return {
-                        title: "What resources do you need?",
-                        description: "Select the type of help you're looking for",
-                        options: [
-                            { text: "Technical Tutorials", value: "technical implementation", icon: "💻" },
-                            { text: "Design Inspiration", value: "design examples", icon: "🎨" },
-                            { text: "Best Practices", value: "best practices guide", icon: "⭐" },
-                            { text: "Tools & Templates", value: "tools templates", icon: "🧰" }
-                        ]
-                    };
-                }
-                if (layerNum === 3) {
-                    return {
-                        title: "Budget considerations?",
-                        description: "What's your budget for this project?",
-                        options: [
-                            { text: "Free/Open Source", value: "free open source", icon: "💚" },
-                            { text: "Budget-Friendly", value: "budget friendly under 50", icon: "💵" },
-                            { text: "Professional Tools", value: "professional paid tools", icon: "💼" },
-                            { text: "No Budget Limit", value: "premium solutions", icon: "💎" }
-                        ]
-                    };
-                }
-                return null;
-            },
-            
-            // Wellness Path Layers
-            generateWellnessPath(layerNum, choices, query) {
-                if (layerNum === 1) {
-                    return {
-                        title: "What area do you want to focus on?",
-                        description: "Let's personalize your wellness journey",
-                        options: [
-                            { text: "Mental Health", value: "mental health support", icon: "🧠" },
-                            { text: "Physical Fitness", value: "fitness workout", icon: "💪" },
-                            { text: "Nutrition", value: "nutrition diet guide", icon: "🥗" },
-                            { text: "Sleep & Recovery", value: "sleep improvement", icon: "😴" },
-                            { text: "Stress Management", value: "stress relief techniques", icon: "🧘" }
-                        ]
-                    };
-                }
-                if (layerNum === 2) {
-                    return {
-                        title: "Preferred approach?",
-                        description: "How do you want to work on this?",
-                        options: [
-                            { text: "Professional Guidance", value: "professional therapist counselor", icon: "👨‍⚕️" },
-                            { text: "Self-Guided Resources", value: "self-help resources", icon: "📚" },
-                            { text: "Community Support", value: "support groups community", icon: "👥" },
-                            { text: "Apps & Tools", value: "wellness apps tools", icon: "📱" }
-                        ]
-                    };
-                }
-                if (layerNum === 3) {
-                    return {
-                        title: "Location preference?",
-                        description: "Where would you like to access these resources?",
-                        options: [
-                            { text: "Near Me", value: "near me local", icon: "📍", intent: "MAPS" },
-                            { text: "Online Only", value: "online virtual", icon: "💻" },
-                            { text: "Both", value: "online or in-person", icon: "🔄" }
-                        ]
-                    };
-                }
-                return null;
-            },
-            
-            // Scholar Path Layers
-            generateScholarPath(layerNum, choices, query) {
-                if (layerNum === 1) {
-                    return {
-                        title: "What type of research?",
-                        description: "Help us find the right academic resources",
-                        options: [
-                            { text: "Literature Review", value: "literature review", icon: "📚" },
-                            { text: "Methodology", value: "research methodology", icon: "🔬" },
-                            { text: "Data Analysis", value: "statistical analysis", icon: "📊" },
-                            { text: "Citation Analysis", value: "citation metrics", icon: "📈" }
-                        ]
-                    };
-                }
-                if (layerNum === 2) {
-                    return {
-                        title: "Academic level?",
-                        description: "This helps us find appropriate resources",
-                        options: [
-                            { text: "Undergraduate", value: "undergraduate level", icon: "🎓" },
-                            { text: "Graduate", value: "graduate level", icon: "👨‍🎓" },
-                            { text: "PhD/Research", value: "phd research", icon: "🔬" },
-                            { text: "Professional", value: "professional research", icon: "💼" }
-                        ]
-                    };
-                }
-                if (layerNum === 3) {
-                    return {
-                        title: "Access preferences?",
-                        description: "How do you want to access the research?",
-                        options: [
-                            { text: "Open Access Only", value: "open access", icon: "🔓" },
-                            { text: "Full Text Required", value: "full text", icon: "📄" },
-                            { text: "PDF Format", value: "filetype:pdf", icon: "📁" },
-                            { text: "Recent Papers", value: "after:2020", icon: "📅" }
-                        ]
-                    };
-                }
-                return null;
-            },
-            
-            // General Path (fallback)
-            generateGeneralPath(layerNum, choices, query) {
-                if (layerNum === 1) {
-                    return {
-                        title: "What type of information do you need?",
-                        description: "Let's refine your search",
-                        options: [
-                            { text: "Latest News & Updates", value: "latest news 2024", icon: "📰", intent: "NEWS" },
-                            { text: "How-to Guides", value: "complete guide tutorial", icon: "📖" },
-                            { text: "Research & Data", value: "research study", icon: "📊", intent: "SCHOLAR" },
-                            { text: "Videos & Tutorials", value: "video tutorial", icon: "🎥", intent: "VIDEO" },
-                            { text: "Local Services", value: "near me", icon: "📍", intent: "MAPS" }
-                        ]
-                    };
-                }
-                if (layerNum === 2) {
-                    return {
-                        title: "How recent should the information be?",
-                        description: "Time relevance matters",
-                        options: [
-                            { text: "Past 24 Hours", value: "past 24 hours", icon: "⚡" },
-                            { text: "Past Week", value: "past week", icon: "📅" },
-                            { text: "Past Month", value: "past month", icon: "📆" },
-                            { text: "Any Time", value: "", icon: "🕐" }
-                        ]
-                    };
-                }
-                if (layerNum === 3) {
-                    return {
-                        title: "Source preference?",
-                        description: "What type of sources do you trust?",
-                        options: [
-                            { text: "Official/Government", value: "site:.gov OR site:.edu", icon: "🏛️" },
-                            { text: "News Outlets", value: "news", icon: "📰", intent: "NEWS" },
-                            { text: "Community Forums", value: "reddit OR forum discussion", icon: "💬" },
-                            { text: "All Sources", value: "", icon: "🌐" }
-                        ]
-                    };
-                }
-                return null;
+            4: {
+                title: "How would you like to connect?",
+                description: "Find your community and support",
+                options: [
+                    { text: "Local Meetups", value: "meetup", domain: "COMMUNITY" },
+                    { text: "Online Mentors", value: "mentor", domain: "COMMUNITY" },
+                    { text: "Study Groups", value: "study-group", domain: "COMMUNITY" },
+                    { text: "Professional Networks", value: "network", domain: "COMMUNITY" }
+                ]
             }
         };
 
-        // ========================================
-        // UI CONTROLLER
-        // ========================================
-        function startGxJourney(query) {
-            GxState.initialQuery = query;
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('search-btn').addEventListener('click', startGxJourney);
+            document.getElementById('search-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') startGxJourney();
+            });
+            document.getElementById('back-btn').addEventListener('click', goBack);
+            document.getElementById('next-btn').addEventListener('click', nextLayer);
+            document.getElementById('skip-btn').addEventListener('click', skipToResults);
+            document.getElementById('new-search-btn').addEventListener('click', resetSearch);
+        });
+
+        function startGxJourney() {
+            const query = document.getElementById('search-input').value.trim();
+            if (!query) return;
+            
             GxState.journey = [query];
             GxState.queryComponents = [query];
             GxState.currentLayer = 0;
-            GxState.history = [];
+            GxState.selectedOptions = [];
             
-            // Find semantic matches
-            GxState.semanticData = findSemanticMatches(query);
-            GxState.intent = GxState.semanticData ? GxState.semanticData.primaryDomain : LayerGenerator.analyzeIntent(query);
+            document.getElementById('initial-search').style.display = 'none';
+            document.getElementById('layer-interface').style.display = 'block';
             
-            // Hide initial search, show layer interface
-            document.getElementById('initial-search').classList.add('hidden');
-            document.getElementById('layer-interface').classList.remove('hidden');
-            
-            // Generate first layer
-            setTimeout(() => {
-                generateNextLayer();
-            }, 800);
+            nextLayer();
         }
 
-        function generateNextLayer() {
+        function nextLayer() {
             GxState.currentLayer++;
             
-            // Check if we've reached max layers or should finalize
             if (GxState.currentLayer > GxState.maxLayers) {
-                finalizeQuery();
+                generateFinalQuery();
+                showResults();
                 return;
             }
             
-            const layerData = LayerGenerator.generateSemanticLayer(
-                GxState.currentLayer,
-                GxState.semanticData,
-                GxState.journey,
-                GxState.initialQuery
-            );
-            
-            if (!layerData) {
-                finalizeQuery();
-                return;
-            }
-            
-            renderLayer(layerData);
-            updateProgress();
+            const layer = layerConfig[GxState.currentLayer];
+            renderLayer(layer);
         }
 
-        function renderLayer(layerData) {
-            // Update layer info
-            document.getElementById('layer-number').textContent = `Layer ${GxState.currentLayer}`;
-            document.getElementById('layer-title').textContent = layerData.title;
-            document.getElementById('layer-description').textContent = layerData.description;
+        function renderLayer(layer) {
+            document.getElementById('layer-title').textContent = layer.title;
+            document.getElementById('layer-description').textContent = layer.description;
             
-            // Update journey path
-            updateJourneyPath();
-            
-            // Render options
             const container = document.getElementById('options-container');
             container.innerHTML = '';
-            const optionsGrid = document.createElement('div');
-            optionsGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-3';
             
-            layerData.options.forEach(option => {
-                const optionCard = document.createElement('button');
-                optionCard.className = 'chip text-left p-4 flex items-start gap-3 hover:scale-105 transition-transform';
-                optionCard.innerHTML = `
-                    <span class="text-2xl">${option.icon}</span>
-                    <div class="flex-1">
-                        <div class="font-medium text-gray-900">${option.text}</div>
-                    </div>
-                `;
-                optionCard.onclick = () => selectOption(option, layerData);
-                optionsGrid.appendChild(optionCard);
+            layer.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'btn p-4 text-left hover:bg-blue-50 border border-gray-200';
+                button.innerHTML = `<div class="font-medium">${option.text}</div>`;
+                button.onclick = () => selectOption(option);
+                container.appendChild(button);
             });
             
-            container.appendChild(optionsGrid);
-            
-            // Show back button if not first layer
             document.getElementById('back-btn').classList.toggle('hidden', GxState.currentLayer === 1);
+            document.getElementById('next-btn').classList.add('hidden');
+            updateJourneyPath();
         }
 
-        function selectOption(option, layerData) {
-            // Save current state to history
-            GxState.history.push({
-                layer: GxState.currentLayer,
-                journey: [...GxState.journey],
-                queryComponents: [...GxState.queryComponents]
-            });
-            
-            // Update state
+        function selectOption(option) {
+            GxState.selectedOptions.push(option);
             GxState.journey.push(option.text);
-            if (option.value) {
-                GxState.queryComponents.push(option.value);
-            }
-            if (option.intent) {
-                GxState.intent = option.intent;
+            
+            // Add filters to query components
+            if (semanticDB[option.value]) {
+                GxState.queryComponents.push(...semanticDB[option.value].filters);
             }
             
-            // Show loading
-            const container = document.getElementById('options-container');
-            container.innerHTML = `
-                <div class="text-center py-8">
-                    <div class="spinner"></div>
-                    <p class="text-gray-600 mt-4">Generating next layer from semantic database...</p>
-                </div>
-            `;
-            
-            // Generate next layer
-            setTimeout(() => {
-                generateNextLayer();
-            }, 600);
+            document.getElementById('next-btn').classList.remove('hidden');
         }
 
         function goBack() {
-            if (GxState.history.length === 0) return;
-            const previousState = GxState.history.pop();
-            GxState.currentLayer = previousState.layer;
-            GxState.journey = previousState.journey;
-            GxState.queryComponents = previousState.queryComponents;
+            if (GxState.currentLayer <= 1) return;
             
-            const layerData = LayerGenerator.generateSemanticLayer(
-                GxState.currentLayer,
-                GxState.semanticData,
-                GxState.journey,
-                GxState.initialQuery
-            );
+            GxState.currentLayer--;
+            GxState.selectedOptions.pop();
+            GxState.journey.pop();
             
-            renderLayer(layerData);
-            updateProgress();
+            // Remove last filters (simplified)
+            GxState.queryComponents = GxState.queryComponents.slice(0, -3);
+            
+            const layer = layerConfig[GxState.currentLayer];
+            renderLayer(layer);
+        }
+
+        function skipToResults() {
+            GxState.currentLayer = GxState.maxLayers;
+            generateFinalQuery();
+            showResults();
+        }
+
+        function generateFinalQuery() {
+            // Build query with Google-specific filters
+            let query = GxState.queryComponents.join(' ');
+            
+            // Add domain-specific filters
+            const domains = GxState.selectedOptions.map(opt => opt.domain);
+            if (domains.includes('SCHOLAR')) {
+                query += ' site:scholar.google.com';
+            }
+            if (domains.includes('LEARNING')) {
+                query += ' tbm=vid';
+            }
+            if (domains.includes('WELLNESS')) {
+                query += ' non-judgmental gentle practice';
+            }
+            
+            GxState.finalQuery = query;
+        }
+
+        function showResults() {
+            document.getElementById('layer-interface').style.display = 'none';
+            document.getElementById('results-interface').style.display = 'block';
+            
+            document.getElementById('final-query-display').textContent = GxState.finalQuery;
+            
+            // Generate mock results for each block
+            displayResults();
+        }
+
+        function displayResults() {
+            const query = GxState.finalQuery;
+            
+            // Learning Results
+            document.getElementById('learning-results').innerHTML = `
+                <div class="mb-3">
+                    <a href="https://www.google.com/search?tbm=vid&q=${encodeURIComponent(query)}" target="_blank" class="text-blue-600 hover:underline">
+                        ${query} - Video Tutorials
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">Curated learning paths from YouTube, Coursera, and freeCodeCamp</div>
+            `;
+            
+            // Scholar Results
+            document.getElementById('scholar-results').innerHTML = `
+                <div class="mb-3">
+                    <a href="https://scholar.google.com/scholar?q=${encodeURIComponent(query)}" target="_blank" class="text-blue-600 hover:underline">
+                        Research papers on "${query}"
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">Academic papers, citations, and scholarly analysis</div>
+            `;
+            
+            // Wellness Results
+            document.getElementById('wellness-results').innerHTML = `
+                <div class="mb-3">
+                    <a href="https://www.google.com/search?q=${encodeURIComponent(query + ' mindfulness wellness')}" target="_blank" class="text-blue-600 hover:underline">
+                        Healing resources for ${query}
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">Trauma-informed, gentle, and supportive wellness content</div>
+            `;
+            
+            // Building Results
+            document.getElementById('building-results').innerHTML = `
+                <div class="mb-3">
+                    <a href="https://www.google.com/search?q=${encodeURIComponent(query + ' tutorial step by step')}" target="_blank" class="text-blue-600 hover:underline">
+                        Build ${query} - Complete Guide
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">Project templates, code examples, and building blocks</div>
+            `;
+            
+            // Community Results
+            document.getElementById('community-results').innerHTML = `
+                <div class="mb-3">
+                    <a href="https://www.google.com/search?q=${encodeURIComponent(query + ' community meetup group')}" target="_blank" class="text-blue-600 hover:underline">
+                        Find ${query} community
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">Local meetups, online forums, and mentorship opportunities</div>
+            `;
+            
+            // Shopping Results
+            document.getElementById('shopping-results').innerHTML = `
+                <div class="mb-3">
+                    <a href="https://www.google.com/search?tbm=shop&q=${encodeURIComponent(query)}" target="_blank" class="text-blue-600 hover:underline">
+                        Best tools for ${query}
+                    </a>
+                </div>
+                <div class="text-sm text-gray-600">Curated resources, templates, and learning materials</div>
+            `;
         }
 
         function updateJourneyPath() {
             const container = document.getElementById('journey-path');
-            container.innerHTML = '<span class="text-sm text-gray-500">Your Journey:</span>';
+            container.innerHTML = '<span class="text-gray-500">Your Journey:</span>';
+            
             GxState.journey.forEach((step, index) => {
                 if (index > 0) {
                     const arrow = document.createElement('span');
@@ -957,505 +575,22 @@
                     arrow.textContent = '→';
                     container.appendChild(arrow);
                 }
-                const stepElement = document.createElement('span');
-                stepElement.className = 'journey-step';
-                stepElement.textContent = step;
-                container.appendChild(stepElement);
+                const stepEl = document.createElement('span');
+                stepEl.className = 'journey-step';
+                stepEl.textContent = step;
+                container.appendChild(stepEl);
             });
-        }
-
-        function updateProgress() {
-            document.getElementById('layer-num').textContent = GxState.currentLayer;
-            const percent = (GxState.currentLayer / GxState.maxLayers) * 100;
-            document.getElementById('progress-bar').style.width = `${percent}%`;
-            document.getElementById('word-total').textContent = GxState.queryComponents.join(' ').split(/\s+/).length;
-            // Update efficiency score (improves with more refinement)
-            const efficiency = 85 + (GxState.currentLayer * 5);
-            document.getElementById('efficiency-score').textContent = `${efficiency}%`;
-        }
-
-        function finalizeQuery() {
-            const finalQuery = GxState.queryComponents.join(' ');
-            document.getElementById('query-preview').classList.remove('hidden');
-            document.getElementById('final-query-display').textContent = finalQuery;
-            document.getElementById('search-btn').classList.remove('hidden');
-            const container = document.getElementById('options-container');
-            container.innerHTML = `
-                <div class="text-center py-8">
-                    <div class="text-6xl mb-4">✨</div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Perfect Query Ready!</h3>
-                    <p class="text-gray-600">Your query has been optimized using our semantic database</p>
-                </div>
-            `;
-        }
-
-        function executeSearch() {
-            const finalQuery = GxState.queryComponents.join(' ');
-            // Show loading state
-            document.getElementById('layer-interface').classList.add('hidden');
-            document.getElementById('results-section').classList.remove('hidden');
-            document.getElementById('loading').classList.remove('hidden');
-            document.getElementById('results-container').classList.add('hidden');
-            // Simulate API call delay with real data fetching
-            setTimeout(() => {
-                fetchRealTimeResults(finalQuery);
-            }, 2000);
-        }
-
-        // Fetch real-time results
-        async function fetchRealTimeResults(query) {
-            try {
-                // Simulate fetching real data from various sources
-                const results = await simulateRealTimeFetch(query);
-                displayGxResults(query, results);
-            } catch (error) {
-                console.error('Error fetching real-time results:', error);
-                displayGxResults(query, getFallbackResults(query));
-            }
-        }
-
-        // Simulate real-time data fetching
-        async function simulateRealTimeFetch(query) {
-            // In a real implementation, this would make actual API calls
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        youtube: [
-                            {
-                                title: `Learn ${query} - Complete Tutorial`,
-                                channel: "freeCodeCamp",
-                                views: "4.2M",
-                                duration: "3h 45min",
-                                url: "#"
-                            }
-                        ],
-                        scholar: [
-                            {
-                                title: `Recent Advances in ${query}`,
-                                authors: "Smith et al.",
-                                citations: 42,
-                                year: 2024,
-                                url: "#"
-                            }
-                        ],
-                        meetups: [
-                            {
-                                title: `${query} Community Meetup`,
-                                location: "San Francisco, CA",
-                                date: "Next Saturday",
-                                attendees: 25,
-                                url: "#"
-                            }
-                        ],
-                        shopping: [
-                            {
-                                title: `Best Tools for ${query}`,
-                                price: "$49.99",
-                                rating: 4.8,
-                                reviews: 124,
-                                url: "#"
-                            }
-                        ],
-                        maps: [
-                            {
-                                title: `${query} Workshop`,
-                                location: "Google Campus",
-                                distance: "2.3 miles",
-                                rating: 4.9,
-                                url: "#"
-                            }
-                        ]
-                    });
-                }, 1000);
-            });
-        }
-
-        // Get fallback results if real-time fetch fails
-        function getFallbackResults(query) {
-            return {
-                youtube: [],
-                scholar: [],
-                meetups: [],
-                shopping: [],
-                maps: []
-            };
-        }
-
-        // Display Gx results with real data
-        function displayGxResults(query, realData) {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('results-container').classList.remove('hidden');
-            const container = document.getElementById('results-container');
-            container.innerHTML = `
-                <div class="card p-6 mb-6">
-                    <div class="flex items-start justify-between mb-4">
-                        <div>
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Gx Results: ${query}</h2>
-                            <p class="text-gray-600">Your refined search across Google's ecosystem</p>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-sm text-gray-500">Search Efficiency</div>
-                            <div class="text-2xl font-bold text-green-600">95%</div>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <button class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">All</button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Videos</button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Research</button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Events</button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Shopping</button>
-                        <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Locations</button>
-                    </div>
-                    ${renderLearningSection(realData.youtube)}
-                    ${renderResearchSection(realData.scholar)}
-                    ${renderEventsSection(realData.meetups)}
-                    ${renderShoppingSection(realData.shopping)}
-                    ${renderLocationsSection(realData.maps)}
-                    ${renderDataHub()}
-                    ${renderRoadmap()}
-                    <div class="mt-8 flex gap-3">
-                        <button onclick="resetSearch()" class="flex-1 px-4 py-3 border border-gray-300 rounded hover:bg-gray-50 font-medium">
-                            Start New Gx Search
-                        </button>
-                        <button onclick="refineMore()" class="flex-1 px-4 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium">
-                            Refine This Search
-                        </button>
-                    </div>
-                </div>
-                ${renderContributionSection()}
-            `;
-        }
-
-        // Render learning section
-        function renderLearningSection(youtubeData) {
-            return `
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">▶️ Learning (YouTube & Tutorials)</h3>
-                    ${youtubeData.length > 0 ? youtubeData.map(item => `
-                        <div class="result-card learning-card">
-                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
-                            <p class="text-sm text-gray-600 mb-2">${item.channel} | ${item.views} views | ${item.duration} | Free</p>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-red-600 text-white rounded text-sm font-medium hover:bg-red-700">Watch Now</button>
-                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Save</button>
-                            </div>
-                        </div>
-                    `).join('') : '<p class="text-gray-500">No video results found</p>'}
-                </div>
-            `;
-        }
-
-        // Render research section
-        function renderResearchSection(scholarData) {
-            return `
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📚 Research (Google Scholar)</h3>
-                    ${scholarData.length > 0 ? scholarData.map(item => `
-                        <div class="result-card scholar-card">
-                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
-                            <p class="text-sm text-gray-600 mb-2">${item.authors} | ${item.citations} citations | ${item.year}</p>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Read Paper</button>
-                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Cite</button>
-                            </div>
-                        </div>
-                    `).join('') : '<p class="text-gray-500">No research papers found</p>'}
-                </div>
-            `;
-        }
-
-        // Render events section
-        function renderEventsSection(meetupsData) {
-            return `
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📅 Events & Meetups</h3>
-                    ${meetupsData.length > 0 ? meetupsData.map(item => `
-                        <div class="result-card community-card">
-                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
-                            <p class="text-sm text-gray-600 mb-2">${item.location} | ${item.date} | ${item.attendees} attending</p>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-green-600 text-white rounded text-sm font-medium hover:bg-green-700">RSVP</button>
-                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Add to Calendar</button>
-                            </div>
-                        </div>
-                    `).join('') : '<p class="text-gray-500">No upcoming events found</p>'}
-                </div>
-            `;
-        }
-
-        // Render shopping section
-        function renderShoppingSection(shoppingData) {
-            return `
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🛒 Shopping & Tools</h3>
-                    ${shoppingData.length > 0 ? shoppingData.map(item => `
-                        <div class="result-card shopping-card">
-                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
-                            <p class="text-sm text-gray-600 mb-2">${item.price} | ⭐ ${item.rating} (${item.reviews} reviews)</p>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-orange-600 text-white rounded text-sm font-medium hover:bg-orange-700">View Deal</button>
-                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Compare</button>
-                            </div>
-                        </div>
-                    `).join('') : '<p class="text-gray-500">No shopping results found</p>'}
-                </div>
-            `;
-        }
-
-        // Render locations section
-        function renderLocationsSection(mapsData) {
-            return `
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📍 Nearby Locations (Google Maps)</h3>
-                    ${mapsData.length > 0 ? mapsData.map(item => `
-                        <div class="result-card tools-card">
-                            <h4 class="font-medium text-gray-900 mb-1">${item.title}</h4>
-                            <p class="text-sm text-gray-600 mb-2">${item.location} | ${item.distance} away | ⭐ ${item.rating}</p>
-                            <div class="flex gap-2">
-                                <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Get Directions</button>
-                                <button class="px-3 py-1 bg-white border border-gray-300 rounded text-sm font-medium hover:bg-gray-50">Save</button>
-                            </div>
-                        </div>
-                    `).join('') : '<p class="text-gray-500">No nearby locations found</p>'}
-                </div>
-            `;
-        }
-
-        // Render data hub
-        function renderDataHub() {
-            return `
-                <div class="mb-6 card p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Universal Data & Connection Hub</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-blue-600">2,150</div>
-                            <div class="text-sm text-gray-600">Semantic Terms</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-green-600">95%</div>
-                            <div class="text-sm text-gray-600">Match Accuracy</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-purple-600">47</div>
-                            <div class="text-sm text-gray-600">Google Services</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-orange-600">3B</div>
-                            <div class="text-sm text-gray-600">Daily Users</div>
-                        </div>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-medium text-gray-900 mb-3">Connected Platforms</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="platform-badge">Google</span>
-                                <span class="platform-badge">YouTube</span>
-                                <span class="platform-badge">Maps</span>
-                                <span class="platform-badge">Scholar</span>
-                                <span class="platform-badge">Drive</span>
-                                <span class="platform-badge">Meetup</span>
-                                <span class="platform-badge">GitHub</span>
-                                <span class="platform-badge">+40 more</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-900 mb-3">Semantic Database</h4>
-                            <div class="space-y-2">
-                                <div class="flex justify-between text-sm">
-                                    <span>Healing Terms</span>
-                                    <span class="font-medium">850+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span>Learning Terms</span>
-                                    <span class="font-medium">650+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span>Research Terms</span>
-                                    <span class="font-medium">420+</span>
-                                </div>
-                                <div class="flex justify-between text-sm">
-                                    <span>Nature & Symbolism</span>
-                                    <span class="font-medium">230+</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Render roadmap
-        function renderRoadmap() {
-            return `
-                <div class="mb-6 card p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">🗺️ Gx Development Roadmap</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3 flex-shrink-0">
-                                ✓
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">Phase 1: Core Search (Completed)</h4>
-                                <p class="text-sm text-gray-600">Layered search interface, basic Google integration</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3 flex-shrink-0">
-                                →
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">Phase 2: Semantic Database (Current)</h4>
-                                <p class="text-sm text-gray-600">2000+ term vector database with healing-centered terms</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
-                                •
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">Phase 3: Real-time Integration</h4>
-                                <p class="text-sm text-gray-600">Live data from YouTube, Maps, Scholar, Shopping APIs</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mr-3 flex-shrink-0">
-                                •
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-gray-900">Phase 4: Global Expansion</h4>
-                                <p class="text-sm text-gray-600">Multi-language support, China market adaptation</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Render contribution section
-        function renderContributionSection() {
-            return `
-                <div class="card p-6 mt-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-4">👨‍💻 Contribute to Our Semantic Database</h2>
-                    <p class="text-gray-700 mb-4">Our <code>deepseek_json_20251016_d2343b.json</code> contains 2000+ healing-centered semantic terms. Help us expand it to serve 3 billion daily Google users!</p>
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <h4 class="font-medium text-gray-900 mb-3">Add New Semantic Terms</h4>
-                            <ul class="text-gray-700 list-disc pl-5 space-y-2">
-                                <li>Healing & Psychology terms</li>
-                                <li>Nature & Symbolism concepts</li>
-                                <li>Learning & Research modifiers</li>
-                                <li>Google-specific filters</li>
-                                <li>Crisp content descriptors</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-medium text-gray-900 mb-3">Get Involved</h4>
-                            <div class="space-y-3">
-                                <a href="https://github.com/krishnabhearth-svg/Gx" target="_blank" class="block px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-900 text-center">
-                                    <i class="fab fa-github mr-2"></i>View on GitHub
-                                </a>
-                                <button onclick="showContributionModal()" class="w-full px-4 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
-                                    💬 Join Developer Community
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-4 border-t border-gray-200 text-center">
-                        <p class="text-gray-600">Made with 🪔 for Diwali 2025</p>
-                        <p class="text-gray-600 font-medium">Collect. Explore. Analyze. Develop. - Together we evolve</p>
-                        <p class="text-gray-500 text-sm mt-2">Contact: krishna.bh.earth@gmail.com | Let's build the future of Exploration</p>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Refine current search
-        function refineMore() {
-            document.getElementById('results-section').classList.add('hidden');
-            document.getElementById('layer-interface').classList.remove('hidden');
-            document.getElementById('query-preview').classList.add('hidden');
-            document.getElementById('search-btn').classList.add('hidden');
-            document.getElementById('options-container').innerHTML = `
-                <div class="text-center py-8">
-                    <div class="spinner"></div>
-                    <p class="text-gray-600 mt-4">Preparing refinement layer...</p>
-                </div>
-            `;
-            setTimeout(() => {
-                generateNextLayer();
-            }, 600);
         }
 
         function resetSearch() {
-            document.getElementById('results-section').classList.add('hidden');
-            document.getElementById('layer-interface').classList.add('hidden');
-            document.getElementById('initial-search').classList.remove('hidden');
-            document.getElementById('initial-input').value = '';
-            GxState.initialQuery = '';
+            document.getElementById('results-interface').style.display = 'none';
+            document.getElementById('initial-search').style.display = 'block';
+            document.getElementById('search-input').value = '';
+            GxState.currentLayer = 0;
             GxState.journey = [];
             GxState.queryComponents = [];
-            GxState.currentLayer = 0;
-            GxState.history = [];
-            GxState.intent = null;
-            GxState.semanticData = null;
+            GxState.selectedOptions = [];
         }
-
-        // ========================================
-        // INITIALIZATION
-        // ========================================
-        async function init() {
-            // Load semantic database first
-            const dbLoaded = await loadSemanticDatabase();
-            
-            // Set up event listeners
-            setupEventListeners();
-            
-            // Set up initial category buttons
-            document.querySelectorAll('.example-query').forEach(button => {
-                button.addEventListener('click', function() {
-                    const query = this.dataset.query;
-                    startGxJourney(query);
-                });
-            });
-            
-            // Set up initial search
-            document.getElementById('initial-search-btn').addEventListener('click', function() {
-                const query = document.getElementById('initial-input').value.trim();
-                if (query) {
-                    startGxJourney(query);
-                }
-            });
-            
-            document.getElementById('initial-input').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    const query = this.value.trim();
-                    if (query) {
-                        startGxJourney(query);
-                    }
-                }
-            });
-        }
-
-        function setupEventListeners() {
-            // Additional event listeners can be added here if needed
-        }
-
-        // Modal functions
-        function showAboutModal() {
-            document.getElementById('about-modal').style.display = 'flex';
-        }
-        function showContributionModal() {
-            document.getElementById('contribution-modal').style.display = 'flex';
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
