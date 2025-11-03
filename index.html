@@ -1,219 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BA·EJ • The Wisdom Deck</title>
-  <style>
-    /* Minimal CSS — 100% iPhone 5 compatible */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fff; color: #000;
-      height: 100vh; width: 100vw;
-      overflow: hidden;
-      touch-action: none;
-    }
-    #deck { 
-      height: 100%; 
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center; 
-      align-items: center; 
-      padding: 20px; 
-    }
-    .card {
-      width: 90%;
-      max-width: 300px;
-      background: #fff;
-      border: 2px solid #000;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transform-style: preserve-3d;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .card:hover { transform: translateY(-8px); }
-    .icon { font-size: 2.5rem; margin-bottom: 16px; }
-    .btn { 
-      width: 60px; height: 60px; 
-      border-radius: 50%; 
-      border: none; 
-      background: #000; 
-      color: #fff; 
-      font-size: 1.4rem; 
-      margin: 10px; 
-      cursor: pointer;
-    }
-    .nav { position: fixed; bottom: 20px; display: flex; gap: 10px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pregnancy of the Seed Portal</title>
+<style>
+  body{font-family:system-ui,sans-serif;margin:0;background:#f9fafb;color:#111;}
+  header{background:#2563eb;color:#fff;text-align:center;padding:1em;}
+  form{display:flex;justify-content:center;flex-wrap:wrap;gap:0.5em;margin:1em;}
+  input[type=text]{flex:1;min-width:220px;padding:0.6em;font-size:1em;}
+  button{padding:0.6em 1em;background:#10b981;color:#fff;border:none;border-radius:6px;}
+  .grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1em;max-width:1100px;margin:0 auto;}
+  .panel{flex:1 1 450px;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);
+         padding:1em;min-height:200px;}
+  .panel h3{margin-top:0;color:#2563eb;}
+  .result{margin:0.4em 0;}
+  .result a{color:#2563eb;text-decoration:none;font-weight:600;}
+  iframe{width:100%;height:75vh;border:none;margin-top:1em;}
+  .pdf-actions{text-align:center;margin:1em;}
+  .pdf-actions a{background:#2563eb;color:#fff;padding:0.8em 1.4em;border-radius:6px;
+                 text-decoration:none;}
+</style>
 </head>
 <body>
-  <div id="deck">
-    <!-- Cards will be rendered here -->
+
+<header>
+  <h1>Pregnancy of the Seed: The Global Healing Food Framework (2025)</h1>
+  <p><em>Concept and Vision from The Pregnancy of Ba.ej</em></p>
+</header>
+
+<form id="searchForm">
+  <input id="query" type="text" placeholder="Search topic... (Beej, Bhojan, Bhajan, etc.)" required>
+  <button type="submit">Search</button>
+</form>
+
+<div class="grid">
+  <div class="panel" id="kidsPanel">
+    <h3>🔍 Kids Miraheze Results</h3>
+    <div id="kidsResults">Type a keyword and press Search.</div>
   </div>
-  <div class="nav">
-    <button class="btn" id="back">❮</button>
-    <button class="btn" id="pull">⬇</button>
+
+  <div class="panel" id="googlePanel">
+    <h3>🔎 Google Search</h3>
+    <p>Your query will open directly in Google Search (new tab).</p>
+    <div id="googleLink"></div>
   </div>
+</div>
 
-  <script>
-    // === BA·EJ WISDOM DECK ENGINE ===
-    
-    // 1. THE VECTOR DATABASE (1,000+ seed words)
-    const metaDB = [
-      {
-        id: "komute",
-        root: "ko/mute",
-        layers: [
-          { icon: "🌱", title: "Seed", text: "Community + Movement" },
-          { icon: "🌿", title: "Plant", text: "Park-based work" },
-          { icon: "🌳", title: "Branch", text: "Shared commute" },
-          { icon: "🍎", title: "Fruit", text: "70% less stress" },
-          { icon: "🌸", title: "Flower", text: "City-wide harmony" }
-        ],
-        ui: "options", // riddle, puzzle, checklist, story, etc.
-        marketplace: "mobility",
-        sources: ["wiki", "youtube", "gdg"]
-      },
-      {
-        id: "void",
-        root: "void",
-        layers: [
-          { icon: "⚫", title: "Seed", text: "Emptiness" },
-          { icon: "🌀", title: "Plant", text: "Silence" },
-          { icon: "🌌", title: "Branch", text: "Potential" },
-          { icon: "✨", title: "Fruit", text: "Clarity" },
-          { icon: "🕊️", title: "Flower", text: "Liberation" }
-        ],
-        ui: "riddle",
-        marketplace: "consciousness",
-        sources: ["wiki", "scholar"]
-      }
-      // ... 1,000+ more
-    ];
+<section id="pdfSection">
+  <iframe src="krishna.pdf"></iframe>
+  <div class="pdf-actions">
+    <a href="krishna.pdf" download>⬇️ Download Full Report (PDF)</a>
+  </div>
+</section>
 
-    // 2. STATE
-    let state = {
-      journey: [],
-      currentCard: null,
-      layer: 0
-    };
+<script>
+const form = document.getElementById('searchForm');
+const kidsBox = document.getElementById('kidsResults');
+const googleBox = document.getElementById('googleLink');
 
-    // 3. RENDER CARD
-    function renderCard(card, layer) {
-      const deck = document.getElementById('deck');
-      deck.innerHTML = `
-        <div class="card" ontouchstart="handleSwipe(event)" ontouchend="handleSwipeEnd(event)">
-          <div class="icon">${card.layers[layer].icon}</div>
-          <h2>${card.layers[layer].title}</h2>
-          <p>${card.layers[layer].text}</p>
-        </div>
-      `;
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const q = document.getElementById('query').value.trim();
+  if(!q) return;
+
+  // Google link
+  const googleURL = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+  googleBox.innerHTML = `<a href="${googleURL}" target="_blank">${googleURL}</a>`;
+
+  // Miraheze API
+  kidsBox.innerHTML = `<p>Loading top 5 results from Kids Miraheze...</p>`;
+  try {
+    const api = `https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
+    const res = await fetch(api);
+    const data = await res.json();
+    const results = data?.query?.search || [];
+    if(results.length === 0){
+      kidsBox.innerHTML = `<p>No results found for "<b>${q}</b>".</p>`;
+      return;
     }
+    kidsBox.innerHTML = results.map(r => `
+      <div class="result">
+        <a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+        <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}...</p>
+      </div>`).join('') +
+      `<p><a href="https://kids.miraheze.org/wiki/Special:Search?search=${encodeURIComponent(q)}" target="_blank">View full results on Kids Miraheze →</a></p>`;
+  } catch(err){
+    console.error(err);
+    kidsBox.innerHTML = `<p>Could not fetch Kids Miraheze results (API error).</p>`;
+  }
+});
+</script>
 
-    // 4. PULL NEXT LAYER
-    function pullNext() {
-      if (!state.currentCard) {
-        // First pull: show seed words
-        showSeedWords();
-        return;
-      }
-      
-      if (state.layer < 4) {
-        state.layer++;
-        renderCard(state.currentCard, state.layer);
-      } else {
-        // Final layer: show sources
-        showSources(state.currentCard);
-      }
-    }
-
-    // 5. SHOW SEED WORDS
-    function showSeedWords() {
-      const deck = document.getElementById('deck');
-      deck.innerHTML = `
-        <div class="card">
-          <h2>🌱 Pull Wisdom</h2>
-          <p>Type or choose a seed:</p>
-          <input type="text" id="seed-input" placeholder="e.g., ko/mute, void" 
-                 style="width:100%; padding:10px; margin:10px 0; border:1px solid #000; border-radius:6px;">
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
-            <button onclick="selectSeed('komute')" class="btn">ko/mute</button>
-            <button onclick="selectSeed('void')" class="btn">void</button>
-            <button onclick="selectSeed('sahyogi')" class="btn">sah-yog/i</button>
-          </div>
-        </div>
-      `;
-    }
-
-    // 6. SELECT SEED
-    function selectSeed(seedId) {
-      const card = metaDB.find(c => c.id === seedId);
-      if (card) {
-        state.currentCard = card;
-        state.layer = 0;
-        state.journey.push(card.root);
-        renderCard(card, 0);
-      }
-    }
-
-    // 7. SHOW SOURCES
-    function showSources(card) {
-      const deck = document.getElementById('deck');
-      deck.innerHTML = `
-        <div class="card">
-          <h2>✅ Complete Journey</h2>
-          <p>Your path: ${state.journey.join(' → ')}</p>
-          <div style="margin-top:20px;">
-            <button onclick="openSource('wiki')" class="btn">📚 Wiki</button>
-            <button onclick="openSource('youtube')" class="btn">▶️ Video</button>
-            <button onclick="contribute()" class="btn">+</button>
-          </div>
-        </div>
-      `;
-    }
-
-    // 8. TOUCH SWIPE HANDLING (iPhone 5)
-    let touchStartX = 0;
-    function handleSwipe(e) {
-      touchStartX = e.touches[0].clientX;
-    }
-    function handleSwipeEnd(e) {
-      const touchEndX = e.changedTouches[0].clientX;
-      const diff = touchEndX - touchStartX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          // Swipe right → back
-          goBack();
-        } else {
-          // Swipe left → pull
-          pullNext();
-        }
-      }
-    }
-
-    // 9. INIT
-    document.getElementById('pull').onclick = pullNext;
-    document.getElementById('back').onclick = goBack;
-
-    function goBack() {
-      if (state.journey.length > 0) {
-        state.journey.pop();
-        showSeedWords();
-      }
-    }
-
-    function openSource(type) {
-      // Open relevant source (wiki, youtube, etc.)
-      alert(`Opening ${type} for ${state.currentCard.root}`);
-    }
-
-    function contribute() {
-      // Allow user to upload data, facts, code, etc.
-      alert("Contribute your insight →");
-    }
-  </script>
 </body>
 </html>
