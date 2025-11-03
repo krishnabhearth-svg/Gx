@@ -2,214 +2,502 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🌾 Krishi Dynamic Semantic Search</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🌾 Krishi • Beej • Enhanced Semantic Search</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f9f9f9;color:#222;margin:0;padding:20px;text-align:center;}
-.container{max-width:800px;margin:0 auto;background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
-input{width:90%;max-width:400px;padding:12px;border:1px solid #ccc;border-radius:20px;font-size:1em;margin:15px 0;}
-.action-box{background:#e8f5e8;padding:15px;border-radius:10px;margin:20px 0;text-align:left;}
-.action-item{display:inline-block;background:white;padding:6px 12px;margin:4px 6px 4px 0;border-radius:16px;font-size:0.85em;}
-.result a{color:#1a73e8;text-decoration:none;font-weight:600;}
-.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:15px 0;}
-.tab{padding:8px 16px;background:#e0e0e0;border:none;border-radius:20px;cursor:pointer;font-size:0.8em;}
-.tab.active{background:#4CAF50;color:white;}
-.panel{display:none;text-align:left;margin-top:15px;padding:15px;background:#fff;border-radius:8px;}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#fff;color:#202124;text-align:center;}
+header{padding:0.8em 0.5em;}
+h1{font-size:1.2em;margin:0;font-weight:500;}
+.download a{background:#34a853;color:#fff;padding:0.35em 1em;border-radius:20px;
+            text-decoration:none;font-weight:600;display:inline-block;margin-top:0.4em;font-size:0.85em;}
+section{max-width:900px;margin:0 auto;padding:0.4em 0.4em;}
+input[type=text]{width:92%;max-width:450px;padding:0.55em 1em;border:1px solid #dadce0;
+                 border-radius:20px;outline:none;font-size:0.95em;}
+
+/* Enhanced Semantic Results */
+.semantic-results{background:#f8fff8;border:1px solid #34a853;border-radius:10px;padding:15px;margin:15px 0;text-align:left;display:none;}
+.action-item{display:inline-block;background:#e8f5e8;padding:6px 12px;margin:4px 6px 4px 0;border-radius:16px;font-size:0.8em;}
+.match-info{font-size:0.8em;color:#666;margin-top:8px;}
+.enhanced-query{background:#e3f2fd;padding:8px 12px;border-radius:6px;margin:10px 0;font-size:0.9em;}
+
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:0.35em;margin-top:0.6em;}
+.tab{padding:0.3em 0.8em;border:1px solid #dadce0;border-radius:20px;cursor:pointer;
+     font-size:0.8em;background:#f8f9fa;}
+.tab.active{background:#1a73e8;color:#fff;border-color:#1a73e8;}
+.panel{display:none;text-align:left;border-top:1px solid #e0e0e0;margin-top:0.6em;padding-top:0.5em;font-size:0.88em;}
 .panel.active{display:block;}
-.status{font-size:0.8em;color:#666;margin-top:5px;}
+.result{margin:0.4em 0;}
+.result a{color:#1a73e8;text-decoration:none;font-weight:600;}
+footer{font-size:0.7em;color:#777;margin:1.2em 0;}
+@media(max-width:600px){
+  input[type=text]{width:96%;}
+  .tab{font-size:0.72em;padding:0.25em 0.6em;}
+}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>🌾 Krishi • Dynamic Semantic Search</h1>
-  <p>Type any keyword (e.g., "pollution vehicle", "organic farming")</p>
-  <input type="text" id="userQuery" placeholder="e.g., water conservation…" oninput="handleSearch()" autocomplete="off">
 
-  <div id="actionsBox" class="action-box" style="display:none;">
-    <strong>Recommended Actions:</strong><br>
+<header>
+  <h1>🌾 Krishi • Beej • Enhanced Semantic Search</h1>
+  <div class="download">
+    <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>
+      ⬇️ Download Krishna Resume
+    </a>
+  </div>
+</header>
+
+<section id="searchSection">
+  <input id="query" type="text" placeholder="Type any keyword (e.g., vehicle pollution, mental calm, home garden)…" oninput="processSemanticSearch()">
+  <p id="instruction" style="color:#777;margin-top:0.6em;font-size:0.85em;">
+    Type a keyword to get intelligent ecological transformations
+  </p>
+
+  <!-- Enhanced Semantic Results -->
+  <div id="semanticResults" class="semantic-results">
+    <div class="enhanced-query">
+      <strong>Enhanced Query:</strong> <span id="finalQuery"></span>
+    </div>
+    <div><strong>Recommended Actions:</strong></div>
     <div id="actionItems"></div>
+    <div class="match-info" id="matchInfo"></div>
   </div>
 
   <div class="tabs" id="tabs">
-    <div class="tab active" data-target="ecological">Ecological</div>
-    <div class="tab" data-target="gap">Gap Analysis</div>
-    <div class="tab" data-target="action">Action</div>
-    <div class="tab" data-target="all">All Tabs</div>
+    <div class="tab active" data-target="kids">Kids Miraheze</div>
+    <div class="tab" data-target="wiki">Wikipedia</div>
+    <div class="tab" data-target="google">Google</div>
+    <div class="tab" data-target="scholar">Scholar</div>
+    <div class="tab" data-target="amazon">Amazon Books</div>
+    <div class="tab" data-target="openlib">OpenLibrary</div>
+    <div class="tab" data-target="youtube">YouTube</div>
+    <div class="tab" data-target="news">News</div>
+    <div class="tab" data-target="weather">Weather</div>
+    <div class="tab" data-target="stocks">Finance</div>
+    <div class="tab" data-target="images">Images</div>
+    <div class="tab" data-target="maps">Maps</div>
+    <div class="tab" data-target="translate">Translate</div>
+    <div class="tab" data-target="ted">TED Talks</div>
+    <div class="tab" data-target="archive">Archive.org</div>
   </div>
 
   <div id="panels">
-    <div class="panel active" id="ecological"><h3>🌱 Ecological Search</h3><div id="ecologicalLink"></div></div>
-    <div class="panel" id="gap"><h3>🔍 Gap/Challenge Search</h3><div id="gapLink"></div></div>
-    <div class="panel" id="action"><h3>✅ Action-Oriented Search</h3><div id="actionLink"></div></div>
-    <div class="panel" id="all">
-      <h3>🌐 All Search Results</h3>
-      <div id="allResults"></div>
-    </div>
+    <div class="panel active" id="kids"><h3>Kids Miraheze</h3><div id="kidsResults"></div></div>
+    <div class="panel" id="wiki"><h3>Wikipedia</h3><div id="wikiResults"></div></div>
+    <div class="panel" id="google"><h3>Google</h3><div id="googleLink"></div></div>
+    <div class="panel" id="scholar"><h3>Scholar</h3><div id="scholarLink"></div></div>
+    <div class="panel" id="amazon"><h3>Amazon Books</h3><div id="amazonLink"></div></div>
+    <div class="panel" id="openlib"><h3>OpenLibrary</h3><div id="openlibResults"></div></div>
+    <div class="panel" id="youtube"><h3>YouTube</h3><div id="youtubeLink"></div></div>
+    <div class="panel" id="news"><h3>News</h3><div id="newsLink"></div></div>
+    <div class="panel" id="weather"><h3>Weather</h3><div id="weatherLink"></div></div>
+    <div class="panel" id="stocks"><h3>Finance</h3><div id="stocksLink"></div></div>
+    <div class="panel" id="images"><h3>Images</h3><div id="imagesLink"></div></div>
+    <div class="panel" id="maps"><h3>Maps</h3><div id="mapsLink"></div></div>
+    <div class="panel" id="translate"><h3>Translate</h3><div id="translateLink"></div></div>
+    <div class="panel" id="ted"><h3>TED Education</h3><div id="tedLink"></div></div>
+    <div class="panel" id="archive"><h3>Archive.org</h3><div id="archiveLink"></div></div>
   </div>
+</section>
 
-  <div class="status" id="status">Loading semantic database…</div>
-</div>
+<footer>
+  © Krishi • Beej • Enhanced Semantic Exploration • Ecological Transformation
+</footer>
 
 <script>
-// 🔗 Dynamic JSON Semantic Database URL (host yours on GitHub/GitLab)
-const SEMANTIC_DB_URL = 'https://gist.githubusercontent.com/anonymous/000000000000000000000000/raw/semantic-db.json';
-// Replace above with your raw JSON URL. For demo, we use embedded fallback.
-
-let semanticDB = null;
-
-// 🧠 Load Semantic DB
-async function loadSemanticDB() {
-  try {
-    const res = await fetch(SEMANTIC_DB_URL);
-    if (res.ok) {
-      semanticDB = await res.json();
-      document.getElementById('status').textContent = '✅ Semantic DB loaded';
-    } else throw 'Network error';
-  } catch (e) {
-    console.warn('Using fallback semantic DB');
-    semanticDB = FALLBACK_SEMANTIC_DB;
-    document.getElementById('status').textContent = '✅ Fallback semantic DB active';
-  }
-}
-
-// 🧪 Fallback DB (replace with your 2MB JSON when ready)
-const FALLBACK_SEMANTIC_DB = {
+// 🌍 Enhanced Semantic Database with 6D Vectors
+const SEMANTIC_DB = {
   "organic farming": {
-    queries: {
-      ecological: "organic farming soil health biodiversity regenerative",
-      gap: "organic farming challenges India small farmers certification",
-      action: "how to start organic home garden beginners step by step"
-    },
-    actions: ["Visit organic farm", "Start small garden", "Test your soil", "Join seed saving group"]
+    vector: [0.88, 0.95, 0.74, 0.88, 0.85, 0.78],
+    domain: "AGRICULTURE",
+    filters: ["permaculture", "soil health", "composting", "natural fertilizers"],
+    layer1: ["Space available?", "Experience level?", "Climate zone?", "Goals?"],
+    ecological_transform: "regenerative agriculture sustainable food systems",
+    actions: ["Start small container garden", "Learn composting basics", "Test soil quality", "Join community garden", "Plant native species"],
+    related_terms: ["sustainable farming", "permaculture", "soil health", "home garden"]
   },
   "pollution vehicle": {
-    queries: {
-      ecological: "vehicle pollution air quality health impact emissions",
-      gap: "biogas vehicle adoption rural India barriers",
-      action: "reduce car pollution daily habits electric transport"
-    },
-    actions: ["Calculate carbon footprint", "Use public transport", "Join clean air advocacy"]
+    vector: [0.85, 0.72, 0.68, 0.79, 0.63, 0.81],
+    domain: "ECOLOGY",
+    filters: ["emissions", "air quality", "electric vehicles", "public transport"],
+    layer1: ["Vehicle type?", "Usage pattern?", "Location?", "Budget?"],
+    ecological_transform: "sustainable transport clean air solutions",
+    actions: ["Calculate carbon footprint", "Use public transport weekly", "Research electric vehicles", "Support clean air policies", "Try cycling short distances"],
+    related_terms: ["vehicle emissions", "air pollution", "electric cars", "sustainable transport"]
   },
   "water conservation": {
-    queries: {
-      ecological: "water conservation rainwater harvesting drought resilience",
-      gap: "water scarcity solutions Raichur Karnataka groundwater",
-      action: "DIY rooftop rainwater harvesting home setup"
-    },
-    actions: ["Install rain barrel", "Plant native drought-resistant species", "Fix home leaks"]
+    vector: [0.92, 0.85, 0.70, 0.78, 0.80, 0.82],
+    domain: "ECOLOGY",
+    filters: ["rainwater harvesting", "drip irrigation", "greywater", "water-wise plants"],
+    layer1: ["Location?", "Water source?", "Garden size?", "Budget?"],
+    ecological_transform: "sustainable water management conservation",
+    actions: ["Install rain barrel", "Fix leaking taps", "Plant drought-resistant species", "Use bucket for car wash", "Collect AC water"],
+    related_terms: ["rainwater harvesting", "water saving", "drip irrigation", "greywater system"]
+  },
+  "mental health": {
+    vector: [0.65, 0.58, 0.92, 0.71, 0.82, 0.68],
+    domain: "WELLNESS",
+    filters: ["mindfulness", "nature therapy", "community support", "breathing exercises"],
+    layer1: ["Current state?", "Support needed?", "Time available?", "Preferences?"],
+    ecological_transform: "holistic mental wellness nature connection",
+    actions: ["Daily 10-min nature walk", "Practice deep breathing", "Join community group", "Digital detox hours", "Gratitude journaling"],
+    related_terms: ["mental wellness", "stress relief", "mindfulness", "emotional balance"]
+  },
+  "renewable energy": {
+    vector: [0.94, 0.67, 0.62, 0.71, 0.76, 0.83],
+    domain: "ENERGY",
+    filters: ["solar power", "biogas", "energy efficiency", "off-grid solutions"],
+    layer1: ["Location?", "Energy needs?", "Budget?", "Space available?"],
+    ecological_transform: "sustainable energy clean power solutions",
+    actions: ["Research solar options", "Audit home energy use", "Join energy cooperative", "Learn about biogas", "Install energy-efficient lights"],
+    related_terms: ["solar energy", "clean power", "energy efficiency", "biogas"]
+  },
+  "sustainable fashion": {
+    vector: [0.79, 0.82, 0.75, 0.84, 0.78, 0.81],
+    domain: "LIFESTYLE",
+    filters: ["ethical brands", "upcycling", "natural fabrics", "secondhand"],
+    layer1: ["Style preference?", "Budget?", "Skill level?", "Values?"],
+    ecological_transform: "ethical fashion circular clothing",
+    actions: ["Learn basic mending", "Shop secondhand first", "Research ethical brands", "Organize clothing swap", "Choose natural fabrics"],
+    related_terms: ["ethical clothing", "upcycling", "slow fashion", "circular economy"]
   }
 };
 
-// 🧠 Main Search Handler
-async function handleSearch() {
-  const q = document.getElementById('userQuery').value.trim().toLowerCase();
+// 🧠 Enhanced Semantic Processor
+class EnhancedSemanticProcessor {
+  constructor(semanticDB) {
+    this.db = semanticDB;
+    this.wordTypes = this.initializeWordTypes();
+  }
+
+  initializeWordTypes() {
+    return {
+      verbs: ['learn', 'study', 'build', 'create', 'make', 'do', 'find', 'get', 'use', 'work', 'help', 'need', 'want'],
+      emotional: ['mad', 'angry', 'sad', 'happy', 'bored', 'tired', 'stressed', 'anxious', 'excited', 'calm'],
+      ecological: ['sustainable', 'eco', 'green', 'organic', 'natural', 'renewable', 'environment'],
+      objects: ['car', 'vehicle', 'phone', 'furniture', 'house', 'home', 'garden', 'food'],
+      activities: ['shopping', 'dating', 'traveling', 'working', 'cooking', 'cleaning']
+    };
+  }
+
+  processUserInput(userInput) {
+    const words = this.tokenizeInput(userInput);
+    const analysis = this.analyzeWords(words);
+    const bestMatch = this.findBestSemanticMatch(userInput, analysis);
+    const enhancedQuery = this.buildEnhancedQuery(userInput, bestMatch, analysis);
+    
+    return {
+      original: userInput,
+      analysis: analysis,
+      bestMatch: bestMatch,
+      enhancedQuery: enhancedQuery,
+      actions: this.generateActions(bestMatch, analysis)
+    };
+  }
+
+  tokenizeInput(input) {
+    return input.toLowerCase()
+      .split(/\s+/)
+      .filter(word => word.length > 2)
+      .map(word => this.classifyWord(word));
+  }
+
+  classifyWord(word) {
+    return {
+      word: word,
+      type: this.getWordType(word),
+      stem: this.stemWord(word)
+    };
+  }
+
+  getWordType(word) {
+    if (this.wordTypes.verbs.includes(word)) return 'verb';
+    if (this.wordTypes.emotional.includes(word)) return 'emotional';
+    if (this.wordTypes.ecological.includes(word)) return 'ecological';
+    if (this.wordTypes.objects.includes(word)) return 'object';
+    if (this.wordTypes.activities.includes(word)) return 'activity';
+    return 'other';
+  }
+
+  stemWord(word) {
+    const stems = {
+      'learning': 'learn', 'studying': 'study', 'building': 'build',
+      'creating': 'create', 'making': 'make', 'doing': 'do',
+      'finding': 'find', 'getting': 'get', 'using': 'use',
+      'gardening': 'garden', 'farming': 'farm', 'conserving': 'conserve'
+    };
+    return stems[word] || word;
+  }
+
+  analyzeWords(words) {
+    return {
+      primaryVerb: words.find(w => w.type === 'verb'),
+      hasEmotional: words.some(w => w.type === 'emotional'),
+      hasEcological: words.some(w => w.type === 'ecological'),
+      hasObject: words.some(w => w.type === 'object'),
+      hasActivity: words.some(w => w.type === 'activity'),
+      wordCount: words.length,
+      intent: this.determineIntent(words)
+    };
+  }
+
+  determineIntent(words) {
+    if (words.some(w => w.type === 'emotional')) return 'wellness';
+    if (words.some(w => w.type === 'object')) return 'ecological_transformation';
+    if (words.some(w => w.type === 'activity')) return 'conscious_activity';
+    
+    const verb = words.find(w => w.type === 'verb');
+    if (verb && ['learn', 'study', 'understand'].includes(verb.stem)) 
+      return 'learning';
+      
+    return 'ecological_living';
+  }
+
+  findBestSemanticMatch(query, analysis) {
+    let bestMatch = null;
+    let highestScore = 0;
+
+    for (const [keyword, data] of Object.entries(this.db)) {
+      const score = this.calculateMatchScore(query, keyword, data, analysis);
+      if (score > highestScore) {
+        highestScore = score;
+        bestMatch = { keyword, data, score };
+      }
+    }
+
+    return bestMatch || { 
+      keyword: 'organic farming', 
+      data: this.db['organic farming'],
+      score: 0.1,
+      source: 'default fallback'
+    };
+  }
+
+  calculateMatchScore(query, keyword, data, analysis) {
+    let score = 0;
+    const queryWords = query.toLowerCase().split(' ');
+    const keywordWords = keyword.toLowerCase().split(' ');
+
+    // Direct word matches
+    const directMatches = queryWords.filter(qw => 
+      keywordWords.some(kw => qw.includes(kw) || kw.includes(qw))
+    );
+    score += directMatches.length * 0.2;
+
+    // Intent matching
+    if (data.domain === 'WELLNESS' && analysis.intent === 'wellness') score += 0.3;
+    if (data.domain === 'AGRICULTURE' && analysis.intent === 'learning') score += 0.2;
+    if (data.domain === 'ECOLOGY' && analysis.intent === 'ecological_transformation') score += 0.3;
+
+    // Related terms matching
+    if (data.related_terms) {
+      const relatedMatches = queryWords.filter(qw =>
+        data.related_terms.some(rt => qw.includes(rt) || rt.includes(qw))
+      );
+      score += relatedMatches.length * 0.15;
+    }
+
+    return Math.min(score, 1.0);
+  }
+
+  buildEnhancedQuery(original, bestMatch, analysis) {
+    let enhanced = original;
+
+    // Add ecological context if missing
+    if (!analysis.hasEcological) {
+      enhanced = `sustainable ${enhanced}`;
+    }
+
+    // Add domain-specific enhancements
+    if (bestMatch.data.ecological_transform) {
+      enhanced += ' ' + bestMatch.data.ecological_transform;
+    }
+
+    // Add filters from best match
+    if (bestMatch.data.filters && bestMatch.data.filters.length > 0) {
+      enhanced += ' ' + bestMatch.data.filters.slice(0, 2).join(' ');
+    }
+
+    return enhanced;
+  }
+
+  generateActions(bestMatch, analysis) {
+    let actions = [];
+
+    // Base actions from semantic match
+    if (bestMatch.data.actions) {
+      actions.push(...bestMatch.data.actions.slice(0, 3));
+    }
+
+    // Intent-specific additional actions
+    if (analysis.intent === 'wellness') {
+      actions.push('Practice daily mindfulness', 'Connect with nature regularly');
+    } else if (analysis.intent === 'ecological_transformation') {
+      actions.push('Research sustainable alternatives', 'Learn repair skills');
+    }
+
+    return actions.slice(0, 4);
+  }
+}
+
+// 🚀 Initialize the semantic processor
+const semanticProcessor = new EnhancedSemanticProcessor(SEMANTIC_DB);
+
+// 🎯 Enhanced Search Processing
+function processSemanticSearch() {
+  const q = document.getElementById('query').value.trim();
+  
   if (!q) {
-    hideActions();
+    document.getElementById('semanticResults').style.display = 'none';
+    document.getElementById('instruction').textContent = 'Type a keyword to get intelligent ecological transformations';
     return;
   }
 
-  // Step 1: Try ChromaDB
-  let match = null;
-  try {
-    match = await queryChromaDB(q);
-  } catch (e) {
-    console.debug('ChromaDB not available:', e.message);
-  }
-
-  // Step 2: Fall back to semantic JSON
-  if (!match) {
-    match = semanticDB[q] || findFuzzyMatch(q);
-  }
-
-  // Step 3: Generate results
-  if (match) {
-    showActions(match.actions);
-    runThreeSearches(match.queries, q);
-  } else {
-    // Ultimate fallback
-    const basic = { ecological: q, gap: q, action: q };
-    showActions(["Explore local resources", "Search community forums"]);
-    runThreeSearches(basic, q);
-  }
+  // Process through semantic AI
+  const result = semanticProcessor.processUserInput(q);
+  
+  // Display semantic results
+  displaySemanticResults(result);
+  
+  // Update all search tabs with enhanced query
+  updateAllSearchTabs(result.enhancedQuery, q);
+  
+  // Update API-based searches
+  performEnhancedAPISearches(result.enhancedQuery, q);
 }
 
-// 🔍 ChromaDB Query (localhost:8000)
-async function queryChromaDB(query) {
-  const res = await fetch('http://localhost:8000/api/v1/collections/krishi/search', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query_texts: [query],
-      n_results: 1,
-      include: ["metadatas"]
-    })
-  });
-  if (!res.ok) throw new Error('Chroma unreachable');
-  const data = await res.json();
-  return data?.metadatas?.[0]?.[0] || null;
-}
-
-// 🔍 Fuzzy match for unknown terms
-function findFuzzyMatch(query) {
-  for (const [term, data] of Object.entries(semanticDB)) {
-    if (term.split(' ').some(w => query.includes(w))) {
-      return data;
-    }
-  }
-  return null;
-}
-
-// 🎯 UI Functions
-function showActions(actions) {
+function displaySemanticResults(result) {
+  document.getElementById('finalQuery').textContent = `"${result.enhancedQuery}"`;
+  
   document.getElementById('actionItems').innerHTML = 
-    actions.map(a => `<span class="action-item">${a}</span>`).join('');
-  document.getElementById('actionsBox').style.display = 'block';
+    result.actions.map(action => 
+      `<span class="action-item">${action}</span>`
+    ).join('');
+  
+  document.getElementById('matchInfo').textContent = 
+    `Matched: "${result.bestMatch.keyword}" (${(result.bestMatch.score * 100).toFixed(0)}% match) | Intent: ${result.analysis.intent}`;
+  
+  document.getElementById('semanticResults').style.display = 'block';
+  document.getElementById('instruction').innerHTML = 
+    `Enhanced search for "<b>${result.original}</b>" - Click tabs for detailed results`;
 }
 
-function hideActions() {
-  document.getElementById('actionsBox').style.display = 'none';
-}
-
-// 🔍 Perform 3 Searches
-function runThreeSearches(queries, originalQuery) {
+function updateAllSearchTabs(enhancedQuery, originalQuery) {
   const e = encodeURIComponent;
   
-  // Ecological
-  const ecoQuery = queries.ecological || originalQuery;
-  document.getElementById('ecologicalLink').innerHTML = 
-    `<a href="https://www.google.com/search?q=${e(ecoQuery)}" target="_blank">${ecoQuery}</a>`;
-
-  // Gap
-  const gapQuery = queries.gap || originalQuery;
-  document.getElementById('gapLink').innerHTML = 
-    `<a href="https://scholar.google.com/scholar?q=${e(gapQuery)}" target="_blank">${gapQuery}</a>`;
-
-  // Action
-  const actionQuery = queries.action || originalQuery;
-  document.getElementById('actionLink').innerHTML = 
-    `<a href="https://www.youtube.com/results?search_query=${e(actionQuery)}" target="_blank">${actionQuery}</a>`;
-
-  // All tab
-  document.getElementById('allResults').innerHTML = `
-    <div><strong>🌱 Ecological:</strong> <a href="https://www.google.com/search?q=${e(ecoQuery)}" target="_blank">${ecoQuery}</a></div>
-    <div><strong>🔍 Gap:</strong> <a href="https://scholar.google.com/scholar?q=${e(gapQuery)}" target="_blank">${gapQuery}</a></div>
-    <div><strong>✅ Action:</strong> <a href="https://www.youtube.com/results?search_query=${e(actionQuery)}" target="_blank">${actionQuery}</a></div>
-    <div><strong>🗺️ Maps:</strong> <a href="https://www.google.com/maps/search/${e(originalQuery)}" target="_blank">Local resources</a></div>
-  `;
+  // Enhanced ecological searches
+  document.getElementById('googleLink').innerHTML = 
+    `<a href="https://www.google.com/search?q=${e(enhancedQuery)}" target="_blank">Google: "${enhancedQuery}"</a>`;
+  
+  document.getElementById('scholarLink').innerHTML = 
+    `<a href="https://scholar.google.com/scholar?q=${e(enhancedQuery + ' research study')}" target="_blank">Scholar: "${enhancedQuery} research"</a>`;
+  
+  document.getElementById('amazonLink').innerHTML = 
+    `<a href="https://www.amazon.com/s?k=${e(enhancedQuery + ' books')}" target="_blank">Amazon Books: "${enhancedQuery}"</a>`;
+  
+  document.getElementById('youtubeLink').innerHTML = 
+    `<a href="https://www.youtube.com/results?search_query=${e(enhancedQuery + ' tutorial guide')}" target="_blank">YouTube: "${enhancedQuery} tutorial"</a>`;
+  
+  document.getElementById('newsLink').innerHTML = 
+    `<a href="https://news.google.com/search?q=${e(enhancedQuery)}" target="_blank">News: "${enhancedQuery}"</a>`;
+  
+  document.getElementById('weatherLink').innerHTML = 
+    `<a href="https://www.google.com/search?q=weather+${e(originalQuery)}" target="_blank">Weather for "${originalQuery}"</a>`;
+  
+  document.getElementById('stocksLink').innerHTML = 
+    `<a href="https://www.google.com/finance?q=${e(originalQuery)}" target="_blank">Finance: "${originalQuery}"</a>`;
+  
+  document.getElementById('imagesLink').innerHTML = 
+    `<a href="https://www.google.com/search?tbm=isch&q=${e(enhancedQuery)}" target="_blank">Images: "${enhancedQuery}"</a>`;
+  
+  document.getElementById('mapsLink').innerHTML = 
+    `<a href="https://www.google.com/maps/search/${e(originalQuery)}" target="_blank">Maps: "${originalQuery}"</a>`;
+  
+  document.getElementById('translateLink').innerHTML = 
+    `<a href="https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}" target="_blank">Translate: "${originalQuery}"</a>`;
+  
+  document.getElementById('tedLink').innerHTML = 
+    `<a href="https://www.ted.com/search?q=${e(enhancedQuery)}" target="_blank">TED Talks: "${enhancedQuery}"</a>`;
+  
+  document.getElementById('archiveLink').innerHTML = 
+    `<a href="https://archive.org/search.php?query=${e(enhancedQuery)}" target="_blank">Archive.org: "${enhancedQuery}"</a>`;
 }
 
-// 🖱️ Tab Switching
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.target).classList.add('active');
-  });
-});
+async function performEnhancedAPISearches(enhancedQuery, originalQuery) {
+  // Enhanced Wikipedia search
+  const wikiBox = document.getElementById('wikiResults');
+  wikiBox.innerHTML = 'Loading enhanced results...';
+  
+  try {
+    const api = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(enhancedQuery)}`;
+    const res = await fetch(api);
+    const data = await res.json();
+    const results = data?.query?.search || [];
+    
+    wikiBox.innerHTML = results.map(r => `
+      <div class="result">
+        <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+        <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}…</p>
+      </div>
+    `).join('') || `No enhanced results for "${enhancedQuery}".`;
+  } catch(e) {
+    wikiBox.textContent = 'Error fetching enhanced Wikipedia results.';
+  }
 
-// ▶️ Initialize
-loadSemanticDB();
+  // Enhanced Miraheze search
+  const kidsBox = document.getElementById('kidsResults');
+  kidsBox.innerHTML = 'Loading...';
+  
+  try {
+    const api = `https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(enhancedQuery)}`;
+    const res = await fetch(api);
+    const data = await res.json();
+    const results = data?.query?.search || [];
+    
+    kidsBox.innerHTML = results.map(r => `
+      <div class="result">
+        <a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+        <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}…</p>
+      </div>
+    `).join('') || `No results for "${enhancedQuery}".`;
+  } catch(e) {
+    kidsBox.textContent = 'Error fetching Miraheze results.';
+  }
+
+  // Enhanced OpenLibrary search
+  const olBox = document.getElementById('openlibResults');
+  olBox.innerHTML = 'Loading...';
+  
+  try {
+    const api = `https://openlibrary.org/search.json?limit=5&q=${encodeURIComponent(enhancedQuery)}`;
+    const res = await fetch(api);
+    const data = await res.json();
+    const results = data?.docs || [];
+    
+    olBox.innerHTML = results.map(r => {
+      const title = r.title || 'Untitled';
+      const author = (r.author_name || []).join(', ');
+      return `<div class="result"><strong>${title}</strong> <em>${author}</em><br>
+        <a href="https://openlibrary.org${r.key}" target="_blank">View on OpenLibrary</a></div>`;
+    }).join('') || `No results for "${enhancedQuery}".`;
+  } catch(e) {
+    olBox.textContent = 'Error fetching OpenLibrary results.';
+  }
+}
+
+// Tab functionality
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+tabs.forEach(tab => tab.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById(tab.dataset.target).classList.add('active');
+}));
+
+// Enable Enter key
+document.getElementById('query').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') processSemanticSearch();
+});
 </script>
 </body>
 </html>
