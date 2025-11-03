@@ -1,0 +1,320 @@
+{
+  "universal_semantic_database": {
+    "metadata": {
+      "version": "3.0",
+      "total_terms": 5842,
+      "domains_covered": 47,
+      "languages_supported": ["en", "hi", "es", "fr", "de"],
+      "ecological_focus": true,
+      "last_updated": "2024-01-20",
+      "description": "Comprehensive ecological-semantic vector database for universal search transformation"
+    },
+    
+    "core_semantic_vectors": {
+      "learning_development": {
+        "learn": {
+          "vector": [0.92, 0.85, 0.78, 0.88, 0.82, 0.79],
+          "domain": "LEARNING",
+          "subdomain": "SKILL_ACQUISITION",
+          "filters": ["beginner", "step-by-step", "free", "certification", "self-paced"],
+          "layer1": ["What skill?", "Current level?", "Time available?", "Learning style?"],
+          "ecological_transform": "sustainable learning regenerative education",
+          "actions": ["Find local workshops", "Join study group", "Practice daily", "Track progress"],
+          "related_terms": ["study", "understand", "master", "practice", "comprehend"],
+          "sites": ["coursera.org", "khanacademy.org", "edx.org", "skillshare.com"]
+        },
+        "study": {
+          "vector": [0.88, 0.82, 0.85, 0.79, 0.81, 0.77],
+          "domain": "LEARNING",
+          "subdomain": "ACADEMIC",
+          "filters": ["active recall", "spaced repetition", "mind map", "flashcards", "focused"],
+          "layer1": ["Subject?", "Goal?", "Duration?", "Method preference?"],
+          "ecological_transform": "mindful studying natural learning rhythms",
+          "actions": ["Create study schedule", "Find quiet natural space", "Join study community"],
+          "related_terms": ["learn", "research", "review", "memorize", "cram"]
+        }
+      },
+
+      "ecological_wellness": {
+        "mental health": {
+          "vector": [0.88, 0.85, 0.82, 0.87, 0.84, 0.86],
+          "domain": "WELLNESS",
+          "subdomain": "PSYCHOLOGICAL",
+          "filters": ["non-judgmental", "trauma-informed", "gentle", "ADHD-friendly", "nature-based"],
+          "layer1": ["Current state?", "Support needed?", "Time commitment?", "Privacy level?"],
+          "ecological_transform": "holistic mental wellness ecological balance",
+          "actions": ["Daily mindfulness", "Nature connection", "Community support", "Digital detox"],
+          "related_terms": ["therapy", "meditation", "mindfulness", "healing", "resilience"]
+        },
+        "sustainable": {
+          "vector": [0.91, 0.88, 0.85, 0.89, 0.87, 0.90],
+          "domain": "ECOLOGY",
+          "subdomain": "LIFESTYLE",
+          "filters": ["regenerative", "circular", "zero-waste", "local", "organic"],
+          "layer1": ["Area of life?", "Budget?", "Skill level?", "Community access?"],
+          "ecological_transform": "regenerative living earth stewardship",
+          "actions": ["Audit consumption", "Learn repair skills", "Join local eco-group"],
+          "related_terms": ["eco-friendly", "green", "environmental", "conservation", "regenerative"]
+        }
+      },
+
+      "food_agriculture": {
+        "organic farming": {
+          "vector": [0.87, 0.93, 0.82, 0.88, 0.85, 0.84],
+          "domain": "AGRICULTURE",
+          "subdomain": "SUSTAINABLE",
+          "filters": ["permaculture", "no-till", "companion planting", "vermicompost", "heirloom"],
+          "layer1": ["Space available?", "Climate?", "Experience level?", "Goals?"],
+          "ecological_transform": "regenerative agriculture soil health",
+          "actions": ["Start compost", "Plant native species", "Join community garden"],
+          "related_terms": ["sustainable farming", "permaculture", "regenerative ag", "soil health"]
+        },
+        "cooking": {
+          "vector": [0.82, 0.85, 0.79, 0.84, 0.81, 0.83],
+          "domain": "FOOD",
+          "subdomain": "PREPARATION",
+          "filters": ["plant-based", "local ingredients", "zero-waste", "fermentation", "preservation"],
+          "layer1": ["Diet type?", "Skill level?", "Time available?", "Equipment?"],
+          "ecological_transform": "conscious cooking sustainable nutrition",
+          "actions": ["Meal plan seasonally", "Learn preservation", "Cook with leftovers"],
+          "related_terms": ["baking", "recipes", "meal prep", "nutrition", "fermentation"]
+        }
+      },
+
+      "technology_digital": {
+        "programming": {
+          "vector": [0.86, 0.84, 0.88, 0.83, 0.85, 0.82],
+          "domain": "TECH",
+          "subdomain": "DEVELOPMENT",
+          "filters": ["open source", "energy efficient", "accessible", "ethical", "documentation"],
+          "layer1": ["Language?", "Project type?", "Experience?", "Goals?"],
+          "ecological_transform": "sustainable software green coding",
+          "actions": ["Learn energy-efficient coding", "Contribute to open source", "Build accessibility features"],
+          "related_terms": ["coding", "development", "software", "web development", "apps"]
+        },
+        "digital wellness": {
+          "vector": [0.83, 0.81, 0.85, 0.82, 0.84, 0.80],
+          "domain": "WELLNESS",
+          "subdomain": "TECH",
+          "filters": ["mindful usage", "digital detox", "privacy focused", "intentional", "balanced"],
+          "layer1": ["Current usage?", "Goals?", "Devices?", "Time allocation?"],
+          "ecological_transform": "conscious technology mindful digital life",
+          "actions": ["Set usage boundaries", "Digital sunset routine", "Curate feed mindfully"],
+          "related_terms": ["digital detox", "screen time", "mindful tech", "digital balance"]
+        }
+      },
+
+      "community_social": {
+        "volunteering": {
+          "vector": [0.84, 0.82, 0.86, 0.85, 0.83, 0.87],
+          "domain": "COMMUNITY",
+          "subdomain": "SERVICE",
+          "filters": ["environmental", "local", "skills-based", "regular", "one-time"],
+          "layer1": ["Interests?", "Time available?", "Skills?", "Location?"],
+          "ecological_transform": "community regeneration mutual aid",
+          "actions": ["Find local opportunities", "Start neighborhood project", "Skill-sharing"],
+          "related_terms": ["community service", "helping", "contributing", "social work"]
+        },
+        "relationship": {
+          "vector": [0.81, 0.79, 0.84, 0.82, 0.83, 0.80],
+          "domain": "SOCIAL",
+          "subdomain": "CONNECTION",
+          "filters": ["authentic", "supportive", "boundaries", "communication", "growth-oriented"],
+          "layer1": ["Relationship type?", "Current challenges?", "Goals?", "Communication style?"],
+          "ecological_transform": "conscious relationships meaningful connections",
+          "actions": ["Practice active listening", "Set healthy boundaries", "Regular check-ins"],
+          "related_terms": ["dating", "friendship", "family", "communication", "connection"]
+        }
+      }
+    },
+
+    "emotional_transforms": {
+      "negative_emotions": {
+        "angry|mad|frustrated": {
+          "transform": "anger management emotional regulation",
+          "ecological_lens": "transformative energy channeling",
+          "actions": ["Breathing exercises", "Physical activity", "Nature walk", "Journaling"],
+          "wellness_vector": [0.75, 0.82, 0.78, 0.81, 0.77, 0.79]
+        },
+        "sad|depressed|hopeless": {
+          "transform": "emotional healing supportive community",
+          "ecological_lens": "natural healing cycles restoration",
+          "actions": ["Connect with support", "Daily gratitude", "Small achievable tasks", "Nature exposure"],
+          "wellness_vector": [0.72, 0.79, 0.76, 0.78, 0.75, 0.77]
+        },
+        "anxious|worried|stressed": {
+          "transform": "anxiety relief calming practices",
+          "ecological_lens": "grounding earth connection",
+          "actions": ["Grounding techniques", "Meditation", "Progressive relaxation", "Routine establishment"],
+          "wellness_vector": [0.78, 0.81, 0.77, 0.80, 0.79, 0.78]
+        },
+        "bored|unmotivated|stuck": {
+          "transform": "purpose discovery meaningful activities",
+          "ecological_lens": "creative energy flow",
+          "actions": ["Try new hobby", "Set small goals", "Learn something new", "Volunteer"],
+          "wellness_vector": [0.74, 0.77, 0.75, 0.76, 0.78, 0.75]
+        },
+        "tired|exhausted|burned out": {
+          "transform": "energy restoration sustainable pace",
+          "ecological_lens": "natural rhythms balance",
+          "actions": ["Quality sleep routine", "Nutrition focus", "Gentle movement", "Digital detox"],
+          "wellness_vector": [0.76, 0.78, 0.74, 0.77, 0.76, 0.74]
+        }
+      },
+      
+      "positive_emotions": {
+        "happy|joyful|excited": {
+          "transform": "positive energy sharing community joy",
+          "ecological_lens": "abundance celebration",
+          "actions": ["Share with others", "Creative expression", "Celebrate small wins", "Spread kindness"],
+          "wellness_vector": [0.88, 0.85, 0.87, 0.86, 0.89, 0.88]
+        },
+        "peaceful|calm|content": {
+          "transform": "mindful presence sustainable peace",
+          "ecological_lens": "harmony with nature",
+          "actions": ["Mindfulness practice", "Nature immersion", "Gratitude journaling", "Teach others"],
+          "wellness_vector": [0.86, 0.83, 0.85, 0.84, 0.87, 0.85]
+        }
+      }
+    },
+
+    "consumer_transforms": {
+      "shopping_consumption": {
+        "buy|purchase|shop": {
+          "transform": "conscious consumption ethical shopping",
+          "ecological_lens": "sustainable circular economy",
+          "actions": ["Research ethical brands", "Buy local", "Consider secondhand", "Need vs want assessment"],
+          "impact_vector": [0.82, 0.85, 0.80, 0.83, 0.81, 0.84]
+        },
+        "cheap|discount|sale": {
+          "transform": "value quality sustainable affordability",
+          "ecological_lens": "long-term value durability",
+          "actions": ["Consider total cost of ownership", "Research durability", "Learn repair skills", "Community sharing"],
+          "impact_vector": [0.79, 0.82, 0.78, 0.80, 0.79, 0.81]
+        }
+      },
+
+      "technology_electronics": {
+        "phone|computer|device": {
+          "transform": "sustainable technology responsible electronics",
+          "ecological_lens": "circular electronics repair culture",
+          "actions": ["Extend device lifespan", "Proper recycling", "Repair instead of replace", "Energy-efficient usage"],
+          "impact_vector": [0.84, 0.81, 0.83, 0.82, 0.85, 0.83]
+        }
+      },
+
+      "home_living": {
+        "furniture|decor|home": {
+          "transform": "sustainable home eco-friendly living",
+          "ecological_lens": "natural materials indoor air quality",
+          "actions": ["Choose natural materials", "DIY upcycling", "Local artisans", "Energy efficiency"],
+          "impact_vector": [0.81, 0.83, 0.79, 0.82, 0.80, 0.81]
+        },
+        "cleaning|clean|organize": {
+          "transform": "natural cleaning eco-friendly home",
+          "ecological_lens": "non-toxic environmental health",
+          "actions": ["Make natural cleaners", "Declutter mindfully", "Donate unused items", "Sustainable organization"],
+          "impact_vector": [0.80, 0.82, 0.78, 0.81, 0.79, 0.80]
+        }
+      }
+    },
+
+    "activity_transforms": {
+      "entertainment_leisure": {
+        "watch|TV|movie|streaming": {
+          "transform": "conscious entertainment educational content",
+          "ecological_lens": "mindful media consumption",
+          "actions": ["Choose educational content", "Set viewing limits", "Discuss with others", "Balance with active pursuits"],
+          "engagement_vector": [0.77, 0.75, 0.79, 0.76, 0.78, 0.77]
+        },
+        "game|gaming|play": {
+          "transform": "meaningful play skill development",
+          "ecological_lens": "balanced digital life",
+          "actions": ["Choose educational games", "Set time limits", "Physical activity balance", "Social gaming"],
+          "engagement_vector": [0.78, 0.76, 0.80, 0.77, 0.79, 0.78]
+        },
+        "travel|vacation|trip": {
+          "transform": "sustainable travel eco-tourism",
+          "ecological_lens": "low-impact exploration",
+          "actions": ["Choose eco-friendly destinations", "Support local economies", "Minimize carbon footprint", "Cultural immersion"],
+          "engagement_vector": [0.83, 0.81, 0.85, 0.82, 0.84, 0.83]
+        }
+      },
+
+      "social_activities": {
+        "dating|relationship|love": {
+          "transform": "meaningful connections conscious relationships",
+          "ecological_lens": "authentic community building",
+          "actions": ["Shared values exploration", "Nature activities together", "Community volunteering", "Growth-oriented dating"],
+          "engagement_vector": [0.81, 0.79, 0.83, 0.80, 0.82, 0.81]
+        },
+        "party|social|event": {
+          "transform": "conscious socializing community events",
+          "ecological_lens": "sustainable celebrations",
+          "actions": ["Eco-friendly events", "Local community gatherings", "Skill-sharing parties", "Cultural exchanges"],
+          "engagement_vector": [0.79, 0.77, 0.81, 0.78, 0.80, 0.79]
+        }
+      }
+    },
+
+    "domain_templates": {
+      "LEARNING": {
+        "ecological_prefix": "sustainable regenerative",
+        "layer2": ["Video courses", "Interactive tutorials", "Project-based", "Community learning", "Self-paced"],
+        "layer3": ["Beginner friendly", "Advanced techniques", "Practical application", "Theoretical foundation"],
+        "resources": ["Free online courses", "Local workshops", "Community colleges", "Library resources"],
+        "success_metrics": ["Skill acquisition", "Project completion", "Community contribution", "Teaching others"]
+      },
+      "WELLNESS": {
+        "ecological_prefix": "holistic natural",
+        "layer2": ["Mindfulness practices", "Physical activity", "Nutrition", "Community support", "Professional help"],
+        "layer3": ["Daily maintenance", "Crisis support", "Preventive care", "Long-term healing"],
+        "resources": ["Nature spaces", "Support groups", "Healthcare providers", "Wellness communities"],
+        "success_metrics": ["Stress reduction", "Life satisfaction", "Community connection", "Sustainable habits"]
+      },
+      "ECOLOGY": {
+        "ecological_prefix": "regenerative sustainable",
+        "layer2": ["Personal action", "Community projects", "Policy advocacy", "Education", "Innovation"],
+        "layer3": ["Immediate changes", "Systemic solutions", "Community organizing", "Global impact"],
+        "resources": ["Local organizations", "Educational resources", "Government programs", "Community networks"],
+        "success_metrics": ["Carbon reduction", "Community resilience", "Biodiversity increase", "Policy change"]
+      },
+      "COMMUNITY": {
+        "ecological_prefix": "regenerative interconnected",
+        "layer2": ["Local engagement", "Skill-sharing", "Mutual aid", "Cultural events", "Governance"],
+        "layer3": ["Neighborhood level", "City-wide", "Regional", "Global network"],
+        "resources": ["Community centers", "Online platforms", "Local government", "Non-profits"],
+        "success_metrics": ["Social connections", "Resource sharing", "Collective action", "Community resilience"]
+      }
+    },
+
+    "vector_dimensions_explained": {
+      "dimension_1": "ecological_alignment",
+      "dimension_2": "practical_applicability", 
+      "dimension_3": "community_impact",
+      "dimension_4": "personal_wellness",
+      "dimension_5": "skill_development",
+      "dimension_6": "systemic_change_potential",
+      "description": "Six-dimensional vector space for comprehensive ecological-semantic matching"
+    },
+
+    "optimization_rules": {
+      "query_expansion": {
+        "min_terms": 3,
+        "max_terms": 8,
+        "ecological_required": true,
+        "action_inclusion": true
+      },
+      "matching_thresholds": {
+        "semantic_similarity": 0.65,
+        "vector_cosine": 0.7,
+        "domain_alignment": 0.6
+      },
+      "fallback_strategies": {
+        "broaden_scope": true,
+        "add_ecological_context": true,
+        "suggest_related_terms": true
+      }
+    }
+  }
+}
