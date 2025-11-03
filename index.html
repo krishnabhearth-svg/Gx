@@ -3,94 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pregnancy of the Seed Portal</title>
+<title>Krishna — Art of the Beej</title>
 <style>
-  body{font-family:system-ui,sans-serif;margin:0;background:#f9fafb;color:#111;}
-  header{background:#2563eb;color:#fff;text-align:center;padding:1em;}
-  form{display:flex;justify-content:center;flex-wrap:wrap;gap:0.5em;margin:1em;}
-  input[type=text]{flex:1;min-width:220px;padding:0.6em;font-size:1em;}
-  button{padding:0.6em 1em;background:#10b981;color:#fff;border:none;border-radius:6px;}
-  .grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1em;max-width:1100px;margin:0 auto;}
-  .panel{flex:1 1 450px;background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);
-         padding:1em;min-height:200px;}
-  .panel h3{margin-top:0;color:#2563eb;}
-  .result{margin:0.4em 0;}
-  .result a{color:#2563eb;text-decoration:none;font-weight:600;}
-  iframe{width:100%;height:75vh;border:none;margin-top:1em;}
-  .pdf-actions{text-align:center;margin:1em;}
-  .pdf-actions a{background:#2563eb;color:#fff;padding:0.8em 1.4em;border-radius:6px;
-                 text-decoration:none;}
+  body{margin:0;font-family:'Poppins',sans-serif;background:#f4f6f9;color:#111;}
+  header{background:#4b0082;color:white;text-align:center;padding:1.5em;}
+  iframe{width:100%;height:90vh;border:none;}
+  .art-frame{max-width:900px;margin:1em auto;background:white;
+             border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,0.2);}
+  .caption{text-align:center;padding:1em;font-style:italic;}
+  .download{text-align:center;margin:1em;}
+  .download a{background:#4b0082;color:white;padding:0.8em 1.4em;
+              text-decoration:none;border-radius:8px;}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Pregnancy of the Seed: The Global Healing Food Framework (2025)</h1>
-  <p><em>Concept and Vision from The Pregnancy of Ba.ej</em></p>
+  <h1>🪷 Krishna — The Art of the Beej</h1>
+  <p>An exploration of healing food, consciousness, and creation</p>
 </header>
 
-<form id="searchForm">
-  <input id="query" type="text" placeholder="Search topic... (Beej, Bhojan, Bhajan, etc.)" required>
-  <button type="submit">Search</button>
-</form>
-
-<div class="grid">
-  <div class="panel" id="kidsPanel">
-    <h3>🔍 Kids Miraheze Results</h3>
-    <div id="kidsResults">Type a keyword and press Search.</div>
-  </div>
-
-  <div class="panel" id="googlePanel">
-    <h3>🔎 Google Search</h3>
-    <p>Your query will open directly in Google Search (new tab).</p>
-    <div id="googleLink"></div>
-  </div>
+<div class="art-frame">
+  <iframe src="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf"></iframe>
+  <div class="caption">“Every seed (Beej) carries its art — every breath, a Bhajan.”</div>
 </div>
 
-<section id="pdfSection">
-  <iframe src="krishna.pdf"></iframe>
-  <div class="pdf-actions">
-    <a href="krishna.pdf" download>⬇️ Download Full Report (PDF)</a>
-  </div>
-</section>
-
-<script>
-const form = document.getElementById('searchForm');
-const kidsBox = document.getElementById('kidsResults');
-const googleBox = document.getElementById('googleLink');
-
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-  const q = document.getElementById('query').value.trim();
-  if(!q) return;
-
-  // Google link
-  const googleURL = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
-  googleBox.innerHTML = `<a href="${googleURL}" target="_blank">${googleURL}</a>`;
-
-  // Miraheze API
-  kidsBox.innerHTML = `<p>Loading top 5 results from Kids Miraheze...</p>`;
-  try {
-    const api = `https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
-    const res = await fetch(api);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    if(results.length === 0){
-      kidsBox.innerHTML = `<p>No results found for "<b>${q}</b>".</p>`;
-      return;
-    }
-    kidsBox.innerHTML = results.map(r => `
-      <div class="result">
-        <a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
-        <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}...</p>
-      </div>`).join('') +
-      `<p><a href="https://kids.miraheze.org/wiki/Special:Search?search=${encodeURIComponent(q)}" target="_blank">View full results on Kids Miraheze →</a></p>`;
-  } catch(err){
-    console.error(err);
-    kidsBox.innerHTML = `<p>Could not fetch Kids Miraheze results (API error).</p>`;
-  }
-});
-</script>
+<div class="download">
+  <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>
+    ⬇️ Download Krishna.pdf
+  </a>
+</div>
 
 </body>
 </html>
