@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌾 Krishi • Intelligent 3-Step Semantic Search</title>
+    <title>🌾 Krishi • Universal Semantic Search</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -28,48 +28,57 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px 0;
+            padding: 30px 0;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         .logo {
-            font-size: 3rem;
-            margin-bottom: 10px;
+            font-size: 4rem;
+            margin-bottom: 15px;
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #2d3748;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #718096;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
-        .search-container {
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .search-interface {
             background: white;
             border-radius: 16px;
             padding: 30px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
         }
 
         .search-box {
             display: flex;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         #keywordInput {
             flex: 1;
-            padding: 16px 20px;
+            padding: 18px 20px;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
             outline: none;
         }
@@ -84,10 +93,11 @@
             color: white;
             border: none;
             border-radius: 12px;
-            padding: 0 24px;
+            padding: 0 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 1.1rem;
         }
 
         #analyzeBtn:hover {
@@ -99,20 +109,33 @@
             display: flex;
             justify-content: center;
             margin: 30px 0;
+            align-items: center;
         }
 
         .progress-dot {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #e2e8f0;
-            margin: 0 8px;
+            margin: 0 12px;
             transition: all 0.3s;
+            position: relative;
         }
 
         .progress-dot.active {
             background: #48bb78;
-            transform: scale(1.2);
+            transform: scale(1.3);
+        }
+
+        .progress-dot.completed::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            font-weight: bold;
         }
 
         .step {
@@ -127,39 +150,39 @@
         .question-box {
             background: #f0fff4;
             border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
             border-left: 5px solid #48bb78;
         }
 
         .question-title {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: #2d3748;
         }
 
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
+            gap: 15px;
         }
 
         .option-btn {
             background: white;
             border: 2px solid #e2e8f0;
             border-radius: 10px;
-            padding: 16px 20px;
+            padding: 20px;
             text-align: left;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         .option-btn:hover {
             border-color: #48bb78;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .option-btn.selected {
@@ -173,13 +196,13 @@
             color: white;
             border: none;
             border-radius: 12px;
-            padding: 14px 30px;
-            font-size: 1rem;
+            padding: 16px 40px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             display: block;
-            margin: 20px auto 0;
+            margin: 25px auto 0;
         }
 
         .next-btn:hover {
@@ -193,6 +216,41 @@
             transform: none;
         }
 
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .debug-panel {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .debug-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .debug-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .debug-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #48bb78;
+        }
+
         .results-container {
             background: white;
             border-radius: 16px;
@@ -203,57 +261,72 @@
 
         .results-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .query-display {
             background: #edf2f7;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
         }
 
         .original-query {
             color: #718096;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 1rem;
         }
 
         .enhanced-query {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             color: #2d3748;
+            line-height: 1.4;
+        }
+
+        .semantic-info {
+            background: #e6fffa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #234e52;
         }
 
         .actions-section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .section-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #2d3748;
         }
 
         .action-items {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
         .action-item {
             background: #f0fff4;
             color: #276749;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             border: 1px solid #c6f6d5;
+        }
+
+        .search-tabs-container {
+            margin: 30px 0;
         }
 
         .search-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 20px;
             justify-content: center;
         }
@@ -262,8 +335,8 @@
             background: #edf2f7;
             border: none;
             border-radius: 20px;
-            padding: 8px 16px;
-            font-size: 0.85rem;
+            padding: 10px 20px;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -276,13 +349,17 @@
         .panel {
             display: none;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             background: #f7fafc;
             border-radius: 10px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .panel.active {
-            display: block;
+            display: flex;
         }
 
         .panel a {
@@ -290,13 +367,17 @@
             text-decoration: none;
             font-weight: 500;
             display: inline-block;
-            padding: 8px 16px;
+            padding: 12px 24px;
             border-radius: 8px;
             transition: all 0.3s;
+            background: white;
+            border: 2px solid #e2e8f0;
         }
 
         .panel a:hover {
             background: #ebf8ff;
+            border-color: #3182ce;
+            transform: translateY(-2px);
         }
 
         .reset-btn {
@@ -304,7 +385,7 @@
             color: white;
             border: none;
             border-radius: 12px;
-            padding: 12px 24px;
+            padding: 14px 28px;
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
@@ -316,14 +397,20 @@
             background: #4a5568;
         }
 
-        .semantic-info {
-            background: #e6fffa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #234e52;
+        .loading {
             display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #48bb78;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
         }
 
         @keyframes fadeIn {
@@ -331,17 +418,26 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 600px) {
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
             .container {
                 padding: 15px;
             }
             
-            .search-container, .results-container {
+            .search-interface, .sidebar {
                 padding: 20px;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .search-box {
@@ -351,6 +447,15 @@
             #analyzeBtn {
                 padding: 16px;
             }
+            
+            .search-tabs {
+                gap: 8px;
+            }
+            
+            .tab {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -358,307 +463,282 @@
     <div class="container">
         <div class="header">
             <div class="logo">🌾</div>
-            <h1>Krishi Semantic Search</h1>
-            <p class="subtitle">Enter any keyword and answer 3 simple questions for perfectly tailored ecological results</p>
+            <h1>Krishi Universal Semantic Search</h1>
+            <p class="subtitle">Intelligent ecological search powered by semantic AI - Get perfectly tailored results through contextual questioning</p>
         </div>
 
-        <!-- Progress Indicator -->
-        <div class="progress-container">
-            <div class="progress-dot active" id="dot1"></div>
-            <div class="progress-dot" id="dot2"></div>
-            <div class="progress-dot" id="dot3"></div>
-            <div class="progress-dot" id="dot4"></div>
-        </div>
-
-        <!-- Step 1: Keyword Input -->
-        <div class="step active" id="step1">
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="text" id="keywordInput" placeholder="Enter any keyword (e.g., vehicle pollution, home garden, mental calm)…">
-                    <button id="analyzeBtn">Analyze & Continue →</button>
+        <div class="main-content">
+            <div class="search-interface">
+                <!-- Progress Indicator -->
+                <div class="progress-container">
+                    <div class="progress-dot active" id="dot1" data-step="1">1</div>
+                    <div class="progress-dot" id="dot2" data-step="2">2</div>
+                    <div class="progress-dot" id="dot3" data-step="3">3</div>
+                    <div class="progress-dot" id="dot4" data-step="4">4</div>
                 </div>
-                <div id="keywordAnalysis" class="semantic-info"></div>
+
+                <!-- Step 1: Keyword Input -->
+                <div class="step active" id="step1">
+                    <div class="search-box">
+                        <input type="text" id="keywordInput" placeholder="Enter any keyword (e.g., organic farming, learn programming, mental wellness, renewable energy)…">
+                        <button id="analyzeBtn">Analyze & Continue →</button>
+                    </div>
+                    <div class="loading" id="loadingStep1">
+                        <div class="loading-spinner"></div>
+                        <p>Analyzing keyword semantics...</p>
+                    </div>
+                </div>
+
+                <!-- Step 2: Context Question -->
+                <div class="step" id="step2">
+                    <div class="question-box">
+                        <div class="question-title" id="question2Title">🎯 What's your main focus area?</div>
+                        <div class="options-grid" id="question2Options"></div>
+                    </div>
+                    <button class="next-btn" onclick="nextStep(2)" disabled>Next →</button>
+                </div>
+
+                <!-- Step 3: Approach Question -->
+                <div class="step" id="step3">
+                    <div class="question-box">
+                        <div class="question-title" id="question3Title">🔄 How do you want to approach this?</div>
+                        <div class="options-grid" id="question3Options"></div>
+                    </div>
+                    <button class="next-btn" onclick="nextStep(3)" disabled>Next →</button>
+                </div>
+
+                <!-- Step 4: Outcome Question -->
+                <div class="step" id="step4">
+                    <div class="question-box">
+                        <div class="question-title" id="question4Title">💫 What outcome are you seeking?</div>
+                        <div class="options-grid" id="question4Options"></div>
+                    </div>
+                    <button class="next-btn" onclick="generateFinalResults()">Get Perfect Results →</button>
+                </div>
+
+                <!-- Results Section -->
+                <div class="step" id="results">
+                    <div class="results-container">
+                        <div class="results-header">
+                            <h2>🎉 Your Enhanced Semantic Search Results</h2>
+                        </div>
+
+                        <div class="query-display">
+                            <div class="original-query">Original: "<span id="originalKeyword"></span>"</div>
+                            <div class="enhanced-query">Enhanced: "<span id="finalQuery"></span>"</div>
+                        </div>
+
+                        <div class="semantic-info" id="matchInfo"></div>
+
+                        <div class="actions-section">
+                            <div class="section-title">Recommended Actions</div>
+                            <div class="action-items" id="actionItems"></div>
+                        </div>
+
+                        <div class="search-tabs-container">
+                            <div class="section-title">Search Across Platforms</div>
+                            <div class="search-tabs">
+                                <button class="tab active" onclick="showPanel('kids')">Kids Wiki</button>
+                                <button class="tab" onclick="showPanel('wiki')">Wikipedia</button>
+                                <button class="tab" onclick="showPanel('google')">Google</button>
+                                <button class="tab" onclick="showPanel('scholar')">Scholar</button>
+                                <button class="tab" onclick="showPanel('amazon')">Amazon Books</button>
+                                <button class="tab" onclick="showPanel('openlib')">OpenLibrary</button>
+                                <button class="tab" onclick="showPanel('youtube')">YouTube</button>
+                                <button class="tab" onclick="showPanel('news')">News</button>
+                                <button class="tab" onclick="showPanel('weather')">Weather</button>
+                                <button class="tab" onclick="showPanel('stocks')">Finance</button>
+                                <button class="tab" onclick="showPanel('images')">Images</button>
+                                <button class="tab" onclick="showPanel('maps')">Maps</button>
+                                <button class="tab" onclick="showPanel('translate')">Translate</button>
+                                <button class="tab" onclick="showPanel('ted')">TED Talks</button>
+                                <button class="tab" onclick="showPanel('archive')">Archive.org</button>
+                            </div>
+
+                            <div class="panel active" id="kids">
+                                <a id="kidsLink" target="_blank">Search on Kids Miraheze</a>
+                            </div>
+                            <div class="panel" id="wiki">
+                                <a id="wikiLink" target="_blank">Search on Wikipedia</a>
+                            </div>
+                            <div class="panel" id="google">
+                                <a id="googleLink" target="_blank">Search on Google</a>
+                            </div>
+                            <div class="panel" id="scholar">
+                                <a id="scholarLink" target="_blank">Search on Google Scholar</a>
+                            </div>
+                            <div class="panel" id="amazon">
+                                <a id="amazonLink" target="_blank">Search on Amazon Books</a>
+                            </div>
+                            <div class="panel" id="openlib">
+                                <a id="openlibLink" target="_blank">Search on OpenLibrary</a>
+                            </div>
+                            <div class="panel" id="youtube">
+                                <a id="youtubeLink" target="_blank">Search on YouTube</a>
+                            </div>
+                            <div class="panel" id="news">
+                                <a id="newsLink" target="_blank">Search News</a>
+                            </div>
+                            <div class="panel" id="weather">
+                                <a id="weatherLink" target="_blank">Check Weather</a>
+                            </div>
+                            <div class="panel" id="stocks">
+                                <a id="stocksLink" target="_blank">Check Finance</a>
+                            </div>
+                            <div class="panel" id="images">
+                                <a id="imagesLink" target="_blank">Search Images</a>
+                            </div>
+                            <div class="panel" id="maps">
+                                <a id="mapsLink" target="_blank">Find on Maps</a>
+                            </div>
+                            <div class="panel" id="translate">
+                                <a id="translateLink" target="_blank">Translate</a>
+                            </div>
+                            <div class="panel" id="ted">
+                                <a id="tedLink" target="_blank">Search TED Talks</a>
+                            </div>
+                            <div class="panel" id="archive">
+                                <a id="archiveLink" target="_blank">Search Archive.org</a>
+                            </div>
+                        </div>
+
+                        <button class="reset-btn" onclick="resetSearch()">Start New Search</button>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Step 2: Context Question -->
-        <div class="step" id="step2">
-            <div class="search-container">
-                <div class="question-box">
-                    <div class="question-title" id="question2Title">🎯 What's your main focus?</div>
-                    <div class="options-grid" id="question2Options"></div>
+            <div class="sidebar">
+                <div class="debug-panel">
+                    <div class="debug-title">Semantic Analysis Debug</div>
+                    <div class="debug-content" id="debugContent">
+                        <div class="debug-item">Enter a keyword to begin analysis...</div>
+                    </div>
                 </div>
-                <button class="next-btn" onclick="nextStep(2)" disabled>Next →</button>
-            </div>
-        </div>
-
-        <!-- Step 3: Approach Question -->
-        <div class="step" id="step3">
-            <div class="search-container">
-                <div class="question-box">
-                    <div class="question-title" id="question3Title">🔄 How do you want to approach this?</div>
-                    <div class="options-grid" id="question3Options"></div>
+                
+                <div class="debug-panel">
+                    <div class="debug-title">System Status</div>
+                    <div class="debug-content">
+                        <div class="debug-item" id="statusDb">Database: Loading...</div>
+                        <div class="debug-item" id="statusProcessor">Processor: Ready</div>
+                        <div class="debug-item" id="statusMatches">Successful Matches: 0</div>
+                    </div>
                 </div>
-                <button class="next-btn" onclick="nextStep(3)" disabled>Next →</button>
-            </div>
-        </div>
-
-        <!-- Step 4: Outcome Question -->
-        <div class="step" id="step4">
-            <div class="search-container">
-                <div class="question-box">
-                    <div class="question-title" id="question4Title">💫 What outcome are you seeking?</div>
-                    <div class="options-grid" id="question4Options"></div>
-                </div>
-                <button class="next-btn" onclick="generateFinalResults()">Get Perfect Results →</button>
-            </div>
-        </div>
-
-        <!-- Results Section -->
-        <div class="step" id="results">
-            <div class="results-container">
-                <div class="results-header">
-                    <h2>🎉 Your Enhanced Ecological Search</h2>
-                </div>
-
-                <div class="query-display">
-                    <div class="original-query">Original: "<span id="originalKeyword"></span>"</div>
-                    <div class="enhanced-query">Enhanced: "<span id="finalQuery"></span>"</div>
-                </div>
-
-                <div class="semantic-info" id="matchInfo"></div>
-
-                <div class="actions-section">
-                    <div class="section-title">Recommended Actions</div>
-                    <div class="action-items" id="actionItems"></div>
-                </div>
-
-                <div class="search-tabs">
-                    <button class="tab active" onclick="showPanel('google')">Google</button>
-                    <button class="tab" onclick="showPanel('youtube')">YouTube</button>
-                    <button class="tab" onclick="showPanel('scholar')">Scholar</button>
-                    <button class="tab" onclick="showPanel('amazon')">Amazon Books</button>
-                    <button class="tab" onclick="showPanel('maps')">Local Resources</button>
-                </div>
-
-                <div class="panel active" id="google">
-                    <a id="googleLink" target="_blank">Search on Google</a>
-                </div>
-                <div class="panel" id="youtube">
-                    <a id="youtubeLink" target="_blank">Search on YouTube</a>
-                </div>
-                <div class="panel" id="scholar">
-                    <a id="scholarLink" target="_blank">Search on Google Scholar</a>
-                </div>
-                <div class="panel" id="amazon">
-                    <a id="amazonLink" target="_blank">Search on Amazon Books</a>
-                </div>
-                <div class="panel" id="maps">
-                    <a id="mapsLink" target="_blank">Find Local Resources</a>
-                </div>
-
-                <button class="reset-btn" onclick="resetSearch()">Start New Search</button>
             </div>
         </div>
     </div>
 
+    <!-- Load external JavaScript files -->
+    <script src="/semantic-vector-db.json"></script>
+    <script src="/universal-semantic-processor.js"></script>
+
     <script>
-        // User data storage
+        // Global variables
+        let semanticProcessor;
         let userData = {
             keyword: "",
             semanticMatch: null,
-            answers: {
-                context: null,
-                approach: null, 
-                outcome: null
-            }
+            answers: { context: null, approach: null, outcome: null },
+            searchResult: null
         };
 
-        // Initialize on page load
+        // Initialize application
         document.addEventListener('DOMContentLoaded', function() {
+            initializeApplication();
+            
+            // Event listeners
             document.getElementById('analyzeBtn').addEventListener('click', analyzeKeyword);
             document.getElementById('keywordInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') analyzeKeyword();
             });
         });
 
-        // Semantic analysis function
-        function analyzeKeyword() {
-            const keyword = document.getElementById('keywordInput').value.trim().toLowerCase();
+        // Initialize semantic processor
+        async function initializeApplication() {
+            try {
+                updateDebugInfo("Initializing semantic processor...");
+                
+                // Wait for JSON to load
+                if (typeof GX_SEMANTIC_DB === 'undefined') {
+                    setTimeout(initializeApplication, 100);
+                    return;
+                }
+
+                // Initialize processor
+                semanticProcessor = new EnhancedSemanticProcessor(GX_SEMANTIC_DB);
+                updateDebugInfo("Semantic processor initialized successfully!");
+                document.getElementById('statusDb').textContent = "Database: Loaded (" + Object.keys(GX_SEMANTIC_DB.semantic_vectors).length + " terms)";
+                document.getElementById('statusProcessor').textContent = "Processor: Active";
+                
+            } catch (error) {
+                console.error("Initialization error:", error);
+                updateDebugInfo("Error initializing: " + error.message);
+            }
+        }
+
+        // Main keyword analysis function
+        async function analyzeKeyword() {
+            const keyword = document.getElementById('keywordInput').value.trim();
             
             if (!keyword) {
                 alert("Please enter a keyword to analyze");
                 return;
             }
 
-            userData.keyword = keyword;
-            
-            // Find best semantic match (simulated - will be replaced with actual semantic matching)
-            const match = findSemanticMatch(keyword);
-            userData.semanticMatch = match;
-            
-            // Show analysis info
-            const analysisDiv = document.getElementById('keywordAnalysis');
-            analysisDiv.innerHTML = `
-                <strong>Analysis:</strong> "${keyword}" → Best match: "${match.keyword}" (${match.source})<br>
-                <strong>Domain:</strong> ${match.data.domain || 'General Ecological'}
-            `;
-            analysisDiv.style.display = 'block';
-            
-            // Move to next step
-            nextStep(1);
-            generateQuestions();
+            if (!semanticProcessor) {
+                alert("Semantic processor is still initializing. Please wait...");
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingStep1').style.display = 'block';
+            document.getElementById('analyzeBtn').disabled = true;
+
+            try {
+                userData.keyword = keyword;
+                
+                updateDebugInfo(`Analyzing: "${keyword}"`);
+                
+                // Process search through semantic engine
+                userData.searchResult = semanticProcessor.processUserSearch(keyword, {
+                    experience_level: 'beginner',
+                    time_availability: 'moderate'
+                });
+
+                userData.semanticMatch = userData.searchResult.semanticMatch;
+
+                // Update debug info
+                updateDebugInfo(`
+                    <strong>Keyword:</strong> "${keyword}"<br>
+                    <strong>Matched:</strong> "${userData.semanticMatch.keyword}"<br>
+                    <strong>Domain:</strong> ${userData.semanticMatch.data.domain}<br>
+                    <strong>Confidence:</strong> ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
+                    <strong>Match Type:</strong> ${userData.semanticMatch.matchType}
+                `);
+
+                document.getElementById('statusMatches').textContent = 
+                    "Successful Matches: " + semanticProcessor.searchHistory.length;
+
+                // Move to next step
+                setTimeout(() => {
+                    document.getElementById('loadingStep1').style.display = 'none';
+                    document.getElementById('analyzeBtn').disabled = false;
+                    nextStep(1);
+                    generateQuestions();
+                }, 500);
+
+            } catch (error) {
+                console.error("Analysis error:", error);
+                updateDebugInfo("Analysis failed: " + error.message);
+                document.getElementById('loadingStep1').style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+            }
         }
 
-        // Semantic matching function (placeholder - will be enhanced with your JSON database)
-        function findSemanticMatch(keyword) {
-            // This is a simplified version - will be replaced with your comprehensive semantic matching
-            const semanticDatabase = {
-                "vehicle pollution": {
-                    domain: "TRANSPORT_ECOLOGY",
-                    questions: {
-                        context: {
-                            title: "🚗 What aspect of vehicle pollution concerns you?",
-                            options: {
-                                "health_impact": "Health effects on people",
-                                "environment": "Environmental damage", 
-                                "solutions": "Clean transportation solutions"
-                            }
-                        },
-                        approach: {
-                            title: "🔄 How do you want to address this?",
-                            options: {
-                                "personal_action": "Take personal action",
-                                "community": "Join community efforts", 
-                                "research": "Learn & research solutions"
-                            }
-                        },
-                        outcome: {
-                            title: "💫 What's your desired outcome?",
-                            options: {
-                                "clean_air": "Cleaner air in my community",
-                                "healthier_life": "Healthier lifestyle",
-                                "cost_savings": "Save money on transport"
-                            }
-                        }
-                    },
-                    base_actions: ["Calculate carbon footprint", "Use public transport", "Research electric vehicles"],
-                    modifiers: {
-                        health_impact: "health effects respiratory",
-                        environment: "environmental impact ecosystem",
-                        solutions: "clean alternatives sustainable"
-                    }
-                },
-                "organic farming": {
-                    domain: "AGRICULTURE",
-                    questions: {
-                        context: {
-                            title: "🌱 What interests you about organic farming?",
-                            options: {
-                                "home_garden": "Starting home garden",
-                                "commercial": "Commercial farming", 
-                                "health": "Health benefits"
-                            }
-                        },
-                        approach: {
-                            title: "🛠️ How do you want to get involved?",
-                            options: {
-                                "learn": "Learn the basics",
-                                "practice": "Start practicing", 
-                                "community": "Join community garden"
-                            }
-                        },
-                        outcome: {
-                            title: "🎯 What are you hoping to achieve?",
-                            options: {
-                                "healthy_food": "Grow healthy food",
-                                "save_money": "Save money on groceries",
-                                "environment": "Help environment"
-                            }
-                        }
-                    },
-                    base_actions: ["Start small garden", "Learn composting", "Test soil quality"],
-                    modifiers: {
-                        home_garden: "home gardening beginners",
-                        commercial: "commercial scale business",
-                        health: "health benefits nutrition"
-                    }
-                },
-                "mental health": {
-                    domain: "WELLNESS",
-                    questions: {
-                        context: {
-                            title: "😊 What aspect of mental health?",
-                            options: {
-                                "stress": "Stress management",
-                                "anxiety": "Anxiety relief", 
-                                "mindfulness": "Mindfulness & peace"
-                            }
-                        },
-                        approach: {
-                            title: "🌿 How do you prefer to approach wellness?",
-                            options: {
-                                "self_care": "Self-care practices",
-                                "professional": "Professional help", 
-                                "community": "Community support"
-                            }
-                        },
-                        outcome: {
-                            title: "💫 What wellness outcome do you seek?",
-                            options: {
-                                "peace": "Inner peace & calm",
-                                "energy": "More energy & motivation",
-                                "clarity": "Mental clarity & focus"
-                            }
-                        }
-                    },
-                    base_actions: ["Practice daily mindfulness", "Connect with nature", "Join support community"],
-                    modifiers: {
-                        stress: "stress relief management",
-                        anxiety: "anxiety reduction techniques", 
-                        mindfulness: "mindfulness practice meditation"
-                    }
-                }
-            };
-
-            // Direct match
-            if (semanticDatabase[keyword]) {
-                return { keyword: keyword, data: semanticDatabase[keyword], source: "exact match" };
-            }
-
-            // Word similarity match
-            for (const [dbKeyword, data] of Object.entries(semanticDatabase)) {
-                const keywordWords = keyword.split(' ');
-                const dbKeywordWords = dbKeyword.split(' ');
-                
-                const matches = keywordWords.filter(kw => 
-                    dbKeywordWords.some(dbw => kw.includes(dbw) || dbw.includes(kw))
-                );
-                
-                if (matches.length > 0) {
-                    return { keyword: dbKeyword, data: data, source: "semantic match" };
-                }
-            }
-
-            // Contextual fallback
-            if (keyword.includes('car') || keyword.includes('vehicle') || keyword.includes('pollution')) {
-                return { keyword: "vehicle pollution", data: semanticDatabase["vehicle pollution"], source: "contextual fallback" };
-            }
-            if (keyword.includes('farm') || keyword.includes('garden') || keyword.includes('organic')) {
-                return { keyword: "organic farming", data: semanticDatabase["organic farming"], source: "contextual fallback" };
-            }
-            if (keyword.includes('mental') || keyword.includes('stress') || keyword.includes('anxiety')) {
-                return { keyword: "mental health", data: semanticDatabase["mental health"], source: "contextual fallback" };
-            }
-
-            // Ultimate fallback
-            return { keyword: "organic farming", data: semanticDatabase["organic farming"], source: "general fallback" };
-        }
-
-        // Generate questions based on semantic match
+        // Generate contextual questions
         function generateQuestions() {
-            const match = userData.semanticMatch;
-            const questions = match.data.questions;
+            if (!userData.searchResult) return;
+
+            const questions = userData.searchResult.contextualQuestions;
             
             // Question 2: Context
             document.getElementById('question2Title').textContent = questions.context.title;
@@ -703,6 +783,9 @@
             // Enable next button
             const nextBtn = currentStep.querySelector('.next-btn');
             nextBtn.disabled = false;
+
+            // Update debug
+            updateDebugInfo(`Step ${step} selected: ${value}`);
         }
 
         // Navigate to next step
@@ -712,7 +795,15 @@
             
             // Update progress dots
             document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index < currentStep + 1);
+                const dotStep = parseInt(dot.getAttribute('data-step'));
+                if (dotStep <= currentStep + 1) {
+                    dot.classList.add('active');
+                    if (dotStep <= currentStep) {
+                        dot.classList.add('completed');
+                    }
+                } else {
+                    dot.classList.remove('active');
+                }
             });
         }
 
@@ -720,93 +811,93 @@
         function generateFinalResults() {
             document.getElementById('step4').classList.remove('active');
             document.getElementById('results').classList.add('active');
-            document.querySelectorAll('.progress-dot').forEach(dot => dot.classList.add('active'));
+            
+            // Mark all progress dots as completed
+            document.querySelectorAll('.progress-dot').forEach(dot => {
+                dot.classList.add('active', 'completed');
+            });
 
-            const match = userData.semanticMatch;
-            
-            // Generate enhanced query
-            const enhancedQuery = buildEnhancedQuery();
-            
-            // Display results
+            // Update results display
             document.getElementById('originalKeyword').textContent = userData.keyword;
-            document.getElementById('finalQuery').textContent = enhancedQuery;
-            document.getElementById('matchInfo').textContent = `Matched: "${match.keyword}" (${match.source}) | Domain: ${match.data.domain}`;
-            document.getElementById('matchInfo').style.display = 'block';
+            document.getElementById('finalQuery').textContent = userData.searchResult.enhancedQuery;
             
-            // Generate actions
-            const actions = generateActions();
+            document.getElementById('matchInfo').innerHTML = `
+                <strong>Semantic Analysis:</strong><br>
+                • Matched: "${userData.semanticMatch.keyword}" (${userData.semanticMatch.matchType})<br>
+                • Domain: ${userData.semanticMatch.data.domain}<br>
+                • Confidence: ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
+                • Processing: ${userData.searchResult.processingTime.toFixed(0)}ms
+            `;
+            
+            // Generate and display actions
+            const actions = userData.searchResult.recommendedActions;
             document.getElementById('actionItems').innerHTML = 
                 actions.map(action => `<div class="action-item">${action}</div>`).join('');
 
-            // Update search links
-            updateSearchLinks(enhancedQuery);
+            // Update all search links
+            updateAllSearchLinks(userData.searchResult.enhancedQuery, userData.keyword);
+
+            // Final debug update
+            updateDebugInfo(`
+                <strong>Final Results Generated</strong><br>
+                • Enhanced Query: "${userData.searchResult.enhancedQuery}"<br>
+                • Actions: ${actions.length} recommended<br>
+                • Confidence: ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
+                • Total Searches: ${semanticProcessor.searchHistory.length}
+            `);
         }
 
-        // Build enhanced query based on user answers
-        function buildEnhancedQuery() {
-            const match = userData.semanticMatch;
-            const answers = userData.answers;
-            
-            let query = userData.keyword;
-            
-            // Add context modifier
-            if (match.data.modifiers && match.data.modifiers[answers.context]) {
-                query += ' ' + match.data.modifiers[answers.context];
-            }
-            
-            // Add ecological context
-            query += ' sustainable ecological solutions';
-            
-            return query;
-        }
-
-        // Generate actions based on user answers
-        function generateActions() {
-            const match = userData.semanticMatch;
-            const answers = userData.answers;
-            
-            let actions = [...match.data.base_actions];
-            
-            // Add context-specific actions
-            if (answers.context === 'health_impact' || answers.context === 'health') {
-                actions.push('Monitor air quality', 'Use pollution mask when needed');
-            }
-            if (answers.context === 'home_garden') {
-                actions.push('Start with herbs', 'Use kitchen waste for compost');
-            }
-            if (answers.context === 'stress' || answers.context === 'anxiety') {
-                actions.push('Practice breathing exercises', 'Create calm space at home');
-            }
-            
-            // Add approach-specific actions
-            if (answers.approach === 'community') {
-                actions.push('Find local groups', 'Attend community events');
-            }
-            if (answers.approach === 'learn' || answers.approach === 'research') {
-                actions.push('Read latest research', 'Take online course');
-            }
-            
-            return actions.slice(0, 5);
-        }
-
-        // Update search links with enhanced query
-        function updateSearchLinks(enhancedQuery) {
+        // Update all search platform links
+        function updateAllSearchLinks(enhancedQuery, originalQuery) {
             const e = encodeURIComponent;
             
+            // Enhanced ecological searches
             document.getElementById('googleLink').href = `https://www.google.com/search?q=${e(enhancedQuery)}`;
             document.getElementById('googleLink').textContent = `Google: ${enhancedQuery}`;
             
-            document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(enhancedQuery + ' tutorial')}`;
-            document.getElementById('youtubeLink').textContent = `YouTube: ${enhancedQuery} tutorials`;
-            
             document.getElementById('scholarLink').href = `https://scholar.google.com/scholar?q=${e(enhancedQuery)}`;
-            document.getElementById('scholarLink').textContent = `Scholar: ${enhancedQuery} research`;
+            document.getElementById('scholarLink').textContent = `Scholar: ${enhancedQuery}`;
             
             document.getElementById('amazonLink').href = `https://www.amazon.com/s?k=${e(enhancedQuery + ' books')}`;
             document.getElementById('amazonLink').textContent = `Amazon: ${enhancedQuery} books`;
             
-            document.getElementById('mapsLink').href = `https://www.google.com/maps/search/${e(userData.keyword)}`;
-            document.getElementById('mapsLink').textContent = `Maps: Local ${userData.keyword} resources`;
+            document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(enhancedQuery + ' tutorial')}`;
+            document.getElementById('youtubeLink').textContent = `YouTube: ${enhancedQuery} tutorials`;
+            
+            document.getElementById('newsLink').href = `https://news.google.com/search?q=${e(enhancedQuery)}`;
+            document.getElementById('newsLink').textContent = `News: ${enhancedQuery}`;
+            
+            // API-based searches
+            document.getElementById('kidsLink').href = `https://kids.miraheze.org/w/index.php?search=${e(enhancedQuery)}`;
+            document.getElementById('kidsLink').textContent = `Kids Wiki: ${enhancedQuery}`;
+            
+            document.getElementById('wikiLink').href = `https://en.wikipedia.org/w/index.php?search=${e(enhancedQuery)}`;
+            document.getElementById('wikiLink').textContent = `Wikipedia: ${enhancedQuery}`;
+            
+            document.getElementById('openlibLink').href = `https://openlibrary.org/search?q=${e(enhancedQuery)}`;
+            document.getElementById('openlibLink').textContent = `OpenLibrary: ${enhancedQuery}`;
+            
+            // Utility searches
+            document.getElementById('weatherLink').href = `https://www.google.com/search?q=weather+${e(originalQuery)}`;
+            document.getElementById('weatherLink').textContent = `Weather for ${originalQuery}`;
+            
+            document.getElementById('stocksLink').href = `https://www.google.com/finance?q=${e(originalQuery)}`;
+            document.getElementById('stocksLink').textContent = `Finance: ${originalQuery}`;
+            
+            document.getElementById('imagesLink').href = `https://www.google.com/search?tbm=isch&q=${e(enhancedQuery)}`;
+            document.getElementById('imagesLink').textContent = `Images: ${enhancedQuery}`;
+            
+            document.getElementById('mapsLink').href = `https://www.google.com/maps/search/${e(originalQuery)}`;
+            document.getElementById('mapsLink').textContent = `Maps: ${originalQuery} resources`;
+            
+            document.getElementById('translateLink').href = `https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}`;
+            document.getElementById('translateLink').textContent = `Translate: ${originalQuery}`;
+            
+            document.getElementById('tedLink').href = `https://www.ted.com/search?q=${e(enhancedQuery)}`;
+            document.getElementById('tedLink').textContent = `TED Talks: ${enhancedQuery}`;
+            
+            document.getElementById('archiveLink').href = `https://archive.org/search.php?query=${e(enhancedQuery)}`;
+            document.getElementById('archiveLink').textContent = `Archive.org: ${enhancedQuery}`;
         }
 
         // Show specific panel in results
@@ -819,19 +910,33 @@
 
         // Reset the entire search process
         function resetSearch() {
-            userData = { keyword: "", semanticMatch: null, answers: { context: null, approach: null, outcome: null } };
-            document.getElementById('keywordInput').value = '';
-            document.getElementById('keywordAnalysis').style.display = 'none';
-            document.getElementById('matchInfo').style.display = 'none';
+            userData = { 
+                keyword: "", 
+                semanticMatch: null, 
+                answers: { context: null, approach: null, outcome: null },
+                searchResult: null
+            };
             
+            document.getElementById('keywordInput').value = '';
+            document.getElementById('debugContent').innerHTML = 'Enter a keyword to begin analysis...';
+            
+            // Reset UI
             document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
             document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
             document.querySelectorAll('.next-btn').forEach(btn => btn.disabled = true);
             document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.remove('completed');
                 dot.classList.toggle('active', index === 0);
             });
             
             document.getElementById('step1').classList.add('active');
+            
+            updateDebugInfo("Search reset. Ready for new query.");
+        }
+
+        // Update debug information
+        function updateDebugInfo(content) {
+            document.getElementById('debugContent').innerHTML = content;
         }
     </script>
 </body>
