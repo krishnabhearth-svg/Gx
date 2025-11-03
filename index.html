@@ -3,92 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Krishna Resume – Pregnancy of the Seed Portal</title>
+<title>Krishi • Beej • Explore Food & Conscience</title>
 <style>
-  body{font-family:system-ui,sans-serif;margin:0;background:#fafafa;color:#111;}
-  header{text-align:center;padding:1.5em;background:#2563eb;color:#fff;}
-  form{display:flex;justify-content:center;flex-wrap:wrap;gap:0.6em;margin:1.5em;}
-  input[type=text]{flex:1;min-width:220px;padding:0.6em;font-size:1em;border-radius:6px;border:1px solid #ccc;}
-  button{padding:0.6em 1em;background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer;}
-  button:hover{background:#1d4ed8;}
-  .container{max-width:900px;margin:auto;padding:1em;}
-  .panel{background:#fff;border-radius:10px;box-shadow:0 1px 5px rgba(0,0,0,0.1);
-         padding:1em;margin-bottom:1em;}
-  .panel h3{margin-top:0;color:#2563eb;}
-  .result{margin:0.5em 0;}
-  .result a{color:#2563eb;text-decoration:none;font-weight:600;}
-  .download{text-align:center;margin:2em;}
-  .download a{background:#4b0082;color:#fff;padding:0.8em 1.6em;border-radius:8px;
-              text-decoration:none;font-weight:600;}
-  .download a:hover{background:#6a0dad;}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#fff;color:#202124;text-align:center;}
+header{padding:0.8em 0.5em;}
+h1{font-size:1.2em;margin:0;font-weight:500;}
+.download a{background:#34a853;color:#fff;padding:0.35em 1em;border-radius:20px;
+            text-decoration:none;font-weight:600;display:inline-block;margin-top:0.4em;font-size:0.85em;}
+section{max-width:900px;margin:0 auto;padding:0.4em 0.4em;}
+input[type=text]{width:92%;max-width:450px;padding:0.55em 1em;border:1px solid #dadce0;
+                 border-radius:20px;outline:none;font-size:0.95em;}
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:0.35em;margin-top:0.6em;}
+.tab{padding:0.3em 0.8em;border:1px solid #dadce0;border-radius:20px;cursor:pointer;
+     font-size:0.8em;background:#f8f9fa;}
+.tab.active{background:#1a73e8;color:#fff;border-color:#1a73e8;}
+.panel{display:none;text-align:left;border-top:1px solid #e0e0e0;margin-top:0.6em;padding-top:0.5em;font-size:0.88em;}
+.panel.active{display:block;}
+.result{margin:0.4em 0;}
+.result a{color:#1a73e8;text-decoration:none;font-weight:600;}
+footer{font-size:0.7em;color:#777;margin:1.2em 0;}
+@media(max-width:600px){
+  input[type=text]{width:96%;}
+  .tab{font-size:0.72em;padding:0.25em 0.6em;}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🌿 Pregnancy of the Seed Portal</h1>
-  <p><em>Search • Learn • Heal • Download Krishna Resume</em></p>
+  <h1>🌾 Krishi • Beej • Explore Food & Conscience</h1>
+  <div class="download">
+    <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>
+      ⬇️ Download Krishna Resume
+    </a>
+  </div>
 </header>
 
-<form id="searchForm">
-  <input id="query" type="text" placeholder="Search Beej, Bhojan, Bhajan..." required>
-  <button type="submit">Search</button>
-</form>
+<section id="searchSection">
+  <input id="query" type="text" placeholder="Type your keyword…" oninput="showInstruction()">
+  <p id="instruction" style="color:#777;margin-top:0.6em;font-size:0.85em;">
+    Type a keyword and click a tab to explore.
+  </p>
 
-<div class="container">
-  <div class="panel" id="kidsPanel">
-    <h3>🔍 Kids Miraheze Results</h3>
-    <div id="kidsResults">Type a keyword and press Search.</div>
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-target="kids">Kids Miraheze</div>
+    <div class="tab" data-target="wiki">Wikipedia</div>
+    <div class="tab" data-target="google">Google</div>
+    <div class="tab" data-target="scholar">Scholar</div>
+    <div class="tab" data-target="amazon">Amazon Books</div>
+    <div class="tab" data-target="openlib">OpenLibrary</div>
+    <div class="tab" data-target="youtube">YouTube</div>
+    <div class="tab" data-target="news">News</div>
+    <div class="tab" data-target="weather">Weather</div>
+    <div class="tab" data-target="stocks">Finance</div>
+    <div class="tab" data-target="images">Images</div>
+    <div class="tab" data-target="maps">Maps</div>
+    <div class="tab" data-target="translate">Translate</div>
+    <div class="tab" data-target="ted">TED Talks</div>
+    <div class="tab" data-target="archive">Archive.org</div>
   </div>
 
-  <div class="panel" id="googlePanel">
-    <h3>🔎 Google Search</h3>
-    <p>Your query will open directly in Google (new tab).</p>
-    <div id="googleLink"></div>
+  <div id="panels">
+    <div class="panel active" id="kids"><h3>Kids Miraheze</h3><div id="kidsResults"></div></div>
+    <div class="panel" id="wiki"><h3>Wikipedia</h3><div id="wikiResults"></div></div>
+    <div class="panel" id="google"><h3>Google</h3><div id="googleLink"></div></div>
+    <div class="panel" id="scholar"><h3>Scholar</h3><div id="scholarLink"></div></div>
+    <div class="panel" id="amazon"><h3>Amazon Books</h3><div id="amazonLink"></div></div>
+    <div class="panel" id="openlib"><h3>OpenLibrary</h3><div id="openlibResults"></div></div>
+    <div class="panel" id="youtube"><h3>YouTube</h3><div id="youtubeLink"></div></div>
+    <div class="panel" id="news"><h3>News</h3><div id="newsLink"></div></div>
+    <div class="panel" id="weather"><h3>Weather</h3><div id="weatherLink"></div></div>
+    <div class="panel" id="stocks"><h3>Finance</h3><div id="stocksLink"></div></div>
+    <div class="panel" id="images"><h3>Images</h3><div id="imagesLink"></div></div>
+    <div class="panel" id="maps"><h3>Maps</h3><div id="mapsLink"></div></div>
+    <div class="panel" id="translate"><h3>Translate</h3><div id="translateLink"></div></div>
+    <div class="panel" id="ted"><h3>TED Education</h3><div id="tedLink"></div></div>
+    <div class="panel" id="archive"><h3>Archive.org</h3><div id="archiveLink"></div></div>
   </div>
-</div>
+</section>
 
-<div class="download">
-  <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>⬇️ Download Krishna Resume</a>
-</div>
+<footer>
+  © Krishi • Beej • Conscious Exploration • Healing through Food & Bhajan & Bazar
+</footer>
 
 <script>
-const form = document.getElementById('searchForm');
-const kidsBox = document.getElementById('kidsResults');
-const googleBox = document.getElementById('googleLink');
+const tabs=document.querySelectorAll('.tab');
+const panels=document.querySelectorAll('.panel');
+tabs.forEach(tab=>tab.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active'));
+  panels.forEach(p=>p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById(tab.dataset.target).classList.add('active');
+}));
 
-form.addEventListener('submit', async e => {
-  e.preventDefault();
-  const q = document.getElementById('query').value.trim();
-  if(!q) return;
+function showInstruction(){
+  const q=document.getElementById('query').value.trim();
+  if(!q){document.getElementById('instruction').textContent='Type a keyword and click a tab to explore.';return;}
+  document.getElementById('instruction').innerHTML=`Click tabs to explore "<b>${q}</b>" across sources.`;
+  performSearch(q);
+}
 
-  // Google search link
-  const googleURL = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
-  googleBox.innerHTML = `<a href="${googleURL}" target="_blank">${googleURL}</a>`;
+async function performSearch(q){
+  // external link panels
+  document.getElementById('googleLink').innerHTML=`<a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank">Google results for "${q}"</a>`;
+  document.getElementById('scholarLink').innerHTML=`<a href="https://scholar.google.com/scholar?q=${encodeURIComponent(q)}" target="_blank">Scholar results</a>`;
+  document.getElementById('amazonLink').innerHTML=`<a href="https://author.amazon.com/claim/join?query=${encodeURIComponent(q)}" target="_blank">Amazon Author search "${q}"</a>`;
+  document.getElementById('youtubeLink').innerHTML=`<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank">YouTube videos "${q}"</a>`;
+  document.getElementById('newsLink').innerHTML=`<a href="https://news.google.com/search?q=${encodeURIComponent(q)}" target="_blank">News "${q}"</a>`;
+  document.getElementById('weatherLink').innerHTML=`<a href="https://www.google.com/search?q=weather+${encodeURIComponent(q)}" target="_blank">Weather "${q}"</a>`;
+  document.getElementById('stocksLink').innerHTML=`<a href="https://www.google.com/finance?q=${encodeURIComponent(q)}" target="_blank">Finance "${q}"</a>`;
+  document.getElementById('imagesLink').innerHTML=`<a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}" target="_blank">Images "${q}"</a>`;
+  document.getElementById('mapsLink').innerHTML=`<a href="https://www.google.com/maps/search/${encodeURIComponent(q)}" target="_blank">Maps "${q}"</a>`;
+  document.getElementById('translateLink').innerHTML=`<a href="https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(q)}" target="_blank">Translate "${q}"</a>`;
+  document.getElementById('tedLink').innerHTML=`<a href="https://www.ted.com/search?q=${encodeURIComponent(q)}" target="_blank">TED Talks "${q}"</a>`;
+  document.getElementById('archiveLink').innerHTML=`<a href="https://archive.org/search.php?query=${encodeURIComponent(q)}" target="_blank">Archive.org "${q}"</a>`;
 
-  // Miraheze API (top 5 results)
-  kidsBox.innerHTML = `<p>Loading top 5 results...</p>`;
-  try {
-    const api = `https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
-    const res = await fetch(api);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    if(results.length === 0){
-      kidsBox.innerHTML = `<p>No results found for "<b>${q}</b>".</p>`;
-      return;
-    }
-    kidsBox.innerHTML = results.map(r => `
-      <div class="result">
-        <a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
-        <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}...</p>
-      </div>`).join('') +
-      `<p><a href="https://kids.miraheze.org/wiki/Special:Search?search=${encodeURIComponent(q)}" target="_blank">
-      View full results on Kids Miraheze →</a></p>`;
-  } catch(err){
-    console.error(err);
-    kidsBox.innerHTML = `<p>Could not fetch results (API error).</p>`;
-  }
-});
+  // Miraheze
+  const kidsBox=document.getElementById('kidsResults');
+  kidsBox.innerHTML='Loading...';
+  try{
+    const api=`https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
+    const res=await fetch(api);const data=await res.json();
+    const results=data?.query?.search||[];
+    kidsBox.innerHTML=results.map(r=>`
+      <div class="result"><a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+      <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}…</p></div>`).join('')||`No results for "${q}".`;
+  }catch{kidsBox.textContent='Error fetching Miraheze results.';}
+
+  // Wikipedia
+  const wikiBox=document.getElementById('wikiResults');
+  wikiBox.innerHTML='Loading...';
+  try{
+    const api=`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
+    const res=await fetch(api);const data=await res.json();
+    const results=data?.query?.search||[];
+    wikiBox.innerHTML=results.map(r=>`
+      <div class="result"><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+      <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}…</p></div>`).join('')||`No results for "${q}".`;
+  }catch{wikiBox.textContent='Error fetching Wikipedia results.';}
+
+  // OpenLibrary
+  const olBox=document.getElementById('openlibResults');
+  olBox.innerHTML='Loading...';
+  try{
+    const api=`https://openlibrary.org/search.json?limit=5&q=${encodeURIComponent(q)}`;
+    const res=await fetch(api);const data=await res.json();
+    const results=data?.docs||[];
+    olBox.innerHTML=results.map(r=>{
+      const title=r.title||'Untitled';
+      const author=(r.author_name||[]).join(', ');
+      return `<div class="result"><strong>${title}</strong> <em>${author}</em><br>
+        <a href="https://openlibrary.org${r.key}" target="_blank">View on OpenLibrary</a></div>`;
+    }).join('')||`No results for "${q}".`;
+  }catch{olBox.textContent='Error fetching OpenLibrary results.';}
+}
 </script>
 
 </body>
