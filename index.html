@@ -2,162 +2,215 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Krishi • Beej • Explore Food & Conscience</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🌱 Krishi AI • Semantic Ecological Search</title>
 <style>
-body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#fff;color:#202124;text-align:center;}
-header{padding:0.8em 0.5em;}
-h1{font-size:1.2em;margin:0;font-weight:500;}
-.download a{background:#34a853;color:#fff;padding:0.35em 1em;border-radius:20px;
-            text-decoration:none;font-weight:600;display:inline-block;margin-top:0.4em;font-size:0.85em;}
-section{max-width:900px;margin:0 auto;padding:0.4em 0.4em;}
-input[type=text]{width:92%;max-width:450px;padding:0.55em 1em;border:1px solid #dadce0;
-                 border-radius:20px;outline:none;font-size:0.95em;}
-.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:0.35em;margin-top:0.6em;}
-.tab{padding:0.3em 0.8em;border:1px solid #dadce0;border-radius:20px;cursor:pointer;
-     font-size:0.8em;background:#f8f9fa;}
-.tab.active{background:#1a73e8;color:#fff;border-color:#1a73e8;}
-.panel{display:none;text-align:left;border-top:1px solid #e0e0e0;margin-top:0.6em;padding-top:0.5em;font-size:0.88em;}
+body{font-family:Arial,sans-serif;background:#f9f9f9;color:#222;margin:0;padding:0;text-align:center;}
+.container{max-width:900px;margin:20px auto;padding:20px;}
+input{width:90%;max-width:500px;padding:14px;border:1px solid #ccc;border-radius:24px;font-size:1em;margin:15px 0;}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:15px 0;}
+.tab{padding:8px 16px;background:#e0e0e0;border:none;border-radius:20px;cursor:pointer;font-size:0.85em;}
+.tab.active{background:#4CAF50;color:white;}
+.panel{display:none;text-align:left;background:white;padding:15px;margin:15px 0;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
 .panel.active{display:block;}
-.result{margin:0.4em 0;}
-.result a{color:#1a73e8;text-decoration:none;font-weight:600;}
-footer{font-size:0.7em;color:#777;margin:1.2em 0;}
-@media(max-width:600px){
-  input[type=text]{width:96%;}
-  .tab{font-size:0.72em;padding:0.25em 0.6em;}
-}
+.actions{background:#e8f5e8;padding:15px;border-radius:10px;margin:20px 0;text-align:left;}
+.actions span{display:inline-block;background:white;padding:6px 12px;margin:4px 6px 4px 0;border-radius:16px;font-size:0.85em;}
+.log{font-size:0.75em;color:#777;font-style:italic;margin-top:10px;}
 </style>
 </head>
 <body>
-
-<header>
-  <h1>🌾 Krishi • Beej • Explore Food & Conscience</h1>
-  <div class="download">
-    <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>
-      ⬇️ Download Krishna Resume
-    </a>
-  </div>
-</header>
-
-<section id="searchSection">
-  <input id="query" type="text" placeholder="Type your keyword…" oninput="showInstruction()">
-  <p id="instruction" style="color:#777;margin-top:0.6em;font-size:0.85em;">
-    Type a keyword and click a tab to explore.
-  </p>
-
-  <div class="tabs" id="tabs">
-    <div class="tab active" data-target="kids">Kids Miraheze</div>
-    <div class="tab" data-target="wiki">Wikipedia</div>
-    <div class="tab" data-target="google">Google</div>
-    <div class="tab" data-target="scholar">Scholar</div>
-    <div class="tab" data-target="amazon">Amazon Books</div>
-    <div class="tab" data-target="openlib">OpenLibrary</div>
-    <div class="tab" data-target="youtube">YouTube</div>
-    <div class="tab" data-target="news">News</div>
-    <div class="tab" data-target="weather">Weather</div>
-    <div class="tab" data-target="stocks">Finance</div>
-    <div class="tab" data-target="images">Images</div>
-    <div class="tab" data-target="maps">Maps</div>
-    <div class="tab" data-target="translate">Translate</div>
-    <div class="tab" data-target="ted">TED Talks</div>
-    <div class="tab" data-target="archive">Archive.org</div>
+<div class="container">
+  <h1>🌱 Krishi AI • Semantic Search</h1>
+  <input type="text" id="userQuery" placeholder="e.g., organic farming, mental calm, pollution vehicle..." oninput="handleInput()">
+  
+  <div id="aiOutput" style="display:none;">
+    <div class="actions">
+      <strong>Recommended Actions:</strong><br>
+      <div id="actionList"></div>
+    </div>
+    <p><strong>Intelligent Questions:</strong></p>
+    <div id="questionList"></div>
   </div>
 
-  <div id="panels">
-    <div class="panel active" id="kids"><h3>Kids Miraheze</h3><div id="kidsResults"></div></div>
-    <div class="panel" id="wiki"><h3>Wikipedia</h3><div id="wikiResults"></div></div>
-    <div class="panel" id="google"><h3>Google</h3><div id="googleLink"></div></div>
-    <div class="panel" id="scholar"><h3>Scholar</h3><div id="scholarLink"></div></div>
-    <div class="panel" id="amazon"><h3>Amazon Books</h3><div id="amazonLink"></div></div>
-    <div class="panel" id="openlib"><h3>OpenLibrary</h3><div id="openlibResults"></div></div>
-    <div class="panel" id="youtube"><h3>YouTube</h3><div id="youtubeLink"></div></div>
-    <div class="panel" id="news"><h3>News</h3><div id="newsLink"></div></div>
-    <div class="panel" id="weather"><h3>Weather</h3><div id="weatherLink"></div></div>
-    <div class="panel" id="stocks"><h3>Finance</h3><div id="stocksLink"></div></div>
-    <div class="panel" id="images"><h3>Images</h3><div id="imagesLink"></div></div>
-    <div class="panel" id="maps"><h3>Maps</h3><div id="mapsLink"></div></div>
-    <div class="panel" id="translate"><h3>Translate</h3><div id="translateLink"></div></div>
-    <div class="panel" id="ted"><h3>TED Education</h3><div id="tedLink"></div></div>
-    <div class="panel" id="archive"><h3>Archive.org</h3><div id="archiveLink"></div></div>
-  </div>
-</section>
+  <div class="tabs" id="tabs"></div>
+  <div id="panels"></div>
 
-<footer>
-  © Krishi • Beej • Conscious Exploration • Healing through Food & Bhajan & Bazar
-</footer>
+  <div class="log" id="logMessage"></div>
+</div>
 
 <script>
-const tabs=document.querySelectorAll('.tab');
-const panels=document.querySelectorAll('.panel');
-tabs.forEach(tab=>tab.addEventListener('click',()=>{
-  tabs.forEach(x=>x.classList.remove('active'));
-  panels.forEach(p=>p.classList.remove('active'));
-  tab.classList.add('active');
-  document.getElementById(tab.dataset.target).classList.add('active');
-}));
+// Load the semantic vector database
+let semanticDB = {};
+let currentMatch = null;
+let userKeyword = '';
 
-function showInstruction(){
-  const q=document.getElementById('query').value.trim();
-  if(!q){document.getElementById('instruction').textContent='Type a keyword and click a tab to explore.';return;}
-  document.getElementById('instruction').innerHTML=`Click tabs to explore "<b>${q}</b>" across sources.`;
-  performSearch(q);
+// Simulate loading JSON (in real use, fetch from file)
+async function loadSemanticDB() {
+  // In production: const res = await fetch('semantic-vector-db.json');
+  // For demo, embed small version
+  semanticDB = {
+    "organic farming": {
+      "vector": [0.88, 0.95, 0.74],
+      "questions": ["Home garden or farm?", "Need certification help?"],
+      "queries": {
+        "google": "organic farming soil health biodiversity",
+        "scholar": "organic agriculture yield study",
+        "youtube": "organic farming for beginners India",
+        "maps": "organic farms near me"
+      },
+      "actions": ["Visit organic farm", "Start small garden", "Test soil"],
+      "trusted_sites": ["soilhealth.dac.gov.in", "krishi.gov.in"]
+    },
+    "pollution vehicle": {
+      "vector": [0.85, 0.72, 0.79],
+      "questions": ["Health or environment concern?", "City or rural?"],
+      "queries": {
+        "google": "vehicle pollution air quality health",
+        "scholar": "transport emissions climate impact",
+        "youtube": "reduce car pollution tips",
+        "maps": "EV charging stations near me"
+      },
+      "actions": ["Use public transport", "Calculate carbon footprint"],
+      "trusted_sites": ["cpcb.nic.in", "ev.gov.in"]
+    },
+    "mental calm": {
+      "vector": [0.65, 0.92, 0.71],
+      "questions": ["Individual or group practice?", "Daily time available?"],
+      "queries": {
+        "google": "nature therapy mental calm",
+        "scholar": "grounding mental health study",
+        "youtube": "5 minute mindfulness grounding",
+        "maps": "meditation centers near me"
+      },
+      "actions": ["Walk barefoot on soil", "Grow tulsi at home"],
+      "trusted_sites": ["nih.gov", "who.int"]
+    }
+  };
 }
 
-async function performSearch(q){
-  // external link panels
-  document.getElementById('googleLink').innerHTML=`<a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank">Google results for "${q}"</a>`;
-  document.getElementById('scholarLink').innerHTML=`<a href="https://scholar.google.com/scholar?q=${encodeURIComponent(q)}" target="_blank">Scholar results</a>`;
-  document.getElementById('amazonLink').innerHTML=`<a href="https://author.amazon.com/claim/join?query=${encodeURIComponent(q)}" target="_blank">Amazon Author search "${q}"</a>`;
-  document.getElementById('youtubeLink').innerHTML=`<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank">YouTube videos "${q}"</a>`;
-  document.getElementById('newsLink').innerHTML=`<a href="https://news.google.com/search?q=${encodeURIComponent(q)}" target="_blank">News "${q}"</a>`;
-  document.getElementById('weatherLink').innerHTML=`<a href="https://www.google.com/search?q=weather+${encodeURIComponent(q)}" target="_blank">Weather "${q}"</a>`;
-  document.getElementById('stocksLink').innerHTML=`<a href="https://www.google.com/finance?q=${encodeURIComponent(q)}" target="_blank">Finance "${q}"</a>`;
-  document.getElementById('imagesLink').innerHTML=`<a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}" target="_blank">Images "${q}"</a>`;
-  document.getElementById('mapsLink').innerHTML=`<a href="https://www.google.com/maps/search/${encodeURIComponent(q)}" target="_blank">Maps "${q}"</a>`;
-  document.getElementById('translateLink').innerHTML=`<a href="https://translate.google.com/?sl=auto&tl=en&text=${encodeURIComponent(q)}" target="_blank">Translate "${q}"</a>`;
-  document.getElementById('tedLink').innerHTML=`<a href="https://www.ted.com/search?q=${encodeURIComponent(q)}" target="_blank">TED Talks "${q}"</a>`;
-  document.getElementById('archiveLink').innerHTML=`<a href="https://archive.org/search.php?query=${encodeURIComponent(q)}" target="_blank">Archive.org "${q}"</a>`;
-
-  // Miraheze
-  const kidsBox=document.getElementById('kidsResults');
-  kidsBox.innerHTML='Loading...';
-  try{
-    const api=`https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
-    const res=await fetch(api);const data=await res.json();
-    const results=data?.query?.search||[];
-    kidsBox.innerHTML=results.map(r=>`
-      <div class="result"><a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
-      <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}…</p></div>`).join('')||`No results for "${q}".`;
-  }catch{kidsBox.textContent='Error fetching Miraheze results.';}
-
-  // Wikipedia
-  const wikiBox=document.getElementById('wikiResults');
-  wikiBox.innerHTML='Loading...';
-  try{
-    const api=`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(q)}`;
-    const res=await fetch(api);const data=await res.json();
-    const results=data?.query?.search||[];
-    wikiBox.innerHTML=results.map(r=>`
-      <div class="result"><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
-      <p>${r.snippet.replace(/<\/?[^>]+(>|$)/g,"")}…</p></div>`).join('')||`No results for "${q}".`;
-  }catch{wikiBox.textContent='Error fetching Wikipedia results.';}
-
-  // OpenLibrary
-  const olBox=document.getElementById('openlibResults');
-  olBox.innerHTML='Loading...';
-  try{
-    const api=`https://openlibrary.org/search.json?limit=5&q=${encodeURIComponent(q)}`;
-    const res=await fetch(api);const data=await res.json();
-    const results=data?.docs||[];
-    olBox.innerHTML=results.map(r=>{
-      const title=r.title||'Untitled';
-      const author=(r.author_name||[]).join(', ');
-      return `<div class="result"><strong>${title}</strong> <em>${author}</em><br>
-        <a href="https://openlibrary.org${r.key}" target="_blank">View on OpenLibrary</a></div>`;
-    }).join('')||`No results for "${q}".`;
-  }catch{olBox.textContent='Error fetching OpenLibrary results.';}
+function findBestMatch(query) {
+  query = query.toLowerCase();
+  for (let term in semanticDB) {
+    if (query.includes(term) || term.includes(query)) {
+      return semanticDB[term];
+    }
+  }
+  // Fallback: return first match by keyword overlap
+  for (let term in semanticDB) {
+    if (term.split(' ').some(w => query.includes(w))) {
+      return semanticDB[term];
+    }
+  }
+  return null;
 }
+
+function handleInput() {
+  const q = document.getElementById('userQuery').value.trim();
+  if (!q) {
+    document.getElementById('aiOutput').style.display = 'none';
+    return;
+  }
+  
+  userKeyword = q;
+  currentMatch = findBestMatch(q);
+  
+  if (currentMatch) {
+    // Show actions
+    document.getElementById('actionList').innerHTML = 
+      currentMatch.actions.map(a => `<span>${a}</span>`).join('');
+    
+    // Show questions
+    document.getElementById('questionList').innerHTML = 
+      currentMatch.questions.map(q => `<p>• ${q}</p>`).join('');
+    
+    document.getElementById('aiOutput').style.display = 'block';
+    
+    // Generate tabs & panels
+    generateTabsAndPanels();
+    
+    // Log for research
+    logSearch(q, currentMatch);
+    
+  } else {
+    document.getElementById('aiOutput').style.display = 'none';
+    document.getElementById('tabs').innerHTML = '';
+    document.getElementById('panels').innerHTML = '';
+    document.getElementById('logMessage').textContent = 'No semantic match found – using basic search.';
+  }
+}
+
+function generateTabsAndPanels() {
+  const tabsContainer = document.getElementById('tabs');
+  const panelsContainer = document.getElementById('panels');
+  
+  const platforms = ["google", "scholar", "youtube", "maps", "news", "wiki"];
+  tabsContainer.innerHTML = '';
+  panelsContainer.innerHTML = '';
+  
+  platforms.forEach(platform => {
+    const isActive = platform === "google";
+    
+    // Create tab
+    const tab = document.createElement('button');
+    tab.className = `tab ${isActive ? 'active' : ''}`;
+    tab.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+    tab.onclick = () => switchTab(platform);
+    tab.dataset.target = platform;
+    tabsContainer.appendChild(tab);
+    
+    // Create panel
+    const panel = document.createElement('div');
+    panel.id = platform;
+    panel.className = `panel ${isActive ? 'active' : ''}`;
+    panel.innerHTML = `<h3>${platform.charAt(0).toUpperCase() + platform.slice(1)}</h3><div id="${platform}Link"></div>`;
+    panelsContainer.appendChild(panel);
+    
+    // Generate link
+    const finalQuery = currentMatch.queries[platform] || `${userKeyword} ecology agriculture sustainable`;
+    const urls = {
+      google: `https://www.google.com/search?q=${encodeURIComponent(finalQuery)}`,
+      scholar: `https://scholar.google.com/scholar?q=${encodeURIComponent(finalQuery)}`,
+      youtube: `https://www.youtube.com/results?search_query=${encodeURIComponent(finalQuery)}`,
+      maps: `https://www.google.com/maps/search/${encodeURIComponent(finalQuery)}`,
+      news: `https://news.google.com/search?q=${encodeURIComponent(finalQuery)}`,
+      wiki: `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(finalQuery)}`
+    };
+    
+    document.getElementById(`${platform}Link`).innerHTML = 
+      `<a href="${urls[platform]}" target="_blank">${platform} results for: ${finalQuery}</a>`;
+  });
+}
+
+function switchTab(platform) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[data-target="${platform}"]`).classList.add('active');
+  document.getElementById(platform).classList.add('active');
+}
+
+function logSearch(keyword, match) {
+  // In real app: send to backend or store in IndexedDB
+  const logEntry = {
+    timestamp: new Date().toISOString(),
+    keyword: keyword,
+    matched_concept: Object.keys(semanticDB).find(k => semanticDB[k] === match),
+    actions_shown: match.actions,
+    queries_used: match.queries
+  };
+  
+  // Save to localStorage for research (optional)
+  let logs = JSON.parse(localStorage.getItem('krishi_search_logs') || '[]');
+  logs.push(logEntry);
+  localStorage.setItem('krishi_search_logs', JSON.stringify(logs.slice(-100))); // keep last 100
+  
+  document.getElementById('logMessage').textContent = 
+    `✅ Logged: "${keyword}" → matched concept. (${logs.length} total searches stored)`;
+}
+
+// Initialize
+loadSemanticDB().then(() => {
+  document.getElementById('logMessage').textContent = 'Semantic DB loaded. Ready for intelligent search.';
+});
 </script>
-
 </body>
 </html>
