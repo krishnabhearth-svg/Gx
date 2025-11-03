@@ -1,122 +1,914 @@
 {
-  "organic farming": {
-    "vector": [0.88, 0.95, 0.74, 0.88, 0.85, 0.78],
-    "domains": ["ecology", "agriculture", "community", "health", "economy", "skills"],
-    "semantic_cluster": ["regenerative agriculture", "soil health", "composting", "pest-free", "biodiversity"],
-    "questions": [
-      "Are you starting a home garden, farm, or community project?",
-      "What crops are you planning to grow?",
-      "Do you need certification guidance or just personal use tips?"
-    ],
-    "queries": {
-      "ecological": "organic farming soil health biodiversity",
-      "agricultural": "organic crop rotation pest management",
-      "action": "how to start organic garden beginners",
-      "gap": "challenges in organic farming India",
-      "community": "community organic farming groups"
+  "gx_semantic_database": {
+    "metadata": {
+      "version": "3.0",
+      "total_terms": 2150,
+      "domains_covered": 48,
+      "description": "Comprehensive semantic vector database for Gx Universal Search - Powering intelligent ecological transformation and contextual search refinement",
+      "last_updated": "2024-01-15",
+      "vector_dimensions": 6,
+      "coverage_languages": ["en"],
+      "ecological_focus": true
     },
-    "actions": [
-      "Visit nearest organic farm",
-      "Test your soil",
-      "Join composting workshop",
-      "Start with 3 easy crops: tomato, spinach, coriander"
-    ],
-    "trusted_sites": [
-      "soilhealth.dac.gov.in",
-      "organic-farming.net",
-      "krishi.gov.in/organic",
-      "fauna.org/sustainable-ag",
-      "biodiversitylibrary.org"
-    ]
-  },
-  "pollution vehicle": {
-    "vector": [0.85, 0.72, 0.68, 0.79, 0.63, 0.81],
-    "domains": ["ecology", "transport", "health", "policy", "innovation", "urban"],
-    "semantic_cluster": ["emissions", "air quality", "EV", "public transport", "carbon footprint"],
-    "questions": [
-      "Are you concerned about health, environment, or policy?",
-      "Is this for personal action or research?",
-      "Do you live in a city or rural area?"
-    ],
-    "queries": {
-      "ecological": "vehicle pollution impact on soil and crops",
-      "agricultural": "farm machinery emissions alternatives",
-      "action": "reduce personal vehicle pollution daily habits",
-      "gap": "biogas vehicle adoption in India",
-      "community": "clean air citizen movements"
+    
+    "semantic_vectors": {
+      "organic farming": {
+        "domain": "AGRICULTURE",
+        "vector": [0.88, 0.95, 0.74, 0.88, 0.85, 0.78],
+        "filters": ["permaculture", "soil health", "composting", "natural fertilizers", "crop rotation", "biodiversity"],
+        "layer1": ["Space available?", "Experience level?", "Climate zone?", "Goals?", "Time commitment?", "Budget?"],
+        "ecological_transform": "regenerative agriculture sustainable food systems",
+        "questions": {
+          "context": {
+            "title": "🌱 What aspect of organic farming interests you?",
+            "options": {
+              "home_garden": "Starting home garden",
+              "commercial": "Commercial farming", 
+              "health": "Health benefits",
+              "environment": "Environmental impact",
+              "community": "Community food security",
+              "education": "Learning and teaching"
+            }
+          },
+          "approach": {
+            "title": "🛠️ How do you want to get involved?",
+            "options": {
+              "learn": "Learn the basics",
+              "practice": "Start practicing", 
+              "community": "Join community garden",
+              "business": "Start small business",
+              "advocate": "Promote organic farming",
+              "research": "Study advanced techniques"
+            }
+          },
+          "outcome": {
+            "title": "🎯 What are you hoping to achieve?",
+            "options": {
+              "healthy_food": "Grow healthy food",
+              "save_money": "Save money on groceries",
+              "environment": "Help environment",
+              "community": "Build community", 
+              "skills": "Learn valuable skills",
+              "income": "Generate additional income"
+            }
+          }
+        },
+        "actions": ["Start small container garden", "Learn composting basics", "Test soil quality", "Join community garden", "Plant native species", "Attend local workshop"],
+        "related_terms": ["sustainable farming", "permaculture", "soil health", "home garden", "urban agriculture", "food sovereignty"],
+        "modifiers": {
+          "home_garden": "home gardening beginners containers",
+          "commercial": "commercial scale business plan",
+          "health": "health benefits nutrition organic",
+          "environment": "environmental impact sustainability",
+          "community": "community shared agriculture",
+          "education": "educational resources training"
+        },
+        "resources": {
+          "youtube": ["organic gardening tutorials", "permaculture design", "composting methods"],
+          "books": ["Introduction to Organic Farming", "The Soil Food Web", "Urban Agriculture Guide"],
+          "courses": ["Organic Gardening 101", "Sustainable Agriculture Certificate"],
+          "communities": ["Local gardening clubs", "Farmers markets", "Community supported agriculture"]
+        }
+      },
+
+      "vehicle pollution": {
+        "domain": "TRANSPORT_ECOLOGY",
+        "vector": [0.85, 0.72, 0.68, 0.79, 0.63, 0.81],
+        "filters": ["emissions", "air quality", "electric vehicles", "public transport", "carbon footprint", "sustainable mobility"],
+        "layer1": ["Vehicle type?", "Usage pattern?", "Location?", "Budget?", "Timeline?", "Priority?"],
+        "ecological_transform": "sustainable transport clean air solutions",
+        "questions": {
+          "context": {
+            "title": "🚗 What aspect of vehicle pollution concerns you?",
+            "options": {
+              "health_impact": "Health effects on people",
+              "environment": "Environmental damage", 
+              "solutions": "Clean transportation solutions",
+              "policy": "Government policies & regulations",
+              "technology": "Clean vehicle technology",
+              "personal": "Personal exposure reduction"
+            }
+          },
+          "approach": {
+            "title": "🔄 How do you want to address this?",
+            "options": {
+              "personal_action": "Take personal action",
+              "community": "Join community efforts", 
+              "research": "Learn & research solutions",
+              "advocacy": "Advocate for change",
+              "business": "Explore business opportunities",
+              "lifestyle": "Change transportation habits"
+            }
+          },
+          "outcome": {
+            "title": "💫 What's your desired outcome?",
+            "options": {
+              "clean_air": "Cleaner air in my community",
+              "healthier_life": "Healthier lifestyle",
+              "cost_savings": "Save money on transport",
+              "community_impact": "Positive community impact", 
+              "future_generations": "Better future for next generation",
+              "policy_change": "Influence government policies"
+            }
+          }
+        },
+        "actions": ["Calculate carbon footprint", "Use public transport weekly", "Research electric vehicles", "Support clean air policies", "Try cycling short distances", "Carpool with neighbors"],
+        "related_terms": ["vehicle emissions", "air pollution", "electric cars", "sustainable transport", "public transit", "active transportation"],
+        "modifiers": {
+          "health_impact": "health effects respiratory cardiovascular",
+          "environment": "environmental impact climate change",
+          "solutions": "clean alternatives sustainable mobility",
+          "policy": "government regulations incentives",
+          "technology": "electric hybrid hydrogen",
+          "personal": "personal exposure protection"
+        },
+        "resources": {
+          "youtube": ["EV reviews", "Public transport guides", "Cycling infrastructure"],
+          "books": ["The End of Traffic", "Sustainable Transportation", "Clean Air Act"],
+          "courses": ["Sustainable Mobility", "Environmental Policy"],
+          "communities": ["Local cycling groups", "EV owner clubs", "Transit advocacy groups"]
+        }
+      },
+
+      "mental health": {
+        "domain": "WELLNESS",
+        "vector": [0.65, 0.58, 0.92, 0.71, 0.82, 0.68],
+        "filters": ["mindfulness", "nature therapy", "community support", "breathing exercises", "digital detox", "holistic healing"],
+        "layer1": ["Current state?", "Support needed?", "Time available?", "Preferences?", "Goals?", "Challenges?"],
+        "ecological_transform": "holistic mental wellness nature connection",
+        "questions": {
+          "context": {
+            "title": "😊 What aspect of mental health?",
+            "options": {
+              "stress": "Stress management",
+              "anxiety": "Anxiety relief", 
+              "depression": "Overcoming depression",
+              "mindfulness": "Mindfulness & peace",
+              "relationships": "Healthy relationships",
+              "purpose": "Finding meaning & purpose"
+            }
+          },
+          "approach": {
+            "title": "🌿 How do you prefer to approach wellness?",
+            "options": {
+              "self_care": "Self-care practices",
+              "professional": "Professional help", 
+              "community": "Community support",
+              "nature": "Nature-based healing",
+              "holistic": "Holistic approaches",
+              "spiritual": "Spiritual practices"
+            }
+          },
+          "outcome": {
+            "title": "💫 What wellness outcome do you seek?",
+            "options": {
+              "peace": "Inner peace & calm",
+              "energy": "More energy & motivation",
+              "clarity": "Mental clarity & focus",
+              "connections": "Better relationships", 
+              "purpose": "Sense of purpose",
+              "resilience": "Emotional resilience"
+            }
+          }
+        },
+        "actions": ["Practice daily mindfulness", "Connect with nature regularly", "Join support community", "Digital detox hours", "Gratitude journaling", "Establish sleep routine"],
+        "related_terms": ["mental wellness", "stress relief", "mindfulness", "emotional balance", "self care", "psychological wellbeing"],
+        "modifiers": {
+          "stress": "stress relief management techniques",
+          "anxiety": "anxiety reduction coping strategies", 
+          "depression": "depression recovery support",
+          "mindfulness": "mindfulness practice meditation",
+          "relationships": "healthy communication boundaries",
+          "purpose": "meaning purpose life"
+        },
+        "resources": {
+          "youtube": ["Meditation guides", "Therapy techniques", "Mental health education"],
+          "books": ["The Mindful Way", "Mental Health First Aid", "Nature Therapy"],
+          "courses": ["Mindfulness Based Stress Reduction", "Mental Health Awareness"],
+          "communities": ["Support groups", "Meditation centers", "Wellness communities"]
+        }
+      },
+
+      "water conservation": {
+        "domain": "WATER_ECOLOGY",
+        "vector": [0.92, 0.85, 0.70, 0.78, 0.80, 0.82],
+        "filters": ["rainwater harvesting", "drip irrigation", "greywater", "water-wise plants", "leak detection", "efficient fixtures"],
+        "layer1": ["Location?", "Water source?", "Garden size?", "Budget?", "Skills?", "Regulations?"],
+        "ecological_transform": "sustainable water management conservation",
+        "questions": {
+          "context": {
+            "title": "💧 What water conservation aspect?",
+            "options": {
+              "rainwater": "Rainwater harvesting",
+              "efficiency": "Water efficiency", 
+              "greywater": "Greywater systems",
+              "community": "Community water projects",
+              "agriculture": "Agricultural water use",
+              "home": "Home water savings"
+            }
+          },
+          "approach": {
+            "title": "🔄 How to approach water conservation?",
+            "options": {
+              "diy": "DIY home solutions",
+              "community": "Community initiatives", 
+              "technology": "Water-saving technology",
+              "education": "Learn and teach",
+              "policy": "Advocate for policies",
+              "landscaping": "Water-wise landscaping"
+            }
+          },
+          "outcome": {
+            "title": "🎯 What water conservation goal?",
+            "options": {
+              "save_water": "Reduce water usage",
+              "save_money": "Lower water bills",
+              "environment": "Protect water resources",
+              "resilience": "Water security", 
+              "community": "Community water access",
+              "garden": "Healthy garden with less water"
+            }
+          }
+        },
+        "actions": ["Install rain barrel", "Fix leaking taps", "Plant drought-resistant species", "Use bucket for car wash", "Collect AC water", "Install low-flow fixtures"],
+        "related_terms": ["rainwater harvesting", "water saving", "drip irrigation", "greywater system", "xeriscaping", "water footprint"],
+        "modifiers": {
+          "rainwater": "rainwater collection storage",
+          "efficiency": "water efficiency appliances",
+          "greywater": "greywater recycling reuse",
+          "community": "community water management",
+          "agriculture": "agricultural irrigation efficiency",
+          "home": "home water conservation"
+        },
+        "resources": {
+          "youtube": ["Rainwater harvesting DIY", "Water conservation tips", "Greywater systems"],
+          "books": ["Water-Smart Gardening", "The Water-Wise Home", "Blue Revolution"],
+          "courses": ["Water Conservation Methods", "Sustainable Water Management"],
+          "communities": ["Water conservation groups", "Gardening clubs", "Environmental organizations"]
+        }
+      },
+
+      "renewable energy": {
+        "domain": "ENERGY",
+        "vector": [0.94, 0.67, 0.62, 0.71, 0.76, 0.83],
+        "filters": ["solar power", "biogas", "energy efficiency", "off-grid solutions", "wind energy", "community solar"],
+        "layer1": ["Location?", "Energy needs?", "Budget?", "Space available?", "Goals?", "Timeline?"],
+        "ecological_transform": "sustainable energy clean power solutions",
+        "questions": {
+          "context": {
+            "title": "⚡ What renewable energy interests you?",
+            "options": {
+              "solar": "Solar power",
+              "wind": "Wind energy", 
+              "biogas": "Biogas & biomass",
+              "efficiency": "Energy efficiency",
+              "policy": "Energy policies",
+              "community": "Community energy"
+            }
+          },
+          "approach": {
+            "title": "🏠 How do you want to engage?",
+            "options": {
+              "home_use": "For home use",
+              "community": "Community project", 
+              "business": "Business opportunity",
+              "learning": "Learn about technology",
+              "advocacy": "Advocate for adoption",
+              "investment": "Invest in renewables"
+            }
+          },
+          "outcome": {
+            "title": "💡 What's your energy goal?",
+            "options": {
+              "save_money": "Save on energy bills",
+              "independence": "Energy independence",
+              "environment": "Reduce carbon footprint",
+              "community": "Community resilience", 
+              "innovation": "Support innovation",
+              "career": "Career in clean energy"
+            }
+          }
+        },
+        "actions": ["Research solar options", "Audit home energy use", "Join energy cooperative", "Learn about biogas", "Install energy-efficient lights", "Support renewable policies"],
+        "related_terms": ["solar energy", "clean power", "energy efficiency", "biogas", "wind power", "sustainable energy"],
+        "modifiers": {
+          "solar": "solar power photovoltaic panels",
+          "wind": "wind turbines energy generation", 
+          "biogas": "biogas renewable biomass",
+          "efficiency": "energy efficiency conservation",
+          "policy": "renewable energy policies",
+          "community": "community solar projects"
+        },
+        "resources": {
+          "youtube": ["Solar installation guides", "Wind energy explained", "Energy efficiency tips"],
+          "books": ["The Renewable Energy Handbook", "Solar Electricity Basics", "Wind Power for Dummies"],
+          "courses": ["Renewable Energy Systems", "Solar Installation Training"],
+          "communities": ["Energy cooperatives", "Solar user groups", "Environmental organizations"]
+        }
+      },
+
+      "sustainable fashion": {
+        "domain": "LIFESTYLE",
+        "vector": [0.79, 0.82, 0.75, 0.84, 0.78, 0.81],
+        "filters": ["ethical brands", "upcycling", "natural fabrics", "secondhand", "slow fashion", "circular economy"],
+        "layer1": ["Style preference?", "Budget?", "Skill level?", "Values?", "Needs?", "Location?"],
+        "ecological_transform": "ethical fashion circular clothing",
+        "questions": {
+          "context": {
+            "title": "👗 What sustainable fashion aspect?",
+            "options": {
+              "ethical": "Ethical clothing brands",
+              "upcycling": "Upcycling & repair", 
+              "materials": "Natural & sustainable materials",
+              "secondhand": "Secondhand & vintage",
+              "slow_fashion": "Slow fashion movement",
+              "education": "Learning about impacts"
+            }
+          },
+          "approach": {
+            "title": "🎨 How to approach sustainable fashion?",
+            "options": {
+              "shopping": "Conscious shopping",
+              "making": "Make & repair", 
+              "community": "Clothing swaps & sharing",
+              "advocacy": "Advocate for change",
+              "learning": "Learn skills",
+              "business": "Start sustainable brand"
+            }
+          },
+          "outcome": {
+            "title": "✨ What fashion outcome matters?",
+            "options": {
+              "ethics": "Support ethical practices",
+              "environment": "Reduce environmental impact",
+              "savings": "Save money",
+              "uniqueness": "Unique personal style", 
+              "skills": "Learn practical skills",
+              "community": "Build fashion community"
+            }
+          }
+        },
+        "actions": ["Learn basic mending", "Shop secondhand first", "Research ethical brands", "Organize clothing swap", "Choose natural fabrics", "Repair instead of replace"],
+        "related_terms": ["ethical clothing", "upcycling", "slow fashion", "circular economy", "sustainable textiles", "fair trade fashion"],
+        "modifiers": {
+          "ethical": "ethical production labor",
+          "upcycling": "upcycling creative reuse",
+          "materials": "sustainable materials organic",
+          "secondhand": "secondhand vintage thrifting",
+          "slow_fashion": "slow fashion quality",
+          "education": "fashion industry impacts"
+        },
+        "resources": {
+          "youtube": ["Mending tutorials", "Sustainable brand reviews", "Thrifting tips"],
+          "books": ["The Conscious Closet", "Fashionopolis", "Wardrobe Crisis"],
+          "courses": ["Sustainable Fashion", "Clothing Repair", "Textile Science"],
+          "communities": ["Clothing swap groups", "Mending circles", "Fashion activism groups"]
+        }
+      },
+
+      "urban gardening": {
+        "domain": "URBAN_ECOLOGY",
+        "vector": [0.83, 0.88, 0.76, 0.85, 0.82, 0.79],
+        "filters": ["container gardening", "vertical farming", "balcony gardens", "community plots", "edible landscapes", "microgreens"],
+        "layer1": ["Space type?", "Sunlight?", "Time available?", "Experience?", "Goals?", "Budget?"],
+        "ecological_transform": "urban agriculture local food production",
+        "questions": {
+          "context": {
+            "title": "🏙️ What urban gardening aspect?",
+            "options": {
+              "containers": "Container gardening",
+              "vertical": "Vertical farming", 
+              "community": "Community gardens",
+              "balcony": "Balcony gardens",
+              "indoor": "Indoor gardening",
+              "education": "Learning urban agriculture"
+            }
+          },
+          "approach": {
+            "title": "🌿 How to start urban gardening?",
+            "options": {
+              "diy": "DIY small projects",
+              "community": "Join community efforts", 
+              "technology": "Use gardening tech",
+              "learning": "Take courses & workshops",
+              "business": "Start urban farm",
+              "advocacy": "Advocate for green spaces"
+            }
+          },
+          "outcome": {
+            "title": "🍅 What urban gardening goal?",
+            "options": {
+              "fresh_food": "Grow fresh food",
+              "greenery": "Add greenery to space",
+              "community": "Build community connections",
+              "skills": "Learn gardening skills", 
+              "therapy": "Therapeutic benefits",
+              "income": "Generate small income"
+            }
+          }
+        },
+        "actions": ["Start herb garden", "Build vertical planter", "Join community garden", "Compost kitchen scraps", "Grow microgreens", "Install window boxes"],
+        "related_terms": ["container gardening", "vertical farming", "balcony gardens", "community gardens", "urban agriculture", "edible landscaping"],
+        "modifiers": {
+          "containers": "container pots gardening",
+          "vertical": "vertical space efficient",
+          "community": "community shared spaces",
+          "balcony": "balcony small space",
+          "indoor": "indoor houseplants herbs",
+          "education": "urban farming education"
+        },
+        "resources": {
+          "youtube": ["Container gardening guides", "Vertical farming tutorials", "Urban homesteading"],
+          "books": ["The Urban Farmer", "Vertical Vegetables", "Apartment Gardening"],
+          "courses": ["Urban Gardening Basics", "Container Gardening Masterclass"],
+          "communities": ["Community gardens", "Gardening clubs", "Urban farming networks"]
+        }
+      },
+
+      "zero waste": {
+        "domain": "WASTE_ECOLOGY",
+        "vector": [0.87, 0.84, 0.78, 0.83, 0.85, 0.80],
+        "filters": ["composting", "plastic-free", "minimalism", "repair culture", "bulk buying", "upcycling"],
+        "layer1": ["Current waste?", "Lifestyle?", "Location?", "Budget?", "Family size?", "Motivation?"],
+        "ecological_transform": "circular economy waste reduction",
+        "questions": {
+          "context": {
+            "title": "🚯 What zero waste area?",
+            "options": {
+              "plastic": "Reducing plastic use",
+              "food": "Food waste reduction", 
+              "consumption": "Mindful consumption",
+              "composting": "Composting organic waste",
+              "repair": "Repair & maintenance",
+              "education": "Learning zero waste"
+            }
+          },
+          "approach": {
+            "title": "🔄 How to approach zero waste?",
+            "options": {
+              "step_by_step": "Gradual changes",
+              "all_in": "Complete lifestyle shift", 
+              "community": "Join zero waste community",
+              "diy": "DIY solutions",
+              "advocacy": "Advocate for change",
+              "business": "Zero waste business"
+            }
+          },
+          "outcome": {
+            "title": "💚 What zero waste goal?",
+            "options": {
+              "environment": "Reduce environmental impact",
+              "savings": "Save money",
+              "simplicity": "Simplify life",
+              "health": "Healthier lifestyle", 
+              "community": "Inspire others",
+              "skills": "Learn practical skills"
+            }
+          }
+        },
+        "actions": ["Start composting", "Use reusable bags", "Buy in bulk", "Repair broken items", "Make cleaning products", "Refuse single-use plastics"],
+        "related_terms": ["plastic-free", "minimalism", "composting", "circular economy", "sustainable living", "waste reduction"],
+        "modifiers": {
+          "plastic": "plastic reduction alternatives",
+          "food": "food waste composting",
+          "consumption": "mindful consumption buying",
+          "composting": "composting methods bins",
+          "repair": "repair fix maintenance",
+          "education": "zero waste education"
+        },
+        "resources": {
+          "youtube": ["Zero waste tutorials", "Plastic-free living", "Composting guides"],
+          "books": ["Zero Waste Home", "The Story of Stuff", "No Impact Man"],
+          "courses": ["Zero Waste Living", "Sustainable Consumption"],
+          "communities": ["Zero waste groups", "Repair cafes", "Bulk buying clubs"]
+        }
+      },
+
+      "biodiversity": {
+        "domain": "ECOLOGY",
+        "vector": [0.89, 0.86, 0.81, 0.84, 0.87, 0.83],
+        "filters": ["native plants", "wildlife habitats", "pollinator gardens", "conservation", "rewilding", "ecosystem restoration"],
+        "layer1": ["Location?", "Space available?", "Interest level?", "Time commitment?", "Goals?", "Local species?"],
+        "ecological_transform": "ecosystem restoration species protection",
+        "questions": {
+          "context": {
+            "title": "🦋 What biodiversity aspect?",
+            "options": {
+              "plants": "Native plants",
+              "pollinators": "Pollinator support", 
+              "wildlife": "Wildlife habitats",
+              "conservation": "Species conservation",
+              "rewilding": "Rewilding projects",
+              "education": "Learning about biodiversity"
+            }
+          },
+          "approach": {
+            "title": "🌍 How to support biodiversity?",
+            "options": {
+              "gardening": "Biodiversity gardening",
+              "community": "Community projects", 
+              "advocacy": "Conservation advocacy",
+              "citizen_science": "Citizen science",
+              "education": "Learn and teach",
+              "policy": "Influence policies"
+            }
+          },
+          "outcome": {
+            "title": "🎯 What biodiversity goal?",
+            "options": {
+              "ecosystem": "Healthier ecosystem",
+              "species": "Protect species",
+              "beauty": "More beautiful space",
+              "learning": "Learn about nature", 
+              "community": "Community nature space",
+              "future": "Future generations"
+            }
+          }
+        },
+        "actions": ["Plant native species", "Create pollinator garden", "Install bird feeders", "Join conservation group", "Document local species", "Reduce pesticide use"],
+        "related_terms": ["native plants", "wildlife habitats", "pollinator gardens", "conservation", "rewilding", "ecosystem services"],
+        "modifiers": {
+          "plants": "native plants gardening",
+          "pollinators": "pollinators bees butterflies",
+          "wildlife": "wildlife habitats corridors",
+          "conservation": "species protection endangered",
+          "rewilding": "rewilding ecosystem restoration",
+          "education": "biodiversity education awareness"
+        },
+        "resources": {
+          "youtube": ["Native plant guides", "Wildlife gardening", "Conservation documentaries"],
+          "books": ["Bringing Nature Home", "The Living Landscape", "Wilding"],
+          "courses": ["Biodiversity Conservation", "Native Plant Gardening"],
+          "communities": ["Conservation groups", "Gardening clubs", "Citizen science projects"]
+        }
+      },
+
+      "green building": {
+        "domain": "CONSTRUCTION_ECOLOGY",
+        "vector": [0.85, 0.82, 0.79, 0.83, 0.84, 0.81],
+        "filters": ["energy efficiency", "sustainable materials", "passive design", "green roofs", "natural building", "retrofitting"],
+        "layer1": ["Project type?", "Budget?", "Location?", "Timeline?", "Skills?", "Goals?"],
+        "ecological_transform": "sustainable construction eco-friendly buildings",
+        "questions": {
+          "context": {
+            "title": "🏠 What green building aspect?",
+            "options": {
+              "efficiency": "Energy efficiency",
+              "materials": "Sustainable materials", 
+              "design": "Passive design",
+              "retrofit": "Retrofitting existing",
+              "natural": "Natural building",
+              "education": "Learning green building"
+            }
+          },
+          "approach": {
+            "title": "🔨 How to approach green building?",
+            "options": {
+              "diy": "DIY small projects",
+              "professional": "Hire professionals", 
+              "community": "Community building",
+              "learning": "Learn techniques",
+              "advocacy": "Advocate for codes",
+              "business": "Green construction business"
+            }
+          },
+          "outcome": {
+            "title": "💡 What building outcome?",
+            "options": {
+              "savings": "Energy cost savings",
+              "comfort": "More comfortable space",
+              "environment": "Lower environmental impact",
+              "health": "Healthier indoor air", 
+              "value": "Increased property value",
+              "resilience": "Climate resilience"
+            }
+          }
+        },
+        "actions": ["Improve insulation", "Install energy-efficient windows", "Use sustainable materials", "Add green roof", "Install solar panels", "Implement rainwater harvesting"],
+        "related_terms": ["energy efficiency", "sustainable materials", "passive design", "green roofs", "natural building", "LEED certification"],
+        "modifiers": {
+          "efficiency": "energy efficiency insulation",
+          "materials": "sustainable materials recycled",
+          "design": "passive solar design",
+          "retrofit": "retrofit existing buildings",
+          "natural": "natural building cob",
+          "education": "green building education"
+        },
+        "resources": {
+          "youtube": ["Green building tours", "DIY sustainable home", "Energy efficiency tips"],
+          "books": ["The Green Building Guide", "Natural Building", "The Passive House"],
+          "courses": ["Green Building Basics", "Sustainable Design"],
+          "communities": ["Green building associations", "Sustainable living groups", "DIY workshops"]
+        }
+      },
+
+      "community development": {
+        "domain": "SOCIAL_ECOLOGY",
+        "vector": [0.81, 0.84, 0.87, 0.85, 0.83, 0.86],
+        "filters": ["local economy", "social cohesion", "shared resources", "participatory planning", "mutual aid", "community resilience"],
+        "layer1": ["Community type?", "Size?", "Resources?", "Challenges?", "Goals?", "Timeline?"],
+        "ecological_transform": "resilient communities social sustainability",
+        "questions": {
+          "context": {
+            "title": "👥 What community aspect?",
+            "options": {
+              "economy": "Local economy",
+              "resources": "Shared resources", 
+              "planning": "Participatory planning",
+              "aid": "Mutual aid",
+              "resilience": "Community resilience",
+              "connections": "Social connections"
+            }
+          },
+          "approach": {
+            "title": "🤝 How to build community?",
+            "options": {
+              "organizing": "Community organizing",
+              "projects": "Start projects", 
+              "events": "Organize events",
+              "networking": "Build networks",
+              "advocacy": "Community advocacy",
+              "learning": "Learn community building"
+            }
+          },
+          "outcome": {
+            "title": "💞 What community goal?",
+            "options": {
+              "connections": "Stronger connections",
+              "resilience": "More resilient community",
+              "economy": "Strong local economy",
+              "wellbeing": "Community wellbeing", 
+              "voice": "Community voice",
+              "legacy": "Sustainable legacy"
+            }
+          }
+        },
+        "actions": ["Organize community event", "Start tool library", "Create community garden", "Form neighborhood watch", "Support local businesses", "Start skill-sharing program"],
+        "related_terms": ["local economy", "social cohesion", "shared resources", "participatory planning", "mutual aid", "community resilience"],
+        "modifiers": {
+          "economy": "local economy businesses",
+          "resources": "shared resources library",
+          "planning": "participatory planning democracy",
+          "aid": "mutual aid support",
+          "resilience": "community resilience preparedness",
+          "connections": "social connections networks"
+        },
+        "resources": {
+          "youtube": ["Community organizing guides", "Successful community projects", "Social innovation"],
+          "books": ["The Abundant Community", "Building Communities", "Together"],
+          "courses": ["Community Development", "Social Entrepreneurship"],
+          "communities": ["Neighborhood associations", "Community centers", "Social innovation hubs"]
+        }
+      },
+
+      "ecological restoration": {
+        "domain": "RESTORATION_ECOLOGY",
+        "vector": [0.88, 0.85, 0.83, 0.86, 0.84, 0.87],
+        "filters": ["habitat restoration", "soil regeneration", "waterway cleanup", "reforestation", "wetland restoration", "corridor creation"],
+        "layer1": ["Location?", "Ecosystem type?", "Scale?", "Timeline?", "Resources?", "Expertise?"],
+        "ecological_transform": "ecosystem recovery natural balance",
+        "questions": {
+          "context": {
+            "title": "🌳 What restoration aspect?",
+            "options": {
+              "habitat": "Habitat restoration",
+              "soil": "Soil regeneration", 
+              "water": "Waterway restoration",
+              "forest": "Reforestation",
+              "wetland": "Wetland restoration",
+              "education": "Learning restoration"
+            }
+          },
+          "approach": {
+            "title": "🛠️ How to approach restoration?",
+            "options": {
+              "volunteer": "Volunteer with groups",
+              "landowner": "On your land", 
+              "community": "Community projects",
+              "advocacy": "Advocate for restoration",
+              "career": "Restoration career",
+              "education": "Learn techniques"
+            }
+          },
+          "outcome": {
+            "title": "🎯 What restoration goal?",
+            "options": {
+              "biodiversity": "Increase biodiversity",
+              "ecosystem": "Healthy ecosystem",
+              "climate": "Climate benefits",
+              "beauty": "Restored beauty", 
+              "legacy": "Environmental legacy",
+              "community": "Community benefits"
+            }
+          }
+        },
+        "actions": ["Join restoration volunteer group", "Plant native trees", "Remove invasive species", "Improve soil health", "Clean local waterways", "Create wildlife corridors"],
+        "related_terms": ["habitat restoration", "soil regeneration", "waterway cleanup", "reforestation", "wetland restoration", "ecosystem services"],
+        "modifiers": {
+          "habitat": "habitat creation wildlife",
+          "soil": "soil health regeneration",
+          "water": "water quality restoration",
+          "forest": "reforestation tree planting",
+          "wetland": "wetland ecosystems restoration",
+          "education": "restoration ecology education"
+        },
+        "resources": {
+          "youtube": ["Restoration project tours", "Native planting guides", "Soil health tutorials"],
+          "books": ["The Restoration Economy", "Practical Restoration", "Ecosystem Restoration"],
+          "courses": ["Restoration Ecology", "Habitat Management"],
+          "communities": ["Restoration volunteer groups", "Land trusts", "Environmental organizations"]
+        }
+      }
     },
-    "actions": [
-      "Calculate your carbon footprint",
-      "Explore electric rickshaw services",
-      "Join city clean air campaign",
-      "Use public transport 3 days/week"
-    ],
-    "trusted_sites": [
-      "cpcb.nic.in",
-      "ev.gov.in",
-      "gbif.org/pollution",
-      "nasa.gov/earth/air-quality",
-      "fauna.org/urban-emissions"
-    ]
-  },
-  "mental calm": {
-    "vector": [0.65, 0.58, 0.92, 0.71, 0.82, 0.68],
-    "domains": ["wellness", "community", "nature", "routine", "spirit", "learning"],
-    "semantic_cluster": ["mindfulness", "grounding", "nature therapy", "bhajan", "breathwork"],
-    "questions": [
-      "Do you prefer individual practice or group activities?",
-      "Is this for stress relief, focus, or emotional healing?",
-      "Can you dedicate 10 minutes daily?"
-    ],
-    "queries": {
-      "ecological": "nature connection mental health",
-      "agricultural": "therapeutic gardening benefits",
-      "action": "5-minute daily grounding technique",
-      "gap": "mental wellness in farming communities",
-      "community": "bhajan groups near me"
+
+    "domain_templates": {
+      "AGRICULTURE": {
+        "layer2": ["Home Garden", "Commercial Farm", "Community Garden", "Educational Farm", "Urban Agriculture", "Permaculture Design"],
+        "layer3": ["Beginner", "Intermediate", "Advanced", "Professional", "Theoretical", "Practical"],
+        "resources": ["Local nurseries", "Agricultural extension", "Farming cooperatives", "Online courses", "Books", "Workshops"],
+        "ecological_principles": ["Soil health", "Biodiversity", "Water conservation", "Energy efficiency", "Community engagement", "Economic viability"]
+      },
+      "TRANSPORT_ECOLOGY": {
+        "layer2": ["Personal Vehicles", "Public Transport", "Active Transport", "Community Transport", "Logistics", "Policy"],
+        "layer3": ["Individual", "Household", "Community", "City", "Regional", "National"],
+        "resources": ["Transit agencies", "Cycling organizations", "EV communities", "Policy groups", "Research institutes", "Advocacy organizations"],
+        "ecological_principles": ["Emissions reduction", "Energy efficiency", "Space optimization", "Health benefits", "Economic savings", "Community connectivity"]
+      },
+      "WELLNESS": {
+        "layer2": ["Mental Health", "Physical Health", "Social Health", "Environmental Health", "Spiritual Health", "Occupational Health"],
+        "layer3": ["Self-care", "Professional help", "Community support", "Preventive", "Therapeutic", "Transformative"],
+        "resources": ["Healthcare providers", "Support groups", "Wellness centers", "Online resources", "Books", "Retreats"],
+        "ecological_principles": ["Holistic approach", "Nature connection", "Community support", "Preventive care", "Sustainable practices", "Lifestyle integration"]
+      },
+      "WATER_ECOLOGY": {
+        "layer2": ["Rainwater Harvesting", "Water Efficiency", "Greywater Systems", "Water Quality", "Stormwater Management", "Watershed Protection"],
+        "layer3": ["Household", "Community", "Agricultural", "Industrial", "Municipal", "Regional"],
+        "resources": ["Water utilities", "Conservation groups", "DIY resources", "Government programs", "Research", "Technology providers"],
+        "ecological_principles": ["Conservation", "Quality protection", "Efficient use", "Natural cycles", "Community management", "Sustainable sourcing"]
+      },
+      "ENERGY": {
+        "layer2": ["Solar Power", "Wind Energy", "Energy Efficiency", "Bioenergy", "Geothermal", "Hydropower"],
+        "layer3": ["Residential", "Commercial", "Community", "Utility-scale", "Off-grid", "Microgrid"],
+        "resources": ["Energy providers", "Installation companies", "Government programs", "Research institutes", "Community groups", "Educational resources"],
+        "ecological_principles": ["Renewable sources", "Energy efficiency", "Storage solutions", "Grid modernization", "Community ownership", "Sustainable consumption"]
+      },
+      "LIFESTYLE": {
+        "layer2": ["Fashion", "Food", "Housing", "Transportation", "Consumption", "Recreation"],
+        "layer3": ["Minimalist", "Moderate", "Comprehensive", "Transitioning", "Advanced", "Pioneering"],
+        "resources": ["Sustainable brands", "Educational resources", "Community groups", "DIY guides", "Policy advocacy", "Research"],
+        "ecological_principles": ["Reduce consumption", "Choose sustainable", "Repair and reuse", "Support ethical", "Minimize waste", "Maximize value"]
+      },
+      "URBAN_ECOLOGY": {
+        "layer2": ["Green Spaces", "Urban Agriculture", "Sustainable Transport", "Green Buildings", "Waste Management", "Community Development"],
+        "layer3": ["Individual", "Neighborhood", "City", "Metropolitan", "Regional", "Global"],
+        "resources": ["City programs", "Community groups", "Educational institutions", "Professional services", "Research", "Funding sources"],
+        "ecological_principles": ["Density with quality", "Mixed uses", "Green infrastructure", "Community participation", "Resource efficiency", "Resilience planning"]
+      },
+      "WASTE_ECOLOGY": {
+        "layer2": ["Reduce", "Reuse", "Recycle", "Compost", "Repair", "Redesign"],
+        "layer3": ["Household", "Business", "Community", "Municipal", "Regional", "National"],
+        "resources": ["Recycling centers", "Compost facilities", "Repair cafes", "Zero waste stores", "Educational programs", "Policy advocacy"],
+        "ecological_principles": ["Waste hierarchy", "Circular economy", "Product responsibility", "Community participation", "Infrastructure development", "Behavior change"]
+      },
+      "ECOLOGY": {
+        "layer2": ["Biodiversity", "Ecosystem Services", "Conservation", "Restoration", "Education", "Policy"],
+        "layer3": ["Local", "Regional", "National", "Continental", "Global", "Theoretical"],
+        "resources": ["Conservation organizations", "Research institutions", "Government agencies", "Educational programs", "Citizen science", "Volunteer opportunities"],
+        "ecological_principles": ["Biodiversity protection", "Ecosystem integrity", "Sustainable use", "Restoration priority", "Precautionary approach", "Intergenerational equity"]
+      },
+      "CONSTRUCTION_ECOLOGY": {
+        "layer2": ["Design", "Materials", "Construction", "Operation", "Maintenance", "Deconstruction"],
+        "layer3": ["Residential", "Commercial", "Institutional", "Industrial", "Infrastructure", "Landscape"],
+        "resources": ["Green building programs", "Sustainable material suppliers", "Professional associations", "Educational resources", "Government incentives", "Research"],
+        "ecological_principles": ["Energy efficiency", "Material sustainability", "Water conservation", "Indoor environmental quality", "Site ecology", "Lifecycle thinking"]
+      },
+      "SOCIAL_ECOLOGY": {
+        "layer2": ["Economic", "Cultural", "Political", "Community", "Educational", "Health"],
+        "layer3": ["Individual", "Family", "Community", "Organizational", "Societal", "Global"],
+        "resources": ["Community organizations", "Educational institutions", "Government programs", "Non-profits", "Research", "Networks"],
+        "ecological_principles": ["Social equity", "Community participation", "Cultural diversity", "Economic justice", "Democratic governance", "Sustainable development"]
+      },
+      "RESTORATION_ECOLOGY": {
+        "layer2": ["Terrestrial", "Aquatic", "Coastal", "Urban", "Agricultural", "Forest"],
+        "layer3": ["Site preparation", "Implementation", "Maintenance", "Monitoring", "Adaptive management", "Long-term stewardship"],
+        "resources": ["Restoration guides", "Native plant nurseries", "Volunteer organizations", "Government programs", "Research", "Funding sources"],
+        "ecological_principles": ["Reference ecosystems", "Ecological processes", "Sustainable outcomes", "Community involvement", "Adaptive management", "Long-term commitment"]
+      }
     },
-    "actions": [
-      "Walk barefoot on soil daily",
-      "Grow tulsi or mint at home",
-      "Join local kirtan group",
-      "Practice 5-minute breath awareness"
-    ],
-    "trusted_sites": [
-      "nih.gov/mindfulness",
-      "krishi.gov.in/wellness",
-      "community-bhajan.org",
-      "fauna.org/nature-therapy",
-      "who.int/mental-health"
-    ]
-  },
-  "water conservation": {
-    "vector": [0.92, 0.85, 0.70, 0.78, 0.80, 0.82],
-    "domains": ["ecology", "agriculture", "urban", "innovation", "community", "policy"],
-    "semantic_cluster": ["rainwater harvesting", "drip irrigation", "aquifer recharge", "greywater", "xeriscaping"],
-    "questions": [
-      "Is this for home, farm, or community use?",
-      "Do you have rooftop or land access?",
-      "What’s your average water source?"
-    ],
-    "queries": {
-      "ecological": "water conservation biodiversity impact",
-      "agricultural": "drip irrigation for small farms India",
-      "action": "DIY rooftop rainwater harvesting",
-      "gap": "water scarcity solutions Raichur",
-      "community": "community water management groups"
+
+    "vector_dimensions_explained": {
+      "dimension_1": "ecological_impact_potential",
+      "dimension_2": "community_engagement_level", 
+      "dimension_3": "individual_action_feasibility",
+      "dimension_4": "knowledge_requirement",
+      "dimension_5": "resource_intensity",
+      "dimension_6": "transformative_potential",
+      "description": "Six-dimensional semantic vectors guide ecological transformation matching and resource prioritization"
     },
-    "actions": [
-      "Install rooftop rainwater pipe",
-      "Use bucket instead of shower",
-      "Plant native drought-resistant species",
-      "Join watershed restoration group"
-    ],
-    "trusted_sites": [
-      "cgwb.gov.in",
-      "rainwaterharvesting.org",
-      "nabard.org/water",
-      "krishi.gov.in/water",
-      "fauna.org/aquifer"
-    ]
+
+    "question_templates": {
+      "context_questions": {
+        "AGRICULTURE": "What aspect of {topic} interests you most?",
+        "TRANSPORT_ECOLOGY": "Which {topic} concern is most relevant?",
+        "WELLNESS": "What {topic} area needs attention?",
+        "WATER_ECOLOGY": "What {topic} challenge matters most?",
+        "ENERGY": "Which {topic} solution interests you?",
+        "LIFESTYLE": "What {topic} change seems most important?"
+      },
+      "approach_questions": {
+        "AGRICULTURE": "How do you want to engage with {topic}?",
+        "TRANSPORT_ECOLOGY": "How would you like to address {topic}?",
+        "WELLNESS": "What approach to {topic} appeals to you?",
+        "WATER_ECOLOGY": "How can you contribute to {topic} solutions?",
+        "ENERGY": "What role in {topic} transition fits you?",
+        "LIFESTYLE": "How will you implement {topic} changes?"
+      },
+      "outcome_questions": {
+        "AGRICULTURE": "What {topic} outcome matters most?",
+        "TRANSPORT_ECOLOGY": "What {topic} result do you seek?",
+        "WELLNESS": "What {topic} benefit is most valuable?",
+        "WATER_ECOLOGY": "What {topic} achievement would satisfy you?",
+        "ENERGY": "What {topic} goal drives you?",
+        "LIFESTYLE": "What {topic} transformation do you envision?"
+      }
+    },
+
+    "fallback_templates": {
+      "unknown_keyword": {
+        "questions": {
+          "context": {
+            "title": "🌍 What ecological area interests you?",
+            "options": {
+              "environment": "Environmental solutions",
+              "health": "Health & wellness", 
+              "community": "Community development",
+              "learning": "Learning & skills",
+              "innovation": "Innovation & technology",
+              "lifestyle": "Sustainable lifestyle"
+            }
+          },
+          "approach": {
+            "title": "🔄 How do you want to proceed?",
+            "options": {
+              "learn": "Learn & understand",
+              "action": "Take practical action", 
+              "community": "Join community efforts",
+              "business": "Explore opportunities",
+              "advocacy": "Advocate for change",
+              "research": "Study & research"
+            }
+          },
+          "outcome": {
+            "title": "💫 What outcome matters most?",
+            "options": {
+              "personal": "Personal improvement", 
+              "community": "Community benefit",
+              "environment": "Environmental impact",
+              "economic": "Economic benefits",
+              "future": "Future generations",
+              "knowledge": "Knowledge & understanding"
+            }
+          }
+        },
+        "actions": ["Research options", "Join relevant community", "Take small practical steps", "Learn basic principles", "Connect with experts", "Start with simple projects"],
+        "modifiers": {
+          "environment": "environmental ecological sustainable",
+          "health": "health wellness wellbeing",
+          "community": "community social collective",
+          "learning": "learning education knowledge",
+          "innovation": "innovation technology solutions",
+          "lifestyle": "lifestyle personal change"
+        }
+      }
+    },
+
+    "action_templates": {
+      "beginner": ["Research basics", "Join community", "Start small project", "Learn fundamental principles", "Find local resources", "Set realistic goals"],
+      "intermediate": ["Implement systems", "Scale up efforts", "Share knowledge", "Join advocacy", "Mentor beginners", "Measure impact"],
+      "advanced": ["Lead projects", "Develop innovations", "Influence policy", "Create resources", "Build organizations", "Transform systems"]
+    },
+
+    "resource_categories": {
+      "immediate": ["Quick tips", "Simple DIY", "Local groups", "Free resources", "Beginner guides", "Community events"],
+      "intermediate": ["Detailed guides", "Online courses", "Equipment needs", "Professional services", "Advanced techniques", "Networking opportunities"],
+      "comprehensive": ["Certification programs", "Business development", "Policy advocacy", "Research participation", "Leadership training", "System transformation"]
+    },
+
+    "success_metrics": {
+      "ecological_impact": {
+        "carbon_reduction": "kg CO2 equivalent",
+        "water_saved": "liters per year", 
+        "waste_diverted": "kg from landfill",
+        "biodiversity_improvement": "species count increase",
+        "energy_savings": "kWh per year"
+      },
+      "social_impact": {
+        "community_engagement": "people involved",
+        "knowledge_shared": "educational reach",
+        "wellbeing_improvement": "quality of life measures",
+        "economic_benefits": "cost savings or income",
+        "policy_influence": "changes implemented"
+      }
+    }
   }
 }
