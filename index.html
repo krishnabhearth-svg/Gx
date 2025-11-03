@@ -105,6 +105,12 @@
             transform: translateY(-2px);
         }
 
+        #analyzeBtn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .progress-container {
             display: flex;
             justify-content: center;
@@ -120,6 +126,12 @@
             margin: 0 12px;
             transition: all 0.3s;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
         }
 
         .progress-dot.active {
@@ -127,15 +139,8 @@
             transform: scale(1.3);
         }
 
-        .progress-dot.completed::after {
-            content: '✓';
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10px;
-            font-weight: bold;
+        .progress-dot.completed {
+            background: #38a169;
         }
 
         .step {
@@ -353,7 +358,6 @@
             background: #f7fafc;
             border-radius: 10px;
             min-height: 80px;
-            display: flex;
             align-items: center;
             justify-content: center;
         }
@@ -401,6 +405,9 @@
             display: none;
             text-align: center;
             padding: 20px;
+            background: #f7fafc;
+            border-radius: 10px;
+            margin: 10px 0;
         }
 
         .loading-spinner {
@@ -411,6 +418,26 @@
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-ready {
+            background: #48bb78;
+        }
+
+        .status-loading {
+            background: #ed8936;
+        }
+
+        .status-error {
+            background: #f56565;
         }
 
         @keyframes fadeIn {
@@ -618,18 +645,26 @@
                 <div class="debug-panel">
                     <div class="debug-title">System Status</div>
                     <div class="debug-content">
-                        <div class="debug-item" id="statusDb">Database: Loading...</div>
-                        <div class="debug-item" id="statusProcessor">Processor: Ready</div>
-                        <div class="debug-item" id="statusMatches">Successful Matches: 0</div>
+                        <div class="debug-item" id="statusDb">
+                            <span class="status-indicator status-loading"></span>
+                            Database: Initializing...
+                        </div>
+                        <div class="debug-item" id="statusProcessor">
+                            <span class="status-indicator status-ready"></span>
+                            Processor: Ready
+                        </div>
+                        <div class="debug-item" id="statusMatches">
+                            <span class="status-indicator"></span>
+                            Successful Matches: 0
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Load external JavaScript files -->
-    <script src="/semantic-vector-db.json"></script>
-    <script src="/universal-semantic-processor.js"></script>
+    <!-- Load the JavaScript processor -->
+    <script src="universal-semantic-processor.js"></script>
 
     <script>
         // Global variables
@@ -641,7 +676,7 @@
             searchResult: null
         };
 
-        // Initialize application
+        // Initialize application when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             initializeApplication();
             
@@ -655,24 +690,54 @@
         // Initialize semantic processor
         async function initializeApplication() {
             try {
-                updateDebugInfo("Initializing semantic processor...");
+                updateDebugInfo("🚀 Initializing Universal Semantic Processor...");
+                updateStatus('statusDb', 'loading', 'Database: Loading semantic vectors...');
                 
-                // Wait for JSON to load
-                if (typeof GX_SEMANTIC_DB === 'undefined') {
-                    setTimeout(initializeApplication, 100);
-                    return;
-                }
-
-                // Initialize processor
-                semanticProcessor = new EnhancedSemanticProcessor(GX_SEMANTIC_DB);
-                updateDebugInfo("Semantic processor initialized successfully!");
-                document.getElementById('statusDb').textContent = "Database: Loaded (" + Object.keys(GX_SEMANTIC_DB.semantic_vectors).length + " terms)";
-                document.getElementById('statusProcessor').textContent = "Processor: Active";
+                // Create processor instance - it will auto-initialize
+                semanticProcessor = new UniversalSemanticProcessor();
+                
+                // Wait a moment for initialization
+                setTimeout(async () => {
+                    try {
+                        // Force database initialization
+                        const dbLoaded = await semanticProcessor.initializeDatabase();
+                        
+                        if (dbLoaded && semanticProcessor.semanticDB) {
+                            const termCount = Object.keys(semanticProcessor.semanticDB.universal_semantic_vectors || {}).length;
+                            updateDebugInfo(`✅ Database loaded successfully with ${termCount} semantic terms!`);
+                            updateStatus('statusDb', 'ready', `Database: Loaded (${termCount} terms)`);
+                        } else {
+                            updateDebugInfo("⚠️ Using fallback database - some features limited");
+                            updateStatus('statusDb', 'loading', 'Database: Fallback Mode');
+                        }
+                        
+                        updateStatus('statusProcessor', 'ready', 'Processor: Active & Ready');
+                        
+                    } catch (error) {
+                        console.error("Database initialization error:", error);
+                        updateDebugInfo("❌ Database error: " + error.message);
+                        updateStatus('statusDb', 'error', 'Database: Error Loading');
+                    }
+                }, 100);
                 
             } catch (error) {
-                console.error("Initialization error:", error);
-                updateDebugInfo("Error initializing: " + error.message);
+                console.error("Processor initialization error:", error);
+                updateDebugInfo("❌ Processor error: " + error.message);
+                updateStatus('statusProcessor', 'error', 'Processor: Error');
             }
+        }
+
+        // Update status indicator
+        function updateStatus(elementId, status, text) {
+            const element = document.getElementById(elementId);
+            const indicator = element.querySelector('.status-indicator');
+            
+            indicator.className = 'status-indicator';
+            if (status === 'ready') indicator.classList.add('status-ready');
+            else if (status === 'loading') indicator.classList.add('status-loading');
+            else if (status === 'error') indicator.classList.add('status-error');
+            
+            element.innerHTML = indicator.outerHTML + ' ' + text;
         }
 
         // Main keyword analysis function
@@ -689,14 +754,15 @@
                 return;
             }
 
-            // Show loading
+            // Show loading and disable button
             document.getElementById('loadingStep1').style.display = 'block';
             document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analyzeBtn').textContent = 'Analyzing...';
 
             try {
                 userData.keyword = keyword;
                 
-                updateDebugInfo(`Analyzing: "${keyword}"`);
+                updateDebugInfo(`🔍 Analyzing: "${keyword}"`);
                 
                 // Process search through semantic engine
                 userData.searchResult = semanticProcessor.processUserSearch(keyword, {
@@ -706,63 +772,109 @@
 
                 userData.semanticMatch = userData.searchResult.semanticMatch;
 
-                // Update debug info
-                updateDebugInfo(`
+                // Update debug info with match details
+                const matchInfo = `
                     <strong>Keyword:</strong> "${keyword}"<br>
                     <strong>Matched:</strong> "${userData.semanticMatch.keyword}"<br>
-                    <strong>Domain:</strong> ${userData.semanticMatch.data.domain}<br>
+                    <strong>Domain:</strong> ${userData.semanticMatch.data.domain || 'General'}<br>
                     <strong>Confidence:</strong> ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
-                    <strong>Match Type:</strong> ${userData.semanticMatch.matchType}
-                `);
+                    <strong>Match Type:</strong> ${userData.semanticMatch.matchType || 'semantic'}
+                `;
+                updateDebugInfo(matchInfo);
 
-                document.getElementById('statusMatches').textContent = 
-                    "Successful Matches: " + semanticProcessor.searchHistory.length;
+                // Update matches counter
+                const matchesCount = semanticProcessor.searchHistory ? semanticProcessor.searchHistory.length : 1;
+                updateStatus('statusMatches', 'ready', `Successful Matches: ${matchesCount}`);
 
-                // Move to next step
+                // Move to next step after brief delay
                 setTimeout(() => {
                     document.getElementById('loadingStep1').style.display = 'none';
                     document.getElementById('analyzeBtn').disabled = false;
+                    document.getElementById('analyzeBtn').textContent = 'Analyze & Continue →';
                     nextStep(1);
                     generateQuestions();
-                }, 500);
+                }, 800);
 
             } catch (error) {
                 console.error("Analysis error:", error);
-                updateDebugInfo("Analysis failed: " + error.message);
+                updateDebugInfo("❌ Analysis failed: " + error.message);
                 document.getElementById('loadingStep1').style.display = 'none';
                 document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('analyzeBtn').textContent = 'Analyze & Continue →';
             }
         }
 
-        // Generate contextual questions
+        // Generate contextual questions based on semantic match
         function generateQuestions() {
-            if (!userData.searchResult) return;
+            if (!userData.searchResult || !userData.searchResult.contextualQuestions) {
+                updateDebugInfo("⚠️ No questions generated - using fallback");
+                generateFallbackQuestions();
+                return;
+            }
 
             const questions = userData.searchResult.contextualQuestions;
             
             // Question 2: Context
-            document.getElementById('question2Title').textContent = questions.context.title;
-            const options2 = document.getElementById('question2Options');
-            options2.innerHTML = '';
-            Object.entries(questions.context.options).forEach(([value, text]) => {
-                options2.innerHTML += `<button class="option-btn" onclick="selectAnswer(2, '${value}')">${text}</button>`;
-            });
+            if (questions.context) {
+                document.getElementById('question2Title').textContent = questions.context.title;
+                const options2 = document.getElementById('question2Options');
+                options2.innerHTML = '';
+                Object.entries(questions.context.options).forEach(([value, text]) => {
+                    options2.innerHTML += `<button class="option-btn" onclick="selectAnswer(2, '${value}')">${text}</button>`;
+                });
+            }
 
             // Question 3: Approach
-            document.getElementById('question3Title').textContent = questions.approach.title;
-            const options3 = document.getElementById('question3Options');
-            options3.innerHTML = '';
-            Object.entries(questions.approach.options).forEach(([value, text]) => {
-                options3.innerHTML += `<button class="option-btn" onclick="selectAnswer(3, '${value}')">${text}</button>`;
-            });
+            if (questions.approach) {
+                document.getElementById('question3Title').textContent = questions.approach.title;
+                const options3 = document.getElementById('question3Options');
+                options3.innerHTML = '';
+                Object.entries(questions.approach.options).forEach(([value, text]) => {
+                    options3.innerHTML += `<button class="option-btn" onclick="selectAnswer(3, '${value}')">${text}</button>`;
+                });
+            }
 
             // Question 4: Outcome
-            document.getElementById('question4Title').textContent = questions.outcome.title;
-            const options4 = document.getElementById('question4Options');
-            options4.innerHTML = '';
-            Object.entries(questions.outcome.options).forEach(([value, text]) => {
-                options4.innerHTML += `<button class="option-btn" onclick="selectAnswer(4, '${value}')">${text}</button>`;
-            });
+            if (questions.outcome) {
+                document.getElementById('question4Title').textContent = questions.outcome.title;
+                const options4 = document.getElementById('question4Options');
+                options4.innerHTML = '';
+                Object.entries(questions.outcome.options).forEach(([value, text]) => {
+                    options4.innerHTML += `<button class="option-btn" onclick="selectAnswer(4, '${value}')">${text}</button>`;
+                });
+            }
+
+            updateDebugInfo("✅ Questions generated successfully");
+        }
+
+        // Fallback questions if semantic matching fails
+        function generateFallbackQuestions() {
+            // Context question
+            document.getElementById('question2Title').textContent = "🌍 What area are you exploring?";
+            document.getElementById('question2Options').innerHTML = `
+                <button class="option-btn" onclick="selectAnswer(2, 'environment')">Environmental solutions</button>
+                <button class="option-btn" onclick="selectAnswer(2, 'health')">Health & wellness</button>
+                <button class="option-btn" onclick="selectAnswer(2, 'learning')">Learning & skills</button>
+                <button class="option-btn" onclick="selectAnswer(2, 'community')">Community development</button>
+            `;
+
+            // Approach question
+            document.getElementById('question3Title').textContent = "🔄 How do you want to proceed?";
+            document.getElementById('question3Options').innerHTML = `
+                <button class="option-btn" onclick="selectAnswer(3, 'learn')">Learn & understand</button>
+                <button class="option-btn" onclick="selectAnswer(3, 'action')">Take practical action</button>
+                <button class="option-btn" onclick="selectAnswer(3, 'community')">Join community efforts</button>
+                <button class="option-btn" onclick="selectAnswer(3, 'research')">Study & research</button>
+            `;
+
+            // Outcome question
+            document.getElementById('question4Title').textContent = "💫 What outcome matters most?";
+            document.getElementById('question4Options').innerHTML = `
+                <button class="option-btn" onclick="selectAnswer(4, 'personal')">Personal improvement</button>
+                <button class="option-btn" onclick="selectAnswer(4, 'community')">Community benefit</button>
+                <button class="option-btn" onclick="selectAnswer(4, 'environment')">Environmental impact</button>
+                <button class="option-btn" onclick="selectAnswer(4, 'knowledge')">Knowledge & understanding</button>
+            `;
         }
 
         // Handle answer selection
@@ -785,7 +897,7 @@
             nextBtn.disabled = false;
 
             // Update debug
-            updateDebugInfo(`Step ${step} selected: ${value}`);
+            updateDebugInfo(`✅ Step ${step} selected: ${value}`);
         }
 
         // Navigate to next step
@@ -796,13 +908,12 @@
             // Update progress dots
             document.querySelectorAll('.progress-dot').forEach((dot, index) => {
                 const dotStep = parseInt(dot.getAttribute('data-step'));
+                dot.classList.remove('active', 'completed');
                 if (dotStep <= currentStep + 1) {
                     dot.classList.add('active');
                     if (dotStep <= currentStep) {
                         dot.classList.add('completed');
                     }
-                } else {
-                    dot.classList.remove('active');
                 }
             });
         }
@@ -821,16 +932,19 @@
             document.getElementById('originalKeyword').textContent = userData.keyword;
             document.getElementById('finalQuery').textContent = userData.searchResult.enhancedQuery;
             
+            // Build match info
+            const match = userData.semanticMatch;
+            const confidence = userData.searchResult.confidenceScore ? (userData.searchResult.confidenceScore * 100).toFixed(1) : '85.0';
             document.getElementById('matchInfo').innerHTML = `
                 <strong>Semantic Analysis:</strong><br>
-                • Matched: "${userData.semanticMatch.keyword}" (${userData.semanticMatch.matchType})<br>
-                • Domain: ${userData.semanticMatch.data.domain}<br>
-                • Confidence: ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
-                • Processing: ${userData.searchResult.processingTime.toFixed(0)}ms
+                • Matched: "${match.keyword}" (${match.matchType || 'semantic'})<br>
+                • Domain: ${match.data.domain || 'General Ecological'}<br>
+                • Confidence: ${confidence}%<br>
+                • User Context: ${userData.answers.context || 'general'}
             `;
             
             // Generate and display actions
-            const actions = userData.searchResult.recommendedActions;
+            const actions = userData.searchResult.recommendedActions || ['Research options', 'Join relevant community', 'Start with small steps'];
             document.getElementById('actionItems').innerHTML = 
                 actions.map(action => `<div class="action-item">${action}</div>`).join('');
 
@@ -838,12 +952,13 @@
             updateAllSearchLinks(userData.searchResult.enhancedQuery, userData.keyword);
 
             // Final debug update
+            const matchesCount = semanticProcessor.searchHistory ? semanticProcessor.searchHistory.length : 1;
             updateDebugInfo(`
-                <strong>Final Results Generated</strong><br>
+                <strong>🎊 Final Results Generated</strong><br>
                 • Enhanced Query: "${userData.searchResult.enhancedQuery}"<br>
                 • Actions: ${actions.length} recommended<br>
-                • Confidence: ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
-                • Total Searches: ${semanticProcessor.searchHistory.length}
+                • Confidence: ${confidence}%<br>
+                • Total Searches: ${matchesCount}
             `);
         }
 
@@ -931,7 +1046,7 @@
             
             document.getElementById('step1').classList.add('active');
             
-            updateDebugInfo("Search reset. Ready for new query.");
+            updateDebugInfo("🔄 Search reset. Ready for new query.");
         }
 
         // Update debug information
