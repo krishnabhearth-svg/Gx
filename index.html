@@ -687,45 +687,32 @@
             });
         });
 
-        // Initialize semantic processor
-        async function initializeApplication() {
-            try {
-                updateDebugInfo("🚀 Initializing Universal Semantic Processor...");
-                updateStatus('statusDb', 'loading', 'Database: Loading semantic vectors...');
-                
-                // Create processor instance - it will auto-initialize
-                semanticProcessor = new UniversalSemanticProcessor();
-                
-                // Wait a moment for initialization
-                setTimeout(async () => {
-                    try {
-                        // Force database initialization
-                        const dbLoaded = await semanticProcessor.initializeDatabase();
-                        
-                        if (dbLoaded && semanticProcessor.semanticDB) {
-                            const termCount = Object.keys(semanticProcessor.semanticDB.universal_semantic_vectors || {}).length;
-                            updateDebugInfo(`✅ Database loaded successfully with ${termCount} semantic terms!`);
-                            updateStatus('statusDb', 'ready', `Database: Loaded (${termCount} terms)`);
-                        } else {
-                            updateDebugInfo("⚠️ Using fallback database - some features limited");
-                            updateStatus('statusDb', 'loading', 'Database: Fallback Mode');
-                        }
-                        
-                        updateStatus('statusProcessor', 'ready', 'Processor: Active & Ready');
-                        
-                    } catch (error) {
-                        console.error("Database initialization error:", error);
-                        updateDebugInfo("❌ Database error: " + error.message);
-                        updateStatus('statusDb', 'error', 'Database: Error Loading');
-                    }
-                }, 100);
-                
-            } catch (error) {
-                console.error("Processor initialization error:", error);
-                updateDebugInfo("❌ Processor error: " + error.message);
-                updateStatus('statusProcessor', 'error', 'Processor: Error');
-            }
-        }
+       // Initialize semantic processor
+async function initializeApplication() {
+    try {
+        updateDebugInfo("🚀 Starting Universal Semantic Processor...");
+        updateStatus('statusDb', 'loading', 'Database: Loading...');
+        
+        // Create processor instance
+        semanticProcessor = new UniversalSemanticProcessor();
+        
+        // Wait for initialization
+        setTimeout(() => {
+            const termCount = Object.keys(semanticProcessor.semanticDB.universal_semantic_vectors).length;
+            updateDebugInfo(`✅ System Ready! Loaded ${termCount} semantic terms`);
+            updateStatus('statusDb', 'ready', `Database: Loaded (${termCount} terms)`);
+            updateStatus('statusProcessor', 'ready', 'Processor: Active');
+            updateStatus('statusMatches', 'ready', 'Successful Matches: 0');
+            
+            console.log('🎉 Semantic processor ready:', termCount, 'terms');
+        }, 100);
+        
+    } catch (error) {
+        console.error("Initialization error:", error);
+        updateDebugInfo("❌ Error: " + error.message);
+        updateStatus('statusDb', 'error', 'Database: Error');
+    }
+}
 
         // Update status indicator
         function updateStatus(elementId, status, text) {
