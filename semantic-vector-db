@@ -1,0 +1,122 @@
+{
+  "organic farming": {
+    "vector": [0.88, 0.95, 0.74, 0.88, 0.85, 0.78],
+    "domains": ["ecology", "agriculture", "community", "health", "economy", "skills"],
+    "semantic_cluster": ["regenerative agriculture", "soil health", "composting", "pest-free", "biodiversity"],
+    "questions": [
+      "Are you starting a home garden, farm, or community project?",
+      "What crops are you planning to grow?",
+      "Do you need certification guidance or just personal use tips?"
+    ],
+    "queries": {
+      "ecological": "organic farming soil health biodiversity",
+      "agricultural": "organic crop rotation pest management",
+      "action": "how to start organic garden beginners",
+      "gap": "challenges in organic farming India",
+      "community": "community organic farming groups"
+    },
+    "actions": [
+      "Visit nearest organic farm",
+      "Test your soil",
+      "Join composting workshop",
+      "Start with 3 easy crops: tomato, spinach, coriander"
+    ],
+    "trusted_sites": [
+      "soilhealth.dac.gov.in",
+      "organic-farming.net",
+      "krishi.gov.in/organic",
+      "fauna.org/sustainable-ag",
+      "biodiversitylibrary.org"
+    ]
+  },
+  "pollution vehicle": {
+    "vector": [0.85, 0.72, 0.68, 0.79, 0.63, 0.81],
+    "domains": ["ecology", "transport", "health", "policy", "innovation", "urban"],
+    "semantic_cluster": ["emissions", "air quality", "EV", "public transport", "carbon footprint"],
+    "questions": [
+      "Are you concerned about health, environment, or policy?",
+      "Is this for personal action or research?",
+      "Do you live in a city or rural area?"
+    ],
+    "queries": {
+      "ecological": "vehicle pollution impact on soil and crops",
+      "agricultural": "farm machinery emissions alternatives",
+      "action": "reduce personal vehicle pollution daily habits",
+      "gap": "biogas vehicle adoption in India",
+      "community": "clean air citizen movements"
+    },
+    "actions": [
+      "Calculate your carbon footprint",
+      "Explore electric rickshaw services",
+      "Join city clean air campaign",
+      "Use public transport 3 days/week"
+    ],
+    "trusted_sites": [
+      "cpcb.nic.in",
+      "ev.gov.in",
+      "gbif.org/pollution",
+      "nasa.gov/earth/air-quality",
+      "fauna.org/urban-emissions"
+    ]
+  },
+  "mental calm": {
+    "vector": [0.65, 0.58, 0.92, 0.71, 0.82, 0.68],
+    "domains": ["wellness", "community", "nature", "routine", "spirit", "learning"],
+    "semantic_cluster": ["mindfulness", "grounding", "nature therapy", "bhajan", "breathwork"],
+    "questions": [
+      "Do you prefer individual practice or group activities?",
+      "Is this for stress relief, focus, or emotional healing?",
+      "Can you dedicate 10 minutes daily?"
+    ],
+    "queries": {
+      "ecological": "nature connection mental health",
+      "agricultural": "therapeutic gardening benefits",
+      "action": "5-minute daily grounding technique",
+      "gap": "mental wellness in farming communities",
+      "community": "bhajan groups near me"
+    },
+    "actions": [
+      "Walk barefoot on soil daily",
+      "Grow tulsi or mint at home",
+      "Join local kirtan group",
+      "Practice 5-minute breath awareness"
+    ],
+    "trusted_sites": [
+      "nih.gov/mindfulness",
+      "krishi.gov.in/wellness",
+      "community-bhajan.org",
+      "fauna.org/nature-therapy",
+      "who.int/mental-health"
+    ]
+  },
+  "water conservation": {
+    "vector": [0.92, 0.85, 0.70, 0.78, 0.80, 0.82],
+    "domains": ["ecology", "agriculture", "urban", "innovation", "community", "policy"],
+    "semantic_cluster": ["rainwater harvesting", "drip irrigation", "aquifer recharge", "greywater", "xeriscaping"],
+    "questions": [
+      "Is this for home, farm, or community use?",
+      "Do you have rooftop or land access?",
+      "What’s your average water source?"
+    ],
+    "queries": {
+      "ecological": "water conservation biodiversity impact",
+      "agricultural": "drip irrigation for small farms India",
+      "action": "DIY rooftop rainwater harvesting",
+      "gap": "water scarcity solutions Raichur",
+      "community": "community water management groups"
+    },
+    "actions": [
+      "Install rooftop rainwater pipe",
+      "Use bucket instead of shower",
+      "Plant native drought-resistant species",
+      "Join watershed restoration group"
+    ],
+    "trusted_sites": [
+      "cgwb.gov.in",
+      "rainwaterharvesting.org",
+      "nabard.org/water",
+      "krishi.gov.in/water",
+      "fauna.org/aquifer"
+    ]
+  }
+}
