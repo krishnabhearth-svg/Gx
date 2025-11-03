@@ -3,276 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🌾 Krishi • Beej • Unified Semantic Search</title>
+<title>🌾 Krishi Dynamic Semantic Search</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;padding:0;background:#fff;color:#202124;text-align:center;}
-header{padding:0.8em 0.5em;}
-h1{font-size:1.2em;margin:0;font-weight:500;}
-.download a{background:#34a853;color:#fff;padding:0.35em 1em;border-radius:20px;text-decoration:none;font-weight:600;display:inline-block;margin-top:0.4em;font-size:0.85em;}
-section{max-width:900px;margin:0 auto;padding:0.4em 0.4em;}
-input[type=text]{width:92%;max-width:450px;padding:0.55em 1em;border:1px solid #dadce0;border-radius:20px;outline:none;font-size:0.95em;}
-.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:0.35em;margin-top:0.6em;}
-.tab{padding:0.3em 0.8em;border:1px solid #dadce0;border-radius:20px;cursor:pointer;font-size:0.8em;background:#f8f9fa;}
-.tab.active{background:#1a73e8;color:#fff;border-color:#1a73e8;}
-.panel{display:none;text-align:left;border-top:1px solid #e0e0e0;margin-top:0.6em;padding-top:0.5em;font-size:0.88em;}
-.panel.active{display:block;}
-.result{margin:0.4em 0;}
+body{font-family:Arial,sans-serif;background:#f9f9f9;color:#222;margin:0;padding:20px;text-align:center;}
+.container{max-width:800px;margin:0 auto;background:white;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+input{width:90%;max-width:400px;padding:12px;border:1px solid #ccc;border-radius:20px;font-size:1em;margin:15px 0;}
+.action-box{background:#e8f5e8;padding:15px;border-radius:10px;margin:20px 0;text-align:left;}
+.action-item{display:inline-block;background:white;padding:6px 12px;margin:4px 6px 4px 0;border-radius:16px;font-size:0.85em;}
 .result a{color:#1a73e8;text-decoration:none;font-weight:600;}
-footer{font-size:0.7em;color:#777;margin:1.2em 0;}
-
-/* New Styles */
-.action-recommendations {
-    background: #e8f5e8;
-    border: 1px solid #34a853;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 15px 0;
-    text-align: left;
-}
-.action-item {
-    background: white;
-    padding: 6px 12px;
-    margin: 4px 6px 4px 0;
-    border-radius: 16px;
-    display: inline-block;
-    font-size: 0.85em;
-}
-.vector-source {
-    font-size: 0.75em;
-    color: #666;
-    margin-top: 5px;
-}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:15px 0;}
+.tab{padding:8px 16px;background:#e0e0e0;border:none;border-radius:20px;cursor:pointer;font-size:0.8em;}
+.tab.active{background:#4CAF50;color:white;}
+.panel{display:none;text-align:left;margin-top:15px;padding:15px;background:#fff;border-radius:8px;}
+.panel.active{display:block;}
+.status{font-size:0.8em;color:#666;margin-top:5px;}
 </style>
 </head>
 <body>
-<header>
-  <h1>🌾 Krishi • Beej • Unified Semantic Search</h1>
-  <div class="download">
-    <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>⬇️ Download Krishna Resume</a>
-  </div>
-</header>
-<section id="searchSection">
-  <input id="query" type="text" placeholder="e.g., pollution vehicle, organic farming…" oninput="smartSearch()" autocomplete="off">
-  
-  <div id="actionsBox" class="action-recommendations" style="display:none;">
-    <strong>🌱 Recommended Actions:</strong><br>
-    <div id="actionItems"></div>
-    <div class="vector-source" id="vectorSource"></div>
-  </div>
+<div class="container">
+  <h1>🌾 Krishi • Dynamic Semantic Search</h1>
+  <p>Type any keyword (e.g., "pollution vehicle", "organic farming")</p>
+  <input type="text" id="userQuery" placeholder="e.g., water conservation…" oninput="handleSearch()" autocomplete="off">
 
-  <p id="instruction" style="color:#777;margin-top:0.6em;font-size:0.85em;">
-    Type a keyword to explore with ecological intelligence.
-  </p>
+  <div id="actionsBox" class="action-box" style="display:none;">
+    <strong>Recommended Actions:</strong><br>
+    <div id="actionItems"></div>
+  </div>
 
   <div class="tabs" id="tabs">
-    <div class="tab active" data-target="google">Google</div>
-    <div class="tab" data-target="kids">Kids Miraheze</div>
-    <div class="tab" data-target="wiki">Wikipedia</div>
-    <div class="tab" data-target="scholar">Scholar</div>
-    <div class="tab" data-target="youtube">YouTube</div>
-    <div class="tab" data-target="news">News</div>
-    <div class="tab" data-target="openlib">OpenLibrary</div>
-    <div class="tab" data-target="maps">Maps</div>
-    <div class="tab" data-target="weather">Weather</div>
+    <div class="tab active" data-target="ecological">Ecological</div>
+    <div class="tab" data-target="gap">Gap Analysis</div>
+    <div class="tab" data-target="action">Action</div>
+    <div class="tab" data-target="all">All Tabs</div>
   </div>
 
   <div id="panels">
-    <div class="panel active" id="google"><h3>Google</h3><div id="googleLink"></div></div>
-    <div class="panel" id="kids"><h3>Kids Miraheze</h3><div id="kidsResults"></div></div>
-    <div class="panel" id="wiki"><h3>Wikipedia</h3><div id="wikiResults"></div></div>
-    <div class="panel" id="scholar"><h3>Scholar</h3><div id="scholarLink"></div></div>
-    <div class="panel" id="youtube"><h3>YouTube</h3><div id="youtubeLink"></div></div>
-    <div class="panel" id="news"><h3>News</h3><div id="newsLink"></div></div>
-    <div class="panel" id="openlib"><h3>OpenLibrary</h3><div id="openlibResults"></div></div>
-    <div class="panel" id="maps"><h3>Maps</h3><div id="mapsLink"></div></div>
-    <div class="panel" id="weather"><h3>Weather</h3><div id="weatherLink"></div></div>
+    <div class="panel active" id="ecological"><h3>🌱 Ecological Search</h3><div id="ecologicalLink"></div></div>
+    <div class="panel" id="gap"><h3>🔍 Gap/Challenge Search</h3><div id="gapLink"></div></div>
+    <div class="panel" id="action"><h3>✅ Action-Oriented Search</h3><div id="actionLink"></div></div>
+    <div class="panel" id="all">
+      <h3>🌐 All Search Results</h3>
+      <div id="allResults"></div>
+    </div>
   </div>
-</section>
-<footer>© Krishi • Beej • Unified Intelligence • Ecology • Agro • Consciousness</footer>
+
+  <div class="status" id="status">Loading semantic database…</div>
+</div>
 
 <script>
-// 🌱 YOUR 2MB-READY JSON SEMANTIC DATABASE (expandable)
-const LOCAL_SEMANTIC_DB = {
+// 🔗 Dynamic JSON Semantic Database URL (host yours on GitHub/GitLab)
+const SEMANTIC_DB_URL = 'https://gist.githubusercontent.com/anonymous/000000000000000000000000/raw/semantic-db.json';
+// Replace above with your raw JSON URL. For demo, we use embedded fallback.
+
+let semanticDB = null;
+
+// 🧠 Load Semantic DB
+async function loadSemanticDB() {
+  try {
+    const res = await fetch(SEMANTIC_DB_URL);
+    if (res.ok) {
+      semanticDB = await res.json();
+      document.getElementById('status').textContent = '✅ Semantic DB loaded';
+    } else throw 'Network error';
+  } catch (e) {
+    console.warn('Using fallback semantic DB');
+    semanticDB = FALLBACK_SEMANTIC_DB;
+    document.getElementById('status').textContent = '✅ Fallback semantic DB active';
+  }
+}
+
+// 🧪 Fallback DB (replace with your 2MB JSON when ready)
+const FALLBACK_SEMANTIC_DB = {
   "organic farming": {
-    actions: ["Visit organic farm", "Start small garden", "Learn about soil health", "Attend composting workshop", "Join seed bank"],
     queries: {
-      ecological: "organic farming soil health biodiversity",
-      agricultural: "organic crop rotation pest management",
-      action: "how to start organic garden beginners",
-      gap: "organic farming challenges India",
-      community: "community organic farming groups"
-    }
+      ecological: "organic farming soil health biodiversity regenerative",
+      gap: "organic farming challenges India small farmers certification",
+      action: "how to start organic home garden beginners step by step"
+    },
+    actions: ["Visit organic farm", "Start small garden", "Test your soil", "Join seed saving group"]
   },
   "pollution vehicle": {
-    actions: ["Research electric vehicles", "Use public transport", "Calculate carbon footprint", "Support green urban planning"],
     queries: {
-      ecological: "vehicle pollution air quality health impact",
-      agricultural: "farm machinery emissions alternatives",
-      action: "reduce car pollution daily habits",
-      gap: "biogas vehicle adoption India",
-      community: "clean air advocacy groups"
-    }
-  },
-  "mental calm": {
-    actions: ["Practice daily mindfulness", "Walk in nature", "Grow tulsi at home", "Join bhajan group"],
-    queries: {
-      ecological: "nature connection mental health",
-      agricultural: "therapeutic gardening benefits",
-      action: "5-minute grounding technique",
-      gap: "mental wellness in farming communities",
-      community: "bhajan groups near me"
-    }
+      ecological: "vehicle pollution air quality health impact emissions",
+      gap: "biogas vehicle adoption rural India barriers",
+      action: "reduce car pollution daily habits electric transport"
+    },
+    actions: ["Calculate carbon footprint", "Use public transport", "Join clean air advocacy"]
   },
   "water conservation": {
-    actions: ["Install rain barrel", "Plant native drought-resistant species", "Fix home leaks", "Use greywater system"],
     queries: {
-      ecological: "water conservation rainwater harvesting biodiversity",
-      agricultural: "drip irrigation small farms India",
-      action: "DIY rooftop rainwater harvesting",
-      gap: "water scarcity solutions Raichur",
-      community: "community water management"
-    }
+      ecological: "water conservation rainwater harvesting drought resilience",
+      gap: "water scarcity solutions Raichur Karnataka groundwater",
+      action: "DIY rooftop rainwater harvesting home setup"
+    },
+    actions: ["Install rain barrel", "Plant native drought-resistant species", "Fix home leaks"]
   }
 };
 
-// 🧠 UNIFIED SEARCH ENGINE
-async function smartSearch() {
-  const q = document.getElementById('query').value.trim().toLowerCase();
+// 🧠 Main Search Handler
+async function handleSearch() {
+  const q = document.getElementById('userQuery').value.trim().toLowerCase();
   if (!q) {
     hideActions();
-    resetInstruction();
     return;
   }
 
-  updateInstruction(q);
-  
-  // Step 1: Try vector database first (Chroma, Qdrant, Weaviate)
-  let enhancedMatch = null;
-  let source = "Local JSON";
-
+  // Step 1: Try ChromaDB
+  let match = null;
   try {
-    enhancedMatch = await queryVectorDatabase(q);
-    if (enhancedMatch) {
-      source = enhancedMatch.source || "Vector DB";
-    }
+    match = await queryChromaDB(q);
   } catch (e) {
-    console.warn("Vector DB offline, using local JSON:", e.message);
+    console.debug('ChromaDB not available:', e.message);
   }
 
-  // Step 2: Fall back to local JSON
-  if (!enhancedMatch) {
-    enhancedMatch = findLocalMatch(q);
+  // Step 2: Fall back to semantic JSON
+  if (!match) {
+    match = semanticDB[q] || findFuzzyMatch(q);
   }
 
   // Step 3: Generate results
-  if (enhancedMatch) {
-    showActions(enhancedMatch.actions, source);
-    updateAllTabs(enhancedMatch.queries, q);
+  if (match) {
+    showActions(match.actions);
+    runThreeSearches(match.queries, q);
   } else {
-    // Fallback: basic search
-    showActions(["Explore local resources", "Search community forums"], "Basic Fallback");
-    const basicQueries = { ecological: q, agricultural: q, action: q, gap: q, community: q };
-    updateAllTabs(basicQueries, q);
+    // Ultimate fallback
+    const basic = { ecological: q, gap: q, action: q };
+    showActions(["Explore local resources", "Search community forums"]);
+    runThreeSearches(basic, q);
   }
 }
 
-// 🔍 VECTOR DATABASE INTEGRATION (Chroma, Qdrant, Weaviate)
-async function queryVectorDatabase(query) {
-  // Try Chroma first
-  try {
-    const chromaRes = await fetch('http://localhost:8000/api/v1/collections/krishi/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query_texts: [query],
-        n_results: 1,
-        include: ["metadatas", "documents"]
-      })
-    });
-    if (chromaRes.ok) {
-      const data = await chromaRes.json();
-      if (data?.metadatas?.[0]?.[0]) {
-        return { ...data.metadatas[0][0], source: "ChromaDB" };
-      }
-    }
-  } catch (e) {
-    console.debug("ChromaDB unreachable");
-  }
-
-  // Try Qdrant
-  try {
-    const qdrantRes = await fetch('http://localhost:6333/collections/krishi/points/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        vector: await getEmbedding(query),
-        limit: 1,
-        with_payload: true
-      })
-    });
-    if (qdrantRes.ok) {
-      const data = await qdrantRes.json();
-      if (data?.result?.[0]?.payload) {
-        return { ...data.result[0].payload, source: "Qdrant" };
-      }
-    }
-  } catch (e) {
-    console.debug("Qdrant unreachable");
-  }
-
-  // Try Weaviate
-  try {
-    const weaviateRes = await fetch('http://localhost:8080/v1/graphql', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `{
-          Get {
-            KrishiSearch(nearText: { concepts: ["${query}"] }, limit: 1) {
-              actions
-              queries { ecological agricultural action gap community }
-            }
-          }
-        }`
-      })
-    });
-    if (weaviateRes.ok) {
-      const data = await weaviateRes.json();
-      if (data?.data?.Get?.KrishiSearch?.[0]) {
-        return { ...data.data.Get.KrishiSearch[0], source: "Weaviate" };
-      }
-    }
-  } catch (e) {
-    console.debug("Weaviate unreachable");
-  }
-
-  return null;
+// 🔍 ChromaDB Query (localhost:8000)
+async function queryChromaDB(query) {
+  const res = await fetch('http://localhost:8000/api/v1/collections/krishi/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query_texts: [query],
+      n_results: 1,
+      include: ["metadatas"]
+    })
+  });
+  if (!res.ok) throw new Error('Chroma unreachable');
+  const data = await res.json();
+  return data?.metadatas?.[0]?.[0] || null;
 }
 
-// 🧪 SIMPLE EMBEDDING FOR DEMO (replace with real model in production)
-async function getEmbedding(text) {
-  // In production: use Hugging Face, TensorFlow.js, or sentence-transformers
-  // For demo: return dummy vector
-  return [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
-}
-
-// 🔍 LOCAL JSON MATCHING
-function findLocalMatch(query) {
-  for (const [key, data] of Object.entries(LOCAL_SEMANTIC_DB)) {
-    if (query.includes(key) || key.includes(query)) return data;
-  }
-  // Fuzzy match
-  for (const [key, data] of Object.entries(LOCAL_SEMANTIC_DB)) {
-    if (key.split(' ').some(w => query.includes(w))) return data;
+// 🔍 Fuzzy match for unknown terms
+function findFuzzyMatch(query) {
+  for (const [term, data] of Object.entries(semanticDB)) {
+    if (term.split(' ').some(w => query.includes(w))) {
+      return data;
+    }
   }
   return null;
 }
 
-// 🎯 UI MANAGEMENT
-function showActions(actions, source) {
+// 🎯 UI Functions
+function showActions(actions) {
   document.getElementById('actionItems').innerHTML = 
     actions.map(a => `<span class="action-item">${a}</span>`).join('');
-  document.getElementById('vectorSource').textContent = `Source: ${source}`;
   document.getElementById('actionsBox').style.display = 'block';
 }
 
@@ -280,84 +170,35 @@ function hideActions() {
   document.getElementById('actionsBox').style.display = 'none';
 }
 
-function updateInstruction(q) {
-  document.getElementById('instruction').innerHTML = `Exploring "<b>${q}</b>" with ecological intelligence…`;
-}
-
-function resetInstruction() {
-  document.getElementById('instruction').textContent = 'Type a keyword to explore with ecological intelligence.';
-}
-
-function updateAllTabs(queries, originalQuery) {
-  const finalQuery = queries.ecological || originalQuery;
+// 🔍 Perform 3 Searches
+function runThreeSearches(queries, originalQuery) {
+  const e = encodeURIComponent;
   
-  document.getElementById('googleLink').innerHTML = 
-    `<a href="https://www.google.com/search?q=${encodeURIComponent(finalQuery)}" target="_blank">Results for: ${finalQuery}</a>`;
-  document.getElementById('scholarLink').innerHTML = 
-    `<a href="https://scholar.google.com/scholar?q=${encodeURIComponent(queries.agricultural || finalQuery)}" target="_blank">Academic papers</a>`;
-  document.getElementById('youtubeLink').innerHTML = 
-    `<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(queries.action || finalQuery)}" target="_blank">Tutorials & talks</a>`;
-  document.getElementById('newsLink').innerHTML = 
-    `<a href="https://news.google.com/search?q=${encodeURIComponent(queries.gap || finalQuery)}" target="_blank">Latest insights</a>`;
-  document.getElementById('mapsLink').innerHTML = 
-    `<a href="https://www.google.com/maps/search/${encodeURIComponent(queries.community || finalQuery)}" target="_blank">Local resources</a>`;
-  document.getElementById('weatherLink').innerHTML = 
-    `<a href="https://www.google.com/search?q=weather+${encodeURIComponent(originalQuery)}" target="_blank">Weather for "${originalQuery}"</a>`;
+  // Ecological
+  const ecoQuery = queries.ecological || originalQuery;
+  document.getElementById('ecologicalLink').innerHTML = 
+    `<a href="https://www.google.com/search?q=${e(ecoQuery)}" target="_blank">${ecoQuery}</a>`;
 
-  // API calls
-  fetchMiraheze(finalQuery, 'kidsResults');
-  fetchWikipedia(finalQuery, 'wikiResults');
-  fetchOpenLibrary(finalQuery, 'openlibResults');
+  // Gap
+  const gapQuery = queries.gap || originalQuery;
+  document.getElementById('gapLink').innerHTML = 
+    `<a href="https://scholar.google.com/scholar?q=${e(gapQuery)}" target="_blank">${gapQuery}</a>`;
+
+  // Action
+  const actionQuery = queries.action || originalQuery;
+  document.getElementById('actionLink').innerHTML = 
+    `<a href="https://www.youtube.com/results?search_query=${e(actionQuery)}" target="_blank">${actionQuery}</a>`;
+
+  // All tab
+  document.getElementById('allResults').innerHTML = `
+    <div><strong>🌱 Ecological:</strong> <a href="https://www.google.com/search?q=${e(ecoQuery)}" target="_blank">${ecoQuery}</a></div>
+    <div><strong>🔍 Gap:</strong> <a href="https://scholar.google.com/scholar?q=${e(gapQuery)}" target="_blank">${gapQuery}</a></div>
+    <div><strong>✅ Action:</strong> <a href="https://www.youtube.com/results?search_query=${e(actionQuery)}" target="_blank">${actionQuery}</a></div>
+    <div><strong>🗺️ Maps:</strong> <a href="https://www.google.com/maps/search/${e(originalQuery)}" target="_blank">Local resources</a></div>
+  `;
 }
 
-// 📡 API FETCHERS (same as before)
-async function fetchMiraheze(q, elId) {
-  const el = document.getElementById(elId);
-  el.textContent = 'Searching…';
-  try {
-    const res = await fetch(`https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    el.innerHTML = results.map(r => 
-      `<div><a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a><p>${(r.snippet || '').replace(/<[^>]*>/g, '')}…</p></div>`
-    ).join('') || `No results for "${q}"`;
-  } catch (e) {
-    el.textContent = 'Error loading results';
-  }
-}
-
-async function fetchWikipedia(q, elId) {
-  const el = document.getElementById(elId);
-  el.textContent = 'Searching…';
-  try {
-    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    el.innerHTML = results.map(r => 
-      `<div><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a><p>${(r.snippet || '').replace(/<[^>]*>/g, '')}…</p></div>`
-    ).join('') || `No results for "${q}"`;
-  } catch (e) {
-    el.textContent = 'Error loading results';
-  }
-}
-
-async function fetchOpenLibrary(q, elId) {
-  const el = document.getElementById(elId);
-  el.textContent = 'Searching…';
-  try {
-    const res = await fetch(`https://openlibrary.org/search.json?limit=3&q=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    const results = data?.docs || [];
-    el.innerHTML = results.map(r => 
-      `<div><strong>${r.title || 'Untitled'}</strong> by ${(r.author_name || []).join(', ')}<br>
-      <a href="https://openlibrary.org${r.key}" target="_blank">View book</a></div>`
-    ).join('') || `No books for "${q}"`;
-  } catch (e) {
-    el.textContent = 'Error loading books';
-  }
-}
-
-// 🖱️ TAB SWITCHING
+// 🖱️ Tab Switching
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -366,6 +207,9 @@ document.querySelectorAll('.tab').forEach(tab => {
     document.getElementById(tab.dataset.target).classList.add('active');
   });
 });
+
+// ▶️ Initialize
+loadSemanticDB();
 </script>
 </body>
 </html>
