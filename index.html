@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🌾 Krishi • Beej • Universal Ecological AI</title>
+<title>🌾 Krishi • Beej • Semantic Ecological Search</title>
 <style>
-/* ===== GLOBAL STYLES ===== */
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fbfd;color:#2d3748;line-height:1.6;text-align:center}
+body{font-family:Arial,sans-serif;background:#f9fbfd;color:#2d3748;line-height:1.6;text-align:center;margin:0;padding:0}
 .container{max-width:1000px;margin:0 auto;padding:20px}
 .header{padding:25px 0;background:white;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:30px}
 h1{font-size:1.8em;color:#2d3748;margin-bottom:8px}
@@ -15,93 +13,44 @@ h1{font-size:1.8em;color:#2d3748;margin-bottom:8px}
 .search-box{display:flex;gap:12px;margin:25px 0;justify-content:center}
 #queryInput{flex:1;max-width:500px;padding:16px 20px;border:2px solid #e2e8f0;border-radius:14px;font-size:1.1em;outline:none}
 #queryInput:focus{border-color:#48bb78;box-shadow:0 0 0 3px rgba(72,187,120,0.1)}
-.search-btn{background:#48bb78;color:white;border:none;border-radius:14px;padding:0 30px;font-weight:600;cursor:pointer;font-size:1.1em;transition:all 0.2s}
-.search-btn:hover{background:#38a169;transform:translateY(-2px)}
-.search-btn:disabled{background:#cbd5e0;cursor:not-allowed;transform:none}
-
-/* ===== PROGRESS & STEPS ===== */
-.progress-container{display:flex;justify-content:center;margin:25px 0;gap:15px}
-.progress-item{display:flex;flex-direction:column;align-items:center}
-.progress-dot{width:18px;height:18px;border-radius:50%;background:#e2e8f0;border:2px solid #e2e8f0;transition:all 0.3s}
-.progress-dot.active{background:#48bb78;border-color:#48bb78;transform:scale(1.2)}
-.progress-dot.completed{background:#38a169}
-.progress-label{font-size:0.8em;color:#718096;margin-top:5px}
-
-.step{display:none;animation:fadeIn 0.4s ease}
-.step.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ===== QUESTION BOX ===== */
-.question-box{background:#f0fff4;border-radius:14px;padding:25px;margin:25px 0;border-left:4px solid #48bb78;text-align:left}
-.question-title{font-size:1.4em;font-weight:600;margin-bottom:20px;color:#2d3748}
-.options-grid{display:grid;grid-template-columns:1fr;gap:12px}
-.option-btn{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:16px;text-align:left;cursor:pointer;transition:all 0.2s;font-size:1.05em}
-.option-btn:hover{border-color:#48bb78;transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.08)}
-.option-btn.selected{background:#48bb78;color:white;border-color:#48bb78}
-
-/* ===== RESULTS SECTION ===== */
-.results-container{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-top:30px}
-.results-header h2{font-size:1.8em;margin-bottom:15px;color:#2d3748}
-.original-query{color:#718096;margin-bottom:10px}
-.enhanced-query{font-weight:600;font-size:1.3em;color:#2d3748;line-height:1.5;background:#f7fafc;padding:15px;border-radius:10px;margin:15px 0}
-.semantic-info{background:#e6fffa;border-radius:10px;padding:15px;margin:20px 0;font-size:0.95em;color:#234e52}
-
-.actions-section{margin:25px 0}
-.section-title{font-size:1.3em;font-weight:600;margin-bottom:15px;color:#2d3748}
+.search-btn{background:#48bb78;color:white;border:none;border-radius:14px;padding:0 30px;font-weight:600;cursor:pointer;font-size:1.1em}
+.action-recommendations{background:#f0fff4;border-radius:14px;padding:25px;margin:25px 0;text-align:left;border-left:4px solid #48bb78}
+.actions-header{font-size:1.3em;font-weight:600;margin-bottom:15px;color:#2d3748}
 .action-items{display:flex;flex-wrap:wrap;gap:10px}
-.action-item{background:#f0fff4;color:#276749;padding:10px 18px;border-radius:20px;font-size:0.95em;border:1px solid #c6f6d5}
-
-/* ===== TABS ===== */
-.search-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:25px 0}
-.tab{background:#edf2f7;border:none;border-radius:20px;padding:10px 16px;font-size:0.85em;cursor:pointer;transition:all 0.2s}
+.action-item{background:#48bb78;color:white;padding:10px 18px;border-radius:20px;font-size:0.95em;display:inline-block}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:25px 0}
+.tab{background:#edf2f7;border:none;border-radius:20px;padding:10px 16px;font-size:0.85em;cursor:pointer}
 .tab.active{background:#48bb78;color:white}
 .panel{display:none;text-align:left;padding:20px;background:#f8fafc;border-radius:12px;min-height:100px;margin-top:15px}
 .panel.active{display:block}
-.panel a{display:inline-block;color:#3182ce;text-decoration:none;font-weight:500;padding:12px 20px;border-radius:10px;background:white;border:2px solid #e2e8f0;transition:all 0.2s}
-.panel a:hover{background:#ebf8ff;border-color:#3182ce;transform:translateY(-2px)}
-
-/* ===== BUTTONS ===== */
-.action-button{background:#48bb78;color:white;border:none;border-radius:12px;padding:14px 28px;font-size:1.1em;font-weight:600;cursor:pointer;transition:all 0.2s;margin:15px 10px;display:inline-block}
-.action-button:hover{background:#38a169;transform:translateY(-2px)}
-.action-button:disabled{background:#cbd5e0;cursor:not-allowed;transform:none}
-
-/* ===== STATUS ===== */
-.status-panel{background:#f7fafc;border-radius:12px;padding:20px;margin:20px 0;text-align:left}
+.panel a{display:inline-block;color:#3182ce;text-decoration:none;font-weight:500;padding:12px 20px;border-radius:10px;background:white;border:2px solid #e2e8f0}
+.status-panel{background:#f7fafc;border-radius:12px;padding:20px;margin:20px 0}
 .status-title{font-size:1.1em;font-weight:600;margin-bottom:15px;color:#2d3748}
 .status-item{padding:8px 0;border-bottom:1px solid #edf2f7;display:flex;justify-content:space-between}
 .status-indicator{width:10px;height:10px;border-radius:50%}
 .status-ready{background:#48bb78}
 .status-loading{background:#ed8936}
 .status-error{background:#f56565}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width:768px){
-  .container{padding:15px}
-  .header{padding:20px 15px}
-  h1{font-size:1.5em}
-  .search-box{flex-direction:column}
-  #queryInput{max-width:none}
-  .options-grid{grid-template-columns:1fr}
-  .action-item{font-size:0.85em;padding:8px 14px}
-  .tab{padding:8px 12px;font-size:0.75em}
-}
+.debug-panel{background:#f7fafc;border-radius:12px;padding:20px;margin:20px 0}
+.debug-title{font-size:1.1em;font-weight:600;margin-bottom:15px;color:#2d3748}
+.debug-content{font-size:0.9em;line-height:1.5;color:#4a5568}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <h1>🌾 Krishi • Beej • Universal Ecological AI</h1>
-    <p class="subtitle">Intelligent search for ecology, agriculture & human development with 3-step contextual refinement</p>
+    <h1>🌾 Krishi • Beej • Semantic Ecological Search</h1>
+    <p class="subtitle">Intelligent search for ecology, agriculture & human development</p>
     
     <div class="status-panel">
       <div class="status-title">System Status</div>
       <div class="status-item">
         <span>Semantic DB</span>
-        <span><span class="status-indicator status-loading" id="dbStatus"></span> Loading...</span>
+        <span><span class="status-indicator status-loading" id="dbStatus"></span> <span id="dbStatusText">Loading...</span></span>
       </div>
       <div class="status-item">
         <span>Vector DB</span>
-        <span><span class="status-indicator status-loading" id="vectorStatus"></span> Checking...</span>
+        <span><span class="status-indicator status-loading" id="vectorStatus"></span> <span id="vectorStatusText">Checking...</span></span>
       </div>
       <div class="status-item">
         <span>Matches</span>
@@ -110,1925 +59,216 @@ h1{font-size:1.8em;color:#2d3748;margin-bottom:8px}
     </div>
   </div>
 
-  <!-- STEP 0: INITIAL SEARCH -->
-  <div class="step active" id="step0">
-    <div class="search-box">
-      <input type="text" id="queryInput" placeholder="e.g., pollution vehicle, organic farming, water conservation...">
-      <button class="search-btn" onclick="startAnalysis()">Analyze & Continue →</button>
-    </div>
-    <div class="progress-container">
-      <div class="progress-item">
-        <div class="progress-dot active" id="dot0"></div>
-        <div class="progress-label">Keyword</div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-dot" id="dot1"></div>
-        <div class="progress-label">Context</div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-dot" id="dot2"></div>
-        <div class="progress-label">Approach</div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-dot" id="dot3"></div>
-        <div class="progress-label">Outcome</div>
-      </div>
+  <div class="search-box">
+    <input type="text" id="queryInput" placeholder="e.g., pollution vehicle, organic farming, water conservation...">
+    <button class="search-btn" onclick="performSearch()">Search</button>
+  </div>
+  
+  <div id="semanticResults" style="display:none;">
+    <div class="action-recommendations">
+      <div class="actions-header">Recommended Actions</div>
+      <div class="action-items" id="actionItems"></div>
     </div>
   </div>
 
-  <!-- STEP 1: CONTEXT QUESTION -->
-  <div class="step" id="step1">
-    <div class="question-box">
-      <div class="question-title" id="contextQuestion">🎯 What's your main focus area?</div>
-      <div class="options-grid" id="contextOptions"></div>
-    </div>
-    <button class="action-button" onclick="nextStep(1)" disabled>Next →</button>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('google')">Google</button>
+    <button class="tab" onclick="showTab('scholar')">Scholar</button>
+    <button class="tab" onclick="showTab('youtube')">YouTube</button>
+    <button class="tab" onclick="showTab('kids')">Kids Wiki</button>
+    <button class="tab" onclick="showTab('wiki')">Wikipedia</button>
+    <button class="tab" onclick="showTab('amazon')">Amazon Books</button>
+    <button class="tab" onclick="showTab('openlib')">OpenLibrary</button>
+    <button class="tab" onclick="showTab('news')">News</button>
+    <button class="tab" onclick="showTab('maps')">Maps</button>
+    <button class="tab" onclick="showTab('weather')">Weather</button>
+    <button class="tab" onclick="showTab('stocks')">Finance</button>
+    <button class="tab" onclick="showTab('images')">Images</button>
+    <button class="tab" onclick="showTab('translate')">Translate</button>
+    <button class="tab" onclick="showTab('ted')">TED</button>
+    <button class="tab" onclick="showTab('archive')">Archive</button>
+  </div>
+  
+  <div id="panels">
+    <div class="panel active" id="google"><a id="googleLink" target="_blank">Google Search</a></div>
+    <div class="panel" id="scholar"><a id="scholarLink" target="_blank">Google Scholar</a></div>
+    <div class="panel" id="youtube"><a id="youtubeLink" target="_blank">YouTube Tutorials</a></div>
+    <div class="panel" id="kids"><a id="kidsLink" target="_blank">Kids Miraheze</a></div>
+    <div class="panel" id="wiki"><a id="wikiLink" target="_blank">Wikipedia</a></div>
+    <div class="panel" id="amazon"><a id="amazonLink" target="_blank">Amazon Books</a></div>
+    <div class="panel" id="openlib"><a id="openlibLink" target="_blank">OpenLibrary</a></div>
+    <div class="panel" id="news"><a id="newsLink" target="_blank">News Results</a></div>
+    <div class="panel" id="maps"><a id="mapsLink" target="_blank">Local Resources</a></div>
+    <div class="panel" id="weather"><a id="weatherLink" target="_blank">Weather</a></div>
+    <div class="panel" id="stocks"><a id="stocksLink" target="_blank">Finance</a></div>
+    <div class="panel" id="images"><a id="imagesLink" target="_blank">Images</a></div>
+    <div class="panel" id="translate"><a id="translateLink" target="_blank">Translate</a></div>
+    <div class="panel" id="ted"><a id="tedLink" target="_blank">TED Talks</a></div>
+    <div class="panel" id="archive"><a id="archiveLink" target="_blank">Archive.org</a></div>
   </div>
 
-  <!-- STEP 2: APPROACH QUESTION -->
-  <div class="step" id="step2">
-    <div class="question-box">
-      <div class="question-title" id="approachQuestion">🔄 How do you want to approach this?</div>
-      <div class="options-grid" id="approachOptions"></div>
-    </div>
-    <button class="action-button" onclick="nextStep(2)" disabled>Next →</button>
-  </div>
-
-  <!-- STEP 3: OUTCOME QUESTION -->
-  <div class="step" id="step3">
-    <div class="question-box">
-      <div class="question-title" id="outcomeQuestion">💫 What outcome are you seeking?</div>
-      <div class="options-grid" id="outcomeOptions"></div>
-    </div>
-    <button class="action-button" onclick="generateResults()">Get Perfect Results →</button>
-  </div>
-
-  <!-- STEP 4: RESULTS -->
-  <div class="step" id="step4">
-    <div class="results-container">
-      <div class="results-header">
-        <h2>🎉 Your Enhanced Ecological Search Results</h2>
-      </div>
-      
-      <div class="enhanced-query">
-        Enhanced Query: "<span id="finalQuery"></span>"
-      </div>
-      
-      <div class="semantic-info" id="semanticInfo"></div>
-      
-      <div class="actions-section">
-        <div class="section-title">Recommended Actions</div>
-        <div class="action-items" id="actionItems"></div>
-      </div>
-      
-      <div class="section-title">Search Across Platforms</div>
-      <div class="search-tabs">
-        <button class="tab active" onclick="showTab('google')">Google</button>
-        <button class="tab" onclick="showTab('scholar')">Scholar</button>
-        <button class="tab" onclick="showTab('youtube')">YouTube</button>
-        <button class="tab" onclick="showTab('kids')">Kids Wiki</button>
-        <button class="tab" onclick="showTab('wiki')">Wikipedia</button>
-        <button class="tab" onclick="showTab('amazon')">Amazon</button>
-        <button class="tab" onclick="showTab('openlib')">OpenLibrary</button>
-        <button class="tab" onclick="showTab('news')">News</button>
-        <button class="tab" onclick="showTab('maps')">Maps</button>
-        <button class="tab" onclick="showTab('weather')">Weather</button>
-        <button class="tab" onclick="showTab('stocks')">Finance</button>
-        <button class="tab" onclick="showTab('images')">Images</button>
-        <button class="tab" onclick="showTab('translate')">Translate</button>
-        <button class="tab" onclick="showTab('ted')">TED</button>
-        <button class="tab" onclick="showTab('archive')">Archive</button>
-      </div>
-      
-      <div class="panel active" id="google">
-        <a id="googleLink" target="_blank">Google Search Results</a>
-      </div>
-      <div class="panel" id="scholar">
-        <a id="scholarLink" target="_blank">Google Scholar Results</a>
-      </div>
-      <div class="panel" id="youtube">
-        <a id="youtubeLink" target="_blank">YouTube Tutorials</a>
-      </div>
-      <div class="panel" id="kids">
-        <a id="kidsLink" target="_blank">Kids Miraheze</a>
-      </div>
-      <div class="panel" id="wiki">
-        <a id="wikiLink" target="_blank">Wikipedia</a>
-      </div>
-      <div class="panel" id="amazon">
-        <a id="amazonLink" target="_blank">Amazon Books</a>
-      </div>
-      <div class="panel" id="openlib">
-        <a id="openlibLink" target="_blank">OpenLibrary</a>
-      </div>
-      <div class="panel" id="news">
-        <a id="newsLink" target="_blank">News Results</a>
-      </div>
-      <div class="panel" id="maps">
-        <a id="mapsLink" target="_blank">Local Resources</a>
-      </div>
-      <div class="panel" id="weather">
-        <a id="weatherLink" target="_blank">Weather</a>
-      </div>
-      <div class="panel" id="stocks">
-        <a id="stocksLink" target="_blank">Finance</a>
-      </div>
-      <div class="panel" id="images">
-        <a id="imagesLink" target="_blank">Images</a>
-      </div>
-      <div class="panel" id="translate">
-        <a id="translateLink" target="_blank">Translate</a>
-      </div>
-      <div class="panel" id="ted">
-        <a id="tedLink" target="_blank">TED Talks</a>
-      </div>
-      <div class="panel" id="archive">
-        <a id="archiveLink" target="_blank">Archive.org</a>
-      </div>
-      
-      <button class="action-button" style="background:#718096" onclick="resetSearch()">Start New Search</button>
+  <div class="debug-panel">
+    <div class="debug-title">Debug Information</div>
+    <div class="debug-content" id="debugInfo">
+      Enter a search term to begin...
     </div>
   </div>
 </div>
 
 <script>
 // ========================================================================
-// 5,000+ TERM SEMANTIC DATABASE (6D VECTORS: ecology, agri, mental, physical, community, skills)
+// SEMANTIC DATABASE (Online-ready - can be replaced with external URL)
 // ========================================================================
 const SEMANTIC_DB = {
   "organic farming": {
-    vector: [0.88, 0.95, 0.74, 0.88, 0.85, 0.78],
-    domain: "AGRICULTURE",
-    semantic_cluster: ["sustainable farming", "permaculture", "agroecology", "regenerative agriculture"],
-    questions: {
-      context: {
-        title: "🌱 What aspect of organic farming interests you most?",
-        options: {
-          "home_garden": "🏠 Starting home garden (small space, family use)",
-          "commercial": "🏢 Commercial farming (business scale, markets)", 
-          "health": "💚 Health benefits (nutrition, chemical-free)",
-          "environment": "🌍 Environmental impact (sustainability, biodiversity)",
-          "community": "👥 Community food security (shared resources, local)",
-          "education": "🎓 Learning & teaching (skills, workshops, courses)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to get involved with organic farming?",
-        options: {
-          "learn": "📚 Learn the basics (courses, tutorials, books)",
-          "practice": "🌿 Start practicing (hands-on, immediate action)", 
-          "community": "🤝 Join community garden (shared space, collaboration)",
-          "business": "💼 Start small business (entrepreneurship, income)",
-          "advocate": "📢 Promote organic farming (awareness, policy)",
-          "research": "🔬 Study advanced techniques (science, innovation)"
-        }
-      },
-      outcome: {
-        title: "🎯 What are you hoping to achieve through organic farming?",
-        options: {
-          "healthy_food": "🍎 Grow healthy food (nutrition, safety, quality)",
-          "save_money": "💰 Save money on groceries (self-sufficiency, cost)",
-          "environment": "🌱 Help environment (sustainability, conservation)",
-          "community": "🏘️ Build community (connections, shared resources)", 
-          "skills": "🛠️ Learn valuable skills (knowledge, capability)",
-          "income": "💵 Generate additional income (business, sales)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Start small container garden", "Research local growing seasons", "Test soil pH basic kit"],
-      short_term: ["Learn composting basics", "Join community garden tour", "Plant beginner-friendly herbs"],
-      medium_term: ["Setup rainwater collection", "Create crop rotation plan", "Attend organic farming workshop"],
-      long_term: ["Certify organic practices", "Start farmers market stall", "Teach organic gardening classes"]
-    },
-    search_strategies: {
+    actions: ["Visit organic farm", "Start small garden", "Learn about soil health", "Attend composting workshop", "Join community seed bank"],
+    queries: {
       ecological: "organic farming soil health biodiversity regenerative agriculture",
       agricultural: "organic crop rotation pest management natural fertilizers",
       action: "how to start organic home garden beginners step by step"
-    },
-    trusted_sites: ["soilhealth.dac.gov.in", "krishi.gov.in/organic", "fauna.org/sustainable-ag"]
+    }
   },
   "pollution vehicle": {
-    vector: [0.85, 0.72, 0.68, 0.79, 0.63, 0.81],
-    domain: "ECOLOGY_TRANSPORT",
-    semantic_cluster: ["emissions", "air quality", "EV", "public transport", "carbon footprint"],
-    questions: {
-      context: {
-        title: "🌫️ What pollution aspect concerns you most?",
-        options: {
-          "air_quality": "🌬️ Air quality impact (urban smog, health)",
-          "health_effects": "🏥 Health effects (respiratory, children)",
-          "climate_impact": "🌡️ Climate change (global warming, emissions)",
-          "noise_pollution": "🔇 Noise pollution (urban stress)",
-          "water_contamination": "💧 Water contamination (runoff, oil)",
-          "soil_degradation": "🌱 Soil degradation (heavy metals, toxins)"
-        }
-      },
-      approach: {
-        title: "🔄 How do you want to address vehicle pollution?",
-        options: {
-          "personal_change": "🚶 Personal change (transport choices)",
-          "policy_advocacy": "📢 Policy advocacy (clean air laws)",
-          "tech_innovation": "💡 Tech innovation (EV, clean tech)",
-          "community_action": "🏘️ Community action (carpool, clean zones)",
-          "education": "🎓 Education & awareness (workshops)",
-          "business_solutions": "💼 Business solutions (green fleet)"
-        }
-      },
-      outcome: {
-        title: "🎯 What outcome matters most to you?",
-        options: {
-          "cleaner_air": "🌬️ Cleaner air (immediate health)",
-          "climate_action": "🌍 Climate action (long-term)",
-          "health_protection": "❤️ Health protection (family, community)",
-          "economic_savings": "💰 Economic savings (fuel, health costs)",
-          "policy_change": "🏛️ Policy change (systemic)",
-          "tech_adoption": "⚡ Tech adoption (EV, innovation)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Calculate carbon footprint", "Use public transport this week", "Research EV options"],
-      short_term: ["Join clean air advocacy group", "Switch to carpool", "Install air purifier"],
-      medium_term: ["Purchase electric vehicle", "Move closer to work", "Support clean transit"],
-      long_term: ["Advocate for EV infrastructure", "Start clean transport business", "Policy leadership"]
-    },
-    search_strategies: {
+    actions: ["Research electric vehicles", "Use public transport", "Calculate carbon footprint", "Support green urban planning", "Join clean air advocacy"],
+    queries: {
       ecological: "vehicle pollution air quality health impact emissions",
       agricultural: "farm machinery emissions sustainable transport biofuel alternatives",
       action: "reduce car pollution daily habits electric transport tutorial"
-    },
-    trusted_sites: ["cpcb.nic.in", "ev.gov.in", "gbif.org/pollution", "nasa.gov/earth/air-quality"]
+    }
   },
   "water conservation": {
-    vector: [0.92, 0.85, 0.70, 0.78, 0.80, 0.82],
-    domain: "ECOLOGY_AGRICULTURE",
-    semantic_cluster: ["rainwater harvesting", "drip irrigation", "aquifer recharge", "greywater", "xeriscaping"],
-    questions: {
-      context: {
-        title: "💧 What water conservation area interests you?",
-        options: {
-          "home_use": "🏠 Home water use (indoor, appliances)",
-          "gardening": "🌿 Gardening & landscaping (outdoor, plants)",
-          "agriculture": "🌾 Agricultural use (farming, irrigation)",
-          "community": "🏘️ Community water (municipal, shared)",
-          "industry": "🏭 Industrial use (business, manufacturing)",
-          "policy": "🏛️ Water policy (regulations, rights)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to implement water conservation?",
-        options: {
-          "immediate_actions": "⚡ Immediate actions (fix leaks, habits)",
-          "infrastructure": "🏠 Infrastructure (rain barrels, greywater)",
-          "behavioral_change": "🧘 Behavioral change (awareness, habits)",
-          "technology": "📱 Technology (sensors, apps, automation)",
-          "policy_work": "🏛️ Policy work (advocacy, regulations)",
-          "education": "🎓 Education (workshops, community)"
-        }
-      },
-      outcome: {
-        title: "🎯 What's your primary water conservation goal?",
-        options: {
-          "reduce_usage": "📉 Reduce water usage (immediate savings)",
-          "sustainability": "🌱 Long-term sustainability (future security)",
-          "environmental": "🌍 Environmental protection (ecosystems)",
-          "economic_savings": "💰 Economic savings (bills, costs)",
-          "community_resilience": "🤝 Community resilience (shared security)",
-          "climate_adaptation": "🌡️ Climate adaptation (drought resilience)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Install rain barrel", "Fix home leaks", "Use bucket instead of shower"],
-      short_term: ["Plant native drought-resistant species", "Install low-flow fixtures", "Learn greywater system"],
-      medium_term: ["Setup rainwater harvesting system", "Convert to drip irrigation", "Join watershed group"],
-      long_term: ["Advocate for water policy", "Build community water system", "Start water business"]
-    },
-    search_strategies: {
+    actions: ["Install rain barrel", "Plant native drought-resistant species", "Fix home leaks", "Use greywater system", "Support watershed restoration"],
+    queries: {
       ecological: "water conservation rainwater harvesting ecosystem impact",
       agricultural: "drip irrigation small farms India water-wise crops",
       action: "DIY rooftop rainwater harvesting home setup tutorial"
-    },
-    trusted_sites: ["cgwb.gov.in", "rainwaterharvesting.org", "nabard.org/water", "krishi.gov.in/water"]
+    }
   },
   "mental calm": {
-    vector: [0.65, 0.58, 0.92, 0.71, 0.82, 0.68],
-    domain: "WELLNESS",
-    semantic_cluster: ["mindfulness", "grounding", "bhajan", "breathwork", "nature therapy"],
-    questions: {
-      context: {
-        title: "😊 What mental wellness aspect do you need?",
-        options: {
-          "stress_relief": "😫 Stress relief (work, life pressure)",
-          "anxiety_reduction": "😰 Anxiety reduction (worry, panic)",
-          "depression_support": "😔 Depression support (mood, motivation)",
-          "mindfulness": "🧠 Mindfulness & peace (present moment)",
-          "relationships": "💞 Healthy relationships (communication)",
-          "purpose": "🎯 Finding meaning & purpose (direction)"
-        }
-      },
-      approach: {
-        title: "🌿 How do you prefer to approach wellness?",
-        options: {
-          "self_care": "💆‍♀️ Self-care practices (routine, habits)",
-          "professional_help": "👨‍⚕️ Professional help (therapy, counseling)", 
-          "community": "👥 Community support (groups, sharing)",
-          "nature": "🌳 Nature-based healing (outdoors, ecotherapy)",
-          "holistic": "🌈 Holistic approaches (mind-body-spirit)",
-          "spiritual": "🕊️ Spiritual practices (meditation, connection)"
-        }
-      },
-      outcome: {
-        title: "💫 What wellness outcome do you seek?",
-        options: {
-          "peace": "☮️ Inner peace & calm (tranquility, serenity)",
-          "energy": "⚡ More energy & motivation (vitality, drive)",
-          "clarity": "💡 Mental clarity & focus (concentration, purpose)", 
-          "connections": "🤝 Better relationships (intimacy, understanding)",
-          "purpose": "🎯 Sense of purpose (meaning, direction)",
-          "resilience": "🛡️ Emotional resilience (coping, adaptability)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Practice 5-minute breathing", "Take nature break", "Write gratitude list"],
-      short_term: ["Establish sleep routine", "Digital detox hours", "Join support community"],
-      medium_term: ["Regular exercise routine", "Therapy sessions", "Mindfulness practice"],
-      long_term: ["Lifestyle transformation", "Deep healing work", "Become wellness advocate"]
-    },
-    search_strategies: {
+    actions: ["Practice daily mindfulness", "Walk in nature", "Grow tulsi or mint at home", "Join local bhajan group", "Reduce screen time"],
+    queries: {
       ecological: "nature connection mental calm grounding biophilia",
       agricultural: "therapeutic gardening stress reduction mental wellness",
       action: "5-minute daily mindfulness technique for beginners"
-    },
-    trusted_sites: ["nih.gov/mindfulness", "who.int/mental-health", "krishi.gov.in/wellness", "community-bhajan.org"]
+    }
   },
   "renewable energy": {
-    vector: [0.94, 0.67, 0.62, 0.71, 0.76, 0.83],
-    domain: "ECOLOGY_TECH",
-    semantic_cluster: ["solar", "wind", "biogas", "hydro", "geothermal", "sustainable"],
-    questions: {
-      context: {
-        title: "⚡ What renewable energy interests you?",
-        options: {
-          "solar": "☀️ Solar power (panels, home systems)",
-          "wind": "🌬️ Wind energy (turbines, community)",
-          "bioenergy": "🌿 Bioenergy (biomass, biogas, waste)",
-          "hydro": "💧 Hydropower (micro, community)",
-          "geothermal": "🌋 Geothermal (heating, cooling)",
-          "policy": "🏛️ Energy policy (regulations, incentives)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with renewable energy?",
-        options: {
-          "home_installation": "🏠 Home installation (DIY, professional)",
-          "community_projects": "🏘️ Community projects (shared systems)",
-          "business": "💼 Business opportunities (investment, startup)",
-          "policy_advocacy": "📢 Policy advocacy (clean energy laws)",
-          "education": "🎓 Education & learning (courses, workshops)",
-          "research": "🔬 Research & innovation (tech development)"
-        }
-      },
-      outcome: {
-        title: "🎯 What's your renewable energy goal?",
-        options: {
-          "energy_independence": "🔋 Energy independence (self-sufficiency)",
-          "cost_savings": "💰 Cost savings (bills, ROI)",
-          "environmental": "🌱 Environmental impact (emissions reduction)",
-          "community_benefit": "🤝 Community benefit (shared access)",
-          "career": "💼 Career development (jobs, skills)",
-          "climate_action": "🌍 Climate action (global impact)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research solar home systems", "Calculate energy usage", "Check local incentives"],
-      short_term: ["Attend renewable energy workshop", "Join community energy co-op", "Audit home energy"],
-      medium_term: ["Install solar panels", "Start biogas system", "Invest in community project"],
-      long_term: ["Build renewable business", "Policy leadership", "Innovation development"]
-    },
-    search_strategies: {
+    actions: ["Research solar home systems", "Join community energy co-op", "Attend rural electrification workshop", "Explore biogas options", "Support clean energy policies"],
+    queries: {
       ecological: "renewable energy climate impact sustainability",
       agricultural: "biogas from farm waste solar irrigation pumps",
       action: "affordable solar setup for rural home DIY tutorial"
-    },
-    trusted_sites: ["mnre.gov.in", "niti.gov.in/renewable", "irena.org", "fauna.org/energy"]
+    }
   },
-  "soil health": {
-    vector: [0.96, 0.92, 0.72, 0.85, 0.88, 0.76],
-    domain: "AGRICULTURE_ECOLOGY",
-    semantic_cluster: ["compost", "microbes", "organic matter", "regeneration", "biodiversity"],
-    questions: {
-      context: {
-        title: "🌱 What soil health aspect interests you?",
-        options: {
-          "testing": "🧪 Soil testing (pH, nutrients, analysis)",
-          "improvement": "📈 Soil improvement (compost, amendments)",
-          "regeneration": "♻️ Soil regeneration (degraded land)",
-          "microbes": "🦠 Soil microbes (biology, life)",
-          "farming": "🌾 Farming practices (tillage, cover crops)",
-          "urban": "🏙️ Urban soil (containers, gardens)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to work with soil health?",
-        options: {
-          "learn": "📚 Learn soil science (courses, books)",
-          "test": "🧪 Test your soil (kits, labs)",
-          "amend": "🌱 Amend your soil (compost, inputs)",
-          "observe": "👀 Observe soil life (microscopy, biology)",
-          "community": "🏘️ Community soil (shared gardens)",
-          "advocate": "📢 Advocate for soil policy"
-        }
-      },
-      outcome: {
-        title: "🎯 What soil health outcome matters most?",
-        options: {
-          "fertility": "🌿 Fertility (plant growth, yield)",
-          "water_retention": "💧 Water retention (drought resistance)",
-          "biodiversity": "🦋 Biodiversity (ecosystem health)",
-          "carbon_sequestration": "🌱 Carbon sequestration (climate)",
-          "food_quality": "🍎 Food quality (nutrition, taste)",
-          "regeneration": "♻️ Land regeneration (healing)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Test soil pH with home kit", "Start compost pile", "Plant cover crops"],
-      short_term: ["Add compost to garden", "Learn about soil food web", "Join soil health group"],
-      medium_term: ["Create no-till system", "Build worm farm", "Attend soil workshop"],
-      long_term: ["Regenerate degraded land", "Teach soil health", "Start soil business"]
-    },
-    search_strategies: {
-      ecological: "soil health biodiversity carbon sequestration",
-      agricultural: "soil testing organic matter microbial activity",
-      action: "how to improve soil health beginners compost"
-    },
-    trusted_sites: ["soilhealth.dac.gov.in", "rodaleinstitute.org", "biodiversitylibrary.org", "fauna.org/soil"]
-  },
-  "biodiversity": {
-    vector: [0.95, 0.82, 0.68, 0.75, 0.84, 0.72],
-    domain: "ECOLOGY",
-    semantic_cluster: ["species", "ecosystems", "conservation", "habitat", "restoration"],
-    questions: {
-      context: {
-        title: "🦋 What biodiversity aspect interests you?",
-        options: {
-          "species": "🦋 Species diversity (plants, animals)",
-          "ecosystems": "🏞️ Ecosystem diversity (forests, wetlands)",
-          "conservation": "🛡️ Conservation efforts (protection)",
-          "restoration": "♻️ Ecosystem restoration (healing)",
-          "urban": "🏙️ Urban biodiversity (cities, gardens)",
-          "agriculture": "🌾 Agricultural biodiversity (crops, livestock)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to support biodiversity?",
-        options: {
-          "learn": "📚 Learn about biodiversity (courses)",
-          "observe": "👀 Observe & document (citizen science)",
-          "create": "🌱 Create habitat (gardens, corridors)",
-          "protect": "🛡️ Protect existing areas (advocacy)",
-          "restore": "♻️ Restore degraded areas (active)",
-          "policy": "🏛️ Policy & advocacy (systemic change)"
-        }
-      },
-      outcome: {
-        title: "🎯 What biodiversity outcome matters most?",
-        options: {
-          "species_protection": "🦋 Species protection (endangered)",
-          "ecosystem_health": "🏞️ Ecosystem health (resilience)",
-          "climate_resilience": "🌡️ Climate resilience (adaptation)",
-          "food_security": "🍎 Food security (crop diversity)",
-          "human_wellbeing": "😊 Human wellbeing (connection)",
-          "future_generations": "👶 Future generations (legacy)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Plant native species", "Create insect hotel", "Join citizen science"],
-      short_term: ["Visit biodiversity hotspot", "Learn local species", "Remove invasive plants"],
-      medium_term: ["Create wildlife corridor", "Restore native habitat", "Advocate for protection"],
-      long_term: ["Lead conservation project", "Policy work", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "biodiversity conservation ecosystem services",
-      agricultural: "agricultural biodiversity crop rotation",
-      action: "how to increase biodiversity in garden native plants"
-    },
-    trusted_sites: ["iucnredlist.org", "gbif.org", "cbd.int", "fauna.org/biodiversity"]
-  },
-  "climate action": {
-    vector: [0.94, 0.88, 0.82, 0.91, 0.85, 0.89],
-    domain: "ECOLOGY",
-    semantic_cluster: ["mitigation", "adaptation", "resilience", "policy", "community", "individual"],
-    questions: {
-      context: {
-        title: "🌍 What climate action area interests you?",
-        options: {
-          "personal": "👤 Personal carbon footprint (lifestyle)",
-          "community": "🏘️ Community resilience (local projects)", 
-          "policy": "🏛️ Policy & advocacy (government action)",
-          "technology": "🔬 Technology solutions (innovation)",
-          "education": "🎓 Education & awareness (spreading knowledge)",
-          "business": "💼 Business sustainability (corporate action)"
-        }
-      },
-      approach: {
-        title: "🔄 How do you want to take climate action?",
-        options: {
-          "lifestyle": "🌿 Lifestyle changes (consumption, habits)",
-          "activism": "📢 Activism & advocacy (protests, campaigns)", 
-          "innovation": "💡 Innovation & technology (solutions)",
-          "education": "📚 Education & teaching (awareness)",
-          "career": "💼 Career in climate (jobs, professional)",
-          "investment": "💰 Sustainable investment (finance)"
-        }
-      },
-      outcome: {
-        title: "🎯 What climate outcome matters most?",
-        options: {
-          "emissions": "📉 Reduce emissions (carbon, greenhouse)",
-          "resilience": "🛡️ Community resilience (adaptation)",
-          "policy": "📜 Policy change (laws, regulations)",
-          "awareness": "💡 Public awareness (education)",
-          "innovation": "🚀 Technological innovation (solutions)",
-          "future": "🔮 Sustainable future (generations)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Calculate carbon footprint", "Switch to renewable energy", "Reduce meat consumption"],
-      short_term: ["Join climate organization", "Advocate for policy change", "Install energy efficiency"],
-      medium_term: ["Transition to electric vehicle", "Install solar panels", "Start community garden"],
-      long_term: ["Career in sustainability", "Major lifestyle overhaul", "Climate leadership role"]
-    },
-    search_strategies: {
-      ecological: "climate action mitigation adaptation strategies",
-      agricultural: "climate smart agriculture resilient farming",
-      action: "personal climate action steps beginners"
-    },
-    trusted_sites: ["ipcc.ch", "unfccc.int", "niti.gov.in/climate", "fauna.org/climate"]
-  },
-  "food sovereignty": {
-    vector: [0.89, 0.94, 0.75, 0.86, 0.92, 0.78],
-    domain: "AGRICULTURE_COMMUNITY",
-    semantic_cluster: ["local food", "seed sovereignty", "community control", "traditional knowledge", "agroecology"],
-    questions: {
-      context: {
-        title: "🍎 What food sovereignty aspect interests you?",
-        options: {
-          "seed_saving": "🌱 Seed saving & sovereignty (control)",
-          "local_markets": "🛒 Local food markets (community)",
-          "traditional_knowledge": "🧠 Traditional knowledge (indigenous)",
-          "policy": "🏛️ Food policy (regulations, rights)",
-          "community_gardens": "🌿 Community gardens (shared)",
-          "food_security": "🔒 Food security (access, availability)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to support food sovereignty?",
-        options: {
-          "grow": "🌱 Grow your own food (gardens, farms)",
-          "save_seeds": "🧺 Save & share seeds (collection, exchange)",
-          "support_local": "🛒 Support local farmers (markets)",
-          "advocate": "📢 Advocate for food rights (policy)",
-          "educate": "🎓 Educate community (workshops)",
-          "organize": "🤝 Organize community (co-ops, networks)"
-        }
-      },
-      outcome: {
-        title: "🎯 What food sovereignty outcome matters most?",
-        options: {
-          "community_control": "🏘️ Community control (local decisions)",
-          "seed_sovereignty": "🌱 Seed sovereignty (biodiversity)",
-          "food_security": "🔒 Food security (reliable access)",
-          "cultural_preservation": "🎭 Cultural preservation (traditions)",
-          "economic_justice": "⚖️ Economic justice (fair prices)",
-          "ecological_farming": "🌍 Ecological farming (sustainability)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Visit local farmers market", "Start seed collection", "Join food co-op"],
-      short_term: ["Plant diverse crops", "Learn seed saving", "Support local policy"],
-      medium_term: ["Start community garden", "Organize seed exchange", "Build food network"],
-      long_term: ["Lead food sovereignty movement", "Policy advocacy", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "food sovereignty agroecology biodiversity",
-      agricultural: "seed sovereignty traditional varieties",
-      action: "how to build food sovereignty community local"
-    },
-    trusted_sites: ["etcgroup.org", "navdanya.org", "foodsovereignty.org", "krishi.gov.in/seed"]
-  },
-  "agroforestry": {
-    vector: [0.91, 0.96, 0.72, 0.84, 0.86, 0.80],
-    domain: "AGRICULTURE_ECOLOGY",
-    semantic_cluster: ["trees", "crops", "integration", "biodiversity", "soil", "water"],
-    questions: {
-      context: {
-        title: "🌳 What agroforestry aspect interests you?",
-        options: {
-          "alley_cropping": "🌾 Alley cropping (rows, crops)",
-          "silvopasture": "🐄 Silvopasture (trees, livestock)",
-          "forest_farming": "🍄 Forest farming (understory, mushrooms)",
-          "windbreaks": "💨 Windbreaks (protection, erosion)",
-          "riparian_buffers": "💧 Riparian buffers (water, streams)",
-          "urban_agroforestry": "🏙️ Urban agroforestry (cities, gardens)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to implement agroforestry?",
-        options: {
-          "learn": "📚 Learn agroforestry systems (courses)",
-          "design": "📐 Design your system (planning, layout)",
-          "plant": "🌱 Plant trees & crops (implementation)",
-          "manage": "🔧 Manage your system (pruning, maintenance)",
-          "observe": "👀 Observe & adapt (monitoring, learning)",
-          "share": "🤝 Share knowledge (community, teaching)"
-        }
-      },
-      outcome: {
-        title: "🎯 What agroforestry outcome matters most?",
-        options: {
-          "biodiversity": "🦋 Biodiversity (species, habitat)",
-          "soil_health": "🌱 Soil health (fertility, structure)",
-          "water_management": "💧 Water management (conservation, quality)",
-          "climate_resilience": "🌡️ Climate resilience (adaptation)",
-          "income_diversity": "💰 Income diversity (multiple products)",
-          "ecosystem_services": "🌍 Ecosystem services (pollination, pest control)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research agroforestry systems", "Identify suitable trees", "Map your land"],
-      short_term: ["Plant first tree row", "Learn companion planting", "Join agroforestry group"],
-      medium_term: ["Establish full system", "Monitor & adapt", "Harvest first products"],
-      long_term: ["Scale to farm level", "Teach others", "Policy advocacy"]
-    },
-    search_strategies: {
-      ecological: "agroforestry biodiversity ecosystem services",
-      agricultural: "agroforestry systems crop tree integration",
-      action: "how to start agroforestry beginners design"
-    },
-    trusted_sites: ["worldagroforestry.org", "usda.gov/agroforestry", "fao.org/agroforestry", "krishi.gov.in/agroforestry"]
-  },
-  "permaculture": {
-    vector: [0.88, 0.93, 0.76, 0.85, 0.89, 0.82],
-    domain: "AGRICULTURE_ECOLOGY",
-    semantic_cluster: ["design", "sustainability", "regeneration", "systems", "ethics", "patterns"],
-    questions: {
-      context: {
-        title: "♻️ What permaculture aspect interests you?",
-        options: {
-          "design": "📐 Permaculture design (zones, sectors)",
-          "ethics": "🌱 Permaculture ethics (care, fair share)",
-          "principles": "📚 Permaculture principles (12 principles)",
-          "water": "💧 Water management (harvesting, swales)",
-          "soil": "🌿 Soil building (compost, no-till)",
-          "community": "🏘️ Community permaculture (social patterns)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with permaculture?",
-        options: {
-          "learn": "📚 Learn permaculture (courses, books)",
-          "design": "📐 Design your system (site analysis)",
-          "implement": "🌱 Implement design (build, plant)",
-          "observe": "👀 Observe & interact (patterns, feedback)",
-          "teach": "🎓 Teach permaculture (courses, mentoring)",
-          "community": "🤝 Build community (co-ops, networks)"
-        }
-      },
-      outcome: {
-        title: "🎯 What permaculture outcome matters most?",
-        options: {
-          "self_reliance": "🏠 Self-reliance (food, energy, water)",
-          "regeneration": "🌱 Regeneration (healing land)",
-          "resilience": "🛡️ Resilience (climate, economic)",
-          "community": "🏘️ Community building (shared resources)",
-          "education": "🎓 Education (spreading knowledge)",
-          "systems_thinking": "🧠 Systems thinking (patterns, connections)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Read permaculture books", "Observe your site", "Learn the 12 principles"],
-      short_term: ["Take permaculture course", "Design your zone 1", "Start compost system"],
-      medium_term: ["Implement water harvesting", "Build food forest", "Join permaculture group"],
-      long_term: ["Become permaculture teacher", "Design community project", "Policy integration"]
-    },
-    search_strategies: {
-      ecological: "permaculture design regenerative living",
-      agricultural: "permaculture food forest polyculture",
-      action: "permaculture design course beginners step by step"
-    },
-    trusted_sites: ["permaculture.org", "permaculturenews.org", "permies.com", "krishi.gov.in/permaculture"]
-  },
-  "biogas": {
-    vector: [0.90, 0.87, 0.65, 0.82, 0.78, 0.85],
-    domain: "ECOLOGY_TECH",
-    semantic_cluster: ["anaerobic digestion", "waste", "energy", "rural", "sustainable", "circular"],
-    questions: {
-      context: {
-        title: "💨 What biogas aspect interests you?",
-        options: {
-          "home_system": "🏠 Home biogas system (kitchen waste)",
-          "farm_system": "🐄 Farm biogas (livestock waste)",
-          "community": "🏘️ Community biogas (shared system)",
-          "technology": "🔬 Biogas technology (digesters, efficiency)",
-          "policy": "🏛️ Biogas policy (incentives, regulations)",
-          "business": "💼 Biogas business (investment, startup)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to work with biogas?",
-        options: {
-          "install": "🔧 Install system (DIY, professional)",
-          "operate": "⚙️ Operate system (feeding, maintenance)",
-          "design": "📐 Design system (sizing, layout)",
-          "research": "🔬 Research technology (improvement)",
-          "advocate": "📢 Advocate for biogas (policy)",
-          "educate": "🎓 Educate community (workshops)"
-        }
-      },
-      outcome: {
-        title: "🎯 What biogas outcome matters most?",
-        options: {
-          "clean_cooking": "🍳 Clean cooking fuel (health, convenience)",
-          "waste_management": "🗑️ Waste management (sanitation, reduction)",
-          "energy_access": "⚡ Energy access (rural, off-grid)",
-          "climate_benefits": "🌍 Climate benefits (methane reduction)",
-          "economic_savings": "💰 Economic savings (fuel, fertilizer)",
-          "circular_economy": "♻️ Circular economy (waste to resource)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research home biogas systems", "Assess waste availability", "Check local regulations"],
-      short_term: ["Build small biogas digester", "Learn operation techniques", "Join biogas group"],
-      medium_term: ["Scale to full system", "Integrate with farm", "Teach others"],
-      long_term: ["Start biogas business", "Policy advocacy", "Technology innovation"]
-    },
-    search_strategies: {
-      ecological: "biogas renewable clean cooking climate",
-      agricultural: "farm biogas cow dung slurry rural",
-      action: "DIY home biogas system kitchen waste"
-    },
-    trusted_sites: ["mnre.gov.in/biogas", "biogasforum.com", "irena.org/biogas", "krishi.gov.in/biogas"]
-  },
-  "composting": {
-    vector: [0.85, 0.94, 0.70, 0.80, 0.82, 0.76],
-    domain: "AGRICULTURE_ECOLOGY",
-    semantic_cluster: ["organic matter", "soil", "waste", "microbes", "circular", "regeneration"],
-    questions: {
-      context: {
-        title: "🍂 What composting aspect interests you?",
-        options: {
-          "home_composting": "🏠 Home composting (kitchen waste)",
-          "vermicomposting": "🐛 Vermicomposting (worms)",
-          "bokashi": "🍚 Bokashi (fermentation)",
-          "large_scale": "🏭 Large scale (community, farm)",
-          "soil_building": "🌱 Soil building (amendment, quality)",
-          "waste_reduction": "🗑️ Waste reduction (landfill diversion)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to compost?",
-        options: {
-          "learn": "📚 Learn composting methods (courses)",
-          "build": "🔨 Build compost system (bin, pile)",
-          "operate": "🔄 Operate compost system (turning, monitoring)",
-          "troubleshoot": "🔧 Troubleshoot problems (smell, pests)",
-          "scale": "📈 Scale your system (more waste, larger)",
-          "teach": "🎓 Teach others (workshops, mentoring)"
-        }
-      },
-      outcome: {
-        title: "🎯 What composting outcome matters most?",
-        options: {
-          "soil_health": "🌱 Soil health (fertility, structure)",
-          "waste_reduction": "🗑️ Waste reduction (landfill, methane)",
-          "food_quality": "🍎 Food quality (organic, nutritious)",
-          "cost_savings": "💰 Cost savings (fertilizer, disposal)",
-          "education": "🎓 Education (spreading knowledge)",
-          "community": "🏘️ Community building (shared systems)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Start kitchen scrap collection", "Build simple compost bin", "Learn C:N ratio"],
-      short_term: ["Begin composting process", "Monitor temperature", "Join composting group"],
-      medium_term: ["Harvest first compost", "Amend garden soil", "Teach neighbors"],
-      long_term: ["Run community program", "Start compost business", "Policy advocacy"]
-    },
-    search_strategies: {
-      ecological: "composting soil health waste reduction",
-      agricultural: "compost organic matter microbial activity",
-      action: "how to start composting beginners home"
-    },
-    trusted_sites: ["epa.gov/composting", "compostingcouncil.org", "rodaleinstitute.org", "krishi.gov.in/compost"]
-  },
-  "rainwater harvesting": {
-    vector: [0.93, 0.86, 0.68, 0.76, 0.80, 0.84],
-    domain: "ECOLOGY_WATER",
-    semantic_cluster: ["water conservation", "rooftop", "storage", "groundwater", "drought", "sustainability"],
-    questions: {
-      context: {
-        title: "🌧️ What rainwater harvesting aspect interests you?",
-        options: {
-          "rooftop": "🏠 Rooftop harvesting (homes, buildings)",
-          "surface": "🏞️ Surface harvesting (landscapes, fields)",
-          "groundwater": "💧 Groundwater recharge (wells, aquifers)",
-          "storage": "🪣 Storage systems (tanks, cisterns)",
-          "urban": "🏙️ Urban harvesting (cities, infrastructure)",
-          "rural": "🌾 Rural harvesting (farms, villages)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to implement rainwater harvesting?",
-        options: {
-          "design": "📐 Design system (catchment, storage)",
-          "build": "🔨 Build system (tanks, gutters)",
-          "install": "🔧 Install components (filters, pumps)",
-          "maintain": "🧼 Maintain system (cleaning, repair)",
-          "monitor": "📊 Monitor system (rainfall, usage)",
-          "scale": "📈 Scale system (larger, community)"
-        }
-      },
-      outcome: {
-        title: "🎯 What rainwater harvesting outcome matters most?",
-        options: {
-          "water_security": "💧 Water security (reliable supply)",
-          "drought_resilience": "🏜️ Drought resilience (adaptation)",
-          "groundwater": "🌊 Groundwater recharge (aquifer health)",
-          "cost_savings": "💰 Cost savings (bills, infrastructure)",
-          "ecosystem_health": "🌿 Ecosystem health (runoff reduction)",
-          "climate_adaptation": "🌡️ Climate adaptation (extreme weather)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Calculate roof catchment area", "Research storage options", "Check local regulations"],
-      short_term: ["Install gutter system", "Build rain barrel", "Learn filtration"],
-      medium_term: ["Complete full system", "Integrate with irrigation", "Monitor performance"],
-      long_term: ["Scale to community level", "Policy advocacy", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "rainwater harvesting groundwater recharge sustainability",
-      agricultural: "farm rainwater harvesting irrigation drought",
-      action: "DIY rooftop rainwater harvesting home setup"
-    },
-    trusted_sites: ["cpcb.nic.in/rainwater", "rainwaterharvesting.org", "fao.org/water", "krishi.gov.in/water"]
-  },
-  "natural building": {
-    vector: [0.87, 0.82, 0.74, 0.88, 0.85, 0.86],
-    domain: "ECOLOGY_CONSTRUCTION",
-    semantic_cluster: ["earth", "straw", "bamboo", "sustainable", "non-toxic", "local"],
-    questions: {
-      context: {
-        title: "🏠 What natural building aspect interests you?",
-        options: {
-          "earth_building": "🌍 Earth building (cob, adobe, rammed earth)",
-          "straw_bale": "🌾 Straw bale construction (insulation, walls)",
-          "bamboo": "🎋 Bamboo construction (structure, flexibility)",
-          "timber": "🌲 Timber framing (local wood, joinery)",
-          "recycled": "♻️ Recycled materials (bottles, tires)",
-          "finishes": "🎨 Natural finishes (clay plaster, lime wash)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with natural building?",
-        options: {
-          "learn": "📚 Learn techniques (courses, workshops)",
-          "design": "📐 Design your building (plans, layout)",
-          "build": "🔨 Build yourself (hands-on, DIY)",
-          "collaborate": "🤝 Collaborate (workshops, community)",
-          "consult": "👨‍💼 Consult professionals (experts, builders)",
-          "teach": "🎓 Teach others (courses, mentoring)"
-        }
-      },
-      outcome: {
-        title: "🎯 What natural building outcome matters most?",
-        options: {
-          "sustainability": "🌱 Sustainability (low impact, renewable)",
-          "health": "❤️ Health (non-toxic, natural materials)",
-          "cost": "💰 Cost effectiveness (local, DIY)",
-          "beauty": "🎨 Beauty & aesthetics (natural, unique)",
-          "resilience": "🛡️ Resilience (disaster, climate)",
-          "community": "🏘️ Community building (shared knowledge)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research natural building techniques", "Visit natural buildings", "Join online communities"],
-      short_term: ["Take workshop", "Build small structure", "Learn material preparation"],
-      medium_term: ["Design your home", "Source local materials", "Begin construction"],
-      long_term: ["Complete natural home", "Teach workshops", "Advocate for codes"]
-    },
-    search_strategies: {
-      ecological: "natural building sustainable earth materials",
-      agricultural: "straw bale construction agricultural waste",
-      action: "how to build cob house beginners step by step"
-    },
-    trusted_sites: ["naturalbuildingcoalition.org", "strawbuilding.com", "earthbagbuilding.com", "fauna.org/building"]
-  },
-  "regenerative agriculture": {
-    vector: [0.92, 0.96, 0.73, 0.87, 0.89, 0.81],
-    domain: "AGRICULTURE_ECOLOGY",
-    semantic_cluster: ["soil health", "biodiversity", "carbon sequestration", "holistic", "ecosystem", "resilience"],
-    questions: {
-      context: {
-        title: "🌱 What regenerative agriculture aspect interests you?",
-        options: {
-          "soil_health": "🌿 Soil health (microbes, organic matter)",
-          "biodiversity": "🦋 Biodiversity (polyculture, habitat)",
-          "carbon_farming": "🌱 Carbon farming (sequestration, credits)",
-          "water_cycle": "💧 Water cycle (infiltration, retention)",
-          "holistic_planning": "🧠 Holistic planning (decision making)",
-          "livestock": "🐄 Livestock integration (grazing, management)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to implement regenerative agriculture?",
-        options: {
-          "learn": "📚 Learn principles (courses, books)",
-          "observe": "👀 Observe your land (patterns, flows)",
-          "plan": "📐 Create regenerative plan (design, goals)",
-          "implement": "🌱 Implement practices (no-till, cover crops)",
-          "monitor": "📊 Monitor progress (soil tests, biodiversity)",
-          "share": "🤝 Share knowledge (community, teaching)"
-        }
-      },
-      outcome: {
-        title: "🎯 What regenerative agriculture outcome matters most?",
-        options: {
-          "soil_regeneration": "🌱 Soil regeneration (health, fertility)",
-          "biodiversity_increase": "🦋 Biodiversity increase (species, habitat)",
-          "carbon_sequestration": "🌍 Carbon sequestration (climate)",
-          "water_resilience": "💧 Water resilience (drought, flood)",
-          "economic_viability": "💰 Economic viability (profit, resilience)",
-          "ecosystem_health": "🏞️ Ecosystem health (function, balance)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Learn regenerative principles", "Observe your land", "Test soil health"],
-      short_term: ["Implement no-till", "Plant cover crops", "Integrate livestock"],
-      medium_term: ["Develop full plan", "Monitor ecosystem", "Join regenerative network"],
-      long_term: ["Lead regenerative movement", "Policy advocacy", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "regenerative agriculture soil health biodiversity",
-      agricultural: "regenerative farming carbon sequestration practices",
-      action: "how to start regenerative agriculture beginners"
-    },
-    trusted_sites: ["rodaleinstitute.org", "savory.global", "regenerationinternational.org", "krishi.gov.in/regenerative"]
-  },
-  "ecological accounting": {
-    vector: [0.89, 0.81, 0.65, 0.72, 0.88, 0.84],
-    domain: "ECOLOGY_ECONOMICS",
-    semantic_cluster: ["inputs", "outputs", "cruelty index", "sustainability", "community benefit", "regeneration"],
-    questions: {
-      context: {
-        title: "📊 What ecological accounting aspect interests you?",
-        options: {
-          "inputs": "📥 Inputs tracking (resources, energy)",
-          "outputs": "📤 Outputs tracking (products, waste)",
-          "cruelty_index": "🕊️ Cruelty index (animal welfare, ethics)",
-          "sustainability_score": "🌱 Sustainability score (environmental impact)",
-          "community_benefit": "🤝 Community benefit (social impact)",
-          "regeneration_index": "♻️ Regeneration index (healing, restoration)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to implement ecological accounting?",
-        options: {
-          "measure": "📏 Measure current state (baseline, metrics)",
-          "track": "📊 Track over time (monitoring, data)",
-          "optimize": "⚡ Optimize for regeneration (improvement)",
-          "report": "📄 Report transparently (stakeholders, community)",
-          "certify": "✅ Certify practices (standards, verification)",
-          "integrate": "🔗 Integrate with business (decision making)"
-        }
-      },
-      outcome: {
-        title: "🎯 What ecological accounting outcome matters most?",
-        options: {
-          "transparency": "🔍 Transparency (honest accounting)",
-          "regeneration": "🌱 Regeneration (net positive impact)",
-          "ethical_decisions": "⚖️ Ethical decisions (cruelty-free, fair)",
-          "community_trust": "🤝 Community trust (relationships, integrity)",
-          "sustainability": "🌍 Sustainability (long-term viability)",
-          "innovation": "💡 Innovation (new metrics, approaches)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Define your inputs/outputs", "Research cruelty index", "Set baseline metrics"],
-      short_term: ["Implement tracking system", "Calculate sustainability score", "Engage stakeholders"],
-      medium_term: ["Optimize for regeneration", "Publish transparent report", "Seek certification"],
-      long_term: ["Lead ecological accounting movement", "Develop new standards", "Policy advocacy"]
-    },
-    search_strategies: {
-      ecological: "ecological accounting inputs outputs regeneration",
-      agricultural: "farm ecological accounting sustainability metrics",
-      action: "how to implement ecological accounting business"
-    },
-    trusted_sites: ["naturalcapitalcoalition.org", "sustainabilityaccounting.org", "fauna.org/accounting", "krishi.gov.in/ecological"]
-  },
-  "community supported agriculture": {
-    vector: [0.85, 0.92, 0.78, 0.83, 0.95, 0.80],
-    domain: "AGRICULTURE_COMMUNITY",
-    semantic_cluster: ["local food", "farmer consumer", "shared risk", "seasonal", "transparency", "relationship"],
-    questions: {
-      context: {
-        title: "🥬 What CSA aspect interests you?",
-        options: {
-          "join_csa": "🛒 Join a CSA (consumer, member)",
-          "start_csa": "🌱 Start a CSA (farmer, producer)",
-          "manage_csa": "👨‍💼 Manage a CSA (coordination, logistics)",
-          "design_csa": "📐 Design CSA model (structure, shares)",
-          "policy": "🏛️ CSA policy (regulations, support)",
-          "education": "🎓 CSA education (workshops, resources)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with CSA?",
-        options: {
-          "consumer": "🛒 As a consumer (member, supporter)",
-          "farmer": "🌾 As a farmer (producer, grower)",
-          "organizer": "🤝 As an organizer (coordinator, manager)",
-          "advocate": "📢 As an advocate (policy, promotion)",
-          "educator": "🎓 As an educator (teacher, mentor)",
-          "researcher": "🔬 As a researcher (study, analysis)"
-        }
-      },
-      outcome: {
-        title: "🎯 What CSA outcome matters most?",
-        options: {
-          "food_access": "🍎 Food access (fresh, local, seasonal)",
-          "farmer_viability": "🌾 Farmer viability (fair price, stability)",
-          "community": "🏘️ Community building (relationships, trust)",
-          "transparency": "🔍 Transparency (know your food, farmer)",
-          "education": "🎓 Education (food literacy, farming)",
-          "sustainability": "🌍 Sustainability (local, low impact)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Find local CSA", "Research CSA models", "Connect with farmers"],
-      short_term: ["Join CSA share", "Start small CSA", "Organize pickup"],
-      medium_term: ["Expand CSA", "Build community", "Develop curriculum"],
-      long_term: ["Scale to regional network", "Policy advocacy", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "community supported agriculture local food sustainability",
-      agricultural: "CSA farm models farmer consumer relationship",
-      action: "how to start CSA farm beginners step by step"
-    },
-    trusted_sites: ["localharvest.org", "csaamerica.org", "sare.org/csa", "krishi.gov.in/csa"]
-  },
-  "seed sovereignty": {
-    vector: [0.88, 0.95, 0.72, 0.80, 0.90, 0.76],
-    domain: "AGRICULTURE_COMMUNITY",
-    semantic_cluster: ["biodiversity", "traditional knowledge", "farmers rights", "open pollinated", "local adaptation", "food sovereignty"],
-    questions: {
-      context: {
-        title: "🌱 What seed sovereignty aspect interests you?",
-        options: {
-          "seed_saving": "🧺 Seed saving (collection, storage)",
-          "breeding": "🔬 Seed breeding (selection, improvement)",
-          "exchange": "🔄 Seed exchange (networks, libraries)",
-          "policy": "🏛️ Seed policy (laws, patents, rights)",
-          "education": "🎓 Seed education (workshops, knowledge)",
-          "conservation": "🛡️ Seed conservation (biodiversity, varieties)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to support seed sovereignty?",
-        options: {
-          "save": "🧺 Save seeds (harvest, process, store)",
-          "grow": "🌱 Grow seed crops (isolation, purity)",
-          "breed": "🔬 Breed varieties (selection, adaptation)",
-          "share": "🤝 Share seeds (exchange, libraries)",
-          "advocate": "📢 Advocate for rights (policy, patents)",
-          "educate": "🎓 Educate community (workshops, mentoring)"
-        }
-      },
-      outcome: {
-        title: "🎯 What seed sovereignty outcome matters most?",
-        options: {
-          "biodiversity": "🦋 Biodiversity (genetic diversity, varieties)",
-          "food_security": "🔒 Food security (reliable, diverse)",
-          "farmer_rights": "🌾 Farmer rights (control, ownership)",
-          "cultural_preservation": "🎭 Cultural preservation (traditions, knowledge)",
-          "climate_adaptation": "🌡️ Climate adaptation (resilient varieties)",
-          "community_resilience": "🏘️ Community resilience (self-reliance)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Start saving seeds", "Join seed library", "Learn seed saving"],
-      short_term: ["Grow seed crops", "Organize seed exchange", "Document varieties"],
-      medium_term: ["Develop local varieties", "Build seed network", "Advocate for rights"],
-      long_term: ["Lead seed sovereignty movement", "Policy change", "Global networks"]
-    },
-    search_strategies: {
-      ecological: "seed sovereignty biodiversity food security",
-      agricultural: "seed saving open pollinated local varieties",
-      action: "how to save seeds beginners open pollinated"
-    },
-    trusted_sites: ["navdanya.org", "seedsovereignty.net", "seedalliance.org", "krishi.gov.in/seed"]
-  },
-  "food forests": {
-    vector: [0.90, 0.93, 0.75, 0.84, 0.87, 0.82],
-    domain: "AGRICULTURE_ECOLOGY",
-    semantic_cluster: ["permaculture", "polyculture", "layers", "biodiversity", "regeneration", "sustainable"],
-    questions: {
-      context: {
-        title: "🌳 What food forest aspect interests you?",
-        options: {
-          "design": "📐 Food forest design (layers, guilds)",
-          "planting": "🌱 Food forest planting (species, timing)",
-          "maintenance": "🔧 Food forest maintenance (pruning, care)",
-          "harvesting": "🍎 Food forest harvesting (timing, methods)",
-          "education": "🎓 Food forest education (workshops, tours)",
-          "community": "🏘️ Community food forests (shared spaces)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to work with food forests?",
-        options: {
-          "learn": "📚 Learn food forest principles (courses)",
-          "design": "📐 Design your food forest (site analysis)",
-          "plant": "🌱 Plant your food forest (implementation)",
-          "observe": "👀 Observe & adapt (patterns, feedback)",
-          "harvest": "🍎 Harvest & enjoy (food, medicine)",
-          "teach": "🎓 Teach others (workshops, mentoring)"
-        }
-      },
-      outcome: {
-        title: "🎯 What food forest outcome matters most?",
-        options: {
-          "food_production": "🍎 Food production (diverse, perennial)",
-          "biodiversity": "🦋 Biodiversity (habitat, species)",
-          "regeneration": "🌱 Regeneration (soil, ecosystem)",
-          "education": "🎓 Education (spreading knowledge)",
-          "community": "🏘️ Community building (shared spaces)",
-          "resilience": "🛡️ Resilience (climate, food security)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research food forest layers", "Observe local ecosystems", "Learn guild design"],
-      short_term: ["Design your food forest", "Source plants", "Begin planting"],
-      medium_term: ["Establish full food forest", "Monitor ecosystem", "Harvest first yields"],
-      long_term: ["Scale to community level", "Teach workshops", "Policy integration"]
-    },
-    search_strategies: {
-      ecological: "food forests biodiversity ecosystem services",
-      agricultural: "food forest design permaculture layers",
-      action: "how to design food forest beginners step by step"
-    },
-    trusted_sites: ["permaculture.org", "foodforest.com", "agroforestry.org", "krishi.gov.in/foodforest"]
-  },
-  "urban agriculture": {
-    vector: [0.86, 0.89, 0.76, 0.82, 0.92, 0.78],
-    domain: "AGRICULTURE_URBAN",
-    semantic_cluster: ["rooftop gardens", "community gardens", "vertical farming", "food security", "green spaces", "sustainability"],
-    questions: {
-      context: {
-        title: "🏙️ What urban agriculture aspect interests you?",
-        options: {
-          "rooftop": " крыш Rooftop gardens (buildings, space)",
-          "balcony": "🪴 Balcony gardening (containers, small)",
-          "community": "🏘️ Community gardens (shared, public)",
-          "vertical": "📈 Vertical farming (walls, hydroponics)",
-          "policy": "🏛️ Urban agriculture policy (zoning, support)",
-          "education": "🎓 Urban agriculture education (schools, workshops)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with urban agriculture?",
-        options: {
-          "grow": "🌱 Grow your own (balcony, rooftop)",
-          "join": "🤝 Join community garden (shared space)",
-          "start": "🚀 Start community garden (organize, lead)",
-          "advocate": "📢 Advocate for policy (zoning, support)",
-          "educate": "🎓 Educate community (workshops, schools)",
-          "business": "💼 Urban agri-business (startup, venture)"
-        }
-      },
-      outcome: {
-        title: "🎯 What urban agriculture outcome matters most?",
-        options: {
-          "food_security": "🔒 Food security (local, fresh)",
-          "green_spaces": "🌿 Green spaces (beauty, health)",
-          "community": "🏘️ Community building (relationships, trust)",
-          "education": "🎓 Education (food literacy, skills)",
-          "sustainability": "🌍 Sustainability (local, low impact)",
-          "resilience": "🛡️ Resilience (food, climate, economic)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Start balcony garden", "Find community garden", "Research rooftop options"],
-      short_term: ["Join community plot", "Install vertical system", "Learn urban techniques"],
-      medium_term: ["Start community garden", "Advocate for policy", "Teach workshops"],
-      long_term: ["Scale to city level", "Policy integration", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "urban agriculture food security green spaces",
-      agricultural: "rooftop gardening vertical farming techniques",
-      action: "how to start urban garden balcony beginners"
-    },
-    trusted_sites: ["cnu.org/urban-ag", "sare.org/urban", "fao.org/urban-agriculture", "krishi.gov.in/urban"]
-  },
-  "sustainable transportation": {
-    vector: [0.84, 0.78, 0.70, 0.85, 0.82, 0.86],
-    domain: "ECOLOGY_TRANSPORT",
-    semantic_cluster: ["public transport", "cycling", "walking", "electric vehicles", "carpooling", "urban planning"],
-    questions: {
-      context: {
-        title: "🚲 What sustainable transportation aspect interests you?",
-        options: {
-          "public_transit": "🚌 Public transit (buses, trains, metros)",
-          "cycling": "🚲 Cycling infrastructure (lanes, safety)",
-          "walking": "🚶 Walking infrastructure (sidewalks, safety)",
-          "electric_vehicles": "⚡ Electric vehicles (cars, bikes, scooters)",
-          "carpooling": "🚗 Carpooling & ride sharing (apps, networks)",
-          "urban_planning": "🏙️ Urban planning (transit-oriented, walkable)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to promote sustainable transportation?",
-        options: {
-          "personal_use": "🚶 Personal use (change your habits)",
-          "advocacy": "📢 Advocacy (campaigns, policy)",
-          "infrastructure": "🏗️ Infrastructure (design, build)",
-          "education": "🎓 Education (awareness, workshops)",
-          "business": "💼 Business solutions (services, apps)",
-          "community": "🏘️ Community organizing (groups, events)"
-        }
-      },
-      outcome: {
-        title: "🎯 What sustainable transportation outcome matters most?",
-        options: {
-          "emissions_reduction": "📉 Emissions reduction (air quality, climate)",
-          "health_benefits": "❤️ Health benefits (active transport, exercise)",
-          "equity": "⚖️ Equity & access (affordable, inclusive)",
-          "economic_savings": "💰 Economic savings (personal, societal)",
-          "livable_cities": "🏙️ Livable cities (walkable, vibrant)",
-          "community": "🏘️ Community building (connections, interaction)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Use public transport this week", "Start cycling to work", "Join carpool"],
-      short_term: ["Advocate for bike lanes", "Organize community ride", "Research EV options"],
-      medium_term: ["Lead advocacy campaign", "Start transport business", "Policy work"],
-      long_term: ["Urban planning career", "Systemic change", "Global networks"]
-    },
-    search_strategies: {
-      ecological: "sustainable transportation emissions reduction health",
-      agricultural: "rural sustainable transport farm access",
-      action: "how to start sustainable transportation personal habits"
-    },
-    trusted_sites: ["itdp.org", "sustainable-transport.org", "epa.gov/smartway", "krishi.gov.in/transport"]
-  },
-  "circular economy": {
-    vector: [0.87, 0.83, 0.68, 0.74, 0.86, 0.85],
-    domain: "ECOLOGY_ECONOMICS",
-    semantic_cluster: ["reduce", "reuse", "recycle", "regenerate", "waste", "sustainability"],
-    questions: {
-      context: {
-        title: "♻️ What circular economy aspect interests you?",
-        options: {
-          "product_design": "📦 Product design (durability, repairability)",
-          "business_models": "💼 Business models (leasing, sharing, services)",
-          "waste_management": "🗑️ Waste management (recycling, composting)",
-          "policy": "🏛️ Circular economy policy (regulations, incentives)",
-          "education": "🎓 Circular economy education (awareness, skills)",
-          "community": "🏘️ Community circular systems (sharing, repair)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to implement circular economy?",
-        options: {
-          "design": "📐 Design for circularity (products, systems)",
-          "operate": "⚙️ Operate circular business (models, services)",
-          "consume": "🛒 Consume circularly (buy, use, return)",
-          "advocate": "📢 Advocate for policy (regulations, standards)",
-          "educate": "🎓 Educate community (awareness, skills)",
-          "repair": "🔧 Repair & reuse (skills, networks)"
-        }
-      },
-      outcome: {
-        title: "🎯 What circular economy outcome matters most?",
-        options: {
-          "waste_elimination": "🗑️ Waste elimination (zero waste, circular)",
-          "resource_efficiency": "⚡ Resource efficiency (materials, energy)",
-          "economic_viability": "💰 Economic viability (profit, jobs)",
-          "environmental_benefit": "🌍 Environmental benefit (pollution reduction)",
-          "social_equity": "⚖️ Social equity (access, inclusion)",
-          "resilience": "🛡️ Systemic resilience (shocks, adaptation)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Audit personal waste", "Learn circular principles", "Join repair cafe"],
-      short_term: ["Implement circular habits", "Start repair network", "Advocate for policy"],
-      medium_term: ["Launch circular business", "Design circular products", "Teach workshops"],
-      long_term: ["Lead systemic change", "Policy advocacy", "Global networks"]
-    },
-    search_strategies: {
-      ecological: "circular economy waste elimination regeneration",
-      agricultural: "circular agriculture waste biomass resources",
-      action: "how to implement circular economy business personal"
-    },
-    trusted_sites: ["ellenmacarthurfoundation.org", "circulareconomy.eu", "unep.org/circular", "krishi.gov.in/circular"]
-  },
-  "ecological restoration": {
-    vector: [0.94, 0.90, 0.72, 0.78, 0.85, 0.80],
-    domain: "ECOLOGY",
-    semantic_cluster: ["degraded land", "biodiversity", "soil", "water", "native species", "regeneration"],
-    questions: {
-      context: {
-        title: "🌱 What ecological restoration aspect interests you?",
-        options: {
-          "soil": "🌿 Soil restoration (degraded, compacted)",
-          "water": "💧 Water restoration (wetlands, streams)",
-          "forest": "🌳 Forest restoration (deforestation, reforestation)",
-          "grassland": "🌾 Grassland restoration (prairies, savannas)",
-          "urban": "🏙️ Urban restoration (parks, brownfields)",
-          "coastal": "🌊 Coastal restoration (mangroves, wetlands)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with ecological restoration?",
-        options: {
-          "learn": "📚 Learn restoration ecology (courses, books)",
-          "plan": "📐 Create restoration plan (assessment, goals)",
-          "implement": "🌱 Implement restoration (planting, removal)",
-          "monitor": "📊 Monitor restoration (biodiversity, metrics)",
-          "advocate": "📢 Advocate for restoration (policy, funding)",
-          "teach": "🎓 Teach restoration (workshops, mentoring)"
-        }
-      },
-      outcome: {
-        title: "🎯 What ecological restoration outcome matters most?",
-        options: {
-          "biodiversity": "🦋 Biodiversity recovery (species, habitat)",
-          "ecosystem_services": "🌍 Ecosystem services (water, air, soil)",
-          "climate_resilience": "🛡️ Climate resilience (adaptation, mitigation)",
-          "community_benefit": "🤝 Community benefit (health, recreation)",
-          "regeneration": "🌱 Land regeneration (healing, productivity)",
-          "education": "🎓 Education (spreading knowledge)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research local ecosystems", "Assess degraded areas", "Learn native species"],
-      short_term: ["Start small restoration", "Remove invasives", "Plant natives"],
-      medium_term: ["Develop restoration plan", "Monitor ecosystem", "Engage community"],
-      long_term: ["Lead large projects", "Policy advocacy", "Education programs"]
-    },
-    search_strategies: {
-      ecological: "ecological restoration biodiversity ecosystem services",
-      agricultural: "farmland restoration soil health water",
-      action: "how to restore degraded land beginners step by step"
-    },
-    trusted_sites: ["ser.org", "iucn.org/restoration", "fao.org/ecological-restoration", "krishi.gov.in/restoration"]
-  },
-  "sustainable fashion": {
-    vector: [0.82, 0.76, 0.74, 0.86, 0.80, 0.83],
-    domain: "ECOLOGY_COMMUNITY",
-    semantic_cluster: ["ethical", "organic", "fair trade", "slow fashion", "recycled", "local"],
-    questions: {
-      context: {
-        title: "👗 What sustainable fashion aspect interests you?",
-        options: {
-          "materials": "🧵 Sustainable materials (organic cotton, hemp)",
-          "production": "🏭 Ethical production (fair wages, safe)",
-          "consumption": "🛒 Conscious consumption (buy less, quality)",
-          "circularity": "♻️ Fashion circularity (repair, recycle, secondhand)",
-          "policy": "🏛️ Fashion policy (regulations, standards)",
-          "education": "🎓 Fashion education (awareness, skills)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with sustainable fashion?",
-        options: {
-          "consume": "🛒 As a conscious consumer (buy, wear, care)",
-          "create": "✂️ As a creator (design, make, upcycle)",
-          "advocate": "📢 As an advocate (campaigns, policy)",
-          "educate": "🎓 As an educator (workshops, awareness)",
-          "business": "💼 As a business (sustainable brand)",
-          "research": "🔬 As a researcher (impact, innovation)"
-        }
-      },
-      outcome: {
-        title: "🎯 What sustainable fashion outcome matters most?",
-        options: {
-          "ethical_production": "⚖️ Ethical production (fair, safe)",
-          "environmental_impact": "🌍 Environmental impact (pollution, resources)",
-          "circularity": "♻️ Circularity (waste reduction, reuse)",
-          "cultural_preservation": "🎭 Cultural preservation (crafts, traditions)",
-          "consumer_awareness": "💡 Consumer awareness (education, choices)",
-          "systemic_change": "🏛️ Systemic change (policy, industry)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Audit your wardrobe", "Learn about materials", "Support ethical brands"],
-      short_term: ["Start mending clothes", "Shop secondhand", "Join clothing swap"],
-      medium_term: ["Start sustainable brand", "Teach mending", "Advocate for policy"],
-      long_term: ["Lead industry change", "Policy advocacy", "Global networks"]
-    },
-    search_strategies: {
-      ecological: "sustainable fashion ethical environmental impact",
-      agricultural: "organic cotton hemp sustainable fibers",
-      action: "how to start sustainable fashion personal habits"
-    },
-    trusted_sites: ["fashionrevolution.org", "goodonyou.eco", "textileexchange.org", "krishi.gov.in/fashion"]
-  },
-  "green building": {
-    vector: [0.85, 0.80, 0.72, 0.88, 0.83, 0.84],
-    domain: "ECOLOGY_CONSTRUCTION",
-    semantic_cluster: ["energy efficiency", "sustainable materials", "water conservation", "indoor air quality", "certification", "design"],
-    questions: {
-      context: {
-        title: "🏠 What green building aspect interests you?",
-        options: {
-          "energy": "⚡ Energy efficiency (insulation, solar, HVAC)",
-          "materials": "🧱 Sustainable materials (local, recycled, non-toxic)",
-          "water": "💧 Water conservation (fixtures, harvesting, greywater)",
-          "indoor_air": "🌬️ Indoor air quality (ventilation, materials)",
-          "certification": "✅ Green certification (LEED, BREEAM, rating)",
-          "design": "📐 Sustainable design (passive, orientation, layout)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with green building?",
-        options: {
-          "design": "📐 As a designer (architect, planner)",
-          "build": "🔨 As a builder (contractor, craftsman)",
-          "own": "🏠 As an owner (homeowner, developer)",
-          "certify": "✅ As a certifier (auditor, consultant)",
-          "advocate": "📢 As an advocate (policy, codes)",
-          "educate": "🎓 As an educator (courses, workshops)"
-        }
-      },
-      outcome: {
-        title: "🎯 What green building outcome matters most?",
-        options: {
-          "energy_efficiency": "⚡ Energy efficiency (reduction, renewables)",
-          "health": "❤️ Health & wellbeing (air quality, comfort)",
-          "sustainability": "🌱 Sustainability (materials, water, waste)",
-          "cost_savings": "💰 Cost savings (operational, long-term)",
-          "resilience": "🛡️ Resilience (climate, disasters)",
-          "beauty": "🎨 Beauty & aesthetics (natural, harmonious)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Audit your home energy", "Research green materials", "Learn passive design"],
-      short_term: ["Implement energy upgrades", "Use sustainable finishes", "Install water fixtures"],
-      medium_term: ["Design green home", "Get certification", "Teach workshops"],
-      long_term: ["Lead green building movement", "Policy advocacy", "Innovation"]
-    },
-    search_strategies: {
-      ecological: "green building sustainability energy efficiency",
-      agricultural: "natural building materials agricultural waste",
-      action: "how to make home green building energy efficient"
-    },
-    trusted_sites: ["usgbc.org", "worldgbc.org", "epa.gov/greenbuilding", "krishi.gov.in/greenbuilding"]
-  },
-  "sustainable tourism": {
-    vector: [0.83, 0.78, 0.76, 0.82, 0.89, 0.80],
-    domain: "ECOLOGY_COMMUNITY",
-    semantic_cluster: ["ecotourism", "community-based", "cultural preservation", "environmental impact", "local economy", "responsible"],
-    questions: {
-      context: {
-        title: "🌍 What sustainable tourism aspect interests you?",
-        options: {
-          "ecotourism": "🌳 Ecotourism (nature-based, conservation)",
-          "community_tourism": "🏘️ Community-based tourism (local, authentic)",
-          "cultural_tourism": "🎭 Cultural tourism (heritage, preservation)",
-          "responsible_travel": "✈️ Responsible travel (low impact, conscious)",
-          "policy": "🏛️ Tourism policy (regulations, management)",
-          "education": "🎓 Tourism education (awareness, guides)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with sustainable tourism?",
-        options: {
-          "travel": "✈️ As a responsible traveler (choices, behavior)",
-          "host": "🏠 As a host (homestay, community tourism)",
-          "operate": "🚌 As an operator (sustainable tours, business)",
-          "advocate": "📢 As an advocate (policy, management)",
-          "educate": "🎓 As an educator (guides, awareness)",
-          "research": "🔬 As a researcher (impact, best practices)"
-        }
-      },
-      outcome: {
-        title: "🎯 What sustainable tourism outcome matters most?",
-        options: {
-          "conservation": "🛡️ Conservation (nature, culture, heritage)",
-          "community_benefit": "🤝 Community benefit (income, empowerment)",
-          "cultural_preservation": "🎭 Cultural preservation (traditions, identity)",
-          "environmental_protection": "🌍 Environmental protection (low impact)",
-          "education": "🎓 Education (awareness, understanding)",
-          "economic_sustainability": "💰 Economic sustainability (local, fair)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research sustainable destinations", "Learn responsible travel", "Support community tourism"],
-      short_term: ["Choose sustainable operators", "Minimize travel impact", "Engage with local culture"],
-      medium_term: ["Start community tourism", "Teach sustainable tourism", "Advocate for policy"],
-      long-term: ["Lead sustainable tourism movement", "Policy advocacy", "Global networks"]
-    },
-    search_strategies: {
-      ecological: "sustainable tourism ecotourism community conservation",
-      agricultural: "agritourism farm stays rural tourism",
-      action: "how to travel sustainably responsible tourism"
-    },
-    trusted_sites: ["unwto.org/sustainable", "ecotourism.org", "responsibletravel.com", "krishi.gov.in/tourism"]
-  },
-  "sustainable fishing": {
-    vector: [0.86, 0.88, 0.65, 0.72, 0.80, 0.78],
-    domain: "ECOLOGY_AQUATIC",
-    semantic_cluster: ["overfishing", "bycatch", "marine protected areas", "sustainable seafood", "aquaculture", "certification"],
-    questions: {
-      context: {
-        title: "🐟 What sustainable fishing aspect interests you?",
-        options: {
-          "wild_catch": "🎣 Wild catch sustainability (stocks, methods)",
-          "aquaculture": "🌊 Sustainable aquaculture (farms, practices)",
-          "bycatch": "🦋 Bycatch reduction (gear, methods)",
-          "certification": "✅ Sustainable seafood certification (MSC, ASC)",
-          "policy": "🏛️ Fisheries policy (quotas, management)",
-          "community": "🏘️ Community fisheries (local, traditional)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to promote sustainable fishing?",
-        options: {
-          "consume": "🛒 As a consumer (choose sustainable seafood)",
-          "fish": "🎣 As a fisher (sustainable practices, gear)",
-          "manage": "👨‍💼 As a manager (quotas, protected areas)",
-          "advocate": "📢 As an advocate (policy, awareness)",
-          "certify": "✅ As a certifier (standards, verification)",
-          "research": "🔬 As a researcher (stocks, impacts)"
-        }
-      },
-      outcome: {
-        title: "🎯 What sustainable fishing outcome matters most?",
-        options: {
-          "stock_recovery": "🐟 Fish stock recovery (populations, health)",
-          "biodiversity": "🦋 Marine biodiversity (ecosystems, species)",
-          "livelihoods": "💰 Fisher livelihoods (sustainable, fair)",
-          "food_security": "🔒 Food security (seafood, protein)",
-          "ecosystem_health": "🌍 Ocean ecosystem health (balance, function)",
-          "certification": "✅ Market transformation (demand, standards)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Learn sustainable seafood guide", "Choose certified seafood", "Reduce fish consumption"],
-      short_term: ["Support sustainable fisheries", "Advocate for policy", "Join conservation group"],
-      medium_term: ["Start sustainable aquaculture", "Teach sustainable fishing", "Monitor stocks"],
-      long_term: ["Lead fishery management", "Policy advocacy", "Global networks"]
-    },
-    search_strategies: {
-      ecological: "sustainable fishing marine conservation biodiversity",
-      agricultural: "sustainable aquaculture fish farming practices",
-      action: "how to choose sustainable seafood consumer guide"
-    },
-    trusted_sites: ["marine-stewardship.org", "aquaculturestewardship.org", "fao.org/fisheries", "krishi.gov.in/fisheries"]
-  },
-  // Add more terms as needed - this is a sample of 5000+ term structure
   "fallback": {
-    vector: [0.60, 0.55, 0.65, 0.63, 0.58, 0.50],
-    domain: "GENERAL",
-    semantic_cluster: ["learning", "search", "exploration", "discovery"],
-    questions: {
-      context: {
-        title: "🔍 What are you exploring?",
-        options: {
-          "environment": "🌍 Environmental solutions",
-          "health": "❤️ Health & wellness", 
-          "learning": "📚 Learning & skills",
-          "community": "🏘️ Community development",
-          "business": "💼 Business & economics",
-          "technology": "💻 Technology & innovation"
-        }
-      },
-      approach: {
-        title: "🔄 How do you want to proceed?",
-        options: {
-          "learn": "📚 Learn & understand",
-          "action": "✅ Take practical action", 
-          "community": "🤝 Join community efforts",
-          "research": "🔬 Study & research",
-          "create": "🎨 Create & build",
-          "advocate": "📢 Advocate & influence"
-        }
-      },
-      outcome: {
-        title: "💫 What outcome matters most?",
-        options: {
-          "personal": "👤 Personal improvement", 
-          "community": "🏘️ Community benefit",
-          "environment": "🌍 Environmental impact",
-          "knowledge": "🧠 Knowledge & understanding",
-          "economic": "💰 Economic benefit",
-          "spiritual": "🕊️ Spiritual growth"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research options", "Join relevant community", "Start with small steps"],
-      short_term: ["Learn fundamentals", "Connect with experts", "Experiment locally"],
-      medium_term: ["Develop deeper skills", "Build projects", "Share knowledge"],
-      long_term: ["Master the field", "Teach others", "Create systemic change"]
-    },
-    search_strategies: {
+    actions: ["Research options", "Join relevant community", "Start with small steps", "Learn fundamentals", "Connect with experts"],
+    queries: {
       ecological: "sustainable ecological regenerative organic",
       agricultural: "agricultural farming rural sustainable",
       action: "how to practical guide beginners"
-    },
-    trusted_sites: ["fauna.org", "krishi.gov.in", "sustainability.org", "ecology.org"]
+    }
   }
 };
 
 // ========================================================================
-// UNIVERSAL SEMANTIC PROCESSOR
+// STATUS & DEBUGGING FUNCTIONS
 // ========================================================================
-class UniversalSemanticProcessor {
-  constructor() {
-    this.semanticDB = SEMANTIC_DB;
-    this.userAnswers = {};
-    this.currentMatch = null;
-    this.searchHistory = [];
-    this.vectorDBConnected = false;
-    this.initializeStatus();
-  }
+function updateStatus(elementId, status, text) {
+  const statusEl = document.getElementById(elementId);
+  const textEl = document.getElementById(`${elementId}Text`);
+  const indicator = statusEl.querySelector('.status-indicator');
+  
+  indicator.className = 'status-indicator';
+  if (status === 'ready') indicator.classList.add('status-ready');
+  else if (status === 'loading') indicator.classList.add('status-loading');
+  else if (status === 'error') indicator.classList.add('status-error');
+  
+  if (textEl) textEl.textContent = text;
+}
 
-  initializeStatus() {
-    document.getElementById('dbStatus').className = 'status-indicator status-ready';
-    document.getElementById('vectorStatus').textContent = 'Connected';
-    document.getElementById('vectorStatus').previousElementSibling.className = 'status-indicator status-ready';
-  }
-
-  analyzeKeyword(keyword) {
-    const match = this.findSemanticMatch(keyword);
-    this.currentMatch = match;
-    return {
-      match: match,
-      keyword: keyword
-    };
-  }
-
-  findSemanticMatch(query) {
-    query = query.toLowerCase().trim();
-    
-    // Direct match
-    if (this.semanticDB[query]) {
-      return { term: query, data: this.semanticDB[query], score: 1.0, type: 'exact' };
-    }
-    
-    // Word overlap match
-    for (const [term, data] of Object.entries(this.semanticDB)) {
-      if (term.split(' ').some(w => query.includes(w)) || query.split(' ').some(w => term.includes(w))) {
-        return { term, data, score: 0.8, type: 'word_overlap' };
-      }
-    }
-    
-    // Fuzzy match by first word
-    const firstWord = query.split(' ')[0];
-    for (const [term, data] of Object.entries(this.semanticDB)) {
-      if (term.includes(firstWord)) {
-        return { term, data, score: 0.6, type: 'fuzzy' };
-      }
-    }
-    
-    // Fallback
-    return { term: 'fallback', data: this.semanticDB['fallback'], score: 0.3, type: 'fallback' };
-  }
-
-  generateQuestions(match) {
-    return match.data.questions || this.semanticDB['fallback'].questions;
-  }
-
-  buildEnhancedQuery(original, match, answers) {
-    let baseQuery = original;
-    
-    // Add context modifiers
-    if (answers.context && match.data.search_strategies) {
-      const strategyKey = this.getContextStrategyKey(answers.context);
-      if (match.data.search_strategies[strategyKey]) {
-        baseQuery = match.data.search_strategies[strategyKey];
-      }
-    }
-    
-    // Add ecological context
-    if (match.data.domain && match.data.domain.includes('ECOLOGY')) {
-      baseQuery += ' sustainable ecological organic regenerative';
-    } else if (match.data.domain && match.data.domain.includes('AGRICULTURE')) {
-      baseQuery += ' organic sustainable regenerative farming';
-    } else {
-      baseQuery += ' sustainable ecological practical solutions';
-    }
-    
-    return baseQuery;
-  }
-
-  getContextStrategyKey(context) {
-    // Map context answers to search strategy keys
-    const mapping = {
-      'home_garden': 'ecological',
-      'commercial': 'agricultural',
-      'health': 'ecological',
-      'environment': 'ecological',
-      'community': 'action',
-      'education': 'action',
-      'air_quality': 'ecological',
-      'health_effects': 'agricultural',
-      'climate_impact': 'ecological'
-    };
-    return mapping[context] || 'ecological';
-  }
-
-  generateActions(match, answers) {
-    let actions = [];
-    
-    // Determine action category based on approach
-    let actionCategory = 'immediate';
-    if (answers.approach === 'practice' || answers.approach === 'action') {
-      actionCategory = 'short_term';
-    } else if (answers.approach === 'business' || answers.approach === 'research') {
-      actionCategory = 'medium_term';
-    }
-    
-    if (match.data.actions && match.data.actions[actionCategory]) {
-      actions = [...match.data.actions[actionCategory]];
-    } else if (match.data.actions) {
-      // Get all actions and flatten
-      actions = Object.values(match.data.actions).flat();
-    }
-    
-    // Ensure we have actions
-    if (actions.length === 0) {
-      actions = ['Research options', 'Join relevant community', 'Start with small steps'];
-    }
-    
-    return actions.slice(0, 5); // Return max 5 actions
-  }
-
-  updateMatchCount() {
-    this.searchHistory.push(new Date());
-    document.getElementById('matchCount').textContent = this.searchHistory.length;
-  }
+function updateDebugInfo(message) {
+  document.getElementById('debugInfo').innerHTML = message;
 }
 
 // ========================================================================
-// MAIN APPLICATION
+// SEARCH LOGIC
 // ========================================================================
-const processor = new UniversalSemanticProcessor();
-let currentAnalysis = null;
-let userAnswers = { context: null, approach: null, outcome: null };
+function findSemanticMatch(query) {
+  query = query.toLowerCase().trim();
+  
+  // Direct match
+  if (SEMANTIC_DB[query]) {
+    updateDebugInfo(`✅ Direct match found: "${query}"`);
+    return SEMANTIC_DB[query];
+  }
+  
+  // Word overlap match
+  for (const [term, data] of Object.entries(SEMANTIC_DB)) {
+    if (term.split(' ').some(w => query.includes(w)) || query.split(' ').some(w => term.includes(w))) {
+      updateDebugInfo(`✅ Word overlap match: "${query}" → "${term}"`);
+      return data;
+    }
+  }
+  
+  // Fallback
+  updateDebugInfo(`⚠️ No exact match - using fallback strategies`);
+  return SEMANTIC_DB["fallback"];
+}
 
-function startAnalysis() {
+function performSearch() {
   const query = document.getElementById('queryInput').value.trim();
   if (!query) {
-    alert('Please enter a search term');
+    alert("Please enter a search term");
     return;
   }
   
-  currentAnalysis = processor.analyzeKeyword(query);
-  const questions = processor.generateQuestions(currentAnalysis.match);
+  updateDebugInfo(`🔍 Processing search: "${query}"`);
   
-  // Update UI to Step 1
-  document.getElementById('contextQuestion').textContent = questions.context.title;
-  const contextOptions = document.getElementById('contextOptions');
-  contextOptions.innerHTML = '';
-  Object.entries(questions.context.options).forEach(([value, text]) => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = text;
-    btn.onclick = () => selectAnswer('context', value, btn);
-    contextOptions.appendChild(btn);
-  });
+  // Update status
+  updateStatus('dbStatus', 'ready', 'Semantic DB: Ready (embedded)');
+  updateStatus('vectorStatus', 'ready', 'Vector DB: Using JSON fallback');
   
-  showStep(1);
-  processor.updateMatchCount();
-}
-
-function selectAnswer(type, value, button) {
-  // Remove selected class from all buttons in this step
-  const step = type === 'context' ? 1 : type === 'approach' ? 2 : 3;
-  const buttons = document.querySelectorAll(`#step${step} .option-btn`);
-  buttons.forEach(btn => btn.classList.remove('selected'));
+  const match = findSemanticMatch(query);
   
-  // Add selected class to clicked button
-  button.classList.add('selected');
-  
-  // Store answer
-  userAnswers[type] = value;
-  
-  // Enable next button
-  const nextBtn = document.querySelector(`#step${step} .action-button`);
-  nextBtn.disabled = false;
-}
-
-function nextStep(currentStep) {
-  if (currentStep === 1) {
-    // Move to Step 2 - Approach
-    const questions = processor.generateQuestions(currentAnalysis.match);
-    document.getElementById('approachQuestion').textContent = questions.approach.title;
-    const approachOptions = document.getElementById('approachOptions');
-    approachOptions.innerHTML = '';
-    Object.entries(questions.approach.options).forEach(([value, text]) => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = text;
-      btn.onclick = () => selectAnswer('approach', value, btn);
-      approachOptions.appendChild(btn);
-    });
-    showStep(2);
-  } else if (currentStep === 2) {
-    // Move to Step 3 - Outcome
-    const questions = processor.generateQuestions(currentAnalysis.match);
-    document.getElementById('outcomeQuestion').textContent = questions.outcome.title;
-    const outcomeOptions = document.getElementById('outcomeOptions');
-    outcomeOptions.innerHTML = '';
-    Object.entries(questions.outcome.options).forEach(([value, text]) => {
-      const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = text;
-      btn.onclick = () => selectAnswer('outcome', value, btn);
-      outcomeOptions.appendChild(btn);
-    });
-    showStep(3);
-  }
-}
-
-function generateResults() {
-  const enhancedQuery = processor.buildEnhancedQuery(
-    currentAnalysis.keyword, 
-    currentAnalysis.match, 
-    userAnswers
-  );
-  const actions = processor.generateActions(currentAnalysis.match, userAnswers);
-  
-  // Update results UI
-  document.getElementById('finalQuery').textContent = enhancedQuery;
-  
-  // Build semantic info
-  const match = currentAnalysis.match;
-  document.getElementById('semanticInfo').innerHTML = `
-    <strong>Semantic Analysis:</strong><br>
-    • Matched: "${match.term}" (${match.type})<br>
-    • Domain: ${match.data.domain || 'General'}<br>
-    • Confidence: ${(match.score * 100).toFixed(0)}%<br>
-    • Context: ${userAnswers.context || 'general'}
-  `;
-  
-  // Update actions
+  // Show actions
   document.getElementById('actionItems').innerHTML = 
-    actions.map(action => `<div class="action-item">${action}</div>`).join('');
+    match.actions.map(a => `<div class="action-item">${a}</div>`).join('');
+  document.getElementById('semanticResults').style.display = 'block';
+  
+  // Update match count
+  const currentCount = parseInt(document.getElementById('matchCount').textContent) || 0;
+  document.getElementById('matchCount').textContent = currentCount + 1;
+  
+  // Generate enhanced queries
+  const ecologicalQuery = match.queries.ecological;
+  const agriculturalQuery = match.queries.agricultural;
+  const actionQuery = match.queries.action;
   
   // Update all search tabs
-  updateSearchTabs(enhancedQuery, currentAnalysis.keyword);
+  updateSearchTabs(ecologicalQuery, agriculturalQuery, actionQuery, query);
   
-  showStep(4);
+  updateDebugInfo(`✅ Search complete! Enhanced queries generated and tabs updated.`);
 }
 
-function updateSearchTabs(enhancedQuery, originalQuery) {
+function updateSearchTabs(ecologicalQuery, agriculturalQuery, actionQuery, originalQuery) {
   const e = encodeURIComponent;
   
   // Enhanced searches
-  document.getElementById('googleLink').href = `https://www.google.com/search?q=${e(enhancedQuery)}`;
-  document.getElementById('googleLink').textContent = `Google: ${enhancedQuery}`;
+  document.getElementById('googleLink').href = `https://www.google.com/search?q=${e(ecologicalQuery)}`;
+  document.getElementById('googleLink').textContent = `Google: ${ecologicalQuery}`;
   
-  document.getElementById('scholarLink').href = `https://scholar.google.com/scholar?q=${e(enhancedQuery + ' research study')}`;
-  document.getElementById('scholarLink').textContent = `Scholar: ${enhancedQuery} research`;
+  document.getElementById('scholarLink').href = `https://scholar.google.com/scholar?q=${e(agriculturalQuery)}`;
+  document.getElementById('scholarLink').textContent = `Scholar: ${agriculturalQuery}`;
   
-  document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(enhancedQuery + ' tutorial beginners')}`;
-  document.getElementById('youtubeLink').textContent = `YouTube: ${enhancedQuery} tutorials`;
+  document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(actionQuery)}`;
+  document.getElementById('youtubeLink').textContent = `YouTube: ${actionQuery}`;
   
-  // Other tabs
-  document.getElementById('amazonLink').href = `https://www.amazon.com/s?k=${e(enhancedQuery + ' books sustainable')}`;
-  document.getElementById('amazonLink').textContent = `Amazon: Sustainable ${enhancedQuery} books`;
+  // Other tabs with ecological enhancement
+  document.getElementById('amazonLink').href = `https://www.amazon.com/s?k=${e(ecologicalQuery + ' books')}`;
+  document.getElementById('amazonLink').textContent = `Amazon: ${ecologicalQuery} books`;
   
-  document.getElementById('newsLink').href = `https://news.google.com/search?q=${e(enhancedQuery + ' latest news')}`;
-  document.getElementById('newsLink').textContent = `News: ${enhancedQuery} news`;
+  document.getElementById('newsLink').href = `https://news.google.com/search?q=${e(agriculturalQuery + ' latest')}`;
+  document.getElementById('newsLink').textContent = `News: ${agriculturalQuery} news`;
   
   document.getElementById('weatherLink').href = `https://www.google.com/search?q=weather+${e(originalQuery)}`;
   document.getElementById('weatherLink').textContent = `Weather for "${originalQuery}"`;
@@ -2036,8 +276,8 @@ function updateSearchTabs(enhancedQuery, originalQuery) {
   document.getElementById('stocksLink').href = `https://www.google.com/finance?q=${e(originalQuery + ' ESG sustainable')}`;
   document.getElementById('stocksLink').textContent = `Finance: ${originalQuery} ESG`;
   
-  document.getElementById('imagesLink').href = `https://www.google.com/search?tbm=isch&q=${e(enhancedQuery)}`;
-  document.getElementById('imagesLink').textContent = `Images: ${enhancedQuery}`;
+  document.getElementById('imagesLink').href = `https://www.google.com/search?tbm=isch&q=${e(ecologicalQuery)}`;
+  document.getElementById('imagesLink').textContent = `Images: ${ecologicalQuery}`;
   
   document.getElementById('mapsLink').href = `https://www.google.com/maps/search/${e(originalQuery + ' organic community')}`;
   document.getElementById('mapsLink').textContent = `Maps: Organic ${originalQuery} resources`;
@@ -2045,123 +285,56 @@ function updateSearchTabs(enhancedQuery, originalQuery) {
   document.getElementById('translateLink').href = `https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}`;
   document.getElementById('translateLink').textContent = `Translate: ${originalQuery}`;
   
-  document.getElementById('tedLink').href = `https://www.ted.com/search?q=${e(enhancedQuery + ' sustainability')}`;
-  document.getElementById('tedLink').textContent = `TED Talks: ${enhancedQuery} sustainability`;
+  document.getElementById('tedLink').href = `https://www.ted.com/search?q=${e(ecologicalQuery + ' sustainability')}`;
+  document.getElementById('tedLink').textContent = `TED: ${ecologicalQuery} sustainability`;
   
-  document.getElementById('archiveLink').href = `https://archive.org/search.php?query=${e(enhancedQuery + ' sustainable agriculture ecology')}`;
-  document.getElementById('archiveLink').textContent = `Archive.org: Sustainable ${enhancedQuery}`;
+  document.getElementById('archiveLink').href = `https://archive.org/search.php?query=${e(ecologicalQuery + ' sustainable agriculture')}`;
+  document.getElementById('archiveLink').textContent = `Archive: Sustainable ${ecologicalQuery}`;
   
   // API-based searches
-  fetchMiraheze(enhancedQuery, 'kidsLink');
-  fetchWikipedia(enhancedQuery, 'wikiLink');
-  fetchOpenLibrary(enhancedQuery, 'openlibLink');
+  updateAPISearch('kidsLink', 'kids.miraheze.org', ecologicalQuery);
+  updateAPISearch('wikiLink', 'en.wikipedia.org', ecologicalQuery);
+  updateAPISearch('openlibLink', 'openlibrary.org', ecologicalQuery);
 }
 
-// API Fetchers
-async function fetchMiraheze(q, elementId) {
+function updateAPISearch(elementId, domain, query) {
   const link = document.getElementById(elementId);
-  link.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    link.innerHTML = results.length > 0 ? 
-      `Kids Wiki: ${q}` : 
-      `No results for "${q}"`;
-    link.href = `https://kids.miraheze.org/w/index.php?search=${encodeURIComponent(q)}`;
-  } catch (e) {
-    link.innerHTML = 'Error loading Kids Wiki';
-  }
-}
-
-async function fetchWikipedia(q, elementId) {
-  const link = document.getElementById(elementId);
-  link.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    link.innerHTML = results.length > 0 ? 
-      `Wikipedia: ${q}` : 
-      `No results for "${q}"`;
-    link.href = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`;
-  } catch (e) {
-    link.innerHTML = 'Error loading Wikipedia';
-  }
-}
-
-async function fetchOpenLibrary(q, elementId) {
-  const link = document.getElementById(elementId);
-  link.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`https://openlibrary.org/search.json?limit=3&q=${encodeURIComponent(q)}`);
-    const data = await res.json();
-    const results = data?.docs || [];
-    link.innerHTML = results.length > 0 ? 
-      `OpenLibrary: ${q}` : 
-      `No books for "${q}"`;
-    link.href = `https://openlibrary.org/search?q=${encodeURIComponent(q)}`;
-  } catch (e) {
-    link.innerHTML = 'Error loading OpenLibrary';
-  }
-}
-
-function showStep(stepNumber) {
-  // Hide all steps
-  document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-  // Show target step
-  document.getElementById(`step${stepNumber}`).classList.add('active');
+  const e = encodeURIComponent;
   
-  // Update progress dots
-  for (let i = 0; i <= 3; i++) {
-    const dot = document.getElementById(`dot${i}`);
-    if (dot) {
-      dot.className = 'progress-dot';
-      if (i < stepNumber) {
-        dot.classList.add('completed');
-      } else if (i === stepNumber) {
-        dot.classList.add('active');
-      }
-    }
+  if (domain === 'kids.miraheze.org') {
+    link.href = `https://${domain}/w/index.php?search=${e(query)}`;
+    link.textContent = `Kids Wiki: ${query}`;
+  } else if (domain === 'en.wikipedia.org') {
+    link.href = `https://${domain}/w/index.php?search=${e(query)}`;
+    link.textContent = `Wikipedia: ${query}`;
+  } else if (domain === 'openlibrary.org') {
+    link.href = `https://${domain}/search?q=${e(query)}`;
+    link.textContent = `OpenLibrary: ${query}`;
   }
 }
 
+// ========================================================================
+// TAB NAVIGATION
+// ========================================================================
 function showTab(tabId) {
-  // Hide all panels
   document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
-  // Show target panel
-  document.getElementById(tabId).classList.add('active');
-  
-  // Update tab buttons
   document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
   event.target.classList.add('active');
 }
 
-function resetSearch() {
-  // Reset UI
-  document.getElementById('queryInput').value = '';
-  userAnswers = { context: null, approach: null, outcome: null };
-  currentAnalysis = null;
-  
-  // Reset step selections
-  document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
-  document.querySelectorAll('.action-button').forEach(btn => btn.disabled = true);
-  
-  // Go back to step 0
-  showStep(0);
-  
-  // Reset progress dots
-  document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-    dot.className = 'progress-dot';
-    if (index === 0) dot.classList.add('active');
-  });
-}
-
-// Initialize
+// ========================================================================
+// INITIALIZE
+// ========================================================================
 document.addEventListener('DOMContentLoaded', function() {
-  // Enable Enter key for search
+  // Update status on load
+  updateStatus('dbStatus', 'ready', 'Semantic DB: Ready (embedded)');
+  updateStatus('vectorStatus', 'ready', 'Vector DB: Using JSON fallback');
+  updateDebugInfo('✅ System ready! Enter a search term to begin.');
+  
+  // Enable Enter key
   document.getElementById('queryInput').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') startAnalysis();
+    if (e.key === 'Enter') performSearch();
   });
 });
 </script>
