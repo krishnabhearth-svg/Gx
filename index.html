@@ -1,402 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🌾 Krishi • Universal Semantic Search</title>
-  <style>
-    /* --- STYLE SAME AS BEFORE --- */
-    body {
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
-      min-height: 100vh;
-      color: #2d3748;
-      margin: 0;
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
-    .header {
-      text-align: center;
-      padding: 30px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-      margin-bottom: 30px;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin: 10px 0;
-      color: #2d3748;
-    }
-    .subtitle {
-      color: #718096;
-    }
-    .main-content {
-      display: grid;
-      grid-template-columns: 1fr 400px;
-      gap: 20px;
-    }
-    .search-interface,
-    .sidebar {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    }
-    .search-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    #keywordInput {
-      flex: 1;
-      padding: 15px;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-    #analyzeBtn {
-      background: #48bb78;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 0 25px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .progress-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #e2e8f0;
-      display: inline-block;
-      margin: 0 6px;
-    }
-    .progress-dot.active {
-      background: #48bb78;
-    }
-    .question-box {
-      background: #f0fff4;
-      border-left: 5px solid #48bb78;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .option-btn {
-      display: block;
-      width: 100%;
-      background: white;
-      border: 2px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: left;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    .option-btn.selected {
-      background: #48bb78;
-      color: white;
-      border-color: #48bb78;
-    }
-    .next-btn,
-    .reset-btn {
-      background: #48bb78;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 30px;
-      cursor: pointer;
-      font-weight: 600;
-      display: block;
-      margin: 20px auto;
-    }
-    .reset-btn {
-      background: #718096;
-    }
-    .results-container {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-      margin-top: 20px;
-    }
-    .search-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .tab {
-      background: #edf2f7;
-      border-radius: 20px;
-      padding: 8px 16px;
-      border: none;
-      cursor: pointer;
-    }
-    .tab.active {
-      background: #48bb78;
-      color: white;
-    }
-    .panel {
-      display: none;
-      text-align: center;
-      background: #f7fafc;
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 10px;
-    }
-    .panel.active {
-      display: block;
-    }
-    .debug-item {
-      padding: 8px;
-      background: #f7fafc;
-      border-left: 4px solid #48bb78;
-      border-radius: 6px;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-    }
-    .status-indicator {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 6px;
-    }
-    .status-ready {
-      background: #48bb78;
-    }
-    .status-loading {
-      background: #ed8936;
-    }
-    .status-error {
-      background: #f56565;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🌾 Krishi • Beej • Semantic Ecological Search</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;padding:0;background:#fff;color:#202124;text-align:center;}
+header{padding:0.8em 0.5em;}
+h1{font-size:1.2em;margin:0;font-weight:500;}
+.download a{background:#34a853;color:#fff;padding:0.35em 1em;border-radius:20px;text-decoration:none;font-weight:600;display:inline-block;margin-top:0.4em;font-size:0.85em;}
+section{max-width:900px;margin:0 auto;padding:0.4em 0.4em;}
+input[type=text]{width:92%;max-width:450px;padding:0.55em 1em;border:1px solid #dadce0;border-radius:20px;outline:none;font-size:0.95em;}
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:0.35em;margin-top:0.6em;}
+.tab{padding:0.3em 0.8em;border:1px solid #dadce0;border-radius:20px;cursor:pointer;font-size:0.8em;background:#f8f9fa;}
+.tab.active{background:#1a73e8;color:#fff;border-color:#1a73e8;}
+.panel{display:none;text-align:left;border-top:1px solid #e0e0e0;margin-top:0.6em;padding-top:0.5em;font-size:0.88em;}
+.panel.active{display:block;}
+.result{margin:0.4em 0;}
+.result a{color:#1a73e8;text-decoration:none;font-weight:600;}
+footer{font-size:0.7em;color:#777;margin:1.2em 0;}
+
+/* New Styles for Semantic Results */
+.action-recommendations {
+    background: #e8f5e8;
+    border: 1px solid #34a853;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    text-align: left;
+}
+.action-item {
+    background: white;
+    padding: 6px 12px;
+    margin: 4px 6px 4px 0;
+    border-radius: 16px;
+    display: inline-block;
+    font-size: 0.85em;
+}
+.semantic-query {
+    background: #e3f2fd;
+    padding: 10px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div style="font-size: 3rem;">🌾</div>
-      <h1>Krishi Universal Semantic Search</h1>
-      <p class="subtitle">AI-powered contextual ecological and learning search</p>
-    </div>
-
-    <div class="main-content">
-      <div class="search-interface">
-        <div class="progress-container" style="text-align:center;margin-bottom:20px;">
-          <span class="progress-dot active" id="dot1"></span>
-          <span class="progress-dot" id="dot2"></span>
-          <span class="progress-dot" id="dot3"></span>
-          <span class="progress-dot" id="dot4"></span>
-        </div>
-
-        <div id="step1">
-          <div class="search-box">
-            <input id="keywordInput" type="text" placeholder="Enter keyword (e.g. organic farming, learn programming, climate action)...">
-            <button id="analyzeBtn">Analyze →</button>
-          </div>
-        </div>
-
-        <div id="step2" style="display:none;">
-          <div class="question-box">
-            <div id="question2Title"></div>
-            <div id="question2Options"></div>
-          </div>
-          <button class="next-btn" onclick="nextStep(2)" disabled>Next →</button>
-        </div>
-
-        <div id="step3" style="display:none;">
-          <div class="question-box">
-            <div id="question3Title"></div>
-            <div id="question3Options"></div>
-          </div>
-          <button class="next-btn" onclick="nextStep(3)" disabled>Next →</button>
-        </div>
-
-        <div id="step4" style="display:none;">
-          <div class="question-box">
-            <div id="question4Title"></div>
-            <div id="question4Options"></div>
-          </div>
-          <button class="next-btn" onclick="generateFinalResults()">Get Results →</button>
-        </div>
-
-        <div id="results" style="display:none;">
-          <div class="results-container">
-            <div class="query-display">
-              <div>Original: "<span id="originalKeyword"></span>"</div>
-              <div><strong>Enhanced:</strong> "<span id="finalQuery"></span>"</div>
-            </div>
-            <div id="matchInfo" class="debug-item"></div>
-            <div class="debug-item" id="actionItems"></div>
-
-            <div class="search-tabs">
-              <button class="tab active" onclick="showPanel('google')">Google</button>
-              <button class="tab" onclick="showPanel('wiki')">Wikipedia</button>
-              <button class="tab" onclick="showPanel('youtube')">YouTube</button>
-              <button class="tab" onclick="showPanel('scholar')">Scholar</button>
-              <button class="tab" onclick="showPanel('amazon')">Amazon</button>
-              <button class="tab" onclick="showPanel('openlib')">OpenLibrary</button>
-              <button class="tab" onclick="showPanel('news')">News</button>
-              <button class="tab" onclick="showPanel('kids')">Kids Wiki</button>
-              <button class="tab" onclick="showPanel('images')">Images</button>
-              <button class="tab" onclick="showPanel('maps')">Maps</button>
-              <button class="tab" onclick="showPanel('ted')">TED</button>
-              <button class="tab" onclick="showPanel('archive')">Archive</button>
-            </div>
-
-            <div id="google" class="panel active"><a id="googleLink" target="_blank">Google Search</a></div>
-            <div id="wiki" class="panel"><a id="wikiLink" target="_blank">Wikipedia</a></div>
-            <div id="youtube" class="panel"><a id="youtubeLink" target="_blank">YouTube</a></div>
-            <div id="scholar" class="panel"><a id="scholarLink" target="_blank">Scholar</a></div>
-            <div id="amazon" class="panel"><a id="amazonLink" target="_blank">Amazon</a></div>
-            <div id="openlib" class="panel"><a id="openlibLink" target="_blank">OpenLibrary</a></div>
-            <div id="news" class="panel"><a id="newsLink" target="_blank">News</a></div>
-            <div id="kids" class="panel"><a id="kidsLink" target="_blank">Kids Wiki</a></div>
-            <div id="images" class="panel"><a id="imagesLink" target="_blank">Images</a></div>
-            <div id="maps" class="panel"><a id="mapsLink" target="_blank">Maps</a></div>
-            <div id="ted" class="panel"><a id="tedLink" target="_blank">TED</a></div>
-            <div id="archive" class="panel"><a id="archiveLink" target="_blank">Archive</a></div>
-          </div>
-          <button class="reset-btn" onclick="resetSearch()">Start New Search</button>
-        </div>
-      </div>
-
-      <div class="sidebar">
-        <div class="debug-item" id="statusDb"><span class="status-indicator status-loading"></span>Database: Initializing...</div>
-        <div class="debug-item" id="statusProcessor"><span class="status-indicator status-loading"></span>Processor: Starting...</div>
-        <div class="debug-item" id="statusMatches"><span class="status-indicator"></span>Matches: 0</div>
-        <div class="debug-item" id="debugContent">Waiting for keyword...</div>
-      </div>
+<header>
+  <h1>🌾 Krishi • Beej • Explore Food & Conscience</h1>
+  <div class="download">
+    <a href="https://github.com/krishnabhearth-svg/Gx/raw/main/Krishna.pdf" download>⬇️ Download Krishna Resume</a>
+  </div>
+</header>
+<section id="searchSection">
+  <input id="query" type="text" placeholder="e.g., pollution vehicle, organic farming…" oninput="analyzeQuery()">
+  
+  <div id="semanticResults" style="display:none;">
+    <div class="action-recommendations">
+      <strong>Recommended Actions:</strong><br>
+      <div id="actionItems"></div>
     </div>
   </div>
 
-  <script src="universal-semantic-processor.js"></script>
-  <script>
-    let userData = { keyword: "", answers: {}, searchResult: null };
+  <p id="instruction" style="color:#777;margin-top:0.6em;font-size:0.85em;">
+    Type a keyword to explore with ecological intelligence.
+  </p>
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      await initializeApplication();
-      document.getElementById("analyzeBtn").addEventListener("click", analyzeKeyword);
-      document.getElementById("keywordInput").addEventListener("keypress", e => {
-        if (e.key === "Enter") analyzeKeyword();
-      });
-    });
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-target="google">Google</div>
+    <div class="tab" data-target="kids">Kids Miraheze</div>
+    <div class="tab" data-target="wiki">Wikipedia</div>
+    <div class="tab" data-target="scholar">Scholar</div>
+    <div class="tab" data-target="amazon">Amazon Books</div>
+    <div class="tab" data-target="openlib">OpenLibrary</div>
+    <div class="tab" data-target="youtube">YouTube</div>
+    <div class="tab" data-target="news">News</div>
+    <div class="tab" data-target="weather">Weather</div>
+    <div class="tab" data-target="stocks">Finance</div>
+    <div class="tab" data-target="images">Images</div>
+    <div class="tab" data-target="maps">Maps</div>
+    <div class="tab" data-target="translate">Translate</div>
+    <div class="tab" data-target="ted">TED Talks</div>
+    <div class="tab" data-target="archive">Archive.org</div>
+  </div>
 
-    async function initializeApplication() {
-      updateStatus("statusDb", "loading", "Database: Loading...");
-      const result = await semanticProcessor.initializeDatabase();
-      updateStatus("statusDb", "ready", `Database: Loaded (${result.count} terms${result.fallback ? " - Fallback" : ""})`);
-      updateStatus("statusProcessor", "ready", "Processor: Active");
-      document.getElementById("debugContent").innerText = "✅ System Ready. Enter keyword to begin.";
+  <div id="panels">
+    <div class="panel active" id="google"><h3>🌱 Ecological Search</h3><div id="googleLink"></div></div>
+    <div class="panel" id="kids"><h3>👶 Kids Miraheze</h3><div id="kidsResults"></div></div>
+    <div class="panel" id="wiki"><h3>📚 Wikipedia</h3><div id="wikiResults"></div></div>
+    <div class="panel" id="scholar"><h3>🔬 Scholar / Gap</h3><div id="scholarLink"></div></div>
+    <div class="panel" id="amazon"><h3>📖 Amazon Books</h3><div id="amazonLink"></div></div>
+    <div class="panel" id="openlib"><h3>🏛️ OpenLibrary</h3><div id="openlibResults"></div></div>
+    <div class="panel" id="youtube"><h3>✅ Action / How-To</h3><div id="youtubeLink"></div></div>
+    <div class="panel" id="news"><h3>📰 News</h3><div id="newsLink"></div></div>
+    <div class="panel" id="weather"><h3>🌦️ Weather</h3><div id="weatherLink"></div></div>
+    <div class="panel" id="stocks"><h3>💰 Finance</h3><div id="stocksLink"></div></div>
+    <div class="panel" id="images"><h3>🖼️ Images</h3><div id="imagesLink"></div></div>
+    <div class="panel" id="maps"><h3>📍 Maps</h3><div id="mapsLink"></div></div>
+    <div class="panel" id="translate"><h3>🌐 Translate</h3><div id="translateLink"></div></div>
+    <div class="panel" id="ted"><h3>💡 TED Talks</h3><div id="tedLink"></div></div>
+    <div class="panel" id="archive"><h3>🗂️ Archive.org</h3><div id="archiveLink"></div></div>
+  </div>
+</section>
+<footer>© Krishi • Beej • Conscious Exploration • Healing through Food & Bhajan & Bazar</footer>
+
+<script>
+// 🌍 BUILT-IN SEMANTIC DATABASE (2MB-ready structure)
+const SEMANTIC_DB = {
+  "organic farming": {
+    actions: ["Visit organic farm", "Start small garden", "Learn about soil health", "Attend composting workshop", "Join community seed bank"],
+    queries: {
+      ecological: "organic farming soil health biodiversity regenerative agriculture",
+      agricultural: "organic crop rotation pest management natural fertilizers",
+      action: "how to start organic home garden beginners step by step"
     }
-
-    function updateStatus(id, status, text) {
-      const el = document.getElementById(id);
-      const ind = document.createElement("span");
-      ind.classList.add("status-indicator");
-      ind.classList.add(status === "ready" ? "status-ready" : status === "error" ? "status-error" : "status-loading");
-      el.innerHTML = ind.outerHTML + " " + text;
+  },
+  "pollution vehicle": {
+    actions: ["Research electric vehicles", "Use public transport", "Calculate carbon footprint", "Support green urban planning", "Join clean air advocacy"],
+    queries: {
+      ecological: "vehicle pollution air quality health impact emissions",
+      agricultural: "farm machinery emissions sustainable transport biofuel alternatives",
+      action: "reduce car pollution daily habits electric transport tutorial"
     }
-
-    function analyzeKeyword() {
-      const keyword = document.getElementById("keywordInput").value.trim();
-      if (!keyword) return alert("Enter a keyword");
-      userData.keyword = keyword;
-
-      const result = semanticProcessor.processUserSearch(keyword, userData);
-      userData.searchResult = result;
-      userData.semanticMatch = result.semanticMatch;
-
-      updateStatus("statusMatches", "ready", `Matches: ${semanticProcessor.searchHistory.length}`);
-      document.getElementById("debugContent").innerHTML = `<strong>Matched:</strong> ${result.semanticMatch.keyword}<br>Domain: ${result.semanticMatch.data.domain}<br>Confidence: ${(result.confidenceScore*100).toFixed(1)}%`;
-
-      nextStep(1);
-      generateQuestions(result);
+  },
+  "mental calm": {
+    actions: ["Practice daily mindfulness", "Walk in nature", "Grow tulsi or mint at home", "Join local bhajan group", "Reduce screen time"],
+    queries: {
+      ecological: "nature connection mental calm grounding biophilia",
+      agricultural: "therapeutic gardening stress reduction mental wellness",
+      action: "5-minute daily mindfulness technique for beginners"
     }
-
-    function generateQuestions(result) {
-      const q = result.contextualQuestions;
-      renderQuestion("question2Title", "question2Options", q.context, 2);
-      renderQuestion("question3Title", "question3Options", q.approach, 3);
-      renderQuestion("question4Title", "question4Options", q.outcome, 4);
+  },
+  "water conservation": {
+    actions: ["Install rain barrel", "Plant native drought-resistant species", "Fix home leaks", "Use greywater system", "Support watershed restoration"],
+    queries: {
+      ecological: "water conservation rainwater harvesting ecosystem impact",
+      agricultural: "drip irrigation small farms India water-wise crops",
+      action: "DIY rooftop rainwater harvesting home setup tutorial"
     }
-
-    function renderQuestion(titleId, optId, data, step) {
-      if (!data) return;
-      document.getElementById(titleId).innerText = data.title;
-      const opts = Object.entries(data.options)
-        .map(([val, txt]) => `<button class="option-btn" onclick="selectAnswer(${step}, '${val}', event)">${txt}</button>`)
-        .join("");
-      document.getElementById(optId).innerHTML = opts;
+  },
+  "renewable energy": {
+    actions: ["Research solar home systems", "Join community energy co-op", "Attend rural electrification workshop", "Explore biogas options", "Support clean energy policies"],
+    queries: {
+      ecological: "renewable energy climate impact sustainability",
+      agricultural: "biogas from farm waste solar irrigation pumps",
+      action: "affordable solar setup for rural home DIY tutorial"
     }
+  }
+};
 
-    function selectAnswer(step, value, event) {
-      document.querySelectorAll(`#step${step} .option-btn`).forEach(b => b.classList.remove("selected"));
-      event.target.classList.add("selected");
-      if (step === 2) userData.answers.context = value;
-      if (step === 3) userData.answers.approach = value;
-      if (step === 4) userData.answers.outcome = value;
-      document.querySelector(`#step${step} .next-btn`).disabled = false;
+// 🔍 Find best semantic match
+function findSemanticMatch(query) {
+  query = query.toLowerCase();
+  // Direct match
+  if (SEMANTIC_DB[query]) return SEMANTIC_DB[query];
+  // Word overlap
+  for (const [term, data] of Object.entries(SEMANTIC_DB)) {
+    if (term.split(' ').some(w => query.includes(w)) || query.split(' ').some(w => term.includes(w))) {
+      return data;
     }
+  }
+  // Fallback
+  return null;
+}
 
-    function nextStep(current) {
-      document.getElementById(`step${current}`).style.display = "none";
-      document.getElementById(`step${current + 1}`).style.display = "block";
-      document.getElementById(`dot${current}`).classList.add("active");
-      document.getElementById(`dot${current + 1}`).classList.add("active");
-    }
+// 🎯 Main analysis function
+function analyzeQuery() {
+  const q = document.getElementById('query').value.trim();
+  if (!q) {
+    document.getElementById('semanticResults').style.display = 'none';
+    document.getElementById('instruction').textContent = 'Type a keyword to explore with ecological intelligence.';
+    resetSearchResults();
+    return;
+  }
 
-    function generateFinalResults() {
-      document.getElementById("step4").style.display = "none";
-      document.getElementById("results").style.display = "block";
+  const match = findSemanticMatch(q);
+  if (match) {
+    // Show actions
+    document.getElementById('actionItems').innerHTML = 
+      match.actions.map(a => `<span class="action-item">${a}</span>`).join('');
+    document.getElementById('semanticResults').style.display = 'block';
+    
+    // Update all tabs with enhanced queries
+    updateSearchTabs(match.queries, q);
+    document.getElementById('instruction').innerHTML = `Exploring "<b>${q}</b>" with ecological intelligence.`;
+  } else {
+    // Fallback to basic search
+    document.getElementById('semanticResults').style.display = 'none';
+    const basicQueries = {
+      ecological: q,
+      agricultural: q,
+      action: q
+    };
+    updateSearchTabs(basicQueries, q);
+    document.getElementById('instruction').innerHTML = `Basic search for "<b>${q}</b>" - no semantic match found.`;
+  }
+}
 
-      const res = userData.searchResult;
-      document.getElementById("originalKeyword").innerText = userData.keyword;
-      document.getElementById("finalQuery").innerText = res.enhancedQuery;
-      document.getElementById("matchInfo").innerHTML = `Matched: <b>${res.semanticMatch.keyword}</b> (${res.semanticMatch.data.domain})`;
+// 🔍 Update all search tabs
+function updateSearchTabs(queries, originalQuery) {
+  const e = encodeURIComponent;
+  
+  // Enhanced searches
+  document.getElementById('googleLink').innerHTML = 
+    `<a href="https://www.google.com/search?q=${e(queries.ecological)}" target="_blank">${queries.ecological}</a>`;
+  
+  document.getElementById('scholarLink').innerHTML = 
+    `<a href="https://scholar.google.com/scholar?q=${e(queries.agricultural)}" target="_blank">${queries.agricultural}</a>`;
+  
+  document.getElementById('youtubeLink').innerHTML = 
+    `<a href="https://www.youtube.com/results?search_query=${e(queries.action)}" target="_blank">${queries.action}</a>`;
+  
+  // Other tabs
+  document.getElementById('amazonLink').innerHTML = 
+    `<a href="https://www.amazon.com/s?k=${e(queries.ecological + ' books')}" target="_blank">${queries.ecological} books</a>`;
+  
+  document.getElementById('newsLink').innerHTML = 
+    `<a href="https://news.google.com/search?q=${e(queries.agricultural + ' latest')}" target="_blank">${queries.agricultural} news</a>`;
+  
+  document.getElementById('weatherLink').innerHTML = 
+    `<a href="https://www.google.com/search?q=weather+${e(originalQuery)}" target="_blank">Weather for "${originalQuery}"</a>`;
+  
+  document.getElementById('stocksLink').innerHTML = 
+    `<a href="https://www.google.com/finance?q=${e(originalQuery + ' ESG sustainable')}" target="_blank">${originalQuery} ESG finance</a>`;
+  
+  document.getElementById('imagesLink').innerHTML = 
+    `<a href="https://www.google.com/search?tbm=isch&q=${e(queries.ecological)}" target="_blank">${queries.ecological} images</a>`;
+  
+  document.getElementById('mapsLink').innerHTML = 
+    `<a href="https://www.google.com/maps/search/${e(originalQuery + ' organic community')}" target="_blank">Organic ${originalQuery} resources</a>`;
+  
+  document.getElementById('translateLink').innerHTML = 
+    `<a href="https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}" target="_blank">Translate "${originalQuery}"</a>`;
+  
+  document.getElementById('tedLink').innerHTML = 
+    `<a href="https://www.ted.com/search?q=${e(queries.ecological + ' sustainability')}" target="_blank">${queries.ecological} TED talks</a>`;
+  
+  document.getElementById('archiveLink').innerHTML = 
+    `<a href="https://archive.org/search.php?query=${e(queries.ecological + ' sustainable agriculture')}" target="_blank">${queries.ecological} Archive.org</a>`;
 
-      document.getElementById("actionItems").innerHTML = res.recommendedActions.map(a => `<div>• ${a}</div>`).join("");
-      updateAllSearchLinks(res.enhancedQuery, userData.keyword);
-    }
+  // API searches
+  fetchMiraheze(queries.ecological, 'kidsResults');
+  fetchWikipedia(queries.ecological, 'wikiResults');
+  fetchOpenLibrary(queries.ecological, 'openlibResults');
+}
 
-    function showPanel(id) {
-      document.querySelectorAll(".panel").forEach(p => (p.style.display = "none"));
-      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-      document.getElementById(id).style.display = "block";
-      event.target.classList.add("active");
-    }
+// 📡 API Fetchers
+async function fetchMiraheze(q, elId) {
+  const el = document.getElementById(elId);
+  el.innerHTML = 'Searching…';
+  try {
+    const res = await fetch(`https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
+    const data = await res.json();
+    const results = data?.query?.search || [];
+    el.innerHTML = results.map(r => 
+      `<div class="result"><a href="https://kids.miraheze.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+      <p>${r.snippet.replace(/<[^>]*>/g, '')}…</p></div>`
+    ).join('') || `No results for "${q}"`;
+  } catch (e) {
+    el.textContent = 'Error loading results';
+  }
+}
 
-    function resetSearch() {
-      location.reload();
-    }
+async function fetchWikipedia(q, elId) {
+  const el = document.getElementById(elId);
+  el.innerHTML = 'Searching…';
+  try {
+    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
+    const data = await res.json();
+    const results = data?.query?.search || [];
+    el.innerHTML = results.map(r => 
+      `<div class="result"><a href="https://en.wikipedia.org/wiki/${encodeURIComponent(r.title)}" target="_blank">${r.title}</a>
+      <p>${r.snippet.replace(/<[^>]*>/g, '')}…</p></div>`
+    ).join('') || `No results for "${q}"`;
+  } catch (e) {
+    el.textContent = 'Error loading results';
+  }
+}
 
-    // ✅ Enhanced ecological search link builder
-    function updateAllSearchLinks(enhancedQuery, originalQuery) {
-      const e = encodeURIComponent;
-      const ecologicalQuery = enhancedQuery + " sustainable organic regenerative";
+async function fetchOpenLibrary(q, elId) {
+  const el = document.getElementById(elId);
+  el.innerHTML = 'Searching…';
+  try {
+    const res = await fetch(`https://openlibrary.org/search.json?limit=3&q=${encodeURIComponent(q)}`);
+    const data = await res.json();
+    const results = data?.docs || [];
+    el.innerHTML = results.map(r => 
+      `<div class="result"><strong>${r.title || 'Untitled'}</strong> by ${(r.author_name || []).join(', ')}<br>
+      <a href="https://openlibrary.org${r.key}" target="_blank">View book</a></div>`
+    ).join('') || `No books for "${q}"`;
+  } catch (e) {
+    el.textContent = 'Error loading books';
+  }
+}
 
-      document.getElementById("googleLink").href = `https://www.google.com/search?q=${e(ecologicalQuery)}`;
-      document.getElementById("scholarLink").href = `https://scholar.google.com/scholar?q=${e(ecologicalQuery + ' research study')}`;
-      document.getElementById("amazonLink").href = `https://www.amazon.com/s?k=${e(ecologicalQuery + ' books sustainable')}`;
-      document.getElementById("youtubeLink").href = `https://www.youtube.com/results?search_query=${e(ecologicalQuery + ' tutorial beginner sustainable')}`;
-      document.getElementById("newsLink").href = `https://news.google.com/search?q=${e(ecologicalQuery + ' latest news')}`;
-      document.getElementById("kidsLink").href = `https://kids.miraheze.org/w/index.php?search=${e(ecologicalQuery)}`;
-      document.getElementById("wikiLink").href = `https://en.wikipedia.org/w/index.php?search=${e(ecologicalQuery)}`;
-      document.getElementById("openlibLink").href = `https://openlibrary.org/search?q=${e(ecologicalQuery + ' sustainable')}`;
-      document.getElementById("weatherLink").href = `https://www.google.com/search?q=weather+${e(originalQuery)}`;
-      document.getElementById("stocksLink").href = `https://www.google.com/finance?q=${e(originalQuery + ' ESG sustainable')}`;
-      document.getElementById("imagesLink").href = `https://www.google.com/search?tbm=isch&q=${e(ecologicalQuery)}`;
-      document.getElementById("mapsLink").href = `https://www.google.com/maps/search/${e(originalQuery + ' organic community')}`;
-      document.getElementById("translateLink").href = `https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}`;
-      document.getElementById("tedLink").href = `https://www.ted.com/search?q=${e(ecologicalQuery + ' sustainability')}`;
-      document.getElementById("archiveLink").href = `https://archive.org/search.php?query=${e(ecologicalQuery + ' sustainable agriculture ecology')}`;
-    }
-  </script>
+// 🖱️ Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.target).classList.add('active');
+  });
+});
+
+// Reset search results
+function resetSearchResults() {
+  document.getElementById('googleLink').innerHTML = '';
+  document.getElementById('scholarLink').innerHTML = '';
+  document.getElementById('youtubeLink').innerHTML = '';
+  document.getElementById('kidsResults').innerHTML = '';
+  document.getElementById('wikiResults').innerHTML = '';
+  document.getElementById('openlibResults').innerHTML = '';
+}
+</script>
 </body>
 </html>
