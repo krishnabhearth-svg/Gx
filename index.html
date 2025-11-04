@@ -1,1045 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌾 Krishi • Universal Semantic Search</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
-            min-height: 100vh;
-            color: #2d3748;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 0;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        }
-
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #2d3748;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #718096;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .search-interface {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        }
-
-        .search-box {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        #keywordInput {
-            flex: 1;
-            padding: 18px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            outline: none;
-        }
-
-        #keywordInput:focus {
-            border-color: #48bb78;
-            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
-        }
-
-        #analyzeBtn {
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 0 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-        }
-
-        #analyzeBtn:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-        }
-
-        #analyzeBtn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .progress-container {
-            display: flex;
-            justify-content: center;
-            margin: 30px 0;
-            align-items: center;
-        }
-
-        .progress-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #e2e8f0;
-            margin: 0 12px;
-            transition: all 0.3s;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        .progress-dot.active {
-            background: #48bb78;
-            transform: scale(1.3);
-        }
-
-        .progress-dot.completed {
-            background: #38a169;
-        }
-
-        .step {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .step.active {
-            display: block;
-        }
-
-        .question-box {
-            background: #f0fff4;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            border-left: 5px solid #48bb78;
-        }
-
-        .question-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            color: #2d3748;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .option-btn {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.05rem;
-        }
-
-        .option-btn:hover {
-            border-color: #48bb78;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .option-btn.selected {
-            background: #48bb78;
-            color: white;
-            border-color: #48bb78;
-        }
-
-        .next-btn {
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 16px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-            margin: 25px auto 0;
-        }
-
-        .next-btn:hover {
-            background: #38a169;
-            transform: translateY(-2px);
-        }
-
-        .next-btn:disabled {
-            background: #cbd5e0;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .sidebar {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            height: fit-content;
-        }
-
-        .debug-panel {
-            background: #f7fafc;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .debug-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #2d3748;
-        }
-
-        .debug-content {
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .debug-item {
-            margin-bottom: 8px;
-            padding: 8px;
-            background: white;
-            border-radius: 6px;
-            border-left: 3px solid #48bb78;
-        }
-
-        .results-container {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-            margin-top: 20px;
-        }
-
-        .results-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .query-display {
-            background: #edf2f7;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .original-query {
-            color: #718096;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .enhanced-query {
-            font-weight: 600;
-            font-size: 1.3rem;
-            color: #2d3748;
-            line-height: 1.4;
-        }
-
-        .semantic-info {
-            background: #e6fffa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            color: #234e52;
-        }
-
-        .actions-section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #2d3748;
-        }
-
-        .action-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .action-item {
-            background: #f0fff4;
-            color: #276749;
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            border: 1px solid #c6f6d5;
-        }
-
-        .search-tabs-container {
-            margin: 30px 0;
-        }
-
-        .search-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .tab {
-            background: #edf2f7;
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab.active {
-            background: #48bb78;
-            color: white;
-        }
-
-        .panel {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
-            min-height: 80px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .panel.active {
-            display: flex;
-        }
-
-        .panel a {
-            color: #3182ce;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 8px;
-            transition: all 0.3s;
-            background: white;
-            border: 2px solid #e2e8f0;
-        }
-
-        .panel a:hover {
-            background: #ebf8ff;
-            border-color: #3182ce;
-            transform: translateY(-2px);
-        }
-
-        .reset-btn {
-            background: #718096;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 14px 28px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-            margin: 30px auto 0;
-        }
-
-        .reset-btn:hover {
-            background: #4a5568;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #48bb78;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .status-ready {
-            background: #48bb78;
-        }
-
-        .status-loading {
-            background: #ed8936;
-        }
-
-        .status-error {
-            background: #f56565;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            .search-interface, .sidebar {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .search-box {
-                flex-direction: column;
-            }
-            
-            #analyzeBtn {
-                padding: 16px;
-            }
-            
-            .search-tabs {
-                gap: 8px;
-            }
-            
-            .tab {
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌾 Krishi • Universal Semantic Search</title>
+  <style>
+    /* --- STYLE SAME AS BEFORE --- */
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+      min-height: 100vh;
+      color: #2d3748;
+      margin: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin: 10px 0;
+      color: #2d3748;
+    }
+    .subtitle {
+      color: #718096;
+    }
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 20px;
+    }
+    .search-interface,
+    .sidebar {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    #keywordInput {
+      flex: 1;
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    #analyzeBtn {
+      background: #48bb78;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0 25px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .progress-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: inline-block;
+      margin: 0 6px;
+    }
+    .progress-dot.active {
+      background: #48bb78;
+    }
+    .question-box {
+      background: #f0fff4;
+      border-left: 5px solid #48bb78;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .option-btn {
+      display: block;
+      width: 100%;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: left;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .option-btn.selected {
+      background: #48bb78;
+      color: white;
+      border-color: #48bb78;
+    }
+    .next-btn,
+    .reset-btn {
+      background: #48bb78;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 30px;
+      cursor: pointer;
+      font-weight: 600;
+      display: block;
+      margin: 20px auto;
+    }
+    .reset-btn {
+      background: #718096;
+    }
+    .results-container {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      margin-top: 20px;
+    }
+    .search-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .tab {
+      background: #edf2f7;
+      border-radius: 20px;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #48bb78;
+      color: white;
+    }
+    .panel {
+      display: none;
+      text-align: center;
+      background: #f7fafc;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 10px;
+    }
+    .panel.active {
+      display: block;
+    }
+    .debug-item {
+      padding: 8px;
+      background: #f7fafc;
+      border-left: 4px solid #48bb78;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .status-ready {
+      background: #48bb78;
+    }
+    .status-loading {
+      background: #ed8936;
+    }
+    .status-error {
+      background: #f56565;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="logo">🌾</div>
-            <h1>Krishi Universal Semantic Search</h1>
-            <p class="subtitle">Intelligent ecological search powered by semantic AI - Get perfectly tailored results through contextual questioning</p>
-        </div>
-
-        <div class="main-content">
-            <div class="search-interface">
-                <!-- Progress Indicator -->
-                <div class="progress-container">
-                    <div class="progress-dot active" id="dot1" data-step="1">1</div>
-                    <div class="progress-dot" id="dot2" data-step="2">2</div>
-                    <div class="progress-dot" id="dot3" data-step="3">3</div>
-                    <div class="progress-dot" id="dot4" data-step="4">4</div>
-                </div>
-
-                <!-- Step 1: Keyword Input -->
-                <div class="step active" id="step1">
-                    <div class="search-box">
-                        <input type="text" id="keywordInput" placeholder="Enter any keyword (e.g., organic farming, learn programming, mental wellness, renewable energy)…">
-                        <button id="analyzeBtn">Analyze & Continue →</button>
-                    </div>
-                    <div class="loading" id="loadingStep1">
-                        <div class="loading-spinner"></div>
-                        <p>Analyzing keyword semantics...</p>
-                    </div>
-                </div>
-
-                <!-- Step 2: Context Question -->
-                <div class="step" id="step2">
-                    <div class="question-box">
-                        <div class="question-title" id="question2Title">🎯 What's your main focus area?</div>
-                        <div class="options-grid" id="question2Options"></div>
-                    </div>
-                    <button class="next-btn" onclick="nextStep(2)" disabled>Next →</button>
-                </div>
-
-                <!-- Step 3: Approach Question -->
-                <div class="step" id="step3">
-                    <div class="question-box">
-                        <div class="question-title" id="question3Title">🔄 How do you want to approach this?</div>
-                        <div class="options-grid" id="question3Options"></div>
-                    </div>
-                    <button class="next-btn" onclick="nextStep(3)" disabled>Next →</button>
-                </div>
-
-                <!-- Step 4: Outcome Question -->
-                <div class="step" id="step4">
-                    <div class="question-box">
-                        <div class="question-title" id="question4Title">💫 What outcome are you seeking?</div>
-                        <div class="options-grid" id="question4Options"></div>
-                    </div>
-                    <button class="next-btn" onclick="generateFinalResults()">Get Perfect Results →</button>
-                </div>
-
-                <!-- Results Section -->
-                <div class="step" id="results">
-                    <div class="results-container">
-                        <div class="results-header">
-                            <h2>🎉 Your Enhanced Semantic Search Results</h2>
-                        </div>
-
-                        <div class="query-display">
-                            <div class="original-query">Original: "<span id="originalKeyword"></span>"</div>
-                            <div class="enhanced-query">Enhanced: "<span id="finalQuery"></span>"</div>
-                        </div>
-
-                        <div class="semantic-info" id="matchInfo"></div>
-
-                        <div class="actions-section">
-                            <div class="section-title">Recommended Actions</div>
-                            <div class="action-items" id="actionItems"></div>
-                        </div>
-
-                        <div class="search-tabs-container">
-                            <div class="section-title">Search Across Platforms</div>
-                            <div class="search-tabs">
-                                <button class="tab active" onclick="showPanel('kids')">Kids Wiki</button>
-                                <button class="tab" onclick="showPanel('wiki')">Wikipedia</button>
-                                <button class="tab" onclick="showPanel('google')">Google</button>
-                                <button class="tab" onclick="showPanel('scholar')">Scholar</button>
-                                <button class="tab" onclick="showPanel('amazon')">Amazon Books</button>
-                                <button class="tab" onclick="showPanel('openlib')">OpenLibrary</button>
-                                <button class="tab" onclick="showPanel('youtube')">YouTube</button>
-                                <button class="tab" onclick="showPanel('news')">News</button>
-                                <button class="tab" onclick="showPanel('weather')">Weather</button>
-                                <button class="tab" onclick="showPanel('stocks')">Finance</button>
-                                <button class="tab" onclick="showPanel('images')">Images</button>
-                                <button class="tab" onclick="showPanel('maps')">Maps</button>
-                                <button class="tab" onclick="showPanel('translate')">Translate</button>
-                                <button class="tab" onclick="showPanel('ted')">TED Talks</button>
-                                <button class="tab" onclick="showPanel('archive')">Archive.org</button>
-                            </div>
-
-                            <div class="panel active" id="kids">
-                                <a id="kidsLink" target="_blank">Search on Kids Miraheze</a>
-                            </div>
-                            <div class="panel" id="wiki">
-                                <a id="wikiLink" target="_blank">Search on Wikipedia</a>
-                            </div>
-                            <div class="panel" id="google">
-                                <a id="googleLink" target="_blank">Search on Google</a>
-                            </div>
-                            <div class="panel" id="scholar">
-                                <a id="scholarLink" target="_blank">Search on Google Scholar</a>
-                            </div>
-                            <div class="panel" id="amazon">
-                                <a id="amazonLink" target="_blank">Search on Amazon Books</a>
-                            </div>
-                            <div class="panel" id="openlib">
-                                <a id="openlibLink" target="_blank">Search on OpenLibrary</a>
-                            </div>
-                            <div class="panel" id="youtube">
-                                <a id="youtubeLink" target="_blank">Search on YouTube</a>
-                            </div>
-                            <div class="panel" id="news">
-                                <a id="newsLink" target="_blank">Search News</a>
-                            </div>
-                            <div class="panel" id="weather">
-                                <a id="weatherLink" target="_blank">Check Weather</a>
-                            </div>
-                            <div class="panel" id="stocks">
-                                <a id="stocksLink" target="_blank">Check Finance</a>
-                            </div>
-                            <div class="panel" id="images">
-                                <a id="imagesLink" target="_blank">Search Images</a>
-                            </div>
-                            <div class="panel" id="maps">
-                                <a id="mapsLink" target="_blank">Find on Maps</a>
-                            </div>
-                            <div class="panel" id="translate">
-                                <a id="translateLink" target="_blank">Translate</a>
-                            </div>
-                            <div class="panel" id="ted">
-                                <a id="tedLink" target="_blank">Search TED Talks</a>
-                            </div>
-                            <div class="panel" id="archive">
-                                <a id="archiveLink" target="_blank">Search Archive.org</a>
-                            </div>
-                        </div>
-
-                        <button class="reset-btn" onclick="resetSearch()">Start New Search</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar">
-                <div class="debug-panel">
-                    <div class="debug-title">Semantic Analysis Debug</div>
-                    <div class="debug-content" id="debugContent">
-                        <div class="debug-item">Enter a keyword to begin analysis...</div>
-                    </div>
-                </div>
-                
-                <div class="debug-panel">
-                    <div class="debug-title">System Status</div>
-                    <div class="debug-content">
-                        <div class="debug-item" id="statusDb">
-                            <span class="status-indicator status-loading"></span>
-                            Database: Initializing...
-                        </div>
-                        <div class="debug-item" id="statusProcessor">
-                            <span class="status-indicator status-ready"></span>
-                            Processor: Ready
-                        </div>
-                        <div class="debug-item" id="statusMatches">
-                            <span class="status-indicator"></span>
-                            Successful Matches: 0
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <div style="font-size: 3rem;">🌾</div>
+      <h1>Krishi Universal Semantic Search</h1>
+      <p class="subtitle">AI-powered contextual ecological and learning search</p>
     </div>
 
-    <!-- Load the JavaScript processor -->
-    <script src="universal-semantic-processor.js"></script>
+    <div class="main-content">
+      <div class="search-interface">
+        <div class="progress-container" style="text-align:center;margin-bottom:20px;">
+          <span class="progress-dot active" id="dot1"></span>
+          <span class="progress-dot" id="dot2"></span>
+          <span class="progress-dot" id="dot3"></span>
+          <span class="progress-dot" id="dot4"></span>
+        </div>
 
-    <script>
-        // Global variables
-        let semanticProcessor;
-        let userData = {
-            keyword: "",
-            semanticMatch: null,
-            answers: { context: null, approach: null, outcome: null },
-            searchResult: null
-        };
+        <div id="step1">
+          <div class="search-box">
+            <input id="keywordInput" type="text" placeholder="Enter keyword (e.g. organic farming, learn programming, climate action)...">
+            <button id="analyzeBtn">Analyze →</button>
+          </div>
+        </div>
 
-        // Initialize application when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeApplication();
-            
-            // Event listeners
-            document.getElementById('analyzeBtn').addEventListener('click', analyzeKeyword);
-            document.getElementById('keywordInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') analyzeKeyword();
-            });
-        });
+        <div id="step2" style="display:none;">
+          <div class="question-box">
+            <div id="question2Title"></div>
+            <div id="question2Options"></div>
+          </div>
+          <button class="next-btn" onclick="nextStep(2)" disabled>Next →</button>
+        </div>
 
-       // Initialize semantic processor
-async function initializeApplication() {
-    try {
-        updateDebugInfo("🚀 Starting Universal Semantic Processor...");
-        updateStatus('statusDb', 'loading', 'Database: Loading...');
-        
-        // Create processor instance
-        semanticProcessor = new UniversalSemanticProcessor();
-        
-        // Wait for initialization
-        setTimeout(() => {
-            const termCount = Object.keys(semanticProcessor.semanticDB.universal_semantic_vectors).length;
-            updateDebugInfo(`✅ System Ready! Loaded ${termCount} semantic terms`);
-            updateStatus('statusDb', 'ready', `Database: Loaded (${termCount} terms)`);
-            updateStatus('statusProcessor', 'ready', 'Processor: Active');
-            updateStatus('statusMatches', 'ready', 'Successful Matches: 0');
-            
-            console.log('🎉 Semantic processor ready:', termCount, 'terms');
-        }, 100);
-        
-    } catch (error) {
-        console.error("Initialization error:", error);
-        updateDebugInfo("❌ Error: " + error.message);
-        updateStatus('statusDb', 'error', 'Database: Error');
+        <div id="step3" style="display:none;">
+          <div class="question-box">
+            <div id="question3Title"></div>
+            <div id="question3Options"></div>
+          </div>
+          <button class="next-btn" onclick="nextStep(3)" disabled>Next →</button>
+        </div>
+
+        <div id="step4" style="display:none;">
+          <div class="question-box">
+            <div id="question4Title"></div>
+            <div id="question4Options"></div>
+          </div>
+          <button class="next-btn" onclick="generateFinalResults()">Get Results →</button>
+        </div>
+
+        <div id="results" style="display:none;">
+          <div class="results-container">
+            <div class="query-display">
+              <div>Original: "<span id="originalKeyword"></span>"</div>
+              <div><strong>Enhanced:</strong> "<span id="finalQuery"></span>"</div>
+            </div>
+            <div id="matchInfo" class="debug-item"></div>
+            <div class="debug-item" id="actionItems"></div>
+
+            <div class="search-tabs">
+              <button class="tab active" onclick="showPanel('google')">Google</button>
+              <button class="tab" onclick="showPanel('wiki')">Wikipedia</button>
+              <button class="tab" onclick="showPanel('youtube')">YouTube</button>
+              <button class="tab" onclick="showPanel('scholar')">Scholar</button>
+              <button class="tab" onclick="showPanel('amazon')">Amazon</button>
+              <button class="tab" onclick="showPanel('openlib')">OpenLibrary</button>
+              <button class="tab" onclick="showPanel('news')">News</button>
+              <button class="tab" onclick="showPanel('kids')">Kids Wiki</button>
+              <button class="tab" onclick="showPanel('images')">Images</button>
+              <button class="tab" onclick="showPanel('maps')">Maps</button>
+              <button class="tab" onclick="showPanel('ted')">TED</button>
+              <button class="tab" onclick="showPanel('archive')">Archive</button>
+            </div>
+
+            <div id="google" class="panel active"><a id="googleLink" target="_blank">Google Search</a></div>
+            <div id="wiki" class="panel"><a id="wikiLink" target="_blank">Wikipedia</a></div>
+            <div id="youtube" class="panel"><a id="youtubeLink" target="_blank">YouTube</a></div>
+            <div id="scholar" class="panel"><a id="scholarLink" target="_blank">Scholar</a></div>
+            <div id="amazon" class="panel"><a id="amazonLink" target="_blank">Amazon</a></div>
+            <div id="openlib" class="panel"><a id="openlibLink" target="_blank">OpenLibrary</a></div>
+            <div id="news" class="panel"><a id="newsLink" target="_blank">News</a></div>
+            <div id="kids" class="panel"><a id="kidsLink" target="_blank">Kids Wiki</a></div>
+            <div id="images" class="panel"><a id="imagesLink" target="_blank">Images</a></div>
+            <div id="maps" class="panel"><a id="mapsLink" target="_blank">Maps</a></div>
+            <div id="ted" class="panel"><a id="tedLink" target="_blank">TED</a></div>
+            <div id="archive" class="panel"><a id="archiveLink" target="_blank">Archive</a></div>
+          </div>
+          <button class="reset-btn" onclick="resetSearch()">Start New Search</button>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="debug-item" id="statusDb"><span class="status-indicator status-loading"></span>Database: Initializing...</div>
+        <div class="debug-item" id="statusProcessor"><span class="status-indicator status-loading"></span>Processor: Starting...</div>
+        <div class="debug-item" id="statusMatches"><span class="status-indicator"></span>Matches: 0</div>
+        <div class="debug-item" id="debugContent">Waiting for keyword...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="universal-semantic-processor.js"></script>
+  <script>
+    let userData = { keyword: "", answers: {}, searchResult: null };
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      await initializeApplication();
+      document.getElementById("analyzeBtn").addEventListener("click", analyzeKeyword);
+      document.getElementById("keywordInput").addEventListener("keypress", e => {
+        if (e.key === "Enter") analyzeKeyword();
+      });
+    });
+
+    async function initializeApplication() {
+      updateStatus("statusDb", "loading", "Database: Loading...");
+      const result = await semanticProcessor.initializeDatabase();
+      updateStatus("statusDb", "ready", `Database: Loaded (${result.count} terms${result.fallback ? " - Fallback" : ""})`);
+      updateStatus("statusProcessor", "ready", "Processor: Active");
+      document.getElementById("debugContent").innerText = "✅ System Ready. Enter keyword to begin.";
     }
-}
 
-        // Update status indicator
-        function updateStatus(elementId, status, text) {
-            const element = document.getElementById(elementId);
-            const indicator = element.querySelector('.status-indicator');
-            
-            indicator.className = 'status-indicator';
-            if (status === 'ready') indicator.classList.add('status-ready');
-            else if (status === 'loading') indicator.classList.add('status-loading');
-            else if (status === 'error') indicator.classList.add('status-error');
-            
-            element.innerHTML = indicator.outerHTML + ' ' + text;
-        }
+    function updateStatus(id, status, text) {
+      const el = document.getElementById(id);
+      const ind = document.createElement("span");
+      ind.classList.add("status-indicator");
+      ind.classList.add(status === "ready" ? "status-ready" : status === "error" ? "status-error" : "status-loading");
+      el.innerHTML = ind.outerHTML + " " + text;
+    }
 
-        // Main keyword analysis function
-        async function analyzeKeyword() {
-            const keyword = document.getElementById('keywordInput').value.trim();
-            
-            if (!keyword) {
-                alert("Please enter a keyword to analyze");
-                return;
-            }
+    function analyzeKeyword() {
+      const keyword = document.getElementById("keywordInput").value.trim();
+      if (!keyword) return alert("Enter a keyword");
+      userData.keyword = keyword;
 
-            if (!semanticProcessor) {
-                alert("Semantic processor is still initializing. Please wait...");
-                return;
-            }
+      const result = semanticProcessor.processUserSearch(keyword, userData);
+      userData.searchResult = result;
+      userData.semanticMatch = result.semanticMatch;
 
-            // Show loading and disable button
-            document.getElementById('loadingStep1').style.display = 'block';
-            document.getElementById('analyzeBtn').disabled = true;
-            document.getElementById('analyzeBtn').textContent = 'Analyzing...';
+      updateStatus("statusMatches", "ready", `Matches: ${semanticProcessor.searchHistory.length}`);
+      document.getElementById("debugContent").innerHTML = `<strong>Matched:</strong> ${result.semanticMatch.keyword}<br>Domain: ${result.semanticMatch.data.domain}<br>Confidence: ${(result.confidenceScore*100).toFixed(1)}%`;
 
-            try {
-                userData.keyword = keyword;
-                
-                updateDebugInfo(`🔍 Analyzing: "${keyword}"`);
-                
-                // Process search through semantic engine
-                userData.searchResult = semanticProcessor.processUserSearch(keyword, {
-                    experience_level: 'beginner',
-                    time_availability: 'moderate'
-                });
+      nextStep(1);
+      generateQuestions(result);
+    }
 
-                userData.semanticMatch = userData.searchResult.semanticMatch;
+    function generateQuestions(result) {
+      const q = result.contextualQuestions;
+      renderQuestion("question2Title", "question2Options", q.context, 2);
+      renderQuestion("question3Title", "question3Options", q.approach, 3);
+      renderQuestion("question4Title", "question4Options", q.outcome, 4);
+    }
 
-                // Update debug info with match details
-                const matchInfo = `
-                    <strong>Keyword:</strong> "${keyword}"<br>
-                    <strong>Matched:</strong> "${userData.semanticMatch.keyword}"<br>
-                    <strong>Domain:</strong> ${userData.semanticMatch.data.domain || 'General'}<br>
-                    <strong>Confidence:</strong> ${(userData.searchResult.confidenceScore * 100).toFixed(1)}%<br>
-                    <strong>Match Type:</strong> ${userData.semanticMatch.matchType || 'semantic'}
-                `;
-                updateDebugInfo(matchInfo);
+    function renderQuestion(titleId, optId, data, step) {
+      if (!data) return;
+      document.getElementById(titleId).innerText = data.title;
+      const opts = Object.entries(data.options)
+        .map(([val, txt]) => `<button class="option-btn" onclick="selectAnswer(${step}, '${val}', event)">${txt}</button>`)
+        .join("");
+      document.getElementById(optId).innerHTML = opts;
+    }
 
-                // Update matches counter
-                const matchesCount = semanticProcessor.searchHistory ? semanticProcessor.searchHistory.length : 1;
-                updateStatus('statusMatches', 'ready', `Successful Matches: ${matchesCount}`);
+    function selectAnswer(step, value, event) {
+      document.querySelectorAll(`#step${step} .option-btn`).forEach(b => b.classList.remove("selected"));
+      event.target.classList.add("selected");
+      if (step === 2) userData.answers.context = value;
+      if (step === 3) userData.answers.approach = value;
+      if (step === 4) userData.answers.outcome = value;
+      document.querySelector(`#step${step} .next-btn`).disabled = false;
+    }
 
-                // Move to next step after brief delay
-                setTimeout(() => {
-                    document.getElementById('loadingStep1').style.display = 'none';
-                    document.getElementById('analyzeBtn').disabled = false;
-                    document.getElementById('analyzeBtn').textContent = 'Analyze & Continue →';
-                    nextStep(1);
-                    generateQuestions();
-                }, 800);
+    function nextStep(current) {
+      document.getElementById(`step${current}`).style.display = "none";
+      document.getElementById(`step${current + 1}`).style.display = "block";
+      document.getElementById(`dot${current}`).classList.add("active");
+      document.getElementById(`dot${current + 1}`).classList.add("active");
+    }
 
-            } catch (error) {
-                console.error("Analysis error:", error);
-                updateDebugInfo("❌ Analysis failed: " + error.message);
-                document.getElementById('loadingStep1').style.display = 'none';
-                document.getElementById('analyzeBtn').disabled = false;
-                document.getElementById('analyzeBtn').textContent = 'Analyze & Continue →';
-            }
-        }
+    function generateFinalResults() {
+      document.getElementById("step4").style.display = "none";
+      document.getElementById("results").style.display = "block";
 
-        // Generate contextual questions based on semantic match
-        function generateQuestions() {
-            if (!userData.searchResult || !userData.searchResult.contextualQuestions) {
-                updateDebugInfo("⚠️ No questions generated - using fallback");
-                generateFallbackQuestions();
-                return;
-            }
+      const res = userData.searchResult;
+      document.getElementById("originalKeyword").innerText = userData.keyword;
+      document.getElementById("finalQuery").innerText = res.enhancedQuery;
+      document.getElementById("matchInfo").innerHTML = `Matched: <b>${res.semanticMatch.keyword}</b> (${res.semanticMatch.data.domain})`;
 
-            const questions = userData.searchResult.contextualQuestions;
-            
-            // Question 2: Context
-            if (questions.context) {
-                document.getElementById('question2Title').textContent = questions.context.title;
-                const options2 = document.getElementById('question2Options');
-                options2.innerHTML = '';
-                Object.entries(questions.context.options).forEach(([value, text]) => {
-                    options2.innerHTML += `<button class="option-btn" onclick="selectAnswer(2, '${value}')">${text}</button>`;
-                });
-            }
+      document.getElementById("actionItems").innerHTML = res.recommendedActions.map(a => `<div>• ${a}</div>`).join("");
+      updateAllSearchLinks(res.enhancedQuery, userData.keyword);
+    }
 
-            // Question 3: Approach
-            if (questions.approach) {
-                document.getElementById('question3Title').textContent = questions.approach.title;
-                const options3 = document.getElementById('question3Options');
-                options3.innerHTML = '';
-                Object.entries(questions.approach.options).forEach(([value, text]) => {
-                    options3.innerHTML += `<button class="option-btn" onclick="selectAnswer(3, '${value}')">${text}</button>`;
-                });
-            }
+    function showPanel(id) {
+      document.querySelectorAll(".panel").forEach(p => (p.style.display = "none"));
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      document.getElementById(id).style.display = "block";
+      event.target.classList.add("active");
+    }
 
-            // Question 4: Outcome
-            if (questions.outcome) {
-                document.getElementById('question4Title').textContent = questions.outcome.title;
-                const options4 = document.getElementById('question4Options');
-                options4.innerHTML = '';
-                Object.entries(questions.outcome.options).forEach(([value, text]) => {
-                    options4.innerHTML += `<button class="option-btn" onclick="selectAnswer(4, '${value}')">${text}</button>`;
-                });
-            }
+    function resetSearch() {
+      location.reload();
+    }
 
-            updateDebugInfo("✅ Questions generated successfully");
-        }
+    // ✅ Enhanced ecological search link builder
+    function updateAllSearchLinks(enhancedQuery, originalQuery) {
+      const e = encodeURIComponent;
+      const ecologicalQuery = enhancedQuery + " sustainable organic regenerative";
 
-        // Fallback questions if semantic matching fails
-        function generateFallbackQuestions() {
-            // Context question
-            document.getElementById('question2Title').textContent = "🌍 What area are you exploring?";
-            document.getElementById('question2Options').innerHTML = `
-                <button class="option-btn" onclick="selectAnswer(2, 'environment')">Environmental solutions</button>
-                <button class="option-btn" onclick="selectAnswer(2, 'health')">Health & wellness</button>
-                <button class="option-btn" onclick="selectAnswer(2, 'learning')">Learning & skills</button>
-                <button class="option-btn" onclick="selectAnswer(2, 'community')">Community development</button>
-            `;
-
-            // Approach question
-            document.getElementById('question3Title').textContent = "🔄 How do you want to proceed?";
-            document.getElementById('question3Options').innerHTML = `
-                <button class="option-btn" onclick="selectAnswer(3, 'learn')">Learn & understand</button>
-                <button class="option-btn" onclick="selectAnswer(3, 'action')">Take practical action</button>
-                <button class="option-btn" onclick="selectAnswer(3, 'community')">Join community efforts</button>
-                <button class="option-btn" onclick="selectAnswer(3, 'research')">Study & research</button>
-            `;
-
-            // Outcome question
-            document.getElementById('question4Title').textContent = "💫 What outcome matters most?";
-            document.getElementById('question4Options').innerHTML = `
-                <button class="option-btn" onclick="selectAnswer(4, 'personal')">Personal improvement</button>
-                <button class="option-btn" onclick="selectAnswer(4, 'community')">Community benefit</button>
-                <button class="option-btn" onclick="selectAnswer(4, 'environment')">Environmental impact</button>
-                <button class="option-btn" onclick="selectAnswer(4, 'knowledge')">Knowledge & understanding</button>
-            `;
-        }
-
-        // Handle answer selection
-        function selectAnswer(step, value) {
-            // Remove selected class from all buttons in current step
-            const currentStep = document.getElementById(`step${step}`);
-            const buttons = currentStep.querySelectorAll('.option-btn');
-            buttons.forEach(btn => btn.classList.remove('selected'));
-            
-            // Add selected class to clicked button
-            event.target.classList.add('selected');
-            
-            // Store answer
-            if (step === 2) userData.answers.context = value;
-            if (step === 3) userData.answers.approach = value;
-            if (step === 4) userData.answers.outcome = value;
-            
-            // Enable next button
-            const nextBtn = currentStep.querySelector('.next-btn');
-            nextBtn.disabled = false;
-
-            // Update debug
-            updateDebugInfo(`✅ Step ${step} selected: ${value}`);
-        }
-
-        // Navigate to next step
-        function nextStep(currentStep) {
-            document.getElementById(`step${currentStep}`).classList.remove('active');
-            document.getElementById(`step${currentStep + 1}`).classList.add('active');
-            
-            // Update progress dots
-            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-                const dotStep = parseInt(dot.getAttribute('data-step'));
-                dot.classList.remove('active', 'completed');
-                if (dotStep <= currentStep + 1) {
-                    dot.classList.add('active');
-                    if (dotStep <= currentStep) {
-                        dot.classList.add('completed');
-                    }
-                }
-            });
-        }
-
-        // Generate final results
-        function generateFinalResults() {
-            document.getElementById('step4').classList.remove('active');
-            document.getElementById('results').classList.add('active');
-            
-            // Mark all progress dots as completed
-            document.querySelectorAll('.progress-dot').forEach(dot => {
-                dot.classList.add('active', 'completed');
-            });
-
-            // Update results display
-            document.getElementById('originalKeyword').textContent = userData.keyword;
-            document.getElementById('finalQuery').textContent = userData.searchResult.enhancedQuery;
-            
-            // Build match info
-            const match = userData.semanticMatch;
-            const confidence = userData.searchResult.confidenceScore ? (userData.searchResult.confidenceScore * 100).toFixed(1) : '85.0';
-            document.getElementById('matchInfo').innerHTML = `
-                <strong>Semantic Analysis:</strong><br>
-                • Matched: "${match.keyword}" (${match.matchType || 'semantic'})<br>
-                • Domain: ${match.data.domain || 'General Ecological'}<br>
-                • Confidence: ${confidence}%<br>
-                • User Context: ${userData.answers.context || 'general'}
-            `;
-            
-            // Generate and display actions
-            const actions = userData.searchResult.recommendedActions || ['Research options', 'Join relevant community', 'Start with small steps'];
-            document.getElementById('actionItems').innerHTML = 
-                actions.map(action => `<div class="action-item">${action}</div>`).join('');
-
-            // Update all search links
-            updateAllSearchLinks(userData.searchResult.enhancedQuery, userData.keyword);
-
-            // Final debug update
-            const matchesCount = semanticProcessor.searchHistory ? semanticProcessor.searchHistory.length : 1;
-            updateDebugInfo(`
-                <strong>🎊 Final Results Generated</strong><br>
-                • Enhanced Query: "${userData.searchResult.enhancedQuery}"<br>
-                • Actions: ${actions.length} recommended<br>
-                • Confidence: ${confidence}%<br>
-                • Total Searches: ${matchesCount}
-            `);
-        }
-
-        // Update all search platform links
-        function updateAllSearchLinks(enhancedQuery, originalQuery) {
-            const e = encodeURIComponent;
-            
-            // Enhanced ecological searches
-            document.getElementById('googleLink').href = `https://www.google.com/search?q=${e(enhancedQuery)}`;
-            document.getElementById('googleLink').textContent = `Google: ${enhancedQuery}`;
-            
-            document.getElementById('scholarLink').href = `https://scholar.google.com/scholar?q=${e(enhancedQuery)}`;
-            document.getElementById('scholarLink').textContent = `Scholar: ${enhancedQuery}`;
-            
-            document.getElementById('amazonLink').href = `https://www.amazon.com/s?k=${e(enhancedQuery + ' books')}`;
-            document.getElementById('amazonLink').textContent = `Amazon: ${enhancedQuery} books`;
-            
-            document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(enhancedQuery + ' tutorial')}`;
-            document.getElementById('youtubeLink').textContent = `YouTube: ${enhancedQuery} tutorials`;
-            
-            document.getElementById('newsLink').href = `https://news.google.com/search?q=${e(enhancedQuery)}`;
-            document.getElementById('newsLink').textContent = `News: ${enhancedQuery}`;
-            
-            // API-based searches
-            document.getElementById('kidsLink').href = `https://kids.miraheze.org/w/index.php?search=${e(enhancedQuery)}`;
-            document.getElementById('kidsLink').textContent = `Kids Wiki: ${enhancedQuery}`;
-            
-            document.getElementById('wikiLink').href = `https://en.wikipedia.org/w/index.php?search=${e(enhancedQuery)}`;
-            document.getElementById('wikiLink').textContent = `Wikipedia: ${enhancedQuery}`;
-            
-            document.getElementById('openlibLink').href = `https://openlibrary.org/search?q=${e(enhancedQuery)}`;
-            document.getElementById('openlibLink').textContent = `OpenLibrary: ${enhancedQuery}`;
-            
-            // Utility searches
-            document.getElementById('weatherLink').href = `https://www.google.com/search?q=weather+${e(originalQuery)}`;
-            document.getElementById('weatherLink').textContent = `Weather for ${originalQuery}`;
-            
-            document.getElementById('stocksLink').href = `https://www.google.com/finance?q=${e(originalQuery)}`;
-            document.getElementById('stocksLink').textContent = `Finance: ${originalQuery}`;
-            
-            document.getElementById('imagesLink').href = `https://www.google.com/search?tbm=isch&q=${e(enhancedQuery)}`;
-            document.getElementById('imagesLink').textContent = `Images: ${enhancedQuery}`;
-            
-            document.getElementById('mapsLink').href = `https://www.google.com/maps/search/${e(originalQuery)}`;
-            document.getElementById('mapsLink').textContent = `Maps: ${originalQuery} resources`;
-            
-            document.getElementById('translateLink').href = `https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}`;
-            document.getElementById('translateLink').textContent = `Translate: ${originalQuery}`;
-            
-            document.getElementById('tedLink').href = `https://www.ted.com/search?q=${e(enhancedQuery)}`;
-            document.getElementById('tedLink').textContent = `TED Talks: ${enhancedQuery}`;
-            
-            document.getElementById('archiveLink').href = `https://archive.org/search.php?query=${e(enhancedQuery)}`;
-            document.getElementById('archiveLink').textContent = `Archive.org: ${enhancedQuery}`;
-        }
-
-        // Show specific panel in results
-        function showPanel(panelId) {
-            document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(panelId).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Reset the entire search process
-        function resetSearch() {
-            userData = { 
-                keyword: "", 
-                semanticMatch: null, 
-                answers: { context: null, approach: null, outcome: null },
-                searchResult: null
-            };
-            
-            document.getElementById('keywordInput').value = '';
-            document.getElementById('debugContent').innerHTML = 'Enter a keyword to begin analysis...';
-            
-            // Reset UI
-            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
-            document.querySelectorAll('.next-btn').forEach(btn => btn.disabled = true);
-            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-                dot.classList.remove('completed');
-                dot.classList.toggle('active', index === 0);
-            });
-            
-            document.getElementById('step1').classList.add('active');
-            
-            updateDebugInfo("🔄 Search reset. Ready for new query.");
-        }
-
-        // Update debug information
-        function updateDebugInfo(content) {
-            document.getElementById('debugContent').innerHTML = content;
-        }
-    </script>
+      document.getElementById("googleLink").href = `https://www.google.com/search?q=${e(ecologicalQuery)}`;
+      document.getElementById("scholarLink").href = `https://scholar.google.com/scholar?q=${e(ecologicalQuery + ' research study')}`;
+      document.getElementById("amazonLink").href = `https://www.amazon.com/s?k=${e(ecologicalQuery + ' books sustainable')}`;
+      document.getElementById("youtubeLink").href = `https://www.youtube.com/results?search_query=${e(ecologicalQuery + ' tutorial beginner sustainable')}`;
+      document.getElementById("newsLink").href = `https://news.google.com/search?q=${e(ecologicalQuery + ' latest news')}`;
+      document.getElementById("kidsLink").href = `https://kids.miraheze.org/w/index.php?search=${e(ecologicalQuery)}`;
+      document.getElementById("wikiLink").href = `https://en.wikipedia.org/w/index.php?search=${e(ecologicalQuery)}`;
+      document.getElementById("openlibLink").href = `https://openlibrary.org/search?q=${e(ecologicalQuery + ' sustainable')}`;
+      document.getElementById("weatherLink").href = `https://www.google.com/search?q=weather+${e(originalQuery)}`;
+      document.getElementById("stocksLink").href = `https://www.google.com/finance?q=${e(originalQuery + ' ESG sustainable')}`;
+      document.getElementById("imagesLink").href = `https://www.google.com/search?tbm=isch&q=${e(ecologicalQuery)}`;
+      document.getElementById("mapsLink").href = `https://www.google.com/maps/search/${e(originalQuery + ' organic community')}`;
+      document.getElementById("translateLink").href = `https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}`;
+      document.getElementById("tedLink").href = `https://www.ted.com/search?q=${e(ecologicalQuery + ' sustainability')}`;
+      document.getElementById("archiveLink").href = `https://archive.org/search.php?query=${e(ecologicalQuery + ' sustainable agriculture ecology')}`;
+    }
+  </script>
 </body>
 </html>
