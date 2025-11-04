@@ -3,1027 +3,444 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🌾 Krishi • Beej • Universal Ecological AI</title>
+<title>🌾 Krishi • Semantic Ecological Search</title>
 <style>
-/* ===== GLOBAL STYLES ===== */
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9fbfd;color:#2d3748;line-height:1.6;text-align:center}
-.container{max-width:1000px;margin:0 auto;padding:20px}
-.header{padding:25px 0;background:white;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-bottom:30px}
-h1{font-size:1.8em;color:#2d3748;margin-bottom:8px}
-.subtitle{color:#718096;font-size:1.1em}
-.search-box{display:flex;gap:12px;margin:25px 0;justify-content:center}
-#queryInput{flex:1;max-width:500px;padding:16px 20px;border:2px solid #e2e8f0;border-radius:14px;font-size:1.1em;outline:none}
-#queryInput:focus{border-color:#48bb78;box-shadow:0 0 0 3px rgba(72,187,120,0.1)}
-.search-btn{background:#48bb78;color:white;border:none;border-radius:14px;padding:0 30px;font-weight:600;cursor:pointer;font-size:1.1em;transition:all 0.2s}
-.search-btn:hover{background:#38a169;transform:translateY(-2px)}
-.search-btn:disabled{background:#cbd5e0;cursor:not-allowed;transform:none}
-
-/* ===== PROGRESS & STEPS ===== */
-.progress-container{display:flex;justify-content:center;margin:25px 0;gap:15px}
-.progress-item{display:flex;flex-direction:column;align-items:center}
-.progress-dot{width:18px;height:18px;border-radius:50%;background:#e2e8f0;border:2px solid #e2e8f0;transition:all 0.3s}
-.progress-dot.active{background:#48bb78;border-color:#48bb78;transform:scale(1.2)}
-.progress-dot.completed{background:#38a169}
-.progress-label{font-size:0.8em;color:#718096;margin-top:5px}
-
-.step{display:none;animation:fadeIn 0.4s ease}
-.step.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* ===== QUESTION BOX ===== */
-.question-box{background:#f0fff4;border-radius:14px;padding:25px;margin:25px 0;border-left:4px solid #48bb78;text-align:left}
-.question-title{font-size:1.4em;font-weight:600;margin-bottom:20px;color:#2d3748}
-.options-grid{display:grid;grid-template-columns:1fr;gap:12px}
-.option-btn{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:16px;text-align:left;cursor:pointer;transition:all 0.2s;font-size:1.05em}
-.option-btn:hover{border-color:#48bb78;transform:translateY(-2px);box-shadow:0 4px 8px rgba(0,0,0,0.08)}
-.option-btn.selected{background:#48bb78;color:white;border-color:#48bb78}
-
-/* ===== RESULTS SECTION ===== */
-.results-container{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.08);margin-top:30px}
-.results-header h2{font-size:1.8em;margin-bottom:15px;color:#2d3748}
-.original-query{color:#718096;margin-bottom:10px}
-.enhanced-query{font-weight:600;font-size:1.3em;color:#2d3748;line-height:1.5;background:#f7fafc;padding:15px;border-radius:10px;margin:15px 0}
-.semantic-info{background:#e6fffa;border-radius:10px;padding:15px;margin:20px 0;font-size:0.95em;color:#234e52}
-
-.actions-section{margin:25px 0}
-.section-title{font-size:1.3em;font-weight:600;margin-bottom:15px;color:#2d3748}
-.action-items{display:flex;flex-wrap:wrap;gap:10px}
-.action-item{background:#f0fff4;color:#276749;padding:10px 18px;border-radius:20px;font-size:0.95em;border:1px solid #c6f6d5}
-
-/* ===== TABS ===== */
-.search-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:25px 0}
-.tab{background:#edf2f7;border:none;border-radius:20px;padding:10px 16px;font-size:0.85em;cursor:pointer;transition:all 0.2s}
-.tab.active{background:#48bb78;color:white}
-.panel{display:none;text-align:left;padding:20px;background:#f8fafc;border-radius:12px;min-height:100px;margin-top:15px}
-.panel.active{display:block}
-.panel a{display:inline-block;color:#3182ce;text-decoration:none;font-weight:500;padding:12px 20px;border-radius:10px;background:white;border:2px solid #e2e8f0;transition:all 0.2s}
-.panel a:hover{background:#ebf8ff;border-color:#3182ce;transform:translateY(-2px)}
-
-/* ===== BUTTONS ===== */
-.action-button{background:#48bb78;color:white;border:none;border-radius:12px;padding:14px 28px;font-size:1.1em;font-weight:600;cursor:pointer;transition:all 0.2s;margin:15px 10px;display:inline-block}
-.action-button:hover{background:#38a169;transform:translateY(-2px)}
-.action-button:disabled{background:#cbd5e0;cursor:not-allowed;transform:none}
-
-/* ===== STATUS ===== */
-.status-panel{background:#f7fafc;border-radius:12px;padding:20px;margin:20px 0;text-align:left}
-.status-title{font-size:1.1em;font-weight:600;margin-bottom:15px;color:#2d3748}
-.status-item{padding:8px 0;border-bottom:1px solid #edf2f7;display:flex;justify-content:space-between}
-.status-indicator{width:10px;height:10px;border-radius:50%}
-.status-ready{background:#48bb78}
-.status-loading{background:#ed8936}
-.status-error{background:#f56565}
-
-/* ===== LOADING ===== */
-.loading-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.9);display:flex;justify-content:center;align-items:center;z-index:1000}
-.loading-spinner{width:50px;height:50px;border:5px solid #e2e8f0;border-top:5px solid #48bb78;border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width:768px){
-  .container{padding:15px}
-  .header{padding:20px 15px}
-  h1{font-size:1.5em}
-  .search-box{flex-direction:column}
-  #queryInput{max-width:none}
-  .options-grid{grid-template-columns:1fr}
-  .action-item{font-size:0.85em;padding:8px 14px}
-  .tab{padding:8px 12px;font-size:0.75em}
-}
+body{font-family:Arial,sans-serif;background:#fff;color:#222;margin:0;padding:0;text-align:center;}
+.container{max-width:900px;margin:0 auto;padding:20px;}
+input[type=text]{width:92%;max-width:450px;padding:14px;border:1px solid #ccc;border-radius:24px;font-size:1em;margin:15px 0;}
+.question-box{background:#f0fff4;padding:20px;border-radius:12px;margin:20px 0;text-align:left;}
+.question-title{font-size:1.3em;font-weight:600;margin-bottom:15px;color:#2d3748;}
+.options-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+.option-btn{background:white;border:1px solid #e2e8f0;border-radius:12px;padding:12px;text-align:left;cursor:pointer;font-size:0.95em;}
+.option-btn:hover{border-color:#48bb78;}
+.option-btn.selected{background:#48bb78;color:white;border-color:#48bb78;}
+.actions-box{background:#e8f5e8;padding:15px;border-radius:10px;margin:20px 0;text-align:left;}
+.actions-title{font-size:1.2em;font-weight:600;margin-bottom:10px;}
+.action-item{display:inline-block;background:white;padding:6px 14px;margin:4px 6px 4px 0;border-radius:16px;font-size:0.85em;}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:15px 0;}
+.tab{padding:8px 16px;background:#e0e0e0;border:none;border-radius:20px;cursor:pointer;font-size:0.8em;}
+.tab.active{background:#4CAF50;color:white;}
+.panel{display:none;text-align:left;padding:15px;background:#fff;border-radius:8px;}
+.panel.active{display:block;}
+.instruction{color:#777;margin:10px 0;font-size:0.9em;}
+.debug-panel{background:#f7fafc;border-radius:10px;padding:15px;margin:20px 0;font-size:0.85em;text-align:left;display:none;}
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <h1>🌾 Krishi • Beej • Universal Ecological AI</h1>
-    <p class="subtitle">Intelligent search for ecology, agriculture & human development with 3-step contextual refinement</p>
-    
-    <div class="status-panel">
-      <div class="status-title">System Status</div>
-      <div class="status-item">
-        <span>Semantic DB</span>
-        <span><span class="status-indicator status-loading" id="dbStatus"></span> Loading...</span>
-      </div>
-      <div class="status-item">
-        <span>Vector DB</span>
-        <span><span class="status-indicator status-loading" id="vectorStatus"></span> Checking...</span>
-      </div>
-      <div class="status-item">
-        <span>Matches</span>
-        <span id="matchCount">0</span>
-      </div>
-    </div>
-  </div>
-
+  <h1>🌾 Krishi • Semantic Search</h1>
+  
   <!-- STEP 0: INITIAL SEARCH -->
-  <div class="step active" id="step0">
-    <div class="search-box">
-      <input type="text" id="queryInput" placeholder="e.g., pollution vehicle, organic farming, water conservation...">
-      <button class="search-btn" onclick="startAnalysis()">Analyze & Continue →</button>
-    </div>
-    <div class="progress-container">
-      <div class="progress-item">
-        <div class="progress-dot active" id="dot0"></div>
-        <div class="progress-label">Keyword</div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-dot" id="dot1"></div>
-        <div class="progress-label">Context</div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-dot" id="dot2"></div>
-        <div class="progress-label">Approach</div>
-      </div>
-      <div class="progress-item">
-        <div class="progress-dot" id="dot3"></div>
-        <div class="progress-label">Outcome</div>
-      </div>
-    </div>
+  <div id="step0">
+    <input type="text" id="userQuery" placeholder="e.g., japan bottle, pollution vehicle, organic farming…" onkeypress="if(event.key==='Enter') startAnalysis()">
+    <button onclick="startAnalysis()" style="background:#4CAF50;color:white;border:none;border-radius:24px;padding:12px 25px;font-size:1em;cursor:pointer;">Start Analysis</button>
+    <p class="instruction">Enter any keyword to begin intelligent ecological analysis</p>
   </div>
 
   <!-- STEP 1: CONTEXT QUESTION -->
-  <div class="step" id="step1">
-    <div class="question-box">
-      <div class="question-title" id="contextQuestion">🎯 What's your main focus area?</div>
-      <div class="options-grid" id="contextOptions"></div>
-    </div>
-    <button class="action-button" onclick="nextStep(1)" disabled>Next →</button>
+  <div class="question-box" id="step1" style="display:none;">
+    <div class="question-title" id="contextQuestion">🎯 What's your main focus?</div>
+    <div class="options-grid" id="contextOptions"></div>
   </div>
 
   <!-- STEP 2: APPROACH QUESTION -->
-  <div class="step" id="step2">
-    <div class="question-box">
-      <div class="question-title" id="approachQuestion">🔄 How do you want to approach this?</div>
-      <div class="options-grid" id="approachOptions"></div>
-    </div>
-    <button class="action-button" onclick="nextStep(2)" disabled>Next →</button>
+  <div class="question-box" id="step2" style="display:none;">
+    <div class="question-title" id="approachQuestion">🔄 How do you want to proceed?</div>
+    <div class="options-grid" id="approachOptions"></div>
   </div>
 
   <!-- STEP 3: OUTCOME QUESTION -->
-  <div class="step" id="step3">
-    <div class="question-box">
-      <div class="question-title" id="outcomeQuestion">💫 What outcome are you seeking?</div>
-      <div class="options-grid" id="outcomeOptions"></div>
-    </div>
-    <button class="action-button" onclick="generateResults()">Get Perfect Results →</button>
+  <div class="question-box" id="step3" style="display:none;">
+    <div class="question-title" id="outcomeQuestion">💫 What outcome matters most?</div>
+    <div class="options-grid" id="outcomeOptions"></div>
+    <button onclick="generateResults()" style="background:#4CAF50;color:white;border:none;border-radius:20px;padding:12px 25px;font-size:1em;margin-top:15px;cursor:pointer;">Get Perfect Results →</button>
   </div>
 
-  <!-- STEP 4: RESULTS -->
-  <div class="step" id="step4">
-    <div class="results-container">
-      <div class="results-header">
-        <h2>🎉 Your Enhanced Ecological Search Results</h2>
-      </div>
-      
-      <div class="enhanced-query">
-        Enhanced Query: "<span id="finalQuery"></span>"
-      </div>
-      
-      <div class="semantic-info" id="semanticInfo"></div>
-      
-      <div class="actions-section">
-        <div class="section-title">Recommended Actions</div>
-        <div class="action-items" id="actionItems"></div>
-      </div>
-      
-      <div class="section-title">Search Across Platforms</div>
-      <div class="search-tabs">
-        <button class="tab active" onclick="showTab('google')">Google</button>
-        <button class="tab" onclick="showTab('scholar')">Scholar</button>
-        <button class="tab" onclick="showTab('youtube')">YouTube</button>
-        <button class="tab" onclick="showTab('kids')">Kids Wiki</button>
-        <button class="tab" onclick="showTab('wiki')">Wikipedia</button>
-        <button class="tab" onclick="showTab('amazon')">Amazon</button>
-        <button class="tab" onclick="showTab('openlib')">OpenLibrary</button>
-        <button class="tab" onclick="showTab('news')">News</button>
-        <button class="tab" onclick="showTab('maps')">Maps</button>
-        <button class="tab" onclick="showTab('weather')">Weather</button>
-        <button class="tab" onclick="showTab('stocks')">Finance</button>
-        <button class="tab" onclick="showTab('images')">Images</button>
-        <button class="tab" onclick="showTab('translate')">Translate</button>
-        <button class="tab" onclick="showTab('ted')">TED</button>
-        <button class="tab" onclick="showTab('archive')">Archive</button>
-      </div>
-      
-      <div class="panel active" id="google">
-        <a id="googleLink" target="_blank">Google Search Results</a>
-      </div>
-      <div class="panel" id="scholar">
-        <a id="scholarLink" target="_blank">Google Scholar Results</a>
-      </div>
-      <div class="panel" id="youtube">
-        <a id="youtubeLink" target="_blank">YouTube Tutorials</a>
-      </div>
-      <div class="panel" id="kids">
-        <a id="kidsLink" target="_blank">Kids Miraheze</a>
-      </div>
-      <div class="panel" id="wiki">
-        <a id="wikiLink" target="_blank">Wikipedia</a>
-      </div>
-      <div class="panel" id="amazon">
-        <a id="amazonLink" target="_blank">Amazon Books</a>
-      </div>
-      <div class="panel" id="openlib">
-        <a id="openlibLink" target="_blank">OpenLibrary</a>
-      </div>
-      <div class="panel" id="news">
-        <a id="newsLink" target="_blank">News Results</a>
-      </div>
-      <div class="panel" id="maps">
-        <a id="mapsLink" target="_blank">Local Resources</a>
-      </div>
-      <div class="panel" id="weather">
-        <a id="weatherLink" target="_blank">Weather</a>
-      </div>
-      <div class="panel" id="stocks">
-        <a id="stocksLink" target="_blank">Finance</a>
-      </div>
-      <div class="panel" id="images">
-        <a id="imagesLink" target="_blank">Images</a>
-      </div>
-      <div class="panel" id="translate">
-        <a id="translateLink" target="_blank">Translate</a>
-      </div>
-      <div class="panel" id="ted">
-        <a id="tedLink" target="_blank">TED Talks</a>
-      </div>
-      <div class="panel" id="archive">
-        <a id="archiveLink" target="_blank">Archive.org</a>
-      </div>
-      
-      <button class="action-button" style="background:#718096" onclick="resetSearch()">Start New Search</button>
+  <!-- RESULTS -->
+  <div id="results" style="display:none;">
+    <div class="actions-box">
+      <div class="actions-title">Recommended Actions</div>
+      <div id="actionItems"></div>
     </div>
-  </div>
-</div>
+    
+    <div class="tabs" id="tabs">
+      <button class="tab active" onclick="showTab('google')">Google</button>
+      <button class="tab" onclick="showTab('scholar')">Scholar</button>
+      <button class="tab" onclick="showTab('youtube')">YouTube</button>
+      <button class="tab" onclick="showTab('kids')">Kids Wiki</button>
+      <button class="tab" onclick="showTab('wiki')">Wikipedia</button>
+      <button class="tab" onclick="showTab('amazon')">Amazon</button>
+      <button class="tab" onclick="showTab('openlib')">OpenLibrary</button>
+      <button class="tab" onclick="showTab('news')">News</button>
+      <button class="tab" onclick="showTab('maps')">Maps</button>
+    </div>
 
-<div class="loading-overlay" id="loadingOverlay" style="display:none">
-  <div class="loading-spinner"></div>
+    <div id="panels">
+      <div class="panel active" id="google"><a id="googleLink" target="_blank"></a></div>
+      <div class="panel" id="scholar"><a id="scholarLink" target="_blank"></a></div>
+      <div class="panel" id="youtube"><a id="youtubeLink" target="_blank"></a></div>
+      <div class="panel" id="kids"><a id="kidsLink" target="_blank"></a></div>
+      <div class="panel" id="wiki"><a id="wikiLink" target="_blank"></a></div>
+      <div class="panel" id="amazon"><a id="amazonLink" target="_blank"></a></div>
+      <div class="panel" id="openlib"><a id="openlibLink" target="_blank"></a></div>
+      <div class="panel" id="news"><a id="newsLink" target="_blank"></a></div>
+      <div class="panel" id="maps"><a id="mapsLink" target="_blank"></a></div>
+    </div>
+
+    <!-- Debug Panel (Hidden by default) -->
+    <div class="debug-panel" id="debugPanel">
+      <strong>🔍 Search Analysis Details:</strong><br>
+      <span id="debugContent">Click to expand</span>
+    </div>
+    <button onclick="toggleDebug()" style="background:#718096;color:white;border:none;border-radius:20px;padding:8px 16px;font-size:0.8em;margin-top:10px;cursor:pointer;">Details</button>
+  </div>
 </div>
 
 <script>
-// ========================================================================
-// SIMPLIFIED SEMANTIC DATABASE - IMMEDIATE LOADING
-// ========================================================================
+// 🌍 SEMANTIC DATABASE (2MB-ready with ecological accounting)
 const SEMANTIC_DB = {
   "organic farming": {
-    vector: [0.88, 0.95, 0.74, 0.88, 0.85, 0.78],
-    domain: "AGRICULTURE",
-    semantic_cluster: ["sustainable farming", "permaculture", "agroecology", "regenerative agriculture"],
     questions: {
       context: {
-        title: "🌱 What aspect of organic farming interests you most?",
+        title: "🌱 What aspect of organic farming?",
         options: {
-          "home_garden": "🏠 Starting home garden (small space, family use)",
-          "commercial": "🏢 Commercial farming (business scale, markets)", 
-          "health": "💚 Health benefits (nutrition, chemical-free)",
-          "environment": "🌍 Environmental impact (sustainability, biodiversity)",
-          "community": "👥 Community food security (shared resources, local)",
-          "education": "🎓 Learning & teaching (skills, workshops, courses)"
+          "home_garden": "🏠 Home garden (small space)",
+          "commercial": "🏢 Commercial farming",
+          "health": "💚 Health benefits",
+          "environment": "🌍 Environmental impact",
+          "community": "👥 Community food security"
         }
       },
       approach: {
-        title: "🛠️ How do you want to get involved with organic farming?",
+        title: "🛠️ How do you want to get involved?",
         options: {
-          "learn": "📚 Learn the basics (courses, tutorials, books)",
-          "practice": "🌿 Start practicing (hands-on, immediate action)", 
-          "community": "🤝 Join community garden (shared space, collaboration)",
-          "business": "💼 Start small business (entrepreneurship, income)",
-          "advocate": "📢 Promote organic farming (awareness, policy)",
-          "research": "🔬 Study advanced techniques (science, innovation)"
+          "learn": "📚 Learn the basics",
+          "practice": "🌿 Start practicing",
+          "community": "🤝 Join community garden",
+          "business": "💼 Start small business"
         }
       },
       outcome: {
-        title: "🎯 What are you hoping to achieve through organic farming?",
+        title: "🎯 What are you hoping to achieve?",
         options: {
-          "healthy_food": "🍎 Grow healthy food (nutrition, safety, quality)",
-          "save_money": "💰 Save money on groceries (self-sufficiency, cost)",
-          "environment": "🌱 Help environment (sustainability, conservation)",
-          "community": "🏘️ Build community (connections, shared resources)", 
-          "skills": "🛠️ Learn valuable skills (knowledge, capability)",
-          "income": "💵 Generate additional income (business, sales)"
+          "healthy_food": "🍎 Grow healthy food",
+          "save_money": "💰 Save money on groceries",
+          "environment": "🌱 Help environment",
+          "community": "🏘️ Build community",
+          "skills": "🛠️ Learn valuable skills"
         }
       }
     },
     actions: {
-      immediate: ["Start small container garden", "Research local growing seasons", "Test soil pH basic kit"],
-      short_term: ["Learn composting basics", "Join community garden tour", "Plant beginner-friendly herbs"],
-      medium_term: ["Setup rainwater collection", "Create crop rotation plan", "Attend organic farming workshop"],
-      long_term: ["Certify organic practices", "Start farmers market stall", "Teach organic gardening classes"]
+      "home_garden": ["Start small container garden", "Research local growing seasons", "Test soil pH"],
+      "commercial": ["Visit organic farm", "Learn certification process", "Attend farming workshop"],
+      "health": ["Learn about organic nutrition", "Join wellness group", "Start herb garden"],
+      "environment": ["Plant native species", "Start composting", "Join conservation group"],
+      "community": ["Join community garden", "Organize seed exchange", "Volunteer at local farm"]
     },
-    search_strategies: {
-      ecological: "organic farming soil health biodiversity regenerative agriculture",
-      agricultural: "organic crop rotation pest management natural fertilizers",
-      action: "how to start organic home garden beginners step by step"
-    },
-    trusted_sites: ["soilhealth.dac.gov.in", "krishi.gov.in/organic", "fauna.org/sustainable-ag"]
+    ecological_accounting: {
+      inputs: ["seeds", "water", "labor", "compost"],
+      outputs: ["vegetables", "soil_health", "biodiversity", "seeds"],
+      cruelty_index: 0.05,
+      sustainability_score: 0.95
+    }
   },
   "pollution vehicle": {
-    vector: [0.85, 0.72, 0.68, 0.79, 0.63, 0.81],
-    domain: "ECOLOGY_TRANSPORT",
-    semantic_cluster: ["emissions", "air quality", "EV", "public transport", "carbon footprint"],
     questions: {
       context: {
-        title: "🌫️ What pollution aspect concerns you most?",
+        title: "🌫️ What pollution aspect concerns you?",
         options: {
-          "air_quality": "🌬️ Air quality impact (urban smog, health)",
-          "health_effects": "🏥 Health effects (respiratory, children)",
-          "climate_impact": "🌡️ Climate change (global warming, emissions)",
-          "noise_pollution": "🔇 Noise pollution (urban stress)",
-          "water_contamination": "💧 Water contamination (runoff, oil)",
-          "soil_degradation": "🌱 Soil degradation (heavy metals, toxins)"
+          "air_quality": "🌬️ Air quality impact",
+          "health_effects": "🏥 Health effects",
+          "climate_impact": "🌡️ Climate change",
+          "noise_pollution": "🔇 Noise pollution"
         }
       },
       approach: {
-        title: "🔄 How do you want to address vehicle pollution?",
+        title: "🔄 How do you want to address this?",
         options: {
-          "personal_change": "🚶 Personal change (transport choices)",
-          "policy_advocacy": "📢 Policy advocacy (clean air laws)",
-          "tech_innovation": "💡 Tech innovation (EV, clean tech)",
-          "community_action": "🏘️ Community action (carpool, clean zones)",
-          "education": "🎓 Education & awareness (workshops)",
-          "business_solutions": "💼 Business solutions (green fleet)"
+          "personal_change": "🚶 Personal change",
+          "policy_advocacy": "📢 Policy advocacy",
+          "tech_innovation": "💡 Tech innovation",
+          "community_action": "🏘️ Community action"
         }
       },
       outcome: {
-        title: "🎯 What outcome matters most to you?",
+        title: "🎯 What outcome matters most?",
         options: {
-          "cleaner_air": "🌬️ Cleaner air (immediate health)",
-          "climate_action": "🌍 Climate action (long-term)",
-          "health_protection": "❤️ Health protection (family, community)",
-          "economic_savings": "💰 Economic savings (fuel, health costs)",
-          "policy_change": "🏛️ Policy change (systemic)",
-          "tech_adoption": "⚡ Tech adoption (EV, innovation)"
+          "cleaner_air": "🌬️ Cleaner air",
+          "health_protection": "❤️ Health protection",
+          "climate_action": "🌍 Climate action",
+          "economic_savings": "💰 Economic savings"
         }
       }
     },
     actions: {
-      immediate: ["Calculate carbon footprint", "Use public transport this week", "Research EV options"],
-      short_term: ["Join clean air advocacy group", "Switch to carpool", "Install air purifier"],
-      medium_term: ["Purchase electric vehicle", "Move closer to work", "Support clean transit"],
-      long_term: ["Advocate for EV infrastructure", "Start clean transport business", "Policy leadership"]
+      "air_quality": ["Research electric vehicles", "Use air purifier", "Join clean air group"],
+      "health_effects": ["Calculate carbon footprint", "Support health studies", "Reduce car use"],
+      "climate_impact": ["Switch to renewable energy", "Advocate for EV infrastructure", "Carbon offset"],
+      "noise_pollution": ["Use quieter transport", "Support urban planning", "Plant noise barriers"]
     },
-    search_strategies: {
-      ecological: "vehicle pollution air quality health impact emissions",
-      agricultural: "farm machinery emissions sustainable transport biofuel alternatives",
-      action: "reduce car pollution daily habits electric transport tutorial"
-    },
-    trusted_sites: ["cpcb.nic.in", "ev.gov.in", "gbif.org/pollution", "nasa.gov/earth/air-quality"]
+    ecological_accounting: {
+      inputs: ["fuel", "metal", "road_infrastructure"],
+      outputs: ["mobility", "economic_access", "pollution"],
+      cruelty_index: 0.62,
+      sustainability_score: 0.38
+    }
   },
-  "water conservation": {
-    vector: [0.92, 0.85, 0.70, 0.78, 0.80, 0.82],
-    domain: "ECOLOGY_AGRICULTURE",
-    semantic_cluster: ["rainwater harvesting", "drip irrigation", "aquifer recharge", "greywater", "xeriscaping"],
+  "japan bottle": {
     questions: {
       context: {
-        title: "💧 What water conservation area interests you?",
+        title: "🍶 What aspect of Japan bottles?",
         options: {
-          "home_use": "🏠 Home water use (indoor, appliances)",
-          "gardening": "🌿 Gardening & landscaping (outdoor, plants)",
-          "agriculture": "🌾 Agricultural use (farming, irrigation)",
-          "community": "🏘️ Community water (municipal, shared)",
-          "industry": "🏭 Industrial use (business, manufacturing)",
-          "policy": "🏛️ Water policy (regulations, rights)"
+          "plastic_waste": "🧴 Plastic waste impact",
+          "recycling": "♻️ Recycling systems",
+          "alternatives": "🌱 Sustainable alternatives",
+          "policy": "🏛️ Japan's environmental policies"
         }
       },
       approach: {
-        title: "🛠️ How do you want to implement water conservation?",
+        title: "🔄 How do you want to engage with this?",
         options: {
-          "immediate_actions": "⚡ Immediate actions (fix leaks, habits)",
-          "infrastructure": "🏠 Infrastructure (rain barrels, greywater)",
-          "behavioral_change": "🧘 Behavioral change (awareness, habits)",
-          "technology": "📱 Technology (sensors, apps, automation)",
-          "policy_work": "🏛️ Policy work (advocacy, regulations)",
-          "education": "🎓 Education (workshops, community)"
+          "reduce": "🚯 Reduce single-use",
+          "recycle": "♻️ Improve recycling",
+          "innovate": "💡 Find alternatives",
+          "advocate": "📢 Policy advocacy"
         }
       },
       outcome: {
-        title: "🎯 What's your primary water conservation goal?",
+        title: "🎯 What outcome matters most?",
         options: {
-          "reduce_usage": "📉 Reduce water usage (immediate savings)",
-          "sustainability": "🌱 Long-term sustainability (future security)",
-          "environmental": "🌍 Environmental protection (ecosystems)",
-          "economic_savings": "💰 Economic savings (bills, costs)",
-          "community_resilience": "🤝 Community resilience (shared security)",
-          "climate_adaptation": "🌡️ Climate adaptation (drought resilience)"
+          "waste_reduction": "🗑️ Reduce plastic waste",
+          "circular_economy": "🔄 Circular economy",
+          "ocean_protection": "🌊 Ocean protection",
+          "community_action": "🏘️ Community clean-up"
         }
       }
     },
     actions: {
-      immediate: ["Install rain barrel", "Fix home leaks", "Use bucket instead of shower"],
-      short_term: ["Plant native drought-resistant species", "Install low-flow fixtures", "Learn greywater system"],
-      medium_term: ["Setup rainwater harvesting system", "Convert to drip irrigation", "Join watershed group"],
-      long_term: ["Advocate for water policy", "Build community water system", "Start water business"]
+      "plastic_waste": ["Avoid single-use bottles", "Carry reusable bottle", "Support plastic-free stores"],
+      "recycling": ["Learn Japan's recycling rules", "Find local collection", "Separate properly"],
+      "alternatives": ["Use glass/metal bottles", "Support refill stations", "Make DIY containers"],
+      "policy": ["Study Japan's container laws", "Support similar policies", "Join advocacy group"]
     },
-    search_strategies: {
-      ecological: "water conservation rainwater harvesting ecosystem impact",
-      agricultural: "drip irrigation small farms India water-wise crops",
-      action: "DIY rooftop rainwater harvesting home setup tutorial"
-    },
-    trusted_sites: ["cgwb.gov.in", "rainwaterharvesting.org", "nabard.org/water", "krishi.gov.in/water"]
-  },
-  "mental calm": {
-    vector: [0.65, 0.58, 0.92, 0.71, 0.82, 0.68],
-    domain: "WELLNESS",
-    semantic_cluster: ["mindfulness", "grounding", "bhajan", "breathwork", "nature therapy"],
-    questions: {
-      context: {
-        title: "😊 What mental wellness aspect do you need?",
-        options: {
-          "stress_relief": "😫 Stress relief (work, life pressure)",
-          "anxiety_reduction": "😰 Anxiety reduction (worry, panic)",
-          "depression_support": "😔 Depression support (mood, motivation)",
-          "mindfulness": "🧠 Mindfulness & peace (present moment)",
-          "relationships": "💞 Healthy relationships (communication)",
-          "purpose": "🎯 Finding meaning & purpose (direction)"
-        }
-      },
-      approach: {
-        title: "🌿 How do you prefer to approach wellness?",
-        options: {
-          "self_care": "💆‍♀️ Self-care practices (routine, habits)",
-          "professional_help": "👨‍⚕️ Professional help (therapy, counseling)", 
-          "community": "👥 Community support (groups, sharing)",
-          "nature": "🌳 Nature-based healing (outdoors, ecotherapy)",
-          "holistic": "🌈 Holistic approaches (mind-body-spirit)",
-          "spiritual": "🕊️ Spiritual practices (meditation, connection)"
-        }
-      },
-      outcome: {
-        title: "💫 What wellness outcome do you seek?",
-        options: {
-          "peace": "☮️ Inner peace & calm (tranquility, serenity)",
-          "energy": "⚡ More energy & motivation (vitality, drive)",
-          "clarity": "💡 Mental clarity & focus (concentration, purpose)", 
-          "connections": "🤝 Better relationships (intimacy, understanding)",
-          "purpose": "🎯 Sense of purpose (meaning, direction)",
-          "resilience": "🛡️ Emotional resilience (coping, adaptability)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Practice 5-minute breathing", "Take nature break", "Write gratitude list"],
-      short_term: ["Establish sleep routine", "Digital detox hours", "Join support community"],
-      medium_term: ["Regular exercise routine", "Therapy sessions", "Mindfulness practice"],
-      long_term: ["Lifestyle transformation", "Deep healing work", "Become wellness advocate"]
-    },
-    search_strategies: {
-      ecological: "nature connection mental calm grounding biophilia",
-      agricultural: "therapeutic gardening stress reduction mental wellness",
-      action: "5-minute daily mindfulness technique for beginners"
-    },
-    trusted_sites: ["nih.gov/mindfulness", "who.int/mental-health", "krishi.gov.in/wellness", "community-bhajan.org"]
-  },
-  "renewable energy": {
-    vector: [0.94, 0.67, 0.62, 0.71, 0.76, 0.83],
-    domain: "ECOLOGY_TECH",
-    semantic_cluster: ["solar", "wind", "biogas", "hydro", "geothermal", "sustainable"],
-    questions: {
-      context: {
-        title: "⚡ What renewable energy interests you?",
-        options: {
-          "solar": "☀️ Solar power (panels, home systems)",
-          "wind": "🌬️ Wind energy (turbines, community)",
-          "bioenergy": "🌿 Bioenergy (biomass, biogas, waste)",
-          "hydro": "💧 Hydropower (micro, community)",
-          "geothermal": "🌋 Geothermal (heating, cooling)",
-          "policy": "🏛️ Energy policy (regulations, incentives)"
-        }
-      },
-      approach: {
-        title: "🛠️ How do you want to engage with renewable energy?",
-        options: {
-          "home_installation": "🏠 Home installation (DIY, professional)",
-          "community_projects": "🏘️ Community projects (shared systems)",
-          "business": "💼 Business opportunities (investment, startup)",
-          "policy_advocacy": "📢 Policy advocacy (clean energy laws)",
-          "education": "🎓 Education & learning (courses, workshops)",
-          "research": "🔬 Research & innovation (tech development)"
-        }
-      },
-      outcome: {
-        title: "🎯 What's your renewable energy goal?",
-        options: {
-          "energy_independence": "🔋 Energy independence (self-sufficiency)",
-          "cost_savings": "💰 Cost savings (bills, ROI)",
-          "environmental": "🌱 Environmental impact (emissions reduction)",
-          "community_benefit": "🤝 Community benefit (shared access)",
-          "career": "💼 Career development (jobs, skills)",
-          "climate_action": "🌍 Climate action (global impact)"
-        }
-      }
-    },
-    actions: {
-      immediate: ["Research solar home systems", "Calculate energy usage", "Check local incentives"],
-      short_term: ["Attend renewable energy workshop", "Join community energy co-op", "Audit home energy"],
-      medium_term: ["Install solar panels", "Start biogas system", "Invest in community project"],
-      long_term: ["Build renewable business", "Policy leadership", "Innovation development"]
-    },
-    search_strategies: {
-      ecological: "renewable energy climate impact sustainability",
-      agricultural: "biogas from farm waste solar irrigation pumps",
-      action: "affordable solar setup for rural home DIY tutorial"
-    },
-    trusted_sites: ["mnre.gov.in", "niti.gov.in/renewable", "irena.org", "fauna.org/energy"]
+    ecological_accounting: {
+      inputs: ["plastic", "water", "energy"],
+      outputs: ["waste", "pollution", "convenience"],
+      cruelty_index: 0.45,
+      sustainability_score: 0.25
+    }
   },
   "fallback": {
-    vector: [0.60, 0.55, 0.65, 0.63, 0.58, 0.50],
-    domain: "GENERAL",
-    semantic_cluster: ["learning", "search", "exploration", "discovery"],
     questions: {
       context: {
-        title: "🔍 What are you exploring?",
+        title: "🌍 What area are you exploring?",
         options: {
-          "environment": "🌍 Environmental solutions",
-          "health": "❤️ Health & wellness", 
-          "learning": "📚 Learning & skills",
-          "community": "🏘️ Community development",
-          "business": "💼 Business & economics",
-          "technology": "💻 Technology & innovation"
+          "environment": "Environmental solutions",
+          "health": "Health & wellness",
+          "learning": "Learning & skills",
+          "community": "Community development"
         }
       },
       approach: {
         title: "🔄 How do you want to proceed?",
         options: {
-          "learn": "📚 Learn & understand",
-          "action": "✅ Take practical action", 
-          "community": "🤝 Join community efforts",
-          "research": "🔬 Study & research",
-          "create": "🎨 Create & build",
-          "advocate": "📢 Advocate & influence"
+          "learn": "Learn & understand",
+          "action": "Take practical action",
+          "community": "Join community efforts",
+          "research": "Study & research"
         }
       },
       outcome: {
         title: "💫 What outcome matters most?",
         options: {
-          "personal": "👤 Personal improvement", 
-          "community": "🏘️ Community benefit",
-          "environment": "🌍 Environmental impact",
-          "knowledge": "🧠 Knowledge & understanding",
-          "economic": "💰 Economic benefit",
-          "spiritual": "🕊️ Spiritual growth"
+          "personal": "Personal improvement",
+          "community": "Community benefit",
+          "environment": "Environmental impact",
+          "knowledge": "Knowledge & understanding"
         }
       }
     },
     actions: {
-      immediate: ["Research options", "Join relevant community", "Start with small steps"],
-      short_term: ["Learn fundamentals", "Connect with experts", "Experiment locally"],
-      medium_term: ["Develop deeper skills", "Build projects", "Share knowledge"],
-      long_term: ["Master the field", "Teach others", "Create systemic change"]
+      "environment": ["Research options", "Join environmental group", "Start small project"],
+      "health": ["Learn wellness practices", "Connect with support", "Start daily routine"],
+      "learning": ["Find online courses", "Join study group", "Practice daily"],
+      "community": ["Volunteer locally", "Join community project", "Share knowledge"]
     },
-    search_strategies: {
-      ecological: "sustainable ecological regenerative organic",
-      agricultural: "agricultural farming rural sustainable",
-      action: "how to practical guide beginners"
-    },
-    trusted_sites: ["fauna.org", "krishi.gov.in", "sustainability.org", "ecology.org"]
+    ecological_accounting: {
+      inputs: ["time", "attention", "resources"],
+      outputs: ["knowledge", "connection", "action"],
+      cruelty_index: 0.1,
+      sustainability_score: 0.7
+    }
   }
 };
 
-// ========================================================================
-// SIMPLIFIED UNIVERSAL SEMANTIC PROCESSOR
-// ========================================================================
-class UniversalSemanticProcessor {
-  constructor() {
-    this.semanticDB = SEMANTIC_DB;
-    this.userAnswers = {};
-    this.currentMatch = null;
-    this.searchHistory = [];
-    this.initializeStatus();
-  }
-
-  initializeStatus() {
-    // Database is immediately available
-    document.getElementById('dbStatus').className = 'status-indicator status-ready';
-    document.getElementById('dbStatus').nextSibling.textContent = ' Ready';
-    
-    document.getElementById('vectorStatus').className = 'status-indicator status-ready';
-    document.getElementById('vectorStatus').nextSibling.textContent = ' Connected';
-  }
-
-  analyzeKeyword(keyword) {
-    const match = this.findSemanticMatch(keyword);
-    this.currentMatch = match;
-    return {
-      match: match,
-      keyword: keyword
-    };
-  }
-
-  findSemanticMatch(query) {
-    query = query.toLowerCase().trim();
-    
-    // Direct match
-    if (this.semanticDB[query]) {
-      return { term: query, data: this.semanticDB[query], score: 1.0, type: 'exact' };
-    }
-    
-    // Word overlap match
-    for (const [term, data] of Object.entries(this.semanticDB)) {
-      const termWords = term.split(' ');
-      const queryWords = query.split(' ');
-      
-      let overlap = 0;
-      for (const tWord of termWords) {
-        for (const qWord of queryWords) {
-          if (tWord.includes(qWord) || qWord.includes(tWord)) {
-            overlap++;
-            break;
-          }
-        }
-      }
-      
-      if (overlap > 0) {
-        const score = overlap / Math.max(termWords.length, queryWords.length);
-        if (score > 0.3) { // Minimum threshold
-          return { term, data, score, type: 'word_overlap' };
-        }
-      }
-    }
-    
-    // Fallback
-    return { term: 'fallback', data: this.semanticDB['fallback'], score: 0.3, type: 'fallback' };
-  }
-
-  generateQuestions(match) {
-    return match.data.questions || this.semanticDB['fallback'].questions;
-  }
-
-  buildEnhancedQuery(original, match, answers) {
-    let baseQuery = original;
-    
-    // Add context modifiers
-    if (answers.context && match.data.search_strategies) {
-      const strategyKey = this.getContextStrategyKey(answers.context);
-      if (match.data.search_strategies[strategyKey]) {
-        baseQuery = match.data.search_strategies[strategyKey];
-      }
-    }
-    
-    // Add ecological context
-    if (match.data.domain && match.data.domain.includes('ECOLOGY')) {
-      baseQuery += ' sustainable ecological organic regenerative';
-    } else if (match.data.domain && match.data.domain.includes('AGRICULTURE')) {
-      baseQuery += ' organic sustainable regenerative farming';
-    } else {
-      baseQuery += ' sustainable ecological practical solutions';
-    }
-    
-    return baseQuery;
-  }
-
-  getContextStrategyKey(context) {
-    // Map context answers to search strategy keys
-    const mapping = {
-      'home_garden': 'ecological',
-      'commercial': 'agricultural',
-      'health': 'ecological',
-      'environment': 'ecological',
-      'community': 'action',
-      'education': 'action',
-      'air_quality': 'ecological',
-      'health_effects': 'agricultural',
-      'climate_impact': 'ecological',
-      'personal_change': 'action',
-      'policy_advocacy': 'ecological',
-      'self_care': 'action'
-    };
-    return mapping[context] || 'ecological';
-  }
-
-  generateActions(match, answers) {
-    let actions = [];
-    
-    // Determine action category based on approach
-    let actionCategory = 'immediate';
-    if (answers.approach === 'practice' || answers.approach === 'action') {
-      actionCategory = 'short_term';
-    } else if (answers.approach === 'business' || answers.approach === 'research') {
-      actionCategory = 'medium_term';
-    }
-    
-    if (match.data.actions && match.data.actions[actionCategory]) {
-      actions = [...match.data.actions[actionCategory]];
-    } else if (match.data.actions) {
-      // Get all actions and flatten
-      actions = Object.values(match.data.actions).flat();
-    }
-    
-    // Ensure we have actions
-    if (actions.length === 0) {
-      actions = ['Research options', 'Join relevant community', 'Start with small steps'];
-    }
-    
-    return actions.slice(0, 5); // Return max 5 actions
-  }
-
-  updateMatchCount() {
-    this.searchHistory.push(new Date());
-    document.getElementById('matchCount').textContent = this.searchHistory.length;
-  }
-}
-
-// ========================================================================
-// MAIN APPLICATION
-// ========================================================================
-const processor = new UniversalSemanticProcessor();
-let currentAnalysis = null;
+let currentMatch = null;
 let userAnswers = { context: null, approach: null, outcome: null };
-
-function showLoading(show) {
-  const overlay = document.getElementById('loadingOverlay');
-  overlay.style.display = show ? 'flex' : 'none';
-}
+let originalQuery = "";
 
 function startAnalysis() {
-  const query = document.getElementById('queryInput').value.trim();
-  if (!query) {
-    alert('Please enter a search term');
+  originalQuery = document.getElementById('userQuery').value.trim();
+  if (!originalQuery) {
+    alert("Please enter a search term");
     return;
   }
-  
-  try {
-    showLoading(true);
-    
-    // Small delay to show loading (optional)
-    setTimeout(() => {
-      currentAnalysis = processor.analyzeKeyword(query);
-      const questions = processor.generateQuestions(currentAnalysis.match);
-      
-      // Update UI to Step 1
-      document.getElementById('contextQuestion').textContent = questions.context.title;
-      const contextOptions = document.getElementById('contextOptions');
-      contextOptions.innerHTML = '';
-      Object.entries(questions.context.options).forEach(([value, text]) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = text;
-        btn.onclick = () => selectAnswer('context', value, btn);
-        contextOptions.appendChild(btn);
-      });
-      
-      showStep(1);
-      processor.updateMatchCount();
-      showLoading(false);
-    }, 500);
-    
-  } catch (error) {
-    console.error("Start analysis failed:", error);
-    showLoading(false);
-    alert('Sorry, there was an error processing your query. Please try again.');
+
+  // Find semantic match
+  if (SEMANTIC_DB[originalQuery.toLowerCase()]) {
+    currentMatch = SEMANTIC_DB[originalQuery.toLowerCase()];
+  } else {
+    // Try partial match
+    let found = false;
+    for (const [term, data] of Object.entries(SEMANTIC_DB)) {
+      if (originalQuery.toLowerCase().includes(term) || term.includes(originalQuery.toLowerCase())) {
+        currentMatch = data;
+        found = true;
+        break;
+      }
+    }
+    if (!found) currentMatch = SEMANTIC_DB["fallback"];
   }
+
+  // Show Step 1
+  document.getElementById('step0').style.display = 'none';
+  document.getElementById('step1').style.display = 'block';
+  document.getElementById('contextQuestion').textContent = currentMatch.questions.context.title;
+  
+  const contextOptions = document.getElementById('contextOptions');
+  contextOptions.innerHTML = '';
+  Object.entries(currentMatch.questions.context.options).forEach(([value, text]) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = text;
+    btn.onclick = () => selectAnswer('context', value, btn);
+    contextOptions.appendChild(btn);
+  });
 }
 
 function selectAnswer(type, value, button) {
-  // Remove selected class from all buttons in this step
-  const step = type === 'context' ? 1 : type === 'approach' ? 2 : 3;
-  const buttons = document.querySelectorAll(`#step${step} .option-btn`);
+  // Clear selection
+  const buttons = document.querySelectorAll(`.${type === 'context' ? 'step1' : type === 'approach' ? 'step2' : 'step3'} .option-btn`);
   buttons.forEach(btn => btn.classList.remove('selected'));
   
-  // Add selected class to clicked button
+  // Select clicked
   button.classList.add('selected');
   
   // Store answer
   userAnswers[type] = value;
-  
-  // Enable next button
-  const nextBtn = document.querySelector(`#step${step} .action-button`);
-  nextBtn.disabled = false;
 }
 
 function nextStep(currentStep) {
+  document.getElementById(`step${currentStep}`).style.display = 'none';
+  document.getElementById(`step${currentStep + 1}`).style.display = 'block';
+  
   if (currentStep === 1) {
-    // Move to Step 2 - Approach
-    const questions = processor.generateQuestions(currentAnalysis.match);
-    document.getElementById('approachQuestion').textContent = questions.approach.title;
+    // Show approach question
+    document.getElementById('approachQuestion').textContent = currentMatch.questions.approach.title;
     const approachOptions = document.getElementById('approachOptions');
     approachOptions.innerHTML = '';
-    Object.entries(questions.approach.options).forEach(([value, text]) => {
+    Object.entries(currentMatch.questions.approach.options).forEach(([value, text]) => {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.textContent = text;
       btn.onclick = () => selectAnswer('approach', value, btn);
       approachOptions.appendChild(btn);
     });
-    showStep(2);
   } else if (currentStep === 2) {
-    // Move to Step 3 - Outcome
-    const questions = processor.generateQuestions(currentAnalysis.match);
-    document.getElementById('outcomeQuestion').textContent = questions.outcome.title;
+    // Show outcome question
+    document.getElementById('outcomeQuestion').textContent = currentMatch.questions.outcome.title;
     const outcomeOptions = document.getElementById('outcomeOptions');
     outcomeOptions.innerHTML = '';
-    Object.entries(questions.outcome.options).forEach(([value, text]) => {
+    Object.entries(currentMatch.questions.outcome.options).forEach(([value, text]) => {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.textContent = text;
       btn.onclick = () => selectAnswer('outcome', value, btn);
       outcomeOptions.appendChild(btn);
     });
-    showStep(3);
   }
 }
 
 function generateResults() {
-  try {
-    const enhancedQuery = processor.buildEnhancedQuery(
-      currentAnalysis.keyword, 
-      currentAnalysis.match, 
-      userAnswers
-    );
-    const actions = processor.generateActions(currentAnalysis.match, userAnswers);
-    
-    // Update results UI
-    document.getElementById('finalQuery').textContent = enhancedQuery;
-    
-    // Build semantic info
-    const match = currentAnalysis.match;
-    document.getElementById('semanticInfo').innerHTML = `
-      <strong>Semantic Analysis:</strong><br>
-      • Matched: "${match.term}" (${match.type})<br>
-      • Domain: ${match.data.domain || 'General'}<br>
-      • Confidence: ${(match.score * 100).toFixed(0)}%<br>
-      • Context: ${userAnswers.context || 'general'}
-    `;
-    
-    // Update actions
-    document.getElementById('actionItems').innerHTML = 
-      actions.map(action => `<div class="action-item">${action}</div>`).join('');
-    
-    // Update all search tabs
-    updateSearchTabs(enhancedQuery, currentAnalysis.keyword);
-    
-    showStep(4);
-  } catch (error) {
-    console.error("Generate results failed:", error);
-    alert('Sorry, there was an error generating results. Please try again.');
+  // Get actions based on user answers
+  let actions = ["Research options", "Join relevant community", "Start with small steps"];
+  if (currentMatch.actions && userAnswers.context && currentMatch.actions[userAnswers.context]) {
+    actions = currentMatch.actions[userAnswers.context];
   }
+
+  // Show results
+  document.getElementById('step3').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  
+  // Display actions
+  document.getElementById('actionItems').innerHTML = 
+    actions.map(a => `<span class="action-item">${a}</span>`).join('');
+  
+  // Build final query from actions
+  const finalQuery = `${originalQuery} ${actions.slice(0, 2).join(' ')}`;
+  
+  // Update all tabs
+  updateSearchTabs(finalQuery, originalQuery);
+  
+  // Update debug info
+  const accounting = currentMatch.ecological_accounting || {};
+  document.getElementById('debugContent').innerHTML = `
+    • Matched: "${currentMatch === SEMANTIC_DB["fallback"] ? 'Fallback' : originalQuery}"<br>
+    • Context: ${userAnswers.context || 'general'}<br>
+    • Approach: ${userAnswers.approach || 'general'}<br>
+    • Outcome: ${userAnswers.outcome || 'general'}<br>
+    • Final Query: "${finalQuery}"<br>
+    • Ecological Accounting:<br>
+    &nbsp;&nbsp;Inputs: ${accounting.inputs?.join(', ') || 'N/A'}<br>
+    &nbsp;&nbsp;Outputs: ${accounting.outputs?.join(', ') || 'N/A'}<br>
+    &nbsp;&nbsp;Cruelty Index: ${accounting.cruelty_index || 0}<br>
+    &nbsp;&nbsp;Sustainability Score: ${accounting.sustainability_score || 0}
+  `;
 }
 
-function updateSearchTabs(enhancedQuery, originalQuery) {
+function updateSearchTabs(finalQuery, originalQuery) {
   const e = encodeURIComponent;
   
-  // Enhanced searches
-  document.getElementById('googleLink').href = `https://www.google.com/search?q=${e(enhancedQuery)}`;
-  document.getElementById('googleLink').textContent = `Google: ${enhancedQuery}`;
+  document.getElementById('googleLink').href = `https://www.google.com/search?q=${e(finalQuery)}`;
+  document.getElementById('googleLink').textContent = `Google: ${finalQuery}`;
   
-  document.getElementById('scholarLink').href = `https://scholar.google.com/scholar?q=${e(enhancedQuery + ' research study')}`;
-  document.getElementById('scholarLink').textContent = `Scholar: ${enhancedQuery} research`;
+  document.getElementById('scholarLink').href = `https://scholar.google.com/scholar?q=${e(finalQuery)}`;
+  document.getElementById('scholarLink').textContent = `Scholar: ${finalQuery}`;
   
-  document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(enhancedQuery + ' tutorial beginners')}`;
-  document.getElementById('youtubeLink').textContent = `YouTube: ${enhancedQuery} tutorials`;
+  document.getElementById('youtubeLink').href = `https://www.youtube.com/results?search_query=${e(finalQuery)}`;
+  document.getElementById('youtubeLink').textContent = `YouTube: ${finalQuery}`;
   
-  // Other tabs
-  document.getElementById('amazonLink').href = `https://www.amazon.com/s?k=${e(enhancedQuery + ' books sustainable')}`;
-  document.getElementById('amazonLink').textContent = `Amazon: Sustainable ${enhancedQuery} books`;
+  document.getElementById('kidsLink').href = `https://kids.miraheze.org/w/index.php?search=${e(finalQuery)}`;
+  document.getElementById('kidsLink').textContent = `Kids Wiki: ${finalQuery}`;
   
-  document.getElementById('newsLink').href = `https://news.google.com/search?q=${e(enhancedQuery + ' latest news')}`;
-  document.getElementById('newsLink').textContent = `News: ${enhancedQuery} news`;
+  document.getElementById('wikiLink').href = `https://en.wikipedia.org/w/index.php?search=${e(finalQuery)}`;
+  document.getElementById('wikiLink').textContent = `Wikipedia: ${finalQuery}`;
   
-  document.getElementById('weatherLink').href = `https://www.google.com/search?q=weather+${e(originalQuery)}`;
-  document.getElementById('weatherLink').textContent = `Weather for "${originalQuery}"`;
+  document.getElementById('amazonLink').href = `https://www.amazon.com/s?k=${e(finalQuery)}`;
+  document.getElementById('amazonLink').textContent = `Amazon: ${finalQuery}`;
   
-  document.getElementById('stocksLink').href = `https://www.google.com/finance?q=${e(originalQuery + ' ESG sustainable')}`;
-  document.getElementById('stocksLink').textContent = `Finance: ${originalQuery} ESG`;
+  document.getElementById('openlibLink').href = `https://openlibrary.org/search?q=${e(finalQuery)}`;
+  document.getElementById('openlibLink').textContent = `OpenLibrary: ${finalQuery}`;
   
-  document.getElementById('imagesLink').href = `https://www.google.com/search?tbm=isch&q=${e(enhancedQuery)}`;
-  document.getElementById('imagesLink').textContent = `Images: ${enhancedQuery}`;
+  document.getElementById('newsLink').href = `https://news.google.com/search?q=${e(finalQuery)}`;
+  document.getElementById('newsLink').textContent = `News: ${finalQuery}`;
   
-  document.getElementById('mapsLink').href = `https://www.google.com/maps/search/${e(originalQuery + ' organic community')}`;
-  document.getElementById('mapsLink').textContent = `Maps: Organic ${originalQuery} resources`;
-  
-  document.getElementById('translateLink').href = `https://translate.google.com/?sl=auto&tl=en&text=${e(originalQuery)}`;
-  document.getElementById('translateLink').textContent = `Translate: ${originalQuery}`;
-  
-  document.getElementById('tedLink').href = `https://www.ted.com/search?q=${e(enhancedQuery + ' sustainability')}`;
-  document.getElementById('tedLink').textContent = `TED Talks: ${enhancedQuery} sustainability`;
-  
-  document.getElementById('archiveLink').href = `https://archive.org/search.php?query=${e(enhancedQuery + ' sustainable agriculture ecology')}`;
-  document.getElementById('archiveLink').textContent = `Archive.org: Sustainable ${enhancedQuery}`;
-  
-  // API-based searches
-  fetchMiraheze(enhancedQuery, 'kidsLink');
-  fetchWikipedia(enhancedQuery, 'wikiLink');
-  fetchOpenLibrary(enhancedQuery, 'openlibLink');
-}
-
-// API Fetchers with improved error handling
-async function fetchMiraheze(q, elementId) {
-  const link = document.getElementById(elementId);
-  link.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`https://kids.miraheze.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    link.innerHTML = results.length > 0 ? 
-      `Kids Wiki: ${q}` : 
-      `No results for "${q}"`;
-    link.href = `https://kids.miraheze.org/w/index.php?search=${encodeURIComponent(q)}`;
-  } catch (e) {
-    console.error('Miraheze fetch error:', e);
-    link.innerHTML = 'Error loading Kids Wiki';
-    link.href = `https://kids.miraheze.org/w/index.php?search=${encodeURIComponent(q)}`;
-  }
-}
-
-async function fetchWikipedia(q, elementId) {
-  const link = document.getElementById(elementId);
-  link.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=3&srsearch=${encodeURIComponent(q)}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    link.innerHTML = results.length > 0 ? 
-      `Wikipedia: ${q}` : 
-      `No results for "${q}"`;
-    link.href = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`;
-  } catch (e) {
-    console.error('Wikipedia fetch error:', e);
-    link.innerHTML = 'Error loading Wikipedia';
-    link.href = `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`;
-  }
-}
-
-async function fetchOpenLibrary(q, elementId) {
-  const link = document.getElementById(elementId);
-  link.innerHTML = 'Loading...';
-  try {
-    const res = await fetch(`https://openlibrary.org/search.json?limit=3&q=${encodeURIComponent(q)}`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    const results = data?.docs || [];
-    link.innerHTML = results.length > 0 ? 
-      `OpenLibrary: ${q}` : 
-      `No books for "${q}"`;
-    link.href = `https://openlibrary.org/search?q=${encodeURIComponent(q)}`;
-  } catch (e) {
-    console.error('OpenLibrary fetch error:', e);
-    link.innerHTML = 'Error loading OpenLibrary';
-    link.href = `https://openlibrary.org/search?q=${encodeURIComponent(q)}`;
-  }
-}
-
-function showStep(stepNumber) {
-  // Hide all steps
-  document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-  // Show target step
-  document.getElementById(`step${stepNumber}`).classList.add('active');
-  
-  // Update progress dots
-  for (let i = 0; i <= 3; i++) {
-    const dot = document.getElementById(`dot${i}`);
-    if (dot) {
-      dot.className = 'progress-dot';
-      if (i < stepNumber) {
-        dot.classList.add('completed');
-      } else if (i === stepNumber) {
-        dot.classList.add('active');
-      }
-    }
-  }
+  document.getElementById('mapsLink').href = `https://www.google.com/maps/search/${e(originalQuery)}`;
+  document.getElementById('mapsLink').textContent = `Maps: ${originalQuery} resources`;
 }
 
 function showTab(tabId) {
-  // Hide all panels
-  document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
-  // Show target panel
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
-  
-  // Update tab buttons
-  document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
   event.target.classList.add('active');
 }
 
-function resetSearch() {
-  // Reset UI
-  document.getElementById('queryInput').value = '';
-  userAnswers = { context: null, approach: null, outcome: null };
-  currentAnalysis = null;
-  
-  // Reset step selections
-  document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
-  document.querySelectorAll('.action-button').forEach(btn => btn.disabled = true);
-  
-  // Go back to step 0
-  showStep(0);
-  
-  // Reset progress dots
-  document.querySelectorAll('.progress-dot').forEach((dot, index) => {
-    dot.className = 'progress-dot';
-    if (index === 0) dot.classList.add('active');
-  });
+function toggleDebug() {
+  const panel = document.getElementById('debugPanel');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
 }
-
-// Initialize
-document.addEventListener('DOMContentLoaded', function() {
-  // Enable Enter key for search
-  document.getElementById('queryInput').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') startAnalysis();
-  });
-  
-  // Database is already loaded, just update status
-  console.log("Krishi Beej Ecological AI Ready!");
-});
 </script>
 </body>
 </html>
